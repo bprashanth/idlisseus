@@ -1,0 +1,18 @@
+{
+  "label": "ds4-alone-concurrent",
+  "wall_s": 156.9,
+  "results": {
+    "user_a": {
+      "elapsed_s": 82.7,
+      "completion_tokens": 174,
+      "answer": "Invasive plants often possess traits like prolific seed production, long-lived seed banks, and vigorous vegetative reproduction, making them resilient to single removal efforts. They also benefit from escape from their natural predators or pathogens, allowing unchecked growth. Many produce allelopathic chemicals that inhibit native plant germination and soil microbial communities. Their rapid growth and adaptability to disturbed environments further allow them to outcompete native species, creating feedback loops that alter ecosystem structure.",
+      "ok": true
+    },
+    "user_b": {
+      "elapsed_s": 156.9,
+      "completion_tokens": 150,
+      "answer": "Invasive plants often possess traits like prolific seed production, efficient dispersal, and rapid growth, allowing them to outcompete native species quickly. Many also form persistent seed banks that remain viable in soil for years, making repeated treatment necessary. Additionally, they may lack natural predators or pathogens in the new habitat, releasing them from population controls. Their ability to exploit disturbed areas and adapt to a wide range of conditions further complicates eradication efforts.",
+      "ok": true
+    }
+  }
+}

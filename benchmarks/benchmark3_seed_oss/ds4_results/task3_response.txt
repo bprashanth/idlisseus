@@ -1,0 +1,15 @@
+Based solely on the two papers provided, here is what they say about the causes of forest fires and whether they agree or disagree on the relative importance of any specific cause:
+
+**Paper 01 (Das et al., “Models of Forest Fire Management in India”)**  
+- The paper does **not** explicitly list or attribute forest fires to specific causes. It mentions “escalating environmental challenges, including rising temperatures, dwindling precipitation, intense dry winds, and plummeting humidity levels” as factors that “have profoundly impacted the delicate balance of forest ecosystems” and contributed to the need for fire management.  
+- It also notes that the Indian Forest Act, 1927, “prohibits setting fire to forests,” implying that human‑set fires (whether accidental or deliberate) are a cause, but it does not identify any particular anthropogenic activity as a primary or major cause.  
+
+**Paper 16 (Sharma et al., “Madhuca longifolia: only cause of forest fire?”)**  
+- The paper explicitly states that “collection of Mahua flowers (*Madhuca longifolia*) is very common and a major cause of forest fire” in the study areas of Odisha. It describes how local tribal communities intentionally set fire under Mahua trees to clear debris and kill insects, which then spreads and becomes a forest fire.  
+- It also lists other causes: “Natural fire is caused by lightning, rolling, friction of dry bamboos etc. Manmade or anthropogenic fire is mainly due to cigarettes smoking, camping, shifting cultivation, clearing of dry leaves in the forest and collection of NTFP.”  
+
+**Agreement or disagreement on relative importance of any specific cause**  
+- **Paper 01 does not assign relative importance** to any specific cause of forest fires. It does not mention *Madhuca longifolia* collection or any other single anthropogenic activity as a major or primary cause.  
+- **Paper 16 identifies *Madhuca longifolia* flower collection as a major cause** and, by its title and focus, suggests it is the “only cause” in the context of the study areas, though it acknowledges other causes.  
+
+Because Paper 01 does **not** discuss the relative importance of *Madhuca longifolia* collection or any other specific cause, the two papers **do not agree or disagree** on the relative importance of any specific cause. Paper 01 simply does not address that point. Any comparison of relative importance would require information not stated in Paper 01.

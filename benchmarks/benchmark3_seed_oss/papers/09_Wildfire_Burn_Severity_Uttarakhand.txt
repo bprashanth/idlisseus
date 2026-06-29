@@ -1,0 +1,328 @@
+International Journal of Advance and Applied Research
+www.ijaar.co.in
+
+ISSN – 2347-7075
+
+Impact Factor – 8.141
+
+Vol. 7 No. 2
+
+January – February - 2026
+
+Peer Reviewed
+
+Bi-Monthly
+
+Wildfire Burn Severity Assessment In Uttarakhand During 2024
+Ms. P Sreelakshmi1 & Dr. Sawant Sushant Anil2
+1
+Student, Division of Geoinformatics, School of Life Sciences, Mysuru, JSS Academy of Higher Education &
+Research, 570015.
+2
+Associate Professor, Division of Geoinformatics, School of Life Sciences, Mysuru, JSS Academy of Higher
+Education & Research, 570015.
+Corresponding Author – Ms. P Sreelakshmi
+
+DOI - 10.5281/zenodo.18709381
+
+Abstract:
+During the 2024 fire season, the Himalayan state of Uttarakhand experienced widespread wildfire
+activity, particularly across the districts of Nainital, Champawat, and Udham Singh Nagar. These events
+caused substantial ecological disturbance within a region characterized by fragile mountain ecosystems
+and fire-prone forest types. This study presents a satellite-based assessment of wildfire burn severity using
+multi-temporal Landsat-8/9 and Sentinel-2 surface reflectance imagery. Burn severity was evaluated using
+the Normalized Burn Ratio (NBR) and its differenced form (dNBR), derived from pre-fire and post-fire
+observations. Changes in Near-Infrared (NIR) and Shortwave Infrared (SWIR) reflectance were analysed to
+identify relative variations in fire impact across the landscape. The resulting burn-severity map delineates
+zones of high, moderate, and low fire impact, providing spatially explicit information for post-fire
+restoration planning, erosion control, and long-term wildfire risk management in the Himalayan region.
+Keywords: Burn Severity; dNBR; Forest Fire; Remote Sensing; Landsat-8/9; Sentinel-2; Uttarakhand.
+Introduction:
+Wildfires are a recurring environmental
+hazard in the Himalayan state of Uttarakhand,
+where complex terrain, seasonally dry climatic
+conditions, and the accumulation of combustible
+forest litter create a highly fire-prone landscape.
+During the 2024 fire season, extensive wildfire
+activity was reported across several districts, with
+
+impacts of these fires extend beyond immediate
+vegetation loss, contributing to biodiversity
+decline, soil erosion, atmospheric pollution, and
+long-term degradation of ecosystem services.
+Given that a substantial proportion of India’s
+forest cover is considered fire-prone, there is a
+critical need for spatially explicit and data-driven
+assessments of wildfire impacts to support
+
+notable impacts in Nainital, Champawat, and
+Udham Singh Nagar. Prolonged dry spells and
+elevated pre-monsoon temperatures have been
+widely reported as contributing factors to
+increased fuel dryness in the region.
+Previous studies have highlighted that
+wildfire occurrence in Uttarakhand is influenced
+by the combined effects of climatic stressors and
+anthropogenic pressures, including land-use
+practices and forest-floor fuel accumulation. The
+
+informed forest-management and mitigation
+strategies.
+Remote sensing provides an effective and
+repeatable means of monitoring wildfire effects
+over large and topographically complex regions.
+Spectral indices such as the Normalized Burn
+Ratio (NBR) and differenced NBR (dNBR) are
+widely used to assess burn severity by capturing
+fire-induced changes in vegetation and surface
+reflectance. This study applies these established
+
+769
+
+IJAAR
+
+Vol. 7 No. 2
+
+ISSN – 2347-7075
+
+techniques to assess the spatial distribution of
+burn severity associated with the 2024
+Uttarakhand wildfires, with the aim of supporting
+
+gradients, combined with diverse climatic
+regimes, support a wide range of forest types,
+including pine-dominated forests, oak forests, and
+
+post-fire management and ecological restoration
+efforts.
+
+mixed broadleaf vegetation.
+Forests in Uttarakhand are particularly
+vulnerable to wildfire during the dry pre-monsoon
+months, when reduced soil moisture and
+accumulated forest litter increase fuel availability.
+Pine
+forests,
+which
+occupy
+extensive
+mid-elevation zones, are especially susceptible
+due to the presence of resin-rich needles that
+promote fire spread. These characteristics make
+Uttarakhand an appropriate region for evaluating
+wildfire burn severity using satellite-based
+approaches.
+
+Materials And Methods:
+1. Study Area:
+Uttarakhand is located in northern India
+within the Himalayan region, extending
+approximately between 28°43′–31°27′ N latitude
+and 77°34′–81°02′ E longitude. The state exhibits
+pronounced topographic variability, ranging from
+low-lying plains in the south to high-elevation
+mountainous terrain in the north. Elevation
+Methodology:
+1. Methodology Chart:
+
+Figure 1:Methodology chart
+
+770
+
+IJAAR
+2. Data Acquisition:
+Multi-spectral satellite
+
+Vol. 7 No. 2
+
+imagery from
+
+Landsat-8/9 Operational Land Imager (OLI) and
+Sentinel-2 Multispectral Instrument (MSI) was
+used in this study. Landsat Collection-2 Level-2
+surface reflectance data with a spatial resolution
+of 30 m were obtained from the USGS Earth
+Explorer platform. Sentinel-2 Level-2A imagery,
+providing surface reflectance data at 10–20 m
+spatial resolution, was accessed through the
+Copernicus Open Access Hub.
+Pre-fire imagery representing baseline
+vegetation conditions was selected from March–
+April 2024, while post-fire imagery was acquired
+from early June 2024, corresponding to the period
+immediately following the major wildfire events.
+3. Pre-Processing:
+Only surface reflectance products were
+used to ensure radiometric consistency and to
+minimize the influence of atmospheric effects.
+Landsat Collection-2 Level-2 data and Sentinel-2
+Level-2A products (atmospherically corrected
+using the Sen2Cor algorithm) were employed.
+Cloud-affected pixels were excluded using quality
+assessment masks prior to index calculation.
+4. Normalized Burn Ratio (NBR):
+The assessment relies on the Normalized
+Burn Ratio (NBR), a spectral index specifically
+designed to highlight burned areas while reducing
+the influence of atmospheric and illumination
+effects. The NBR exploits the contrasting spectral
+behavior of vegetation in the Near-Infrared (NIR)
+and Shortwave Infrared (SWIR) regions. Healthy
+vegetation exhibits high reflectance in the NIR
+region, whereas burned surfaces and bare soil
+show increased reflectance in the SWIR region
+due to moisture loss and structural damage.
+For Landsat-8 and Landsat-9 Operational Land
+Imager (OLI) data, NBR was computed using
+Band 5 (Near-Infrared) and Band 7 (Shortwave
+Infrared). For Sentinel-2 Multispectral Instrument
+
+ISSN – 2347-7075
+
+(MSI) imagery, Band 8 (Near-Infrared) and Band
+12 (Shortwave Infrared) were employed. These
+band combinations are widely adopted in burnseverity assessments due to their sensitivity to
+fire-induced changes in vegetation structure and
+surface moisture.
+The mathematical expression for NBR is defined
+as
+𝑁𝐼𝑅 − 𝑆𝑊𝐼𝑅
+𝑁𝐵𝑅 =
+𝑁𝐼𝑅 + 𝑆𝑊𝐼𝑅
+5. Differenced Normalized Burn Ratio
+(dNBR):
+To quantify the change caused by the
+2024 fire event, a differenced NBR (dNBR)
+approach was employed. This process involves
+the following sequential steps:
+1. Baseline Selection: Collection and
+processing of pre-fire satellite data to
+establish a healthy vegetation baseline.
+2. Post-Event Analysis: Acquisition of postfire data, specifically targeting the period
+following the June 1, 2024, incidents.
+3. Differencing: The post-fire NBR is
+subtracted from the pre-fire NBR to
+generate the dNBR layer, expressed as:
+𝑑𝑁𝐵𝑅 = 𝑁𝐵𝑅𝑝𝑟𝑒𝑓𝑖𝑟𝑒 − 𝑁𝐵𝑅𝑝𝑜𝑠𝑡 𝑓𝑖𝑟𝑒
+The resulting dNBR values are then
+categorized into severity classes—high, moderate,
+and low—based on the magnitude of the spectral
+shift, allowing for a precise spatial visualization
+of the fire's intensity across the landscape.
+6. Burn Severity Interpretation:
+In this study, burn-severity classes were
+interpreted qualitatively based on the relative
+magnitude and spatial contrast of dNBR values
+across the study area. Areas exhibiting
+comparatively higher dNBR values were
+interpreted as high burn severity, while
+intermediate and lower values represented
+moderate and low burn severity, respectively.
+
+771
+
+IJAAR
+
+Vol. 7 No. 2
+
+This relative approach allows for spatial
+comparison of fire impact without relying on
+fixed numerical thresholds.
+Results And Discussion:
+The results of the burn severity analysis
+provide a comprehensive spatial assessment of
+the ecological impact following the forest fires in
+Uttarakhand as of June 1, 2024. The analysis
+reveals an uneven distribution of fire intensity
+across the landscape, shaped by a complex
+interplay of vegetation type, fuel load, and
+meteorological conditions. High burn severity
+zones are primarily concentrated within forested
+regions characterized by dense fuel loads,
+particularly in mid-elevation pine-dominated
+landscapes. Moderate burn severity areas are
+
+ISSN – 2347-7075
+
+generally distributed around these core zones,
+indicating partial vegetation damage with
+potential for natural regeneration. Low burn
+severity and minimally affected areas are mainly
+associated with regions of sparse vegetation and
+reduced fuel continuity.
+The observed spatial patterns are
+consistent with findings from previous wildfire
+studies in Himalayan environments, where
+vegetation type, fuel accumulation, and seasonal
+climatic conditions strongly influence fire
+behaviour. The burn-severity maps generated in
+this study provide essential spatial information for
+prioritizing post-fire interventions, including
+reforestation, erosion-control measures, and
+long-term ecological monitoring.
+
+Figure 2:Forest fire map of Uttarakhand 2024
+Conclusions And Recommendations:
+This study demonstrates the effectiveness
+of multi-temporal Landsat-8/9 and Sentinel-2
+
+imagery combined with NBR and dNBR indices
+for assessing wildfire burn severity in the
+complex Himalayan terrain of Uttarakhand. The
+
+772
+
+IJAAR
+
+Vol. 7 No. 2
+
+ISSN – 2347-7075
+
+results highlight significant spatial variability in
+burn severity associated with the 2024 wildfire
+events, underscoring the vulnerability of
+
+2. Joy, M. S., Jha, P., Yadav, P. K., Begam, S.,
+& Bansal, T. (2025). Assessing fire-induced
+forest loss and ecolapse in West Singhbhum
+
+fire-prone forest types within the region.
+The findings support the use of
+satellite-derived burn-severity products as a
+decision-support tool for post-fire management
+and ecological restoration planning. Future
+research
+should
+incorporate
+field-based
+validation, multi-year fire records, and ancillary
+environmental datasets to enhance understanding
+of wildfire drivers and to strengthen early
+warning and mitigation strategies in Himalayan
+Forest ecosystems.
+
+of Jharkhand, India. Journal of Sustainable
+Forestry.
+https://doi.org/10.1080/10549811.2025.258
+3938
+3. Sewak, R., Vashisth, M., & Gupta, L.
+(2021). Forest fires in India: A review.
+Journal of Forestry Research, 23(7).
+4. Chandra, K. K., & Bhardwaj, A. K. (2015).
+Incidence of forest fire in India and its
+effect on terrestrial ecosystem dynamics,
+nutrient and microbial status of soil.
+International Journal of Agriculture and
+Forestry,
+5(2),
+69–78.
+https://doi.org/10.5923/j.ijaf.20150502.01
+
+References:
+1. Key, C. H., & Benson, N. C. (2006).
+Landscape Assessment (LA) Sampling and
+Analysis Methods. USDA Forest Service.
+
+773
+
+

@@ -1,0 +1,22 @@
+[Unit]
+Description=Hermes token-budget proxy (corrects max_tokens for tokenizer mismatch)
+Documentation=file:///home/beeps/src/github.com/bprashanth/idlisseus/docs/hermes-token-proxy.md
+After=network.target
+
+[Service]
+Type=simple
+User=beeps
+ExecStart=/usr/bin/python3 /home/beeps/src/github.com/bprashanth/idlisseus/deploy/hermes/token_proxy.py
+Restart=on-failure
+RestartSec=5
+
+# stdout goes to journald: journalctl -u hermes-token-proxy -f
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+# Do NOT enable this in WantedBy=multi-user.target — the proxy should be started
+# manually only when running Hermes benchmarks or research sessions.  See
+# docs/agents.md "Security posture" for the rationale.
+# To start: sudo systemctl start hermes-token-proxy
+# To stop:  sudo systemctl stop  hermes-token-proxy

@@ -1,0 +1,20 @@
+[Unit]
+Description=ds4 DeepSeek V4 Flash Server (SSD streaming mode)
+After=network.target
+
+[Service]
+Type=simple
+User=beeps
+WorkingDirectory=/home/beeps/src/github.com/bprashanth/idlisseus/ds4
+ExecStart=/home/beeps/src/github.com/bprashanth/idlisseus/ds4/ds4-server \
+    --host 172.17.0.1 \
+    --ctx 65536 \
+    --ssd-streaming \
+    --kv-disk-dir /home/beeps/src/github.com/bprashanth/idlisseus/ds4-kv \
+    --kv-disk-space-mb 8192
+Restart=always
+RestartSec=5
+Environment=HOME=/home/beeps
+
+[Install]
+WantedBy=multi-user.target

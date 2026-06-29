@@ -1,0 +1,3 @@
+The **ground fire** (rigid understory) involves a borignè dependent conversion zone where the forest floor is kept in a standing mothwood state.
+The **surface fire** (flexible understory) burns the surface of the ground along with vegetation while the ground remains in a standing mothwood state.
+The **crown fire** (loose understory) fires the entire upper canopy of the forest, often causing extensive damage to trees and forests.

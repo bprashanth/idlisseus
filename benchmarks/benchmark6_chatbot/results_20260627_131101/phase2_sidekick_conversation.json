@@ -1,0 +1,32 @@
+{
+  "label": "sidekick-solo",
+  "model": "qwen3.5-2b",
+  "url": "http://172.17.0.1:8001/v1",
+  "turns": [
+    {
+      "turn": 1,
+      "question": "What makes invasive plants so difficult to eradicate once they establish in a new habitat?",
+      "answer": "Invasive plants often possess rapid reproductive rates and extensive root systems that allow them to colonize vast areas before native species can recover. Their seeds typically have high dispersal abilities, enabling them to spread effortlessly through wind, water, or animal vectors, effectively bypassing natural barriers. Furthermore, these species frequently develop complex biochemical defenses against herbivores and soil pathogens, which can inhibit the growth and survival of native flora. Once established, their dominance frequently outcompetes native plants for essential resources like sunlight, water, and nutrients, creating a closed system that eliminates alternative food sources for wildlife and destabilizes the local ecosystem.",
+      "elapsed_s": 21.8,
+      "prompt_tokens": 61,
+      "completion_tokens": 124
+    },
+    {
+      "turn": 2,
+      "question": "Which restoration approaches have shown lasting success after invasive plant removal, and what made them work?",
+      "answer": "One of the most successful approaches involves **pre-emptive removal and early intervention**, where invasive species are eliminated before they establish deep, unpalatable root networks that are too extensive for herbicides alone to control. This strategy often utilizes targeted physical removal or mechanical excavation to clear entire patches, allowing native seed banks to resume germination without being suppressed by competing biomass.\n\nAnother highly effective method is **restoration through species replacement**, particularly when using native plants that are naturally resilient and possess superior competitive abilities against invaders. By selecting native species that are adapted to local soil conditions and mimicking the structural complexity of the invader, restorers can re-establish a food web that supports biodiversity while reducing competitive pressure.\n\nFinally, **symbiotic relationships and biological control** have proven crucial, particularly when introduced non-native predators or parasites are carefully managed to target invasive populations without harming native wildlife. These biocontrol tactics often provide a sustainable, long-term suppression mechanism that minimizes the need for repeated chemical interventions, ensuring the habitat recovers healthfully over time.",
+      "elapsed_s": 4.6,
+      "prompt_tokens": 212,
+      "completion_tokens": 212
+    },
+    {
+      "turn": 3,
+      "question": "A land trust has one season and a small volunteer crew to begin restoring a meadow overrun by Japanese knotweed. What would you prioritise and why?",
+      "answer": "Given the constraints of a single season and a small volunteer crew, I would prioritize **rapid mechanical extraction combined with targeted soil amending** rather than relying on herbicides, which often result in chemical residues and require multiple cycles to clear remaining debris.\n\n**Why this approach works:**\nJapanese knotweed produces extensive rhizomes that spread horizontally, making chemical control inefficient within a single growing season. By removing the majority of the biomass physically, we eliminate the primary vector for new shoots, which is the critical window for native seedlings to establish. This allows the volunteer crew to focus their limited time on site preparation and planting native species that can outcompete the invasive for resources.\n\n**Strategic Focus:**\nThe second priority is **native species selection and soil health restoration**, ensuring the remaining cleared space is inoculated with soil containing seeds of locally adapted natives. Since the team cannot control the entire landscape immediately, securing these specific native patches creates a \"breakthrough\" zone where biodiversity can rapidly recover, proving the restoration's viability even in the face of the invasive species. This localized success is more sustainable than attempting a blanket clearing that would require years of intervention.",
+      "elapsed_s": 5.5,
+      "prompt_tokens": 464,
+      "completion_tokens": 234
+    }
+  ],
+  "total_s": 31.9
+}

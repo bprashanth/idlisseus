@@ -1,0 +1,283 @@
+International Journal of Trend in Scientific Research and Development (IJTSRD)
+Volume 4 Issue 2, February 2020 Available Online: www.ijtsrd.com e-ISSN: 2456 – 6470
+
+Cloud Based Forest Fire Alert System using IoT
+Ajith. S1, Chandru. S1, Boopalan. E1, Periyathambi. P2
+1Student, 2Associate Professor
+1,2Department of Electronics and Communication Engineering,
+
+Paavai Engineering College, Namakkal, Tamil Nadu, India
+ABSTRACT
+The most common hazard in forest fire Accident are themselves destroy the
+forest and great threat for wildlife and peoples. The number of trees has
+reduced drastically so the forest are creates an unhealthy environment for
+animals to survive in the forest. Forest covers 31% of the world and 21% of
+the India. It has found in a survey that 80% of losses are caused due to fire.
+This project of a system fire was detected early stages. It was tracking and
+alarming for protection of trees against forest fire. Now IOT (Internet of
+things) devices and cloud based to forest fire alerting system. If cloud can used
+to storing the information of data to monitoring the different environmental
+variables such as temperature, smoke, moisture of the forest. So finally to
+prevent the fire to spread over a huge area and precaution the forest.
+Keywords: Arduino UNO atmega328p, temperature sensor, smoke sensor, LCD
+Display, mobile Wireless communication.
+
+I.
+INRODUCTION
+Forest fire detection become one such issue. Due to forest fire
+has caused serious environmental Problems and devastation
+of flora fauna. The current turbulent global economic,
+demographic, social and ecologic context, government, local
+administrative authorities and commercial companies or
+individuals have the importance resources contained in
+forest environment. Forest ecosystems are dynamic and
+complicated. Disturbance to any part of network affect the
+balance of relationship and equally complete scheme either
+absolutely or negativity.so global climate change, drought and
+different conditions have caused occurrence of wildfire to
+extend, once wildfire occur it takes years to naturally recover.
+Forest fire is an uncontrolled fire occurring in nature and
+man-made. Once fire starts ignited it rapidly spreads all over
+area in the forest. The land were forest is burnt it became
+impossible to grow vegetation over there. This is because soil
+becomes water repelled and accepts no more water. Leading
+to reduction of ground water level. Fire causes huge loss of
+lives and properties every year. The national crime records
+Bureau indicates that there have been of 113972 fatalities due
+to fire accidents of the year 2010 to 2014.one of the most
+destructive properties of fire is that it spreads exponentially
+and with the right medium can spread uncontrollably. This is
+why timely detection of fire of fire is necessary for avoiding a
+fire hazard. The internet of things is a collection of sensor,
+actuators, software, embedded with electronics, connect each
+other with cloud. It is an also economic benefits. IOT make
+everyday life easier for humans by developing smart devices.
+
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+How to cite this paper: Ajith. S | Chandru.
+S | Boopalan. E | Periyathambi. P "Cloud
+Based Forest Fire Alert System using IoT"
+Published
+in
+International Journal
+of Trend in Scientific
+Research
+and
+Development
+(ijtsrd), ISSN: 24566470, Volume-4 |
+IJTSRD30070
+Issue-2,
+February
+2020,
+pp.650-652,
+URL:
+www.ijtsrd.com/papers/ijtsrd30070.pdf
+Copyright © 2019 by author(s) and
+International Journal of Trend in Scientific
+Research and Development Journal. This
+is an Open Access article distributed
+under the terms of
+the
+Creative
+Commons Attribution
+License
+(CC
+BY
+4.0)
+(http://creativecommons.org/licenses/by
+/4.0)
+
+If increased IOT devices 31% at 8.4 billion in the year 2017.
+IOT involves connecting objects beyond the range of standard
+device which are used for every day purpose. The Arduino
+UNO at mega 328p for open platform for IOT to program
+easily and IOT devices also used to interface the embedded
+system and application of users. Temperature sensor used to
+measure the temperature level, smoke sensor is used find
+smoke type of quantities. If cloud to communication the
+devices.
+II.
+PROPOSED SYSTEM
+The proposed system is cloud based forest fire alert system
+using IOT technology. In the advancing world, it is very
+crucial to protect our environment. The fire cause serious
+change and disturbance to wildlife and human life. In wild
+animals are most affected and die also known for forest fire.
+If forest trees also burned to affect atmosphere,
+environment. This fire made naturally and man-made. So
+this project need to prevent and pre-cautions from forest fire.
+In order to achieve the best fire detection result with faster
+time to detect the temperature variation. When temperature
+sensor used to measure the temperature variation. Smoke
+sensor is a device that dense smoke, typically as an indicator
+of fire. Arduino at mega 328p used to control and monitor
+the activities. Cloud is a storage purpose to use him. Because
+each and every second to monitoring the environment
+condition data can be stored. IOT Device to interface with
+Arduino and cloud.so finally fix the monitoring system done
+
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 650
+
+International Journal of Trend in Scientific Research and Development (IJTSRD) @ www.ijtsrd.com eISSN: 2456-6470
+in nearby forest office station. The detail about the system is
+connected with a computer system monitored by the officer.
+
+C. BLUETOOTH
+The Bluetooth HC-05 is a very cool module which add two
+way wirelessly functionally the project. It connect a small
+devices like TV, mobile phones. It is easy to use serial port
+protocol. Operating frequency band is 2.4 GHZ. Flash
+memory size is 8-bit. And operating voltage is 3.3v.
+
+Fig 4. Bluetooth
+
+Fig 1. Block Diagram
+III.
+HARDWARE IMPLEMENTATION
+A. TEMPRATURE SENSOR
+Temperature sensor normally used to measure variation of
+the temperature in particular area in range. In LM35 is basic
+temperature sensor that can be used for experimental
+purpose.
+
+D. ARDUINO ATMEGA 328P
+Arduino at mega 328p is an open source electronics
+platform. The main advantage is easy to use hardware and
+software. It has 14 digital input/output. At mega 328p is an
+8-bit micro controller based on AVR RISC. So preparing this
+microcontroller for flashing the Arduino bootloader.
+Operating voltage is 5v and the clock speed is 16MHZ.
+
+Fig 5. Arduino At mega 328p
+E. LCD DISPLAY
+An LCD is an electronic display. Which uses liquid crystalline
+display produces a visible image. The 16*2 LCD Display is
+very basic module commonly used for DIYs and circuit.
+Which translates the 16 character per 2 such a line. In
+advantage is sharpness, brightness, high peak intensity
+produces. Operating voltage is 4.7v to 5.3v.
+
+Fig 2. Temperature sensor
+In this sensor output voltage value directly linear
+propositional to the Degree Celsius (centigrade). The
+advantage of this sensor more memory processing and
+communication capabilities. Power supply is -2 to 35v and
+temperature Range -550 to 1500c.
+B. SMOKE SENSOR
+Smoke sensor mq-2 is used to detect smoke and flammable
+combustible gasses in atmosphere. Good sensitivity to
+alcohol in wide range, long life line, low cost. Output is a
+reading in analog voltage. The sensor measure of flammable
+gas range is 200 to 1000 ppm. Operating voltage 5v.
+
+Fig 6. LCD Display
+F. CLOUD
+Cloud is a very important big level storage place and
+interconnect the computer, mobile phones with internet.
+Cloud is mainly used to storage the data and information will
+be shared.
+
+Fig 3. Smoke sensor
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+Fig 7. Cloud computing
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 651
+
+International Journal of Trend in Scientific Research and Development (IJTSRD) @ www.ijtsrd.com eISSN: 2456-6470
+If embedded system sends the monitoring data to server
+access and maintained. In public cloud use the project to
+server to provide the information via internet.
+IV.
+CONCLUTION
+Forest is a very important and grow in many places in around
+world. In a forest is piece of land with many trees. Many
+animals to live and survive the forest. Forest also used to
+prevent soil erosion, climate changes. This paper, a cloud
+based forest fire alert system using IOT technology.
+Temperature is increased or smoke typically fire indicate to
+LCD display. The real time sense a data will send and stored
+cloud. Finally information of the different parameter to be
+monitor forest officer and nearby forest survival peoples.
+REFERENCES
+[1] Angelline.R, Adithya.S, Abishek narayanan, “Fire Alarm
+System Using IOT”, international journal of innovative
+Technology and exploring engineering (IJITEE) volume8, issue-653, April 2019.
+[2] Dr.S.praveenchakravarthy, J.Nancy, V.S.Naveen Kumar,
+“Forest Fire Detection System”, international journal of
+Recent trends in engineering & research (IJRTER)
+conference on electronics, information and
+communication System (CELCIS’17) special issue,
+March-2107.
+[3] Harjinder Singh,” Forest Fire Detection Using Wireless
+Sensor”, international journal of scientific & engineering
+Research, volume 7, issue 7, July-2016.
+[4] Kiran kumar.D, Kishore.T, Suresh kumar.V, “Fire
+Monitoring System for Fire Detection Using ZigBee and
+Gprs System”, IOSR journal of electronics and
+communication engineering (IOSR-JECE) volume 12,
+issue 1, ver.III (Jan-feb.2017).
+
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+[5] Michel owayjan, George freiha, roger achkar, “Forest
+Fire Detection and Alerting System” 17th IEEE
+Mediterranean Electro technical conference, Beirut,
+Lebanon 13-16 April 2014.
+[6] MR. Lalti patil, Miss. Divya chopra, Miss. Prachi jadhav,
+“Forest- Fire Surveillance System Based on Wireless
+Sensor Network”, international. Journal of engineering
+research and applications ISSN: 2248-9622, vol. 6, issue
+4, (part-2) April 2016.
+[7] Pallavi.C, jamdhade, Ashwini.D. Kawate, shitals
+.lachake,” Forest fire detection using optimized solar
+powered Wireless sensor networks”, international
+journal of advance search in science and engineering,
+volume No.07, Issue NO.02, and February 2017.
+[8] Sathish kumar.R, vinoth kumar.M, devaraj varatharaj,
+“Design and Development of Automatic Fire Detection
+Using Sms and Voice Alert System”, international
+journal of scientific & engineering Research, volume 7,
+issue 5, May-2016.
+[9] Sai kumar. P, Sriramya,” IOT Enabled Forest Fire
+Detection and Alerting the Authorities “, international
+journal Of Recent technology and engineering (IJRTE)
+Volume-7, issue-654, April -2019.
+[10] Varun kumar. S, P.V yokesh raj, V. Vignesh,
+”Implementation Of Wireless Sensor Network And
+IOT For Real Time Forest Fire Warning System”,
+international journal of engineering and technologyVolume 4 issue 1, Jan- Feb 2018.
+
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 652
+
+

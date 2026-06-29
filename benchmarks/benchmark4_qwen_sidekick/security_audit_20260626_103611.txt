@@ -1,0 +1,71 @@
+=== Hermes Post-Benchmark Security Audit ===
+Generated: Fri Jun 26 12:13:26 PM IST 2026
+
+## 1. New system packages (apt/dpkg)
+CLEAN: no new system packages.
+
+## 2. New files in ~/.hermes/skills and ~/.hermes/hooks
+CLEAN: no new skills or hooks.
+
+## 3. Cron entries
+CLEAN: no cron entries.
+
+## 4. Pip packages installed inside Hermes's venv
+Syncing bundled skills into ~/.hermes/skills/ ...
+
+Done: 0 new, 0 updated, 72 unchanged. 72 total bundled.
+[stage2] Found agent-browser Chromium binary: /opt/hermes/.playwright/chromium_headless_shell-1228/chrome-linux/headless_shell
+[stage2] Setup complete; starting user services
+[supervise-perms] chowned supervise/ trees for static s6-rc services
+reconcile: profile=default prior_state=None action=registered
+
+## 5. Files written to ~/.hermes/ after benchmark start
+(files newer than /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_marker — excludes wildfire_research, sessions, logs)
+/home/beeps/.hermes/
+/home/beeps/.hermes/.local/share/tirith
+/home/beeps/.hermes/.local/share/tirith/log.jsonl.head
+/home/beeps/.hermes/.local/share/tirith/log.jsonl
+/home/beeps/.hermes/home
+/home/beeps/.hermes/home/wildfire-research
+/home/beeps/.hermes/home/wildfire-research/papers
+/home/beeps/.hermes/home/wildfire-research/papers/search_results.json
+/home/beeps/.hermes/home/wildfire-research/papers/Strengthening_Forest_Fire_Mana.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/Historical__1750_2014__anthropogenic_emi.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/filtered_results.json
+/home/beeps/.hermes/home/wildfire-research/papers/combined_results.json
+/home/beeps/.hermes/home/wildfire-research/papers/Forest_Fire_Risk_Mapping_Uttarakhand.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/Fire-lantana_cycle_hypothesis.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/key_papers.json
+/home/beeps/.hermes/home/wildfire-research/papers/Forest_fire_in_India_review.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/Forest_Fire_in_the_Hindu_Kush_.pdf
+/home/beeps/.hermes/home/wildfire-research/papers/Historical__1850_2000__gridded_anthropog.pdf
+/home/beeps/.hermes/home/wildfire-research/dashboard.html
+/home/beeps/.hermes/home/wildfire-research/search_papers.py
+/home/beeps/.hermes/home/.cache
+/home/beeps/.hermes/home/.cache/uv
+/home/beeps/.hermes/home/.cache/uv/sdists-v9
+/home/beeps/.hermes/home/.cache/uv/sdists-v9/.gitignore
+/home/beeps/.hermes/home/.cache/uv/sdists-v9/.git
+/home/beeps/.hermes/home/.cache/uv/.lock
+/home/beeps/.hermes/home/.cache/uv/CACHEDIR.TAG
+/home/beeps/.hermes/home/.cache/uv/.gitignore
+/home/beeps/.hermes/skills
+/home/beeps/.hermes/skills/.bundled_manifest
+/home/beeps/.hermes/config.yaml
+
+## 6. Lingering Hermes or model processes
+WARNING: lingering processes:
+1272270 bash /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/run_head_to_head.sh
+4144982 bash /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/post_benchmark_audit.sh /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_dpkg.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_hermes_files.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_marker /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/security_audit_20260626_103611.txt
+4144984 bash /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/post_benchmark_audit.sh /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_dpkg.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_hermes_files.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_marker /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/security_audit_20260626_103611.txt
+4144985 tee /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/security_audit_20260626_103611.txt
+4147653 bash /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/post_benchmark_audit.sh /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_dpkg.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_hermes_files.txt /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/head_to_head_ds4/../pre_benchmark_marker /home/beeps/src/github.com/bprashanth/idlisseus/benchmark4_qwen_sidekick/security_audit_20260626_103611.txt
+
+## 7. Running Docker containers
+NAMES                 IMAGE                                 STATUS
+odysseus-odysseus-1   odysseus-odysseus                     Up 15 hours
+odysseus-ntfy-1       binwiederhier/ntfy                    Up 15 hours
+odysseus-searxng-1    searxng/searxng:2026.5.31-7159b8aed   Up 15 hours (healthy)
+odysseus-chromadb-1   chromadb/chroma:latest                Up 15 hours
+
+=== Audit complete ===

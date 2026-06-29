@@ -1,0 +1,8 @@
+{
+  "incident_date": "14 March 2024",
+  "location": "Mudumalai Tiger Reserve near Theppakadu",
+  "fire_type": "surface fire",
+  "area_ha": 27,
+  "cause": "discarded cigarette",
+  "suppressed_by": "Tamil Nadu Forest Department rapid response team"
+}

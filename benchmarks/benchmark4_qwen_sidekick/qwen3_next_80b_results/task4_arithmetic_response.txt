@@ -1,0 +1,34 @@
+We are given that a forest patch burned at two different rates over two time periods.
+
+---
+
+**First phase:**
+- Rate = 12 hectares per hour
+- Time = 3.5 hours
+
+So, area burned in first phase:
+$$
+12 \, \text{ha/hr} \times 3.5 \, \text{hr} = 42 \, \text{hectares}
+$$
+
+---
+
+**Second phase:**
+- The rate **doubled**, so new rate = $ 12 \times 2 = 24 $ hectares per hour
+- Time = 2 hours
+
+Area burned in second phase:
+$$
+24 \, \text{ha/hr} \times 2 \, \text{hr} = 48 \, \text{hectares}
+$$
+
+---
+
+**Total area burned:**
+$$
+42 \, \text{ha} + 48 \, \text{ha} = 90 \, \text{hectares}
+$$
+
+---
+
+✅ **Answer: $\boxed{90}$ hectares**

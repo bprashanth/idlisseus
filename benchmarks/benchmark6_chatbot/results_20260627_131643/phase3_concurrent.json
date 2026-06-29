@@ -1,0 +1,18 @@
+{
+  "label": "qwen80b-concurrent",
+  "wall_s": 3.0,
+  "results": {
+    "user_a": {
+      "elapsed_s": 2.6,
+      "completion_tokens": 89,
+      "answer": "Invasive plants are difficult to eradicate because they often outcompete native species through rapid growth, high reproductive output, and allelopathy\u2014releasing chemicals that suppress neighboring plants. Many lack natural predators or pathogens in their new environment, removing critical population controls. Additionally, they frequently develop extensive root systems or seed banks that persist for years, making complete removal logistically challenging and prone to reinfestation if even a small fraction remains.",
+      "ok": true
+    },
+    "user_b": {
+      "elapsed_s": 3.0,
+      "completion_tokens": 109,
+      "answer": "Invasive plants are difficult to eradicate because they often outcompete native species through rapid growth, high reproductive output, and allelopathy\u2014releasing chemicals that suppress surrounding vegetation. Many lack natural predators or pathogens in their new environment, allowing unchecked spread. Additionally, they frequently form dense monocultures that alter soil chemistry and fire regimes, making restoration challenging even after removal. Their resilient seed banks or vegetative propagation (e.g., rhizomes) ensure regrowth from tiny remaining fragments, requiring sustained, costly management over years.",
+      "ok": true
+    }
+  }
+}

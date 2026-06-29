@@ -1,0 +1,15 @@
+=== prompt: What is 2+2? ===
+elapsed=59.40s usage={'prompt_tokens': 15, 'total_tokens': 213, 'completion_tokens': 198, 'prompt_tokens_details': None}
+content: <seed:think>
+Got it, let's see. The question is "What is 2+2?" Hmm, that's a basic addition problem. First, I need to remember what addition means—combining two numbers to get a total. So 2 plus 2 is 
+
+=== prompt: Name three colors. ===
+elapsed=42.25s usage={'prompt_tokens': 12, 'total_tokens': 152, 'completion_tokens': 140, 'prompt_tokens_details': None}
+content: <seed:think>
+Got it, let's see. The user asked to name three colors. First, I need to think of common colors that are widely recognized. Let's start with basic ones. Red is a primary color, that's a g
+
+=== prompt: Spell the word banana backwards. ===
+elapsed=82.91s usage={'prompt_tokens': 14, 'total_tokens': 289, 'completion_tokens': 275, 'prompt_tokens_details': None}
+content: <seed:think>
+Got it, let's see. The user asked to spell "banana" backwards. First, I need to remember what the word "banana" is spelled as. Let's break it down: B-A-N-A-N-A. Now, to spell it backwards
+

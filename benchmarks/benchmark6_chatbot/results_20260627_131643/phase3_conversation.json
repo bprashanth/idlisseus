@@ -1,0 +1,32 @@
+{
+  "label": "qwen80b-alone",
+  "model": "qwen3-80b",
+  "url": "http://172.17.0.1:8001/v1",
+  "turns": [
+    {
+      "turn": 1,
+      "question": "What makes invasive plants so difficult to eradicate once they establish in a new habitat?",
+      "answer": "Invasive plants are difficult to eradicate because they often outcompete native species through rapid growth, high reproductive output, and allelopathy\u2014releasing chemicals that suppress neighboring plants. Many lack natural predators or pathogens in their new environment, freeing them from population controls. Additionally, they frequently develop extensive root systems or seed banks that persist for years, making complete removal logistically challenging and prone to resurgence even after apparent control.",
+      "elapsed_s": 19.7,
+      "prompt_tokens": 57,
+      "completion_tokens": 86
+    },
+    {
+      "turn": 2,
+      "question": "Which restoration approaches have shown lasting success after invasive plant removal, and what made them work?",
+      "answer": "Successful restoration after invasive plant removal typically combines immediate mechanical or chemical control with rapid reestablishment of native vegetation\u2014often through seeding or planting competitive, site-adapted species. Long-term success hinges on soil restoration (e.g., reducing nutrient enrichment that favors invasives) and ongoing monitoring to suppress resprouting or new invasions. Crucially, engaging local communities and using adaptive management\u2014adjusting strategies based on ecological feedback\u2014ensures resilience. Projects that mimic natural disturbance regimes (e.g., prescribed fire or grazing) also help maintain native dominance by limiting reinvasion opportunities.",
+      "elapsed_s": 2.7,
+      "prompt_tokens": 170,
+      "completion_tokens": 118
+    },
+    {
+      "turn": 3,
+      "question": "A land trust has one season and a small volunteer crew to begin restoring a meadow overrun by Japanese knotweed. What would you prioritise and why?",
+      "answer": "Prioritize cutting all knotweed stems to ground level in late summer\u2014just before flowering\u2014to deplete root energy reserves without spreading rhizomes. Immediately follow with dense planting of aggressive, native competitors like switchgrass or elderberry to shade the soil and block light for regrowth. Avoid tilling or disturbing soil, which spreads fragments; instead, cover exposed ground with thick mulch or landscape fabric where feasible. Document all treated areas meticulously\u2014this season\u2019s effort buys critical time, but long-term control requires follow-up, so train volunteers to recognize regrowth and report it. Early, focused suppression sets the stage for future restoration.",
+      "elapsed_s": 2.9,
+      "prompt_tokens": 328,
+      "completion_tokens": 127
+    }
+  ],
+  "total_s": 25.3
+}

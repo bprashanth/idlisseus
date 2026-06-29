@@ -1,0 +1,12 @@
+=== prompt: What is 2+2? ===
+elapsed=3.53s usage={'prompt_tokens': 11, 'completion_tokens': 47, 'total_tokens': 58, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 11}}
+content: 4
+
+=== prompt: Name three colors. ===
+elapsed=2.14s usage={'prompt_tokens': 8, 'completion_tokens': 30, 'total_tokens': 38, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 8}}
+content: Red, blue, green.
+
+=== prompt: Spell the word banana backwards. ===
+elapsed=6.14s usage={'prompt_tokens': 11, 'completion_tokens': 92, 'total_tokens': 103, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 11}}
+content: ananab
+

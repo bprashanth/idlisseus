@@ -1,0 +1,19 @@
+{
+  "wall_elapsed": 18.125328540802002,
+  "results": {
+    "sidekick": {
+      "ok": true,
+      "elapsed": 18.014880418777466,
+      "tokens": 374,
+      "preview": "Here is the step-by-step working to find the product of 17 and 23 using the **Vertical Method**.\n\n### Step-by-Step Calculation:\n\n1.  **Align the numbers vertically** (making sure the ones digit is in ",
+      "full": "Here is the step-by-step working to find the product of 17 and 23 using the **Vertical Method**.\n\n### Step-by-Step Calculation:\n\n1.  **Align the numbers vertically** (making sure the ones digit is in the ones place):\n    ```text\n      17\n    x 23\n    -----\n    ```\n\n2.  **Multiply the second number by the 1's digit of the second factor**:\n    *   Multiply $3 \\times 17$.\n    *   Calculation: $3 \\times 1 = 3$, $3 \\times 7 = 21$. Write down the 10s digit (2), carry the 1.\n    *   Result: **21**\n\n3.  **Multiply the second number by the 10's digit of the second factor and shift one place to the left**:\n    *   Multiply $2 \\times 17$.\n    *   Calculation: $2 \\times 1 = 2$, $2 \\times 7 = 14$.\n    *   Add the carried 1 from the previous step: $14 + 1 = 15$. Write down 5.\n    *   Result: **35** (shifted one place)\n\n4.  **Add the partial products together**:\n    ```text\n      21  (from step 2)\n    + 350  (from step 3)\n    -----\n      371\n    ```\n    *(Note: $350 + 21 = 371$)*\n\n### Final Answer:\n$$17 \\times 23 = \\mathbf{391}$$"
+    },
+    "ds4": {
+      "ok": true,
+      "elapsed": 18.124771118164062,
+      "tokens": 119,
+      "preview": "SSD streaming for large language models means loading model weights directly from the SSD into memory only as needed, instead of keeping the entire model in RAM. This allows models larger than availab",
+      "full": "SSD streaming for large language models means loading model weights directly from the SSD into memory only as needed, instead of keeping the entire model in RAM. This allows models larger than available RAM to run by swapping parts of the model on the fly, though it increases latency due to slower SSD read speeds compared to RAM."
+    }
+  }
+}

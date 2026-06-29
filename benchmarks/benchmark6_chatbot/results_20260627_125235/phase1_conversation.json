@@ -1,0 +1,32 @@
+{
+  "label": "ds4-alone",
+  "model": "deepseek-v4-flash",
+  "url": "http://172.17.0.1:8000/v1",
+  "turns": [
+    {
+      "turn": 1,
+      "question": "What makes invasive plants so difficult to eradicate once they establish in a new habitat?",
+      "answer": "Invasive plants often possess traits like prolific seed production, long-lived seed banks, and vigorous vegetative regeneration, enabling them to persist even after repeated removal. Many also benefit from escaping natural predators or pathogens that would normally suppress them in their native range. Their rapid growth and allelopathic chemicals can outcompete native species, while disturbance-prone habitats provide continuous opportunities for re-establishment. Combined with their tolerance of a wide range of conditions, these factors make complete eradication extremely labor-intensive and often economically impractical.",
+      "elapsed_s": 85.7,
+      "prompt_tokens": 48,
+      "completion_tokens": 183
+    },
+    {
+      "turn": 2,
+      "question": "Which restoration approaches have shown lasting success after invasive plant removal, and what made them work?",
+      "answer": "Successful approaches often combine high-density, diverse native plantings with ongoing adaptive management. For instance, using fast-growing native competitors\u2014such as sedges or perennial grasses\u2014can shade out invasive regrowth and reduce germination niches. Addressing soil legacy effects, like allelopathic residues or altered microbial communities, by amending soil or using targeted microbial inoculants further aids establishment. Crucially, sustained monitoring and spot-treatment of re-emerging invasive patches, coupled with community stewardship, prevent reinvasion and allow the native community to become self-sustaining over time.",
+      "elapsed_s": 89.4,
+      "prompt_tokens": 252,
+      "completion_tokens": 198
+    },
+    {
+      "turn": 3,
+      "question": "A land trust has one season and a small volunteer crew to begin restoring a meadow overrun by Japanese knotweed. What would you prioritise and why?",
+      "answer": "For a single season with a small crew, I would prioritize repeated stem-cutting every 3\u20134 weeks throughout the growing season, combined with careful spot-application of herbicide (e.g., glyphosate) to cut stems if permitted. This strategy depletes the rhizome energy reserves while avoiding soil disturbance that fragments rhizomes and spreads the infestation. I would delay any native planting until the knotweed is substantially weakened, because premature planting often fails. Consistent monitoring and follow-up treatments are critical to ensure the stand is suppressed enough for eventual restoration.",
+      "elapsed_s": 188.6,
+      "prompt_tokens": 484,
+      "completion_tokens": 442
+    }
+  ],
+  "total_s": 363.7
+}

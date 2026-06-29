@@ -1,0 +1,4 @@
+You are a data extraction assistant. Extract the following fields from the incident report below and return them as valid JSON only (no markdown fences, no explanation):
+  incident_date, location, fire_type, area_ha, cause, suppressed_by
+
+Report: "On 14 March 2024, forest rangers recorded a surface fire in the Mudumalai Tiger Reserve near Theppakadu, covering approximately 27 hectares. The fire was attributed to a discarded cigarette along a tourist trail and was suppressed by the Tamil Nadu Forest Department rapid response team within 6 hours."

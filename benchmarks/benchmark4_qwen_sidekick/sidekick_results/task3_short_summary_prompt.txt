@@ -1,0 +1,3 @@
+Summarize the following paragraph in one sentence:
+
+"Community-based fire management (CBFM) programs in the Nilgiris have demonstrated measurable reductions in annual burned area when villages participate in joint monitoring and controlled burning schedules. Unlike top-down suppression strategies, CBFM leverages traditional ecological knowledge held by local Toda and Irula communities, integrating seasonal fire calendars with modern remote-sensing alerts. Evaluations from 2015 to 2022 show that CBFM villages experienced 34% fewer uncontrolled fire events compared to control sites, though data gaps in the earlier years make before-after comparisons difficult to interpret with high confidence."

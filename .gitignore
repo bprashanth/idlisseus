@@ -1,3 +1,21 @@
+# Model weights and runtime caches (never commit these)
+models/deepseek-v4-flash/*.gguf
+ds4-kv/
+ds4/*.o
+ds4/*.gguf
+ds4/ds4
+ds4/ds4-server
+ds4/ds4-bench
+ds4/ds4-eval
+ds4/ds4-agent
+download.log
+odysseus-build*.log
+
+# Idlisseus user data and local secrets (never commit)
+chatbots/odysseus/data/
+chatbots/odysseus/logs/
+chatbots/odysseus/local-creds.env
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

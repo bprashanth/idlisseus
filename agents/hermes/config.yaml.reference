@@ -1,0 +1,31 @@
+# Reference snippet of ~/.hermes/config.yaml's relevant fields after running point_at_model.py.
+# This is NOT a drop-in file (the real config.yaml has hundreds of other unrelated lines and is
+# owned by container uid 10000) -- it's here so you can see exactly what point_at_model.py
+# produces without having to sudo-cat the live file. See docs/agents.md.
+
+model:
+  default: deepseek-v4-flash      # <- served-model-name of whichever model is currently live
+  provider: custom                 # always "custom" for a local/self-hosted OpenAI-compatible server
+  base_url: http://172.17.0.1:8000/v1   # docker bridge IP -- see docs/setup.md on why not 0.0.0.0
+providers: {}
+fallback_providers: []             # empty: no cloud fallback configured anywhere on this box
+
+# Every one of these ~14 auxiliary sub-tasks (vision, web_extract, compression, skills_hub,
+# approval, mcp, title_generation, tts_audio_tags, triage_specifier, kanban_decomposer,
+# profile_describer, curator, monitor, background_review) ships defaulted to provider: auto.
+# point_at_model.py pins every single one to the same model/base_url as above so nothing is
+# left ambiguous about which backend a Hermes run actually used end to end.
+auxiliary:
+  vision:
+    provider: custom
+    model: deepseek-v4-flash
+    base_url: http://172.17.0.1:8000/v1
+    api_key: ''
+  web_extract:
+    provider: custom
+    model: deepseek-v4-flash
+    base_url: http://172.17.0.1:8000/v1
+    api_key: ''
+  # ... (compression, skills_hub, approval, mcp, title_generation, tts_audio_tags,
+  #      triage_specifier, kanban_decomposer, profile_describer, curator, monitor,
+  #      background_review -- same pattern, all pinned identically)

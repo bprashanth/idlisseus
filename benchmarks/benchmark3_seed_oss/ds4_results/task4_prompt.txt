@@ -1,0 +1,1559 @@
+Below are 5 papers on forest fire / wildfire management. Produce a single, complete, self-contained dashboard.html file (inline CSS/JS, no external dependencies) that visually summarizes: key themes across the papers, any disagreements you find, and a simple chart of paper topics. Output ONLY the HTML file content, nothing else.
+
+=== 01_Models_Forest_Fire_Management_India ===
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+CHAPTER 8
+Models of Forest Fire Management in India
+Anuradha Das, Rajkumari Supriya Devi and Sanjeet Kumar
+Abstract: Forest fires are a significant threat to India's forest ecosystems, biodiversity, and local
+communities. To mitigate and manage forest fires, the Indian government has launched various
+initiatives and policies. The National Forest Fire Action Plan published in 2013, aims to prevent, detect,
+and control forest fires. Additionally, various states have their own policies and guidelines for forest
+fire management. India also collaborates with international organizations to share knowledge and
+resources. Effective forest fire management involves prevention, detection, control, and community
+engagement. Prevention measures include creating fire breaks and conducting awareness campaigns.
+Detection involves using satellite imagery, drones, and ground-based sensors to detect forest fires early.
+Control measures include suppressing forest fires using techniques like manual beating, smothering,
+counter-firing, fire lines, and dousing. Community engagement is also crucial, as local communities
+can be educated about forest fire risks and involved in prevention and detection efforts. Furthermore,
+post-fire management is essential, involving assessing damage, rehabilitating affected areas, and
+restoring ecosystems. Various forest fire management models, such as the "Prescribed Burning Model",
+"Fire Suppression Model", and "Community-based Fire Management Model" can be adopted and
+tailored to suit specific regional conditions. The study aims to document the different forest models
+persisting in India. These models can help optimize forest fire management strategies, reduce the risk
+of forest fires, and promote sustainable forest management practices. To improve forest fire
+management capacity building, community participation, technology integration, and a comprehensive
+policy framework are necessary.
+
+Das A, Department of Botany, Sindri College, Sindri, B.B.M.K.
+University, Dhanbad, Jharkhand, India
+Devi RS, Biodiversity and Conservation Lab., Ambika Prasad
+Research Foundation, Odisha, India
+Kumar S, Biodiversity and Conservation Lab., Ambika Prasad
+Research Foundation, Odisha, India
+Email: sanjeet.biotech@gmail.com
+© The author(s), under exclusive license to APRF, India
+ISBN: 978-81-985655-9-4
+Kumar (eds.) Forest Fire Causes Consequences Management solutions
+
+Keywords: Prevention, community participation, detection, fire suppression
+
+INTRODUCTION
+Forest fires have been an inherent aspect of forest ecosystems for centuries.
+However, the escalating environmental challenges, including rising temperatures,
+
+60
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+dwindling precipitation, intense dry winds, and plummeting humidity levels have
+profoundly impacted the delicate balance of forest ecosystems. In response to the
+devastating consequences of forest fires, including the loss of biodiversity and
+depletion of forest resources, the Government of India has launched a plethora of
+initiatives and policies aimed at mitigating and managing forest fires across the
+country (Bargali et al., 2014). These efforts underscore the government's
+commitment to preserving India's rich forest heritage and ensuring the long-term
+sustainability of its ecosystems. The Food and Agriculture Organization (FAO)
+implemented a specialized Technical Cooperation Programme (TCP) project in
+India, focusing on human resource development in forest fire management.
+Launched in May 1995 and completed in December 1995, the project aimed to
+enhance India's capacity in forest fire management by assessing the country's forest
+fire situation, providing training in strategic fire planning, and developing a model
+State Forest Fire Management Plan (FSI, 2019a). The project's recommendations,
+provided by an international consultant team, emphasized the need for a preventive
+program, coordination between government agencies, a national awareness
+campaign, a central fire management research and training institute, fire experiment
+stations, and integration of fire management into the Joint Forest Management
+framework (FSI, 2019b). Between 2000 and 2009, most Indian states,
+approximately 58% were vulnerable to severe forest fires. Of these 34% experienced
+extremely severe fires, while 13% and 10% were affected by very high and highintensity fires respectively. The states most prone to extreme forest fires during this
+period included Andhra Pradesh, Assam, Chhattisgarh, Odisha, Maharashtra,
+Madhya Pradesh, Manipur, Mizoram, and Nagaland (Mohanty and Mithal, 2022).
+From a governance perspective, forest fires fall under the jurisdiction of the Ministry
+of Environment, Forest and Climate Change (MoEFCC) and the State Forest
+Departments (SFDs) at the state level. The management of forest fires is overseen
+by the National Afforestation Programme (NAP) and the Forest Fire Prevention and
+Management Scheme. In 2018, the MoEFCC introduced the National Action Plan
+on Forest Fires (NAPFF), which seeks to engage and empower local communities
+in reducing forest fire incidents. However, the NAPFF still awaits dedicated funding
+and relies on allocations from the Compensatory Afforestation Fund Management
+and Planning Authority (Mohanty and Mithal, 2022; ISFR, 2023).
+India's constitution empowers both Central and State Governments to legislate on
+forestry issues, but the onus of implementing policies and programs lies solely with
+the State Governments. The responsibility of preventing, detecting, and suppressing
+forest fires falls on the State Forest Department, which often lacks a dedicated unit
+or wing for this critical task. As a result, regular staff must take on this responsibility
+
+61
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+without additional support or resources, and in many cases, without a dedicated fund
+for fire management activities. To address this challenge, the Union Ministry of
+Environment and Forests launched the "Modern Forest Fire Control Project" in
+1984, with assistance from the United Nations Development Program, in Uttar
+Pradesh and Maharashtra. The project's success led to the introduction of a centrally
+sponsored scheme, "Modern Forest Fire Control Methods," in 11 states in 1992-93,
+which was later extended to all states and union territories in 2000. The scheme aims
+to achieve several key objectives, including controlling forest fires to protect and
+conserve forests, as well as developing, testing, and demonstrating effective forest
+fire management principles and techniques. Additionally, the scheme seeks to
+enhance forest productivity by reducing the incidence and extent of forest fires.
+Raising public awareness about the detrimental effects of forest fires on forests and
+the environment is also a crucial objective (PCWFFMI, 2022). Furthermore, the
+scheme aims to empower forest officials and local communities through training
+programs, equipping them with the skills and knowledge necessary to prevent,
+detect, and control forest fires. Some of the common equipments used for the
+management of forest fire include beaters, leaf blower, lightweight fire
+extinguishers, fire resistant uniforms, helmets, transport vehicles and
+communication devices, etc (Figure 1). The research activities on forest fire initially
+started around 1982 and rise to manifold in the present day.
+The management of forest fires involves a multi-faceted approach that encompasses
+a series of strategic steps (Kumar et al., 2023). It begins with prevention activities,
+including creating firebreaks, conducting prescribed burns, educating public, and
+enforcing regulations (Reddy et al., 2017). Detection is the next crucial step, which
+involves monitoring weather conditions, using surveillance systems, and conducting
+aerial surveys to detect fires early (Figure 2). Once a fire is detected, suppression
+efforts are swiftly initiated, involving rapid response, firefighting operations, and
+coordination with emergency services. Finally, post-fire management is critical,
+entailing damage assessment, rehabilitation, and restoration efforts, including
+reforestation and habitat restoration, and ongoing monitoring and maintenance to
+ensure long-term ecosystem health and resilience (Roy et al., 2010; NAPFF, 2018).
+Important components of forest fire management are described hereunder.
+
+62
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Figure 1: Common equipment used for extinguishing forest fire
+
+Preventive measures
+Silvicultural practices
+To disrupt fuel continuity, effective silvicultural practices are necessary, including
+weeding, cleaning, and removing dead vegetation. Thinning, planned grazing, and
+promoting fire-resistant species can also help. Additionally, canopy treatments can
+alter forest structure, reducing fuel sources and promoting regeneration. These
+practices can enhance forest resilience and aid in recovery from fires (SFFMI, 2018;
+NAPFF, 2018).
+Controlled burning
+Controlled burning, or prescribed burning, is a forest fire management technique
+that involves intentionally setting fires in a controlled manner to achieve ecological
+and management goals. Benefits include reducing fuel loads, promoting forest
+regeneration, maintaining ecosystem balance, and enhancing biodiversity. However,
+it requires favourable weather conditions, consideration of air quality, public
+education, and a supportive regulatory framework (NAPFF, 2018).
+
+63
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Green fire belt
+Constructing a green fire belt is an effective way to prevent forest fires. The green
+fire belt is a fire-resistant zone created around the forest perimeter, typically 10-20
+meters wide. To construct this belt, fire-tolerant trees are selected and planted in the
+designated area. The soil is prepared by removing flammable materials and debris,
+and a drip irrigation system is installed to maintain soil moisture. Regular
+maintenance, including removing weeds, pruning plants, and inspecting for signs of
+fire damage, is essential to ensure the green fire belt remains effective (NAPFF,
+2013; Kumar, 2021a).
+Awareness programs
+An awareness program for forest fire targeted at local communities aims to educate
+local communities about the risks and consequences of forest fires, promote
+preventive measures and safe practices, encouraging community participation in
+forest fire prevention and management. The program should employ various
+awareness strategies, including community meetings, posters and pamphlets,
+demonstrations, and community-led fire patrols. Key messages emphasize that
+forest fires are preventable, the importance of immediate forest fire reports, and the
+crucial role of community participation. Collaboration with local authorities and
+community leaders is essential to the program's success, which is evaluated through
+pre- and post-program surveys and community feedback (Kumar, 2021b).
+Detection
+Conventional methods of forest fire detection rely on routine inspections and
+intelligence gathered from local communities and villagers. In contrast,
+contemporary approaches leverage cutting-edge technologies (ISFR, 2015; ISFR,
+2023; ISFR, 2021) including:
+Satellite Imagery: Satellites such as IRS and INSAT provide high-resolution images
+of forest areas facilitating fire detection.
+Aerial Surveillance: Aircraft and helicopters are employed to monitor forest areas
+and identify potential fires.
+Wireless Sensor Networks: These networks of sensors detect and report changes in
+forest conditions, enabling early fire detection.
+Mobile Applications: Apps like Forest Fire Alert System (FFAS) and Van Vigyan
+enable users to report forest fires and receive critical alerts.
+
+64
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Forest Fire Alert System: It is a vital tool in India's forest fire management strategy,
+offering:
+a) Near Real-Time Alerts: The system generates timely alerts based on fire
+point data processed by the National Remote Sensing Centre.
+b) MODIS Sensor Data: The system utilizes MODIS sensor data from Aqua
+and Terra satellites to detect forest fires.
+c) SMS Alerts: Users can register for SMS alerts, which are sent after
+verification through a one-time password.
+d) Dissemination to Local Authorities: The system ensures that forest fire
+alerts are disseminated to local authorities and forest officials facilitating
+prompt action.
+e) Geographic Information System (GIS) and Global Positioning System
+(GPS): These technologies enable precise location and tracking of forest
+fires.
+f) Remote Sensing: Hyperspectral and multispectral imaging technologies
+detect and analyze forest fires.
+g) Artificial Intelligence (AI) and Machine Learning (ML): AI and ML
+algorithms analyze satellite images to identify and predict forest fires.
+Suppression
+Manual beating
+Manual beating or smothering is a traditional method of suppressing forest fires,
+particularly in areas where mechanized equipment cannot reach. This technique
+involves using fire beaters, such as long-handled tools with a flat or curved blade,
+to beat the fire and create a fire break. The beating pattern typically starts from the
+outside and works its way inwards, targeting the base of the fire where the flames
+are smallest. Alternatively, natural materials like dirt, sand, or green leaves can be
+used to smother the fire by gently pressing them onto the flames (Maurya et al.,
+2022).
+Counter-fire
+Counter-firing involves intentionally starting a new fire to combat an existing one,
+with the goal of reducing the intensity and spread of a forest fire. However, the
+effectiveness of this technique depends on various factors, including terrain, weather
+conditions, and fuel types, which can affect the uniformity of the wildfire front and
+ultimately determine the success of counter-firing (Murthy et al., 2006).
+
+65
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Fire lines
+Fire line is a crucial tool in suppressing forest fires, and its strategic use can
+effectively contain and extinguish fires. Creating a fire line involves clearing
+vegetation and other combustible materials along the line, digging a trench, and
+using fire-resistant materials to line the trench. They are also prepared through
+cleared strips of vegetation that help contain or slow down fires. There are different
+types of fire lines, including direct, indirect, and contingency fire lines, each with
+its own specific purpose. Direct fire lines are created directly in front of the
+advancing fire to stop its spread, while indirect fire lines are created parallel to the
+fire to contain it and allow for backburning. Contingency fire lines are created in
+anticipation of the fire's potential spread, providing a backup plan in case the
+primary fire line is breached (SFFMI, 2018). Fire lines can also be internal fire lines
+to prevent fire spread within a forest or external fire lines to prevent fires from
+entering the forest. The benefits of fire lines include containment, extinguishing, and
+reduced risk of the fire spreading. Fire lines typically range from 5-30 m in width,
+depending on forest type and terrain. However, to minimize timber loss, external
+and internal fire lines are often limited to 3 m and 1.5 m widths, respectively
+(Nithyavathy et al., 2021).
+Capacity building
+Capacity building for the management of forest fires involves enhancing the skills,
+knowledge, and abilities of individuals and organizations to prevent, detect, and
+respond to forest fires effectively. This can be achieved through training programs
+on firefighting techniques, fire prevention and detection, and emergency response
+planning. Workshops and seminars on forest fire management, communication, and
+coordination also play a crucial role (Sewak et al., 2021). Additionally, providing
+access to modern firefighting equipment and technologies such as GIS and remote
+sensing can enhance response efforts. Collaboration and partnerships among
+government agencies, NGOs, local communities, and international organizations are
+also essential. Furthermore, community engagement through public awareness
+campaigns and community-based fire management initiatives can empower local
+communities to take participation in forest fire prevention and response (Sagar et
+al., 2024).
+Community participation
+Local communities residing in or near forests can play a vital role in combating
+forest fires, as they are often the first responders and can provide crucial support in
+
+66
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+extinguishing blazes. Community participation is crucial for the effective
+management of forest fires (Sewak et al., 2021Sa). It raises awareness about the
+risks and consequences of forest fires, encouraging individuals to take proactive
+measures to prevent them. Community involvement fosters collaboration between
+local residents, firefighters, and forest managers, ensuring a coordinated response to
+forest fires. Local residents possess valuable knowledge about the forest, including
+its terrain, vegetation, etc. which supports fire prevention efforts. Community
+participation also enhances the response to forest fires, promotes sustainable forest
+management practices, and empowers local communities to take ownership of forest
+fire management, promoting a sense of responsibility and stewardship for the forest
+(Satendra and Kaushik, 2014).
+Surface clearing
+Surface clearing is an effective method for suppressing forest fires, which involves
+removing combustible materials such as dead leaves, twigs, and other vegetation
+from the surface of the forest floor. This creates a barrier between the fire and
+potential fuel sources, starving the fire of the oxygen and fuel it needs to spread. By
+clearing the surface, firefighters can contain the fire and prevent it from jumping to
+other areas, allowing them to gain control and eventually extinguish the blaze.
+Surface clearing can be done using hand tools such as rakes, shovels, and axes, or
+with mechanical equipment like bulldozers and tractors. This technique is
+particularly useful in areas with dense undergrowth or where the fire is spreading
+rapidly, as it helps to slow the fire's progress and give firefighters a chance to gain
+the upper hand.
+Dousing
+Dousing is a crucial technique used to suppress forest fires, which involves applying
+water or fire retardants directly to the fire to cool the fuel and reduce the intensity
+of the flames. This method is effective in slowing the spread of the fire, allowing
+firefighters to gain control and eventually extinguish the blaze. Dousing can be done
+using various tools, such as water bombers, hoses, and buckets, and can be applied
+directly to the fire or to the surrounding areas to create a fire break. The goal of
+dousing is to reduce the temperature of the fuel to a point where it can no longer
+sustain combustion, effectively starving the fire of the oxygen and heat it needs to
+continue burning. By dousing the fire, firefighters can create a safe area for
+themselves to work in and prevent the fire from spreading to other areas, ultimately
+bringing the blaze under control.
+
+67
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Figures 2: Important components of forest fire management
+
+68
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Post fire Management Measures
+Assessment, Rehabilitation and Recovery
+Reporting and rehabilitation are crucial components of post-fire management,
+playing a vital role in mitigating the impacts of forest fires and promoting
+sustainable forest ecosystem recovery. Reporting helps to assess the extent of
+damage caused by the fire, identify the causes of the fire, document lessons learned,
+and inform rehabilitation efforts. Rehabilitation, on the other hand, involves
+restoring degraded or damaged ecosystems, promoting biodiversity and ecosystem
+resilience, and revegetation efforts to stabilize soils and prevent erosion.
+Additionally, rehabilitation helps restore wildlife habitats, promoting the recovery
+of affected species, and provides opportunities for community engagement,
+education, and participation in forest restoration efforts. Overall, reporting and
+rehabilitation enhance ecosystem resilience, improve fire management, provide
+community benefits, and promote long-term sustainability, ensuring that forest
+ecosystems are managed in a way that balances human needs with environmental
+conservation.
+Other Management strategies
+National Policies
+The Indian Forest Act, 1927, prohibits setting fire to forests, considering it a
+criminal offense. Those found guilty may face imprisonment, fines, or both.
+Exceptions include authorized burning for specific purposes and traditional
+practices by indigenous communities.
+The Wildlife Protection Act, 1972, prohibits the setting of fires in wildlife
+sanctuaries and national parks, as it can cause harm to wildlife and their habitats.
+Section 29 of the Act specifically prohibits the setting of fires, and violators can face
+penalties, including imprisonment and fines.
+The National Forest Fire Action Plan was published in 2013 with the aim of
+preventing, detecting, and controlling forest fires in India. The plan, formulated by
+the Ministry of Environment, Forest and Climate Change, Government of India,
+addresses the growing concern of forest fires and their impact on the environment,
+wildlife, and human lives. The plan focuses on prevention, detection, control, and
+mitigation measures, including community engagement and education. Its
+objectives include reducing forest fire incidents, protecting biodiversity, promoting
+sustainable forest management, and enhancing community resilience.
+
+69
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+State Policies for forest fire management
+State policies for forest fire management in India vary from state to state, but most
+states have their own policies and guidelines to prevent, detect, and control forest
+fires. These policies focus on prevention, detection, control, and community
+engagement, and include measures such as creating fire breaks, conducting
+awareness campaigns, imposing penalties for reckless behavior, and using
+technology such as satellite imagery and drones to detect fires early. States also
+collaborate with neighbouring states, central government agencies, and NGOs to
+share resources, expertise, and best practices. For example, Uttarakhand, Himachal
+Pradesh, and Odisha have their own forest fire management policies that emphasize
+prevention, detection, and control measures, including community engagement and
+collaboration. These policies have helped reduce the number of forest fires and the
+area affected by fires, improved community awareness and involvement, and
+enhanced collaboration among different agencies, leading to more effective forest
+fire management.
+India has been struggling with the issue of forest fires, which pose a significant
+threat to the country's biodiversity, ecosystem, and human settlements. To address
+this challenge, the Indian government has implemented various forest fire
+management strategies, including the National Forest Policy (1988), Forest Fire
+Management Policy, and National Action Plan on Forest Fires. Additionally, many
+states have developed their own plans to address forest fires. Technological
+interventions, such as the Forest Fire Alert System (FFAS) and Forest Fire
+Monitoring System, have also been employed to detect and track forest fires.
+Furthermore, community-based initiatives, including Joint Forest Management
+(JFM) and Eco-Development Committees, have been established to promote
+sustainable forest management and engage local communities in forest fire
+prevention and management. Despite these efforts, challenges persist, including
+limited resources, climate change, and the need for increased community
+engagement. The present study aims to congregate the models of forest fire
+management strategies adopted by India in various states of the country.
+To improve policy for the proper management of forest fires, a comprehensive
+policy framework should be developed, clearly defining roles and responsibilities
+among government agencies, local communities, and stakeholders. Policies should
+support prescribed burning, invest in advanced fire detection systems, and establish
+emergency response plans. Additionally, policies should address post-fire recovery
+
+70
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+and rehabilitation, including reforestation and ecosystem restoration. Public
+awareness campaigns and community-based fire management initiatives should be
+supported to educate local communities and empower them to take ownership of
+forest fire prevention and response. International cooperation and agreements
+should be established to share knowledge and resources, and policies should be
+regularly reviewed and revised to ensure effectiveness and relevance, engaging
+stakeholders to reflect their needs and concerns.
+REFERENCES
+Bargali H, Pandey A, Bhatt D, Sundriyal RC and Uniyal VP. (2024). Forest fire management,
+funding dynamics, and research in the burning frontier: a comprehensive review.
+Trees, Forests and People. 16: 100526. DOI: 10.1016/j.tfp.2024.100526
+FSI (Forest Survey of India) (2019a). FSI Forest Fire Alert System (FAST 3.0). Forest
+Survey of India. Dehradun. 1(2): 1-22.
+FSI (Forest Survey of India). (2019b). India State of Forest Report. Vol. I. Ministry of
+Environment, Forest and Climate Change, Uttarakhand, India.
+ISFR (India State of Forest Report). (2015). Forest Survey of India. Ministry of Environment
+and Forest. Kaulagarh Road, Dehradun, India.
+ISFR (Indian State of Forest Report Volume I). (2021). Forest Survey of India. Ministry of
+Environment, Forest and Climate Change. Government of India, India.
+ISFR (Indian State of Forest Report Volume I). (2023). Forest Survey of India. Ministry of
+Environment, Forest and Climate Change. Government of India, India.
+ISFR (Indian State of Forest Report) Vol I. (2023). Forest Survey of India. Ministry of
+Environment, Forest and Climate Change. Dehradun, Uttarakhand, India, India.
+Kumar S. (2021a). Monitoring of Regeneration in Forest Flora, Bonai Forest Division,
+Odisha.
+Ambika
+Prasad
+Research
+Foundation,
+Odisha,
+India.
+https://www.aprf.co.in/pdf/2022/Full%20Report%20%281%29.pdf
+Kumar S. (2021b). Assessment of Forest Fire in Rairangpur Forest Division, Odisha, India
+Phase I. Rairangpur Forest Division, Odisha, Ambika Prasad Research Foundation,
+Odisha, India. https://aprf.co.in/pdf/2022/Full%20Report.pdf
+Kumar SN, Kumar S and Biswal SK. (2023). Community, forest fire and conservation: keys
+of wildlife management. Indian Forester. 149(5) 487-496.
+Maurya L, Bagade SA and Bagade AA. (2022). Forest Fire: It's Effects and Management in
+Indian forests. Sustainable development for Society Industrial Development,
+Material, Energy and Environment: Key issues, opportunities and challenges.
+Jyotikiran Publication, Pune, India.
+
+71
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Mohanty A and Mithal V. (2022). Managing forest fire in a changing climate. Council on
+Energy, Environment and Water (CEEW). Sanskrit Bhawan, A-10, Qutab
+Institutional Area, New Delhi, India.
+Murthy MSR, Badarinath KVS, Gharai B, Rajshekhar G and Roy PS. (2006). The Indian
+Forest Fire Response and Assessment System (INFFRAS). International Forest Fire
+News (IFFN). 34: 72-77.
+NAPFF (National Action Plan on Forest Fire). (2013). Ministry of Environment, Forest and
+Climate Change, Government of India, India.
+NAPFF (National Action Plan on Forest Fire). (2018). Forest Protection Division Ministry
+of Environment, Forests and Climate Change, Government of India, India.
+Nithyavathy N, Kumar SA, Rahul D, Kumar BS, Shanthini ER and Naveen C. (2021).
+Detection of fire prone environment using Thermal Sensing Drone. IOP Conference
+Series: Materials Science and Engineering. 1055: 012006IOP. DOI: 10.1088/1757899X/1055/1/012006
+PCWFFMI (Proceedings of Consultative Workshop on Forest Fire Management in India)
+conducted by NDMA on 11th May 2022. National Disaster Management Authority
+(NDMA). Ministry of Home Affairs. Government of India, India.
+Reddy CS, Alekhya VVLP, Saranya KRL, Athira K, Jha CS, Diwakar PG and Dadhwal VK.
+(2017). Monitoring of fire incidences in vegetation types and protected areas of
+India: implications on carbon emissions. Journal of Earth System Science. 126:
+11. DOI: 10.1007/s12040-016-0791-x
+Roy PS, Dwivedi RS and Vijayan D. (2010). Remote Sensing Application. NRSC, ISRO,
+Hyderabad, India.
+Sagar N, Suresh KP, Naveesh YB, Archana CA, Hemadri D, Patil SS, Archana VP, Raaga R,
+Nandan AS and Chethan AJ. (2024). Forest fire dynamics in India (2005-2022):
+Unveiling climatic impacts, spatial patterns and interface with anthrax incidence.
+Ecological Indicators. 166 (2024): 112454. DOI: 10.1016/j.ecolind.2024.112454
+Satendra and Kaushik AD. (2014). Forest fire disaster management. National Institute of
+Disaster Management. Ministry of Home Affairs, Govt. of India, New Delhi, India.
+Sewak R, Vashisth M and Gupta L. (2021). Forest Fires in India: A Review. Journal of
+University of Shanghai for Science and Technology. 23(7): 247-259.
+SFFMI (Strengthening Forest Fire Management in India). (2018). Joint Report by the
+Ministry of Environment, Forest and Climate Change, Government of India, and
+the World Bank. 1-217.
+
+72
+
+
+
+=== 03_Forest_Fire_Himalayan_Regions ===
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+CHAPTER 10
+Forest Fire in Himalayan Regions: An analysis
+Bhagawati Prashad Sharma, Niraj Kumar, Sanjeet Kumar and Rajkumari Supriya
+Devi*
+Abstract: Forest fires in the Himalayan region have devastating consequences,
+impacting ecosystems, economy, and local communities. The region's diverse forests,
+including Chir Pine, Broad-leaved deciduous, and Himalayan moist temperate forests
+are prone to fires due to factors like dry pine needles, leaf litter, and human activity.
+Human-induced fires, whether intentional or accidental, are the primary cause of
+forest fires in the region. The consequences of these fires are severe, with significant
+damage to the environment, wildlife, and local communities. In Uttarakhand, forest
+fires affected large forest areas in May 2019. Forest fires also lead to significant
+carbon emissions, loss of biodiversity, soil erosion, and changes in ecosystem
+structure and function. Rising temperatures and global warming are expected to
+increase forest fires in the region. Present study aims to provide a comprehensive
+review of forest fires in the Himalayan ranges, examining their characteristics,
+underlying causes, impacts on vegetation, and the role of community involvement in
+prevention and management efforts. Effective forest fire management strategies are
+essential to mitigate these impacts and protect the region's rich biodiversity and
+ecosystem services.
+
+Sharma BP, Department of Botany, Sidharth
+Government College Nadaun, Himachal
+Pradesh, India
+Kumar N, Department of Zoology, Laxmi
+Narain Dubey College, Motihari, East
+Champaran, B. R. Ambedkar Bihar
+University, Muzaffarpur, Bihar, India
+Kumar S, Biodiversity and Conservation
+Lab., Ambika Prasad Research Foundation,
+Odisha, India
+Devi RS , Biodiversity and Conservation
+Lab., Ambika Prasad Research Foundation,
+Odisha, India
+Email: supriyark91@gmail.com
+
+Keywords: Himalayan vegetation, fire, causes, impact
+
+81
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+INTRODUCTION
+The Himalayan Mountain range stretches across the northern edge of the Indian
+subcontinent, featuring a complex series of mountain ranges that ascend from the
+southern Indo-Gangetic plains to the northern Tibetan plateau. This vast region
+encompasses various ecosystems, landscapes, and landforms, largely due to
+significant variations in precipitation patterns (Owen, 2014). The Western Himalayas
+are characterized by diverse forest types, including alpine, semi-evergreen,
+deciduous, and sub-tropical forests. These forests are found in states such as Jammu
+and Kashmir, Himachal Pradesh, Uttarakhand, and parts of Punjab and Haryana,
+where coniferous Chir pine forests dominate (Bhatt et al., 2022). Forest fires are a
+pressing concern in this region, particularly in areas with dry Chir pine needles and
+leaf litter. The frequency and intensity of fires depend on factors like forest type, fuel
+load, and microclimatic conditions. Deciduous forests are especially vulnerable to
+fires, accounting for approximately 40% of India's forest fires. The Southern and
+Western parts of the Himalayan region are more prone to forest fires due to the
+presence of dry and mixed forest types (Bhatt et al., 2022). In 2016, forest fires
+affected over 4,500 hectares in Himachal Pradesh and 3,185 hectares in Uttarakhand,
+resulting in significant ecological, economic, and social impacts (Dobriyal and
+Bijalwan, 2017). Forest fires are often intentional, set for purposes like resource
+collection or grass growth. The Chir pine's dominance and the ban on green felling
+above 1,000 meters elevation have contributed to the spread of forest fires. The
+needles of Chir pine are used for various purposes, but their limited utilization has
+led to a buildup of highly flammable material. The migration of villagers from the
+hilly state has reduced local utilization of pine needles, exacerbating the issue. The
+inaccessibility of forest areas and low rainfall with dry spells in winter further
+complicate efforts to combat forest fires (Dobriyal and Bijalwan, 2017).
+Causes of Forest Fires in Himalayan Region
+Forest fires can be categorized into three main types: natural, man-made, and
+accidental. The Chir Pine tree, with its resin-rich needle leaves and twigs, is highly
+susceptible to forest fires. In Uttarakhand, the annual shedding of pine needles creates
+a significant fire hazard, particularly during the summer months when temperatures
+rise (Negi, 2019). Human activity is the primary cause of forest fires in the region,
+with intentional and accidental ignitions being the main contributors. Intentional fires
+are often set to clear land, promote new growth, or extract resources, while accidental
+fires can start from escaped agricultural burns, discarded cigarettes, or other human
+activities (Bargali et al., 2022). Natural fires, on the other hand, are rare and typically
+caused by lightening or other environmental factors (Bhattarai et al., 2022). However,
+the combination of drought, climate change, and human activity has created a perfect
+
+82
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+storm for forest fires in Uttarakhand. The main causes of forest fires in Uttarakhand
+are diverse and multifaceted. Human activities such as jhumming/shifting cultivation,
+burning agricultural biomass waste, and throwing cigarette butts and biddies without
+properly extinguishing them are major contributors (Arya et al., 2022). Accidental
+fires caused by campfires, sparks from vehicles, and electricity also play a significant
+role. Additionally, intentional fires set to drive away wild animals, collect non-timber
+forest products, or conceal illicit felling are other major causes of forest fires in the
+region (Bhatt et al., 2022). The region's dominance of fire-prone tree species like Chir
+Pine also contributes to the frequent occurrence of forest fires. States like
+Uttarakhand, Himachal Pradesh, and Sikkim are among the most affected by forest
+fires in India (Joshi and Sharma, 2015). The consequences of these fires can be
+devastating, with significant damage to the environment, wildlife, and local
+communities. Some notable incidents of forest fires in the region highlight the
+severity of the issue. In 1995, around 3.75 lakh hectares of forest were destroyed in
+the Ganga-Yamuna junction region of Uttarakhand. Similarly, in 1999, around 80,000
+hectares of forest were affected in Uttarakhand. Again, in 2010, around 19,000
+hectares of forests were affected by fire in Himachal Pradesh (Murmu et al., 2022).
+Impact of Forest fires on the Himalayan region
+Forest fires in the Himalayan region have severe and far-reaching consequences,
+affecting the ecosystem, economy, and livelihoods of local communities, as well as
+posing significant threats to biodiversity, natural resources, and regional stabilityF.
+The region's rich biodiversity is under threat from frequent fires, which fragment
+ecosystems, alter their structure and function, and decimate plant and animal life
+(Mina et al., 2023). The density and diversity of forest ecosystems are severely
+impacted, particularly in the mountainous regions where fires are less frequent. In
+Nepal, forest fire events have increased in recent years, primarily during the dry
+season from November to June, altering plant composition, diversity, and
+regeneration, and resulting in reduced floral productivity, altered regeneration rates,
+and loss of endemic and endangered species. Bare soil becomes vulnerable to erosion
+after fires, especially in areas with no surface cover. The effect of forest fires varies
+across Nepal's ecological zones, including the Terai, Mid-hill, and Mountain regions.
+In Nepal, forest fires have caused significant damage, with approximately 172,040.65
+hectares of forest land affected between 2001 and 2020, resulting in a biomass loss
+of around 7.07 million tons (Bhujel et al., 2022; Joshi et al., 2024). The Tarai and
+Siwalik regions experienced the largest scale forest damage, followed by the Midhills, High Mountain, and Himalaya regions.
+
+83
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Figure 1: Forest vegetation of the Himalayan region (Himachal Pradesh)
+
+Studies have reported substantial biomass and carbon loss due to forest fires, with
+leaf-litter, herbs, and grasses severely damaged, accounting for over 90% biomass
+loss (Sapkota et al., 2025). Forest fires have also led to significant carbon emissions,
+with around 3.30 million tons of carbon emitted annually, equivalent to 12.12 million
+tons of CO2, 7.69 million tons of CO, and 4.39 million tons of methane gas. The
+
+84
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+economic impact of forest fires is also substantial, with a reported huge monetary loss
+in 2020-2021, and loss of over thousands of houses and cattle sheds due to fires in
+proximity to forests. Tragically, 71 human lives have been lost due to forest fires
+between 2007 and 2020 (Bhujel et al., 2022).
+
+(Photo Credit: Sangeeta Chandel IFS, Forest Department, Himachal Pradesh)
+
+Figure 2: Forest fire in Chir pine forest in district Solan, Himachal Pradesh
+
+Figure 3: Forest fire in Chir pine dominated mixed forest in Hamirpur, Himachal Pradesh
+
+In the Himalaya region of Uttarakhand, anthropogenic activities, such as accidental
+and intentional fires, contribute to forest fires, which are expected to increase due to
+rising temperatures and global warming (Bargali et al., 2022). Chir pine (Pinus
+roxburghii) forests dominate approximately 16.36% of the forest area in the region
+and are highly prone to fires, with the accumulation of Chir pine needles on the forest
+floor leading to large-scale destruction of forests in hilly areas (Dobriyal and Bijalwan
+2017; Bhatt et al., 2022). Furthermore, forest fires release large volumes of smoke,
+
+85
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+aerosols, and trace gases that affect atmospheric chemistry, air quality, and human
+health, with the impact on human health being significant, and increased risk of
+respiratory problems and other health issues (Murmu et al., 2022). Additionally,
+frequent fires and uncontrolled grazing have depleted biodiversity in areas like TehriGarhwal Himalayas, exacerbating the ecological impacts of forest fires.
+Impact of Forest fires on the Vegetation
+The forest vegetation in the Himalayan region varies across different states, including
+Jammu & Kashmir, Himachal Pradesh, and Uttarakhand. In Jammu & Kashmir, the
+forests consist of Chir Pine, broad-leaved deciduous, broad-leaved evergreen, and
+scrub forest, interspaced with grassland patches, and feature species like Quercus
+leucotrichophora, Pinus roxburghii, and Cedrus deodara (Bhatt et al., 2022; Malik
+et al., 2025). In Himachal Pradesh and Uttarakhand, the forests include Tropical
+Thorn, Tropical semi-evergreen, and Himalayan moist temperate forests, with species
+like Pinus spp., Deodar, Kail, Fir, and Spruce. Pinus spp. (Figure 1) is highly
+inflammable due to its high resin content, making it prone to forest fires (Figures 23). Deciduous forests are also highly susceptible to fires, accounting for around 40%
+of all forest fires in India. Forest fires have a significant impact on these regions
+(Kumari et al., 2025). In Uttarakhand, forest fires affected an average of 644 hectares
+each, resulting in a total loss of 10.53 crore Indian rupees in May 2019. The increasing
+frequency of forest fires in the region may hinder the achievement of India's
+Nationally Determined Contribution (NDC) plan goals (Mina et al., 2023). The fires
+have also led to loss of biodiversity, soil erosion, and changes in ecosystem structure
+and function. In the Sikkim Himalayas, the alpine vegetation in the region comprises
+of various scrub and meadow types, including Juniperus indica scrub, Rhododendron
+scrub, Kobresia duthiei moist meadows, Kobresia nepalensis moist meadows,
+Kobresia pygmaea dry meadows, and Anaphalis xylorhiza mixed meadows,
+showcasing the region's diverse and adapted flora. However, the region's unique and
+fragile ecosystems are vulnerable to forest fires, which can have long-term
+consequences for the environment and local communities. Overall, the Himalayan
+region's diverse forest ecosystems are vulnerable to forest fires, which can have
+significant ecological, economic, and social impacts (Tambe and Rawat, 2010).
+CONCLUSION
+The Himalayan region is highly susceptible to forest fires, which have severe
+ecological, economic, and social impacts. Human activities, such as intentional and
+accidental fires, are the primary cause of forest fires in the region, with factors like
+climate change, drought, and the dominance of fire-prone tree species like Chir Pine
+exacerbating the issue. Forest fires in the region have resulted in significant damage
+to the environment, wildlife, and local communities, with notable incidents
+
+86
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+highlighting the severity of the issue. Rising temperatures and global warming are
+expected to increase forest fires in the region, posing a significant threat to the
+region's rich biodiversity and ecosystem services. Effective forest fire management
+strategies, including prevention, detection, and mitigation measures are essential to
+protect the Himalayan region's unique and fragile ecosystems. Immediate attention
+and action are required to address this pressing issue and ensure the long-term
+sustainability of the region's ecosystems.
+REFERENCES
+Arya C, Singh M, Parihar DS and Deepak. (2022). Forest fire disaster events in Himalayan
+state Uttarakhand: An analytical study. International Journal of Applied Research.
+8(3): 295-300.
+Bargali H, Calderon LPP, Sundriyal RC, Bhatt D. (2022). Impact of forest fire frequency on
+floristic diversity in the forests of Uttarakhand, Western Himalaya. Trees, Forests
+and People. 9: 100300. DOI: 10.1016/j.tfp.2022.100300
+Bhatt A, Rana D and Khan ML. (2022). Forest Fires in the Western Himalayan Region of
+India: A Review. International Journal of Ecology and Environmental Sciences. 48:
+137-142.
+Bhattarai N, Dahal S, Thapa S, Pradhananga S, Karky BS, Rawat RS, Windhorst K, Watanabe
+T, Thapa RB and Avtar R. (2022). Forest Fire in the Hindu Kush Himalayas: A
+Major Challenge for Climate Action. Journal of Forest and Livelihood. 21 (1): 1431.
+Bhujel KB, Sapkota RP and Khadka UR. (2022). Temporal and Spatial Distribution of Forest
+Fires and their Environmental and Socio-economic Implications in Nepal. Journal
+of Forest and Livelihood. 21(1): 1-13.
+Dobriyal MJR and Bijalwan A. (2017). Forest fire in western Himalayas of India: A Review.
+New York Science Journal. 10(6): 39-46.
+Joshi KK and Sharma V. (2015). Genesis of people’s perception of forest fires in Western
+Himalayan region of Uttarakhand, India: Causes and remedies. Environmental
+Science. 10(11): 405-413.
+Joshi KP, Adhikari G, Bhattarai D, Adhikari A and Lamichanne S. (2024). Forest fire
+vulnerability in Nepal’s Chure region: Investigating the influencing factors using
+generalized
+linear
+model.
+Heliyon.
+10
+(7):
+e28525.
+DOI:
+10.1016/j.heliyon.2024.e28525
+Kumari S, Mamgain S, Roy A and Prince HC. (2025). Characterising spatial clusters of forest
+fire activity in the Western Himalayan region of India: implications for
+conservation and management. International Journal of Wildland Fire.
+34(WF23163). DOI: 10.1071/WF23163
+
+87
+
+Forest Fire Causes I Consequences I Management solutions; 2025
+
+Malik FA, Mushtaq F, Farooq M, Guite LTS, Kanga S, Meraj G, Singh SK and Kumar P.
+(2025). Assessing forest fire vulnerability with fuzzy‑AHP: insights from Poonch
+forest division, Jammu and Kashmir. Discover Forests. 1(4). DOI: 10.1007/s44415025-00004-5
+Mina U, Dimri AP and Farswan S. (2023). Forest fires and climate attributes interact in central
+Himalayas: an overview and assessment. Fire Ecology. 19(14): 1-18.
+Murmu M. Roy A, Karnatak HC and Chauhan P. (2022) Impact of forest fire emissions on air
+quality over Western Himalaya Region. International Archives of the
+Photogrammetry, Remote Sensing and Spatial Information Sciences. XLIII-B32022, XXIV ISPRS Congress (2022 edition) Nice, France.
+Negi GCS. (2019). Forest Fire in Uttarakhand: Causes, Consequences and Remedial
+Measures. International Journal of Ecology and Environmental Sciences. 45 (1):
+31-37.
+Owen LA. (2014). Himalayan Landscapes of India. In: Kale V (ed). Landscapes and
+Landforms of India. World Geomorphological Landscapes. Springer, Dordrecht.
+DOI: 10.1007/978-94-017-8029-2_4
+Sapkota RP, Dhital NB, Shrestha AK, Khadka UR, Pokhrel CP, Joshi GR and Rijal K. (2025).
+Forest fire impacts plant community assemblage in different ecological zones of
+central Himalaya, Nepal. Global Ecology and Conservation. 58: e03443. DOI:
+10.1016/j.gecco.2025.e03443
+Tambe S and Rawat GS. (2010). The Alpine Vegetation of the Khangchendzonga Landscape,
+Sikkim Himalaya: Community Characteristics, Diversity, and Aspects of Ecology.
+Mountain Research and Development. 30(3): 266-274.
+
+88
+
+
+
+=== 09_Wildfire_Burn_Severity_Uttarakhand ===
+International Journal of Advance and Applied Research
+www.ijaar.co.in
+
+ISSN – 2347-7075
+
+Impact Factor – 8.141
+
+Vol. 7 No. 2
+
+January – February - 2026
+
+Peer Reviewed
+
+Bi-Monthly
+
+Wildfire Burn Severity Assessment In Uttarakhand During 2024
+Ms. P Sreelakshmi1 & Dr. Sawant Sushant Anil2
+1
+Student, Division of Geoinformatics, School of Life Sciences, Mysuru, JSS Academy of Higher Education &
+Research, 570015.
+2
+Associate Professor, Division of Geoinformatics, School of Life Sciences, Mysuru, JSS Academy of Higher
+Education & Research, 570015.
+Corresponding Author – Ms. P Sreelakshmi
+
+DOI - 10.5281/zenodo.18709381
+
+Abstract:
+During the 2024 fire season, the Himalayan state of Uttarakhand experienced widespread wildfire
+activity, particularly across the districts of Nainital, Champawat, and Udham Singh Nagar. These events
+caused substantial ecological disturbance within a region characterized by fragile mountain ecosystems
+and fire-prone forest types. This study presents a satellite-based assessment of wildfire burn severity using
+multi-temporal Landsat-8/9 and Sentinel-2 surface reflectance imagery. Burn severity was evaluated using
+the Normalized Burn Ratio (NBR) and its differenced form (dNBR), derived from pre-fire and post-fire
+observations. Changes in Near-Infrared (NIR) and Shortwave Infrared (SWIR) reflectance were analysed to
+identify relative variations in fire impact across the landscape. The resulting burn-severity map delineates
+zones of high, moderate, and low fire impact, providing spatially explicit information for post-fire
+restoration planning, erosion control, and long-term wildfire risk management in the Himalayan region.
+Keywords: Burn Severity; dNBR; Forest Fire; Remote Sensing; Landsat-8/9; Sentinel-2; Uttarakhand.
+Introduction:
+Wildfires are a recurring environmental
+hazard in the Himalayan state of Uttarakhand,
+where complex terrain, seasonally dry climatic
+conditions, and the accumulation of combustible
+forest litter create a highly fire-prone landscape.
+During the 2024 fire season, extensive wildfire
+activity was reported across several districts, with
+
+impacts of these fires extend beyond immediate
+vegetation loss, contributing to biodiversity
+decline, soil erosion, atmospheric pollution, and
+long-term degradation of ecosystem services.
+Given that a substantial proportion of India’s
+forest cover is considered fire-prone, there is a
+critical need for spatially explicit and data-driven
+assessments of wildfire impacts to support
+
+notable impacts in Nainital, Champawat, and
+Udham Singh Nagar. Prolonged dry spells and
+elevated pre-monsoon temperatures have been
+widely reported as contributing factors to
+increased fuel dryness in the region.
+Previous studies have highlighted that
+wildfire occurrence in Uttarakhand is influenced
+by the combined effects of climatic stressors and
+anthropogenic pressures, including land-use
+practices and forest-floor fuel accumulation. The
+
+informed forest-management and mitigation
+strategies.
+Remote sensing provides an effective and
+repeatable means of monitoring wildfire effects
+over large and topographically complex regions.
+Spectral indices such as the Normalized Burn
+Ratio (NBR) and differenced NBR (dNBR) are
+widely used to assess burn severity by capturing
+fire-induced changes in vegetation and surface
+reflectance. This study applies these established
+
+769
+
+IJAAR
+
+Vol. 7 No. 2
+
+ISSN – 2347-7075
+
+techniques to assess the spatial distribution of
+burn severity associated with the 2024
+Uttarakhand wildfires, with the aim of supporting
+
+gradients, combined with diverse climatic
+regimes, support a wide range of forest types,
+including pine-dominated forests, oak forests, and
+
+post-fire management and ecological restoration
+efforts.
+
+mixed broadleaf vegetation.
+Forests in Uttarakhand are particularly
+vulnerable to wildfire during the dry pre-monsoon
+months, when reduced soil moisture and
+accumulated forest litter increase fuel availability.
+Pine
+forests,
+which
+occupy
+extensive
+mid-elevation zones, are especially susceptible
+due to the presence of resin-rich needles that
+promote fire spread. These characteristics make
+Uttarakhand an appropriate region for evaluating
+wildfire burn severity using satellite-based
+approaches.
+
+Materials And Methods:
+1. Study Area:
+Uttarakhand is located in northern India
+within the Himalayan region, extending
+approximately between 28°43′–31°27′ N latitude
+and 77°34′–81°02′ E longitude. The state exhibits
+pronounced topographic variability, ranging from
+low-lying plains in the south to high-elevation
+mountainous terrain in the north. Elevation
+Methodology:
+1. Methodology Chart:
+
+Figure 1:Methodology chart
+
+770
+
+IJAAR
+2. Data Acquisition:
+Multi-spectral satellite
+
+Vol. 7 No. 2
+
+imagery from
+
+Landsat-8/9 Operational Land Imager (OLI) and
+Sentinel-2 Multispectral Instrument (MSI) was
+used in this study. Landsat Collection-2 Level-2
+surface reflectance data with a spatial resolution
+of 30 m were obtained from the USGS Earth
+Explorer platform. Sentinel-2 Level-2A imagery,
+providing surface reflectance data at 10–20 m
+spatial resolution, was accessed through the
+Copernicus Open Access Hub.
+Pre-fire imagery representing baseline
+vegetation conditions was selected from March–
+April 2024, while post-fire imagery was acquired
+from early June 2024, corresponding to the period
+immediately following the major wildfire events.
+3. Pre-Processing:
+Only surface reflectance products were
+used to ensure radiometric consistency and to
+minimize the influence of atmospheric effects.
+Landsat Collection-2 Level-2 data and Sentinel-2
+Level-2A products (atmospherically corrected
+using the Sen2Cor algorithm) were employed.
+Cloud-affected pixels were excluded using quality
+assessment masks prior to index calculation.
+4. Normalized Burn Ratio (NBR):
+The assessment relies on the Normalized
+Burn Ratio (NBR), a spectral index specifically
+designed to highlight burned areas while reducing
+the influence of atmospheric and illumination
+effects. The NBR exploits the contrasting spectral
+behavior of vegetation in the Near-Infrared (NIR)
+and Shortwave Infrared (SWIR) regions. Healthy
+vegetation exhibits high reflectance in the NIR
+region, whereas burned surfaces and bare soil
+show increased reflectance in the SWIR region
+due to moisture loss and structural damage.
+For Landsat-8 and Landsat-9 Operational Land
+Imager (OLI) data, NBR was computed using
+Band 5 (Near-Infrared) and Band 7 (Shortwave
+Infrared). For Sentinel-2 Multispectral Instrument
+
+ISSN – 2347-7075
+
+(MSI) imagery, Band 8 (Near-Infrared) and Band
+12 (Shortwave Infrared) were employed. These
+band combinations are widely adopted in burnseverity assessments due to their sensitivity to
+fire-induced changes in vegetation structure and
+surface moisture.
+The mathematical expression for NBR is defined
+as
+𝑁𝐼𝑅 − 𝑆𝑊𝐼𝑅
+𝑁𝐵𝑅 =
+𝑁𝐼𝑅 + 𝑆𝑊𝐼𝑅
+5. Differenced Normalized Burn Ratio
+(dNBR):
+To quantify the change caused by the
+2024 fire event, a differenced NBR (dNBR)
+approach was employed. This process involves
+the following sequential steps:
+1. Baseline Selection: Collection and
+processing of pre-fire satellite data to
+establish a healthy vegetation baseline.
+2. Post-Event Analysis: Acquisition of postfire data, specifically targeting the period
+following the June 1, 2024, incidents.
+3. Differencing: The post-fire NBR is
+subtracted from the pre-fire NBR to
+generate the dNBR layer, expressed as:
+𝑑𝑁𝐵𝑅 = 𝑁𝐵𝑅𝑝𝑟𝑒𝑓𝑖𝑟𝑒 − 𝑁𝐵𝑅𝑝𝑜𝑠𝑡 𝑓𝑖𝑟𝑒
+The resulting dNBR values are then
+categorized into severity classes—high, moderate,
+and low—based on the magnitude of the spectral
+shift, allowing for a precise spatial visualization
+of the fire's intensity across the landscape.
+6. Burn Severity Interpretation:
+In this study, burn-severity classes were
+interpreted qualitatively based on the relative
+magnitude and spatial contrast of dNBR values
+across the study area. Areas exhibiting
+comparatively higher dNBR values were
+interpreted as high burn severity, while
+intermediate and lower values represented
+moderate and low burn severity, respectively.
+
+771
+
+IJAAR
+
+Vol. 7 No. 2
+
+This relative approach allows for spatial
+comparison of fire impact without relying on
+fixed numerical thresholds.
+Results And Discussion:
+The results of the burn severity analysis
+provide a comprehensive spatial assessment of
+the ecological impact following the forest fires in
+Uttarakhand as of June 1, 2024. The analysis
+reveals an uneven distribution of fire intensity
+across the landscape, shaped by a complex
+interplay of vegetation type, fuel load, and
+meteorological conditions. High burn severity
+zones are primarily concentrated within forested
+regions characterized by dense fuel loads,
+particularly in mid-elevation pine-dominated
+landscapes. Moderate burn severity areas are
+
+ISSN – 2347-7075
+
+generally distributed around these core zones,
+indicating partial vegetation damage with
+potential for natural regeneration. Low burn
+severity and minimally affected areas are mainly
+associated with regions of sparse vegetation and
+reduced fuel continuity.
+The observed spatial patterns are
+consistent with findings from previous wildfire
+studies in Himalayan environments, where
+vegetation type, fuel accumulation, and seasonal
+climatic conditions strongly influence fire
+behaviour. The burn-severity maps generated in
+this study provide essential spatial information for
+prioritizing post-fire interventions, including
+reforestation, erosion-control measures, and
+long-term ecological monitoring.
+
+Figure 2:Forest fire map of Uttarakhand 2024
+Conclusions And Recommendations:
+This study demonstrates the effectiveness
+of multi-temporal Landsat-8/9 and Sentinel-2
+
+imagery combined with NBR and dNBR indices
+for assessing wildfire burn severity in the
+complex Himalayan terrain of Uttarakhand. The
+
+772
+
+IJAAR
+
+Vol. 7 No. 2
+
+ISSN – 2347-7075
+
+results highlight significant spatial variability in
+burn severity associated with the 2024 wildfire
+events, underscoring the vulnerability of
+
+2. Joy, M. S., Jha, P., Yadav, P. K., Begam, S.,
+& Bansal, T. (2025). Assessing fire-induced
+forest loss and ecolapse in West Singhbhum
+
+fire-prone forest types within the region.
+The findings support the use of
+satellite-derived burn-severity products as a
+decision-support tool for post-fire management
+and ecological restoration planning. Future
+research
+should
+incorporate
+field-based
+validation, multi-year fire records, and ancillary
+environmental datasets to enhance understanding
+of wildfire drivers and to strengthen early
+warning and mitigation strategies in Himalayan
+Forest ecosystems.
+
+of Jharkhand, India. Journal of Sustainable
+Forestry.
+https://doi.org/10.1080/10549811.2025.258
+3938
+3. Sewak, R., Vashisth, M., & Gupta, L.
+(2021). Forest fires in India: A review.
+Journal of Forestry Research, 23(7).
+4. Chandra, K. K., & Bhardwaj, A. K. (2015).
+Incidence of forest fire in India and its
+effect on terrestrial ecosystem dynamics,
+nutrient and microbial status of soil.
+International Journal of Agriculture and
+Forestry,
+5(2),
+69–78.
+https://doi.org/10.5923/j.ijaf.20150502.01
+
+References:
+1. Key, C. H., & Benson, N. C. (2006).
+Landscape Assessment (LA) Sampling and
+Analysis Methods. USDA Forest Service.
+
+773
+
+
+
+=== 11_Cloud_Based_Fire_Alert_IoT ===
+International Journal of Trend in Scientific Research and Development (IJTSRD)
+Volume 4 Issue 2, February 2020 Available Online: www.ijtsrd.com e-ISSN: 2456 – 6470
+
+Cloud Based Forest Fire Alert System using IoT
+Ajith. S1, Chandru. S1, Boopalan. E1, Periyathambi. P2
+1Student, 2Associate Professor
+1,2Department of Electronics and Communication Engineering,
+
+Paavai Engineering College, Namakkal, Tamil Nadu, India
+ABSTRACT
+The most common hazard in forest fire Accident are themselves destroy the
+forest and great threat for wildlife and peoples. The number of trees has
+reduced drastically so the forest are creates an unhealthy environment for
+animals to survive in the forest. Forest covers 31% of the world and 21% of
+the India. It has found in a survey that 80% of losses are caused due to fire.
+This project of a system fire was detected early stages. It was tracking and
+alarming for protection of trees against forest fire. Now IOT (Internet of
+things) devices and cloud based to forest fire alerting system. If cloud can used
+to storing the information of data to monitoring the different environmental
+variables such as temperature, smoke, moisture of the forest. So finally to
+prevent the fire to spread over a huge area and precaution the forest.
+Keywords: Arduino UNO atmega328p, temperature sensor, smoke sensor, LCD
+Display, mobile Wireless communication.
+
+I.
+INRODUCTION
+Forest fire detection become one such issue. Due to forest fire
+has caused serious environmental Problems and devastation
+of flora fauna. The current turbulent global economic,
+demographic, social and ecologic context, government, local
+administrative authorities and commercial companies or
+individuals have the importance resources contained in
+forest environment. Forest ecosystems are dynamic and
+complicated. Disturbance to any part of network affect the
+balance of relationship and equally complete scheme either
+absolutely or negativity.so global climate change, drought and
+different conditions have caused occurrence of wildfire to
+extend, once wildfire occur it takes years to naturally recover.
+Forest fire is an uncontrolled fire occurring in nature and
+man-made. Once fire starts ignited it rapidly spreads all over
+area in the forest. The land were forest is burnt it became
+impossible to grow vegetation over there. This is because soil
+becomes water repelled and accepts no more water. Leading
+to reduction of ground water level. Fire causes huge loss of
+lives and properties every year. The national crime records
+Bureau indicates that there have been of 113972 fatalities due
+to fire accidents of the year 2010 to 2014.one of the most
+destructive properties of fire is that it spreads exponentially
+and with the right medium can spread uncontrollably. This is
+why timely detection of fire of fire is necessary for avoiding a
+fire hazard. The internet of things is a collection of sensor,
+actuators, software, embedded with electronics, connect each
+other with cloud. It is an also economic benefits. IOT make
+everyday life easier for humans by developing smart devices.
+
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+How to cite this paper: Ajith. S | Chandru.
+S | Boopalan. E | Periyathambi. P "Cloud
+Based Forest Fire Alert System using IoT"
+Published
+in
+International Journal
+of Trend in Scientific
+Research
+and
+Development
+(ijtsrd), ISSN: 24566470, Volume-4 |
+IJTSRD30070
+Issue-2,
+February
+2020,
+pp.650-652,
+URL:
+www.ijtsrd.com/papers/ijtsrd30070.pdf
+Copyright © 2019 by author(s) and
+International Journal of Trend in Scientific
+Research and Development Journal. This
+is an Open Access article distributed
+under the terms of
+the
+Creative
+Commons Attribution
+License
+(CC
+BY
+4.0)
+(http://creativecommons.org/licenses/by
+/4.0)
+
+If increased IOT devices 31% at 8.4 billion in the year 2017.
+IOT involves connecting objects beyond the range of standard
+device which are used for every day purpose. The Arduino
+UNO at mega 328p for open platform for IOT to program
+easily and IOT devices also used to interface the embedded
+system and application of users. Temperature sensor used to
+measure the temperature level, smoke sensor is used find
+smoke type of quantities. If cloud to communication the
+devices.
+II.
+PROPOSED SYSTEM
+The proposed system is cloud based forest fire alert system
+using IOT technology. In the advancing world, it is very
+crucial to protect our environment. The fire cause serious
+change and disturbance to wildlife and human life. In wild
+animals are most affected and die also known for forest fire.
+If forest trees also burned to affect atmosphere,
+environment. This fire made naturally and man-made. So
+this project need to prevent and pre-cautions from forest fire.
+In order to achieve the best fire detection result with faster
+time to detect the temperature variation. When temperature
+sensor used to measure the temperature variation. Smoke
+sensor is a device that dense smoke, typically as an indicator
+of fire. Arduino at mega 328p used to control and monitor
+the activities. Cloud is a storage purpose to use him. Because
+each and every second to monitoring the environment
+condition data can be stored. IOT Device to interface with
+Arduino and cloud.so finally fix the monitoring system done
+
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 650
+
+International Journal of Trend in Scientific Research and Development (IJTSRD) @ www.ijtsrd.com eISSN: 2456-6470
+in nearby forest office station. The detail about the system is
+connected with a computer system monitored by the officer.
+
+C. BLUETOOTH
+The Bluetooth HC-05 is a very cool module which add two
+way wirelessly functionally the project. It connect a small
+devices like TV, mobile phones. It is easy to use serial port
+protocol. Operating frequency band is 2.4 GHZ. Flash
+memory size is 8-bit. And operating voltage is 3.3v.
+
+Fig 4. Bluetooth
+
+Fig 1. Block Diagram
+III.
+HARDWARE IMPLEMENTATION
+A. TEMPRATURE SENSOR
+Temperature sensor normally used to measure variation of
+the temperature in particular area in range. In LM35 is basic
+temperature sensor that can be used for experimental
+purpose.
+
+D. ARDUINO ATMEGA 328P
+Arduino at mega 328p is an open source electronics
+platform. The main advantage is easy to use hardware and
+software. It has 14 digital input/output. At mega 328p is an
+8-bit micro controller based on AVR RISC. So preparing this
+microcontroller for flashing the Arduino bootloader.
+Operating voltage is 5v and the clock speed is 16MHZ.
+
+Fig 5. Arduino At mega 328p
+E. LCD DISPLAY
+An LCD is an electronic display. Which uses liquid crystalline
+display produces a visible image. The 16*2 LCD Display is
+very basic module commonly used for DIYs and circuit.
+Which translates the 16 character per 2 such a line. In
+advantage is sharpness, brightness, high peak intensity
+produces. Operating voltage is 4.7v to 5.3v.
+
+Fig 2. Temperature sensor
+In this sensor output voltage value directly linear
+propositional to the Degree Celsius (centigrade). The
+advantage of this sensor more memory processing and
+communication capabilities. Power supply is -2 to 35v and
+temperature Range -550 to 1500c.
+B. SMOKE SENSOR
+Smoke sensor mq-2 is used to detect smoke and flammable
+combustible gasses in atmosphere. Good sensitivity to
+alcohol in wide range, long life line, low cost. Output is a
+reading in analog voltage. The sensor measure of flammable
+gas range is 200 to 1000 ppm. Operating voltage 5v.
+
+Fig 6. LCD Display
+F. CLOUD
+Cloud is a very important big level storage place and
+interconnect the computer, mobile phones with internet.
+Cloud is mainly used to storage the data and information will
+be shared.
+
+Fig 3. Smoke sensor
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+Fig 7. Cloud computing
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 651
+
+International Journal of Trend in Scientific Research and Development (IJTSRD) @ www.ijtsrd.com eISSN: 2456-6470
+If embedded system sends the monitoring data to server
+access and maintained. In public cloud use the project to
+server to provide the information via internet.
+IV.
+CONCLUTION
+Forest is a very important and grow in many places in around
+world. In a forest is piece of land with many trees. Many
+animals to live and survive the forest. Forest also used to
+prevent soil erosion, climate changes. This paper, a cloud
+based forest fire alert system using IOT technology.
+Temperature is increased or smoke typically fire indicate to
+LCD display. The real time sense a data will send and stored
+cloud. Finally information of the different parameter to be
+monitor forest officer and nearby forest survival peoples.
+REFERENCES
+[1] Angelline.R, Adithya.S, Abishek narayanan, “Fire Alarm
+System Using IOT”, international journal of innovative
+Technology and exploring engineering (IJITEE) volume8, issue-653, April 2019.
+[2] Dr.S.praveenchakravarthy, J.Nancy, V.S.Naveen Kumar,
+“Forest Fire Detection System”, international journal of
+Recent trends in engineering & research (IJRTER)
+conference on electronics, information and
+communication System (CELCIS’17) special issue,
+March-2107.
+[3] Harjinder Singh,” Forest Fire Detection Using Wireless
+Sensor”, international journal of scientific & engineering
+Research, volume 7, issue 7, July-2016.
+[4] Kiran kumar.D, Kishore.T, Suresh kumar.V, “Fire
+Monitoring System for Fire Detection Using ZigBee and
+Gprs System”, IOSR journal of electronics and
+communication engineering (IOSR-JECE) volume 12,
+issue 1, ver.III (Jan-feb.2017).
+
+@ IJTSRD
+
+|
+
+Unique Paper ID – IJTSRD30070 |
+
+[5] Michel owayjan, George freiha, roger achkar, “Forest
+Fire Detection and Alerting System” 17th IEEE
+Mediterranean Electro technical conference, Beirut,
+Lebanon 13-16 April 2014.
+[6] MR. Lalti patil, Miss. Divya chopra, Miss. Prachi jadhav,
+“Forest- Fire Surveillance System Based on Wireless
+Sensor Network”, international. Journal of engineering
+research and applications ISSN: 2248-9622, vol. 6, issue
+4, (part-2) April 2016.
+[7] Pallavi.C, jamdhade, Ashwini.D. Kawate, shitals
+.lachake,” Forest fire detection using optimized solar
+powered Wireless sensor networks”, international
+journal of advance search in science and engineering,
+volume No.07, Issue NO.02, and February 2017.
+[8] Sathish kumar.R, vinoth kumar.M, devaraj varatharaj,
+“Design and Development of Automatic Fire Detection
+Using Sms and Voice Alert System”, international
+journal of scientific & engineering Research, volume 7,
+issue 5, May-2016.
+[9] Sai kumar. P, Sriramya,” IOT Enabled Forest Fire
+Detection and Alerting the Authorities “, international
+journal Of Recent technology and engineering (IJRTE)
+Volume-7, issue-654, April -2019.
+[10] Varun kumar. S, P.V yokesh raj, V. Vignesh,
+”Implementation Of Wireless Sensor Network And
+IOT For Real Time Forest Fire Warning System”,
+international journal of engineering and technologyVolume 4 issue 1, Jan- Feb 2018.
+
+Volume – 4 | Issue – 2
+
+|
+
+January-February 2020
+
+Page 652
+
+
+
+=== 16_Madhuca_Longifolia_Fire_Cause ===
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Madhuca longifolia: only cause of forest fire ?
+Vandana Sharma 1, Sanath Kumar N 2, 3, Rakhee Dimri4, Sanjeet Kumar5 and Ram Babu6
+1
+
+Department of Biological Science and Life Sciences, IES University, Bhopal, Madhya Pradesh, India
+2
+Office of the Divisional Forest Officer, Bonaigarh, Sundargarh, Odisha, India
+3
+School of Applied Sciences, Centurion University of Technology & Management, Khurda, Odisha, India
+4
+Department of Botany, VSKC Government PG College, Dakpathar, Dehradun, Uttrakahand, India
+5
+Biodiversity and Conservation Lab, Ambika Prasad Research Foundation, Odisha, India
+6
+Department of Botany, Kirori Mal College, University of Delhi, Delhi, India
+Email Id: sanjeetaprf@gmail.com
+DOI:
+
+ABSTRACT
+Forest fire is one of the burning issue throughout the world. It creates lot of negative impacts on
+biodiversity. There are number of causes of forest fires as per landscapes. Among the observed causes,
+collection of Mahua flowers (Madhuca longifolia ) is very common and a major cause of forest fire.
+Madhuca longifolia is also known for its food, medicinal, ecological and socio-cultural values. Keeping
+the importance and as a causing factor of forest fire, an attempt has been made to do field survey works
+to collect the field information on Madhuca longifolia from selected areas of Odisha state, India. The
+results revealed that even Madhuca longifolia is an important tree species, it is responsible for the forest
+fire. The chapter brings attention towards the need of a strategy to reduce forest fire and maximum
+utilization of its plant parts for sustainable development and biodiversity conservation.
+Keywords: Forest fire, country liquor, food value, medicinal value, economic value, ecological values
+INTRODUCTION
+Forest fire is oldest practices and it also happens naturally. Whenever, it happens in large scale, it create
+lot of visible negative impacts on forest, wildlife and communities. Usually, it happens in the months of
+February to May, but can also depends on landscapes and weather conditions. After fire, forest loses
+timber, wildlife (insects, reptiles, mammals etc) along with small birds and pollinators. At the same time,
+forest fire contribute to increase global warming and air pollution. There are two types of forest fire is
+noticed, natural and manmade fires. Natural fire is caused by lightning, rolling, friction of dry bamboos
+etc. Manmade or anthropogenic fire is mainly due to the cigarettes smoking, camping, shifting
+cultivation, clearing of dry leaves in the forest and collection of NTFP (Non-timber Forest Produces).
+Forest fires are categories into three types- surface fire, crown fire and ground fire (Kumar et al. 2019).
+In day time, the fire is uncontrollable than in night time. In day time, the fire is more due to high
+temperature and in night, the fire is less due to the low temperature. There are numbers of causes of
+manmade forest fire. Among them, collection of Mahua ( Madhuca longifolia ) flowers is common. It is
+an deciduous tree belongs to the family Sapotaceae. Leaves are clustered at the end of the branches and
+elliptic. Flower is yellow in color, near the ends of the branches in cluster. Corolla yellowish–white, tube
+fleshy (Plate 1). Fruit berries like, ovoid, green (Gopalkrishnan and Shimpi 2012). Flowering during
+March-April and fruiting during April-May. On the month of March-April, the leaves are dried and start
+to shed. Keeping the importance of this tree, an attempt has been made to field works during the forest
+fire and to find out the relationship between Mahua and forest fire in selected districts of Odisha along
+with to gather the other importance from field and literature. The chapter highlights the importance of
+Madhuca longifolia and bring attention towards the making strategy on forest fire mitigation along with
+sustainable utilization.
+
+Sharma et al. (2022)
+
+26
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Plate 1: Plant parts of Madhuca longifolia , a) Whole plant, b) Leaves, c) Bark, d) Flowers
+METHODOLOGY
+The survey was carried out in the month of February–April 2022 in selected districts (Sundargarh &
+Mayurbhanj) of Odisha. Local communities were interviewed and information was collected on Forest
+fire & Mahua tree. Literature survey also carried out to gather the information on food and medicinal
+values of Madhuca longifolia . The selected tree species was identified using available literature (Haines
+1925; Saxena and Brahman 1995).
+RESULTS AND DISCUSSION
+The field survey revealed that among the causes of forest fire, collection of Mahua flowers is major in
+study areas. The flowers are collected by tribal communities after setting fire under the Mahua tree. The
+ideology behind this practices is, 1) Insects will be killed, 2) The area under Mahua tree will be cleaned.
+For easy collection of flowers, local communities make fire and this fire slowly-slowly reach near forest
+lead to fire. This events were observed many times during field works. The details are illustrated using
+the field photographs in Plate 2. A women making fire to remove the dry leaves for the collection of
+Mahua flowers (Plate 2). It was observed that, the awareness programs on forest fire by the Forest
+Department is playing a vital role in preventing forest fire. After the lot of awareness programs, local
+communities set controlled fire under Mahua tree and they are also cleaning using the blower with field
+staffs. It was noticed that, whole family members are engaged to collect the flowers in flowering period.
+After collection from the field, they bring them to the house for complete drying under sunlight. In
+details are illustrated in Plate 3. After collection, they spread on clothes or mates for drying. It was
+noticed that, for drying, it takes about 1 week (Plate 4). It was observed that after drying, the flowers are
+stored or used to sell in the local markets (Plate 5).
+Sharma et al. (2022)
+
+27
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Plate 2: Tribal women collect the flowers of Madhuca longifolia a) Burning of dry leaves, b) Sweeping
+the dry leaves in one place, c) Watching over the fire to prevent forest fire
+
+Plate 3: Local communities collecting flower from forest fringe
+
+Sharma et al. (2022)
+
+28
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Plate 4: Drying of Madhuca longifolia under the sunlight
+
+Plate 5: Flower of Madhuca longifolia in market
+
+Sharma et al. (2022)
+
+29
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+The dried flowers are used to make country liquor. They prepare country liquor in traditional ways
+during festivals and rituals. It was noticed that they use some natural fermenting agent for fermentation.
+The residue is used as a fodder of domestic pigs. For distillation, sometimes they use perennial water
+source and inside forest they prepare the mahua traditional liquor. Details are illustrated in Plate 6.
+
+Plate 6: Illustration on preparation of liquor
+Sharma et al. (2022)
+
+30
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Ecological values of Madhuca longifolia : Apart from a major cause of forest fire, it also holds another
+important feature as it is a host plant to many orchid species like Vanda species, Luisia species, Acampe
+species, Oberonia species etc. Plate 7 shows that, it is the host of many epiphytic orchid species which
+play important role in ecological balance and conservation of Orchid species.
+
+Plate 7: Orchid species on Madhuca longifolia a) Many orchid species on Madhuca longifolia, b-d)
+Orchid species
+Food values of Madhuca longifolia : It was observed that mahua flower is used for sweetening in halwa,
+making laddu (a type of sweet) and cooked with vegetables. Seed oil is also used for cooking purposes
+(Sinha et al. 2017).
+Medicinal values of Madhuca longifolia : It is noticed that the plant parts of Madhuca longifolia is used
+in divers diseases and disorders. The flower possesses antibacterial and anthelmintic activity.
+Medicinally the flower is used for cooling agent, skin diseases, anthelmintic. The seed possess antiinflammatory and antiulcer activity (Sunita and Sarojini 2013). Bark is used to treat diabetes, bronchitis,
+headache, piles and ulcer (Jha and Mazumder 2018; Mishra and Poonia 2019). The fruit is used to treat
+tonsillitis. Leaves is used to treat eczema, wound healing, anti-burns (Saif et al. 2020). The metal nanoparticles synthesis with plant part extracts of Madhuca longifolia is able to inhibit the growth of gram
+negative pathogenic bacteria and able to restore the renal function along with prevent cellular damages.
+The plant parts also possess different types of bioactive compounds like phenolic compounds, ketones,
+aldehydes, quercetin etc (Annalakshmi et al. 2013; Das et al. 2018; Patil et al. 2018; Peter and Prince
+2018).
+Sharma et al. (2022)
+
+31
+
+Indigenous Traditional Knowledge and Advancement in Medicinal Pants Research, ISBN: 978-81-955847-2-7
+
+Economic values of Madhuca longifolia : During the survey, it was observed that fresh and dried flowers
+are used to sell in the local markets. The seed oil is also used to sell.
+CONCLUSION
+The present study concluded that collection of flowers of Madhuca longifolia is a major cause of forest
+fire in study areas. The plant parts of Madhuca longifolia is used as a food and having medicinal values.
+The flowers create livelihood to the local communities. Therefore, the study indicates that need a
+strategy for the collection of flowers without making fire along with proper value addition.
+REFERENCES
+Annalakshmi R, Mahalakshmi S, Charles A and Sahayam CS. (2013). GCeMS and HPTLC analysis of leaf extract
+of Madhuca logifolia (Koenig) Linn. Drug Invention Today. 76-80.
+Das P, Ghosh S, Ghosh R, Dam S and Baskey M. (2018). Madhuca longifolia plant mediated green synthesis of
+cupric oxide nanoparticles: A promising environmentally sustainable material for waste water treatment
+and efficient antibacterial agent. Journal of Photochemistry & Photobiology, B: Biology. 189: 66-73.
+Gopalkrishan B and Shimpi SN. (2012). Pharmacognostical studies on stem bark of Madhuca longifolia (Koen.)
+Macbr. var. latifolia (Roxb.) A. Cheval. Indian Journal of Natural Products and Resources. 3(2): 232-236.
+Haines HH. (1994). The Botany of Bihar and Orissa. Adlard & Sons, London. 1994
+Jha D and Mazumder PM. (2018). Biological, chemical and pharmacological aspects of Madhuca longifolia. Asian
+Pac J Trop Med. 11:9-14.
+Kumar S, Chaudhary A, Biswas T, Ghosh S. (2019) Technical information series. Identification of fire prone
+forest areas based on GIS analysis of achieved forest fire points detected in last thirteen years. Forest
+Survey of India. 1(1): 15.
+Mishra A and Poonia A. (2019). Mahua (Madhuca longifolia) flowers: review on processing and biological
+properties. Nutrition and food science. 49(6): 1153-1163.
+Patil MP, Singh RD, Koli PB, Patil KT, Jagdale BS, Tipare AR and Kim GD. (2018). Antibacterial potential of
+silver nanoparticles synthesized using Madhuca longifolia flower extract as a green resource. Microbial
+Pathogenesis. 121: 184-189.
+Peter JS and Prince SE. (2018). Diclofenac-induced renal toxicity in female Wistar albino rats is protected by the
+pre-treatment of aqueous leaves extract of Madhuca longifolia through suppression of inflammation,
+oxidative stress and cytokine formation. Biomedicine & Pharmacotherapy. 98: 45-51.
+Saif M, Varma R, Kant R, Gupta RK. (2020). Madhuca longifolia (Mahua): A comprehensive ethno
+pharmacological review. 8(2):172-175.
+Saxena HO and Brahmam M. (1995). The Flora of Orissa. Orissa Forest Development Corporation & RRL,
+Bhubaneswar.
+Sinha J, Singh V, Singh J, Rai Ak. (2017). Phytochemistry, ethnomedical uses and future prospects of Mahua
+(Madhuca longifolia) as a food: A review. Journal of Nutrition and Food Sciences. 7:573.
+Sunita M and Sarojini P. (2013). Madhuca longifolia (Sapotaceae): A review of its traditional uses and nutritional
+properties. International Journal of Humanities and Social Invention. 2(5): 30-36.
+
+Sharma et al. (2022)
+
+32
+
+

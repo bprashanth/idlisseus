@@ -1,0 +1,476 @@
+This HTML dashboard visually summarizes five wildfire management papers, highlighting key themes, disagreements, and topic frequencies.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forest Fire Management – Literature Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1a1e2c;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #e5e9f0;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dashboard {
+            max-width: 1200px;
+            width: 100%;
+            background: #232837;
+            border-radius: 24px;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid #3a4055;
+        }
+        header {
+            border-bottom: 2px solid #3a4055;
+            padding-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        header h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header .sub {
+            color: #9aa3bf;
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+        }
+        header .badge {
+            background: #2e3440;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            border: 1px solid #4c5267;
+            color: #bcc1d4;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.6rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-title span {
+            background: #f97316;
+            border-radius: 12px;
+            padding: 0.1rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1a1e2c;
+        }
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.1rem;
+        }
+        .theme-card {
+            background: #2e3440;
+            border-radius: 16px;
+            padding: 1.1rem 1.2rem;
+            border: 1px solid #3a4055;
+            transition: 0.2s;
+        }
+        .theme-card:hover {
+            border-color: #f97316;
+            background: #333a48;
+        }
+        .theme-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 0.4rem;
+        }
+        .theme-card p {
+            font-size: 0.85rem;
+            color: #bcc1d4;
+            line-height: 1.4;
+        }
+        .theme-card .tag {
+            display: inline-block;
+            background: #3a4055;
+            padding: 0.1rem 0.55rem;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            color: #d8dee9;
+            margin-top: 0.4rem;
+            margin-right: 0.3rem;
+        }
+        .disagreement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        .disagreement-item {
+            background: #2e3440;
+            border-radius: 16px;
+            padding: 1.1rem 1.3rem;
+            border-left: 4px solid #f97316;
+            border: 1px solid #3a4055;
+            border-left-width: 4px;
+        }
+        .disagreement-item .head {
+            font-weight: 600;
+            color: #fbbf24;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        .disagreement-item .desc {
+            font-size: 0.85rem;
+            color: #bcc1d4;
+            line-height: 1.45;
+        }
+        .disagreement-item .papers {
+            font-size: 0.75rem;
+            color: #8892b0;
+            margin-top: 0.4rem;
+        }
+        .chart-wrap {
+            background: #2e3440;
+            border-radius: 16px;
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            border: 1px solid #3a4055;
+            margin-top: 0.5rem;
+        }
+        .chart-wrap canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: transparent;
+            border-radius: 8px;
+        }
+        .chart-caption {
+            font-size: 0.8rem;
+            color: #9aa3bf;
+            text-align: center;
+            margin-top: 0.6rem;
+        }
+        .paper-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #3a4055;
+        }
+        .paper-strip .pill {
+            background: #2e3440;
+            border-radius: 30px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.7rem;
+            border: 1px solid #4c5267;
+            color: #bcc1d4;
+        }
+        .paper-strip .pill strong {
+            color: #e5e9f0;
+        }
+        @media (max-width: 700px) {
+            .dashboard {
+                padding: 1.2rem;
+            }
+            header h1 {
+                font-size: 1.4rem;
+            }
+            .theme-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .glow {
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.05);
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+        .flex-row>div {
+            flex: 1 1 280px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard glow">
+        <!-- HEADER -->
+        <header>
+            <div>
+                <h1>🌲 Forest Fire &amp; Wildfire Management</h1>
+                <div class="sub">Synthesis of 5 research papers · 2025–2026</div>
+            </div>
+            <div class="badge">📋 Literature Dashboard</div>
+        </header>
+
+        <!-- PAPER OVERVIEW (compact) -->
+        <div style="margin-bottom: 1.4rem;">
+            <div class="section-title" style="margin-top:0;">📄 Papers <span>5</span></div>
+            <div class="paper-strip">
+                <span class="pill"><strong>①</strong> Models Forest Fire Mgmt (India)</span>
+                <span class="pill"><strong>②</strong> Himalayan Regions Fire Analysis</span>
+                <span class="pill"><strong>③</strong> Burn Severity Uttarakhand 2024</span>
+                <span class="pill"><strong>④</strong> Cloud IoT Fire Alert System</span>
+                <span class="pill"><strong>⑤</strong> Madhuca longifolia Fire Cause</span>
+            </div>
+        </div>
+
+        <!-- KEY THEMES -->
+        <div class="section-title">🔥 Key Themes Across Papers <span>8</span></div>
+        <div class="theme-grid">
+
+            <div class="theme-card">
+                <h3>👤 Human Activity as Primary Cause</h3>
+                <p>All 5 papers identify anthropogenic ignitions — intentional (resource collection, shifting cultivation) and accidental (cigarettes, campfires) — as the dominant fire trigger.</p>
+                <span class="tag">Papers ① ② ③ ④ ⑤</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🤝 Community Engagement</h3>
+                <p>Papers ①, ②, ⑤ stress participatory approaches: local communities as first responders, awareness campaigns, Joint Forest Management, and tribal knowledge integration.</p>
+                <span class="tag">Papers ① ② ⑤</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>📡 Technology &amp; Remote Sensing</h3>
+                <p>Satellite imagery (MODIS, Landsat, Sentinel), IoT sensors, AI/ML, drones, and cloud platforms used for detection, monitoring, and burn severity mapping (① ③ ④).</p>
+                <span class="tag">Papers ① ③ ④</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🌿 Ecological Impact &amp; Biodiversity Loss</h3>
+                <p>Fires cause habitat fragmentation, soil erosion, carbon emissions (3.3 Mt C/yr in Nepal), loss of endemic species, and long-term ecosystem degradation (② ③ ⑤).</p>
+                <span class="tag">Papers ② ③ ⑤</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🔍 Detection &amp; Early Warning</h3>
+                <p>Systems range from conventional ground patrols to advanced: Forest Fire Alert System (FFAS), IoT sensor networks, satellite-based dNBR analysis, and mobile apps (① ③ ④).</p>
+                <span class="tag">Papers ① ③ ④</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🏛️ Policy &amp; Governance Frameworks</h3>
+                <p>India's NAPFF (2018), state-level policies, Forest Act 1927, Wildlife Protection Act, and international cooperation (FAO) form the institutional backbone, though funding gaps persist (①).</p>
+                <span class="tag">Papers ① ②</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🌡️ Climate Change Amplification</h3>
+                <p>Rising temperatures, prolonged droughts, declining humidity, and dry pre-monsoon conditions increase fuel dryness and fire intensity, especially in the Himalaya (① ②).</p>
+                <span class="tag">Papers ① ②</span>
+            </div>
+
+            <div class="theme-card">
+                <h3>🌱 Post‑Fire Restoration &amp; Rehabilitation</h3>
+                <p>Damage assessment, reforestation, erosion control, habitat restoration, and community-led recovery are critical for long-term ecosystem resilience (① ③).</p>
+                <span class="tag">Papers ① ③</span>
+            </div>
+
+        </div>
+
+        <!-- DISAGREEMENTS -->
+        <div class="section-title" style="margin-top:2rem;">⚡ Disagreements &amp; Tensions <span>4</span></div>
+        <div class="disagreement-list">
+
+            <div class="disagreement-item">
+                <div class="head">1. Primary Cause Attribution – Regional vs. Single‑factor</div>
+                <div class="desc">Paper ⑤ argues that <em>Madhuca longifolia</em> (mahua) flower collection is a <strong>major</strong> fire cause in Odisha, while Paper ② attributes Himalayan fires mainly to Chir Pine needle accumulation and general human activities. This reflects regional ecological contexts, but also a tension between single‑factor and multi‑factor causal narratives.</div>
+                <div class="papers">📍 Papers ⑤ vs ② · also ① lists multiple causes broadly</div>
+            </div>
+
+            <div class="disagreement-item">
+                <div class="head">2. Prescribed Burning – Management Tool vs. Escalation Risk</div>
+                <div class="desc">Paper ① presents controlled/prescribed burning as a beneficial silvicultural practice to reduce fuel loads and promote regeneration. Paper ⑤ documents how tribal communities' controlled burning under mahua trees for flower collection <strong>can escalate into uncontrolled wildfires</strong>, highlighting the fine line between intentional fire use and disaster.</div>
+                <div class="papers">📍 Papers ① vs ⑤</div>
+            </div>
+
+            <div class="disagreement-item">
+                <div class="head">3. Technology‑First vs. Community‑First Approaches</div>
+                <div class="desc">Paper ④ (IoT cloud system) proposes a fully automated, sensor‑based detection network with minimal human involvement. In contrast, Papers ① and ⑤ emphasise <strong>community‑based fire management</strong>, local knowledge, and participatory engagement as the cornerstone of effective prevention and response. These paradigms imply different resource allocation priorities.</div>
+                <div class="papers">📍 Papers ④ vs ① ⑤</div>
+            </div>
+
+            <div class="disagreement-item">
+                <div class="head">4. Policy Implementation Gap – Funded vs. Unfunded Mandates</div>
+                <div class="desc">Paper ① explicitly notes that the National Action Plan on Forest Fires (NAPFF) "still awaits dedicated funding" and relies on CAMPA allocations, while state schemes lack resources. Other papers (② ③ ④ ⑤) do not address this funding gap, implicitly assuming policy sufficiency. This disconnect between policy design and financial reality is a critical point of tension.</div>
+                <div class="papers">📍 Paper ① highlights gap; others remain silent</div>
+            </div>
+
+        </div>
+
+        <!-- TOPIC CHART -->
+        <div class="section-title" style="margin-top:2rem;">📊 Topic Coverage Across Papers</div>
+        <div class="chart-wrap">
+            <canvas id="topicChart" width="700" height="380"></canvas>
+            <div class="chart-caption">Number of papers (out of 5) that address each theme · bars ordered by prevalence</div>
+        </div>
+
+        <!-- FOOTNOTE -->
+        <div style="margin-top:1.8rem; border-top:1px solid #3a4055; padding-top:0.9rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+            <span style="color:#9aa3bf; font-size:0.75rem;">🔬 Synthesis based on: India Models · Himalayan Regions · Burn Severity · IoT Alert · Madhuca longifolia</span>
+            <span style="color:#6c7293; font-size:0.7rem;">Dashboard · inline CSS/JS · no dependencies</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('topicChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            const w = rect.width || 700;
+            const h = rect.height || 380;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.scale(dpr, dpr);
+
+            const topics = [
+                'Human Activity',
+                'Community\nParticipation',
+                'Technology /\nRemote Sensing',
+                'Ecological\nImpact',
+                'Detection /\nEarly Warning',
+                'Policy &\nGovernance',
+                'Climate\nChange',
+                'Post-fire\nRestoration'
+            ];
+            const counts = [5, 3, 3, 3, 3, 2, 2, 2];
+
+            const colors = [
+                '#f97316', '#fbbf24', '#f59e0b', '#ef7e1a',
+                '#e5a83a', '#d98c2c', '#c9771e', '#b8651a'
+            ];
+
+            const barWidth = Math.min(56, (w - 80) / topics.length * 0.75);
+            const gap = 18;
+            const startX = 60;
+            const bottomY = h - 40;
+            const maxBarH = h - 100;
+            const maxCount = 5;
+
+            // background
+            ctx.clearRect(0, 0, w, h);
+
+            // subtle grid lines
+            ctx.strokeStyle = '#3a4055';
+            ctx.lineWidth = 0.6;
+            for (let i = 0; i <= maxCount; i++) {
+                const y = bottomY - (i / maxCount) * maxBarH;
+                ctx.beginPath();
+                ctx.moveTo(startX - 8, y);
+                ctx.lineTo(w - 20, y);
+                ctx.stroke();
+                ctx.fillStyle = '#8892b0';
+                ctx.font = '10px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(i, startX - 12, y);
+            }
+
+            // bars
+            const totalWidth = topics.length * (barWidth + gap) - gap;
+            const offsetX = startX + (w - startX - 20 - totalWidth) / 2;
+
+            for (let i = 0; i < topics.length; i++) {
+                const x = offsetX + i * (barWidth + gap);
+                const barH = (counts[i] / maxCount) * maxBarH;
+                const y = bottomY - barH;
+
+                // bar shadow
+                ctx.shadowColor = 'rgba(0,0,0,0.25)';
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetY = 2;
+
+                // gradient bar
+                const grad = ctx.createLinearGradient(0, y, 0, bottomY);
+                grad.addColorStop(0, colors[i]);
+                grad.addColorStop(1, colors[i] + 'cc');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                const radius = 4;
+                const bX = x;
+                const bW = barWidth;
+                const bH = barH;
+                const bY = y;
+                // rounded rect
+                ctx.moveTo(bX + radius, bY);
+                ctx.lineTo(bX + bW - radius, bY);
+                ctx.quadraticCurveTo(bX + bW, bY, bX + bW, bY + radius);
+                ctx.lineTo(bX + bW, bY + bH - radius);
+                ctx.quadraticCurveTo(bX + bW, bY + bH, bX + bW - radius, bY + bH);
+                ctx.lineTo(bX + radius, bY + bH);
+                ctx.quadraticCurveTo(bX, bY + bH, bX, bY + bH - radius);
+                ctx.lineTo(bX, bY + radius);
+                ctx.quadraticCurveTo(bX, bY, bX + radius, bY);
+                ctx.fill();
+
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+
+                // count label on top
+                ctx.fillStyle = '#e5e9f0';
+                ctx.font = 'bold 11px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText(counts[i], x + barWidth / 2, y - 6);
+
+                // topic label (multiline)
+                const label = topics[i];
+                const lines = label.split('\n');
+                ctx.fillStyle = '#bcc1d4';
+                ctx.font = '9px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                const labelY = bottomY + 8;
+                for (let li = 0; li < lines.length; li++) {
+                    const lineY = labelY + li * 14;
+                    ctx.fillText(lines[li], x + barWidth / 2, lineY);
+                }
+            }
+
+            // subtle x-axis line
+            ctx.strokeStyle = '#4c5267';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(startX - 8, bottomY);
+            ctx.lineTo(w - 20, bottomY);
+            ctx.stroke();
+
+            // title inside canvas
+            ctx.fillStyle = '#9aa3bf';
+            ctx.font = '9px sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText('← papers →', startX + 20, h - 12);
+
+        })();
+    </script>
+</body>
+</html>
+```

@@ -1,0 +1,34 @@
+To find the total number of hectares burned, we need to calculate the area burned in two distinct phases and then sum the results.
+
+### Step 1: Calculate the area burned in the first phase
+*   **Rate**: $12$ hectares/hour
+*   **Time**: $3.5$ hours
+*   **Calculation**:
+    $$ \text{Area}_1 = \text{Rate}_1 \times \text{Time}_1 $$
+    $$ \text{Area}_1 = 12 \times 3.5 $$
+
+    We can break down $3.5$ as $3 + 0.5$:
+    $$ 12 \times 3 = 36 $$
+    $$ 12 \times 0.5 = 6 $$
+    $$ 36 + 6 = 42 $$
+
+    So, the first phase resulted in **42 hectares** burned.
+
+### Step 2: Calculate the rate and area burned in the second phase
+*   **Updated Rate**: The rate doubled from Phase 1.
+    $$ \text{Rate}_2 = 2 \times 12 = 24 \text{ hectares/hour} $$
+*   **Time**: $2$ hours
+*   **Calculation**:
+    $$ \text{Area}_2 = \text{Rate}_2 \times \text{Time}_2 $$
+    $$ \text{Area}_2 = 24 \times 2 $$
+    $$ \text{Area}_2 = 48 $$
+
+    So, the second phase resulted in **48 hectares** burned.
+
+### Step 3: Calculate the total area burned
+*   **Total Area**: $\text{Area}_1 + \text{Area}_2$
+    $$ \text{Total Area} = 42 + 48 $$
+    $$ \text{Total Area} = 90 $$
+
+### Final Conclusion
+The total number of hectares burned is **90**.
