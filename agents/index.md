@@ -62,3 +62,25 @@ Cannot:
 See `agents/hermes/` for Dockerfile, token proxy code, and systemd service.
 The proxy intercepts the `/v1/chat/completions` stream at the token level, checks for the
 Hermes tool-call sentinel token, and rewrites the response into OpenAI tool-call format.
+
+## Hermes connectors (Earth Engine) + the uv-cache fix
+
+For the semantic-broker experiments (`benchmarks/semantic_broker/`), Hermes is given
+live data connectors. **Earth Engine is wired and verified end-to-end in a real agent
+run** (FIRMS/MODIS fire, ESA WorldCover, SRTM, WDPA; project `plantwars`). Three
+non-obvious requirements — each cost a debugging cycle:
+
+1. **Preinstall `earthengine-api` + `pymupdf` in the image.** The agent's `import ee`
+   fails at runtime because auto-install-on-import can't map the import name `ee` to the
+   pip package `earthengine-api` (same for `fitz`→`pymupdf`). Baked into the Dockerfile.
+   This also fixes the Odisha-run pymupdf failure — in-agent PDF parsing now works.
+2. **Creds go at the sandbox HOME, `/opt/data/home`.** `execute_code` runs scripts in a
+   sandbox whose `HOME` is `{HERMES_HOME}/home` (`get_subprocess_home`), **not**
+   `/opt/data`. So EE creds must be at `~/.hermes/home/.config/earthengine/credentials`
+   (owned uid 10000). Staging at `~/.hermes/.config` does nothing.
+3. **`~/.hermes` owned by uid 10000** (the agent runs as 10000, not root — `main-hermes`
+   drops privileges; the mount root must be traversable by 10000), and image
+   `ENV HOME=/opt/data`.
+
+The canonical invocation + full preconditions live in
+`benchmarks/semantic_broker/run_v-1.sh` and `CONNECTORS.md`.

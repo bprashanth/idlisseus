@@ -6,7 +6,8 @@ Four models have been evaluated on this DGX Spark GB10 (121.6 Gi unified memory,
 
 | Model | Weights | RAM | Speed | State |
 |-------|---------|-----|-------|-------|
-| Qwen3-Next-80B FP8 | `~/models/Qwen3-Next-80B-FP8/` (77 GB) | 110 Gi | 3–20s/turn | **active** (`qwen80b-vllm`, port 8001) |
+| Qwen3.5-122B-A10B INT4+FP8 | `~/models/qwen35-122b-hybrid-int4fp8/` (~71 GB) | ~128 Gi @256K | ~52 tok/s | **active / primary** (`vllm-qwen35`, `172.17.0.1:8001`) |
+| Qwen3-Next-80B FP8 | `~/models/Qwen3-Next-80B-FP8/` (77 GB) | 110 Gi | 3–20s/turn | fallback (`qwen80b-vllm`, port 8001) |
 | DeepSeek V4 Flash | `models/deepseek-v4-flash/*.gguf` (on-disk) | 121 Gi (SSD stream) | 60–190s/turn | stopped (`ds4-ssd.service`) |
 | Seed-OSS-36B AWQ | `~/models/Seed-OSS-36B-AWQ/` (21 GB) | ~42 Gi | ~30s/turn | stopped |
 | Qwen3.5-2B | `~/.cache/huggingface/...Qwen3.5-2B` (4.6 GB) | ~10 Gi | 4–5s/turn | stopped |
@@ -17,7 +18,13 @@ Seed-OSS-36B was designed to coexist with ds4 in SSD streaming mode (~117 Gi com
 
 ## What we learned
 
-**80B wins for everything we care about.** At 3–20s/turn it is 6–10× faster than ds4 and produces better answers with deeper reasoning and better instruction following. This matches Benchmark 6 results.
+**Qwen3.5-122B-A10B is the current primary (B7).** MoE, ~10B active params, hybrid
+INT4 (MoE experts, Marlin) + FP8 (shared expert), tuned for GB10/SM121 by the
+[albond](https://github.com/albond/DGX_Spark_Qwen3.5-122B-A10B-AR-INT4) build.
+Quality clearly exceeds 80B on long-context reasoning; ~52 tok/s. It replaced 80B
+as default — see [`qwen3.5-122b/`](qwen3.5-122b/) and `benchmarks/benchmark7_qwen35/`.
+
+**80B was the prior primary and is now the fallback.** At 3–20s/turn it is 6–10× faster than ds4 and produces better answers with deeper reasoning and better instruction following. This matches Benchmark 6 results.
 
 **ds4 is a fallback, not a default.** Useful when 80B is unavailable and latency is acceptable (e.g. batch jobs). 670B parameter count gives strong factual breadth but slow streaming makes it painful for interactive use.
 
@@ -44,6 +51,7 @@ bash models/qwen3.5-2b/run.sh
 
 ## Per-model details
 
+- [`qwen3.5-122b/`](qwen3.5-122b/) — **primary**: 122B-A10B MoE INT4+FP8, albond GB10 build, vLLM run cmd, GB10/SM121 notes
 - [`deepseek-v4-flash/`](deepseek-v4-flash/) — ds4 source, systemd service, GGUF weight
 - [`qwen3-next-80b/`](qwen3-next-80b/) — vLLM run script, download script, FP8 notes
 - [`seed-oss-36b/`](seed-oss-36b/) — AWQ run script, coexistence notes

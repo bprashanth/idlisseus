@@ -1,6 +1,6 @@
 # Benchmarks
 
-Six benchmark rounds on DGX Spark GB10 (121.6 Gi, GB10 GPU). All benchmarks run locally — no cloud API.
+Seven benchmark rounds on DGX Spark GB10 (121.6 Gi, GB10 GPU). All benchmarks run locally — no cloud API.
 
 ## Hypotheses we were testing
 
@@ -9,6 +9,7 @@ Six benchmark rounds on DGX Spark GB10 (121.6 Gi, GB10 GPU). All benchmarks run 
 3. **Can Seed-OSS-36B coexist with ds4 for a faster/cheaper combo?** (B3)
 4. **Can Qwen3.5-2B as a sidekick filter queries to reduce latency?** (B4/B5)
 5. **Which model is best for interactive chatbot use at acceptable latency?** (B6)
+6. **Does Qwen3.5-122B MoE (INT4+FP8 hybrid) beat 80B on quality and match it on speed?** (B7)
 
 ## Results summary
 
@@ -20,12 +21,15 @@ Six benchmark rounds on DGX Spark GB10 (121.6 Gi, GB10 GPU). All benchmarks run 
 | B4 (sidekick) | Can 2B sidekick filter queries? | Yes in isolation, marginal gain in practice; adds operational complexity |
 | B5 (parallel load) | Throughput under concurrent users? | ds4 SSD streaming degrades under concurrent requests; 80B handles concurrency better |
 | B6 (chatbot) | Best model for chatbot UX? | **80B wins**: 8s avg vs 121s (ds4) vs 11s (2B). Quality and speed both better. |
+| B7 (qwen35-122b) | Does 122B MoE beat 80B? | **Quality win, speed draw with thinking off.** 27s avg thinking-on vs 80B's 8s; thinking-off narrows gap on long prompts. 10 concurrent users served cleanly (wall=101s, all ok). KV cache <1% at 10 users. Full agentic loop in 6 turns/32s. |
 
 ## Key takeaways
 
-80B Qwen3-Next is the clear winner for interactive use. ds4 remains useful as a fallback for
-latency-insensitive batch work. The sidekick architecture is not worth the operational overhead
-once 80B is available.
+Qwen3.5-122B MoE (INT4+FP8 hybrid) is the new primary model. Quality clearly exceeds 80B on
+long-context reasoning and research tasks. With thinking off, latency is comparable to 80B for
+large-context prompts (prefill dominates). With thinking on, latency is 3-4× higher for short
+prompts but adds visible reasoning transparency. 10 concurrent users is comfortably within capacity.
+80B remains a reliable fallback; ds4 for latency-insensitive batch work.
 
 ## Benchmark details
 
@@ -35,6 +39,8 @@ once 80B is available.
 - [`benchmark4_qwen_sidekick/`](benchmark4_qwen_sidekick/) — Qwen3.5-2B sidekick head-to-head
 - [`benchmark5_parallel/`](benchmark5_parallel/) — parallel load/throughput stress test
 - [`benchmark6_chatbot/`](benchmark6_chatbot/) — three-way chatbot comparison: ds4, sidekick, 80B
+- [`benchmark7_qwen35/`](benchmark7_qwen35/) — Qwen3.5-122B: conversation, doc tasks, thinking toggle, 2/5/10-user concurrency, agentic loop
+- [`semantic_broker/`](semantic_broker/) — **(in progress)** does a semantic dataset-card broker help Hermes find the right conservation data? IR benchmark over Zenodo/GBIF assets + Earth Engine/FIRMS/WDPA connectors, S. India AOI. See [`PLAN.md`](semantic_broker/PLAN.md), [`DATASETS.md`](semantic_broker/DATASETS.md)
 
 ## Reproducing
 

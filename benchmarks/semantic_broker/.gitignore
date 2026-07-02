@@ -1,0 +1,4 @@
+# Local asset corpus — downloaded papers/datasets, not versioned
+assets/
+# Raw Hermes run logs (noisy TUI output); distilled results go in EXPERIMENT_v-1.md
+runs/
