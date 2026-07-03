@@ -1,0 +1,18 @@
+{
+  "n_users": 2,
+  "wall_s": 48.1,
+  "results": {
+    "0": {
+      "elapsed_s": 37.5,
+      "completion_tokens": 790,
+      "ok": true
+    },
+    "1": {
+      "elapsed_s": 48.1,
+      "completion_tokens": 1305,
+      "ok": true
+    }
+  },
+  "avg_s": 42.8,
+  "slowest_s": 48.1
+}

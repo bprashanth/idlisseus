@@ -6,11 +6,22 @@
 models/          per-model weights, run scripts, systemd services
 agents/          agent harness code (hermes/ token proxy)
 chatbots/        UI deployments (odysseus/ = Idlisseus)
-benchmarks/      benchmark runs (benchmark1_ds4/ through benchmark6_chatbot/)
+benchmarks/      benchmark runs (benchmark1_ds4/ … benchmark7_qwen35/) + semantic_broker/ (active)
 docs/            cross-cutting docs (access.md, ARCHITECTURE.md, etc.)
-ds4/             ds4 C+CUDA source (its own git repo, do not move)
-ds4-kv/          ds4 KV disk cache (runtime, do not commit)
+ds4/             ds4 C+CUDA source (its own git repo — gitignored in parent, do not move)
+ds4-kv/          ds4 KV disk cache (runtime, gitignored)
 ```
+
+## Current state / active work
+
+- **Primary model is Qwen3.5-122B-A10B INT4+FP8** (`vllm-qwen35`, `172.17.0.1:8001`),
+  not 80B. 80B is the fallback. See `models/qwen3.5-122b/`.
+- **Active experiment: `benchmarks/semantic_broker/`** — going from a conservation
+  question to an insight over an AOI. Read `semantic_broker/VISION.md` first. v-1
+  (raw Hermes) is done; a connector/insights layer is built (`connectors/`); the
+  larger experiment still needs **dataset cards** (the functions-vs-cards split is
+  in VISION.md). Hermes vs Odysseus tradeoffs: see `agents/index.md`.
+- Fresh-clone reproduction (what to download): `REPLICATION.md`.
 
 ## When you make changes
 
@@ -33,7 +44,7 @@ docker compose build odysseus && docker compose up -d --force-recreate odysseus
 ## Security constraints (non-negotiable)
 
 - ds4 must bind to `172.17.0.1` (Docker bridge), NOT `127.0.0.1` or `0.0.0.0`
-- 80B vLLM binds to `172.17.0.1:8001` (Docker bridge), NOT public
+- 122B (and 80B fallback) vLLM binds to `172.17.0.1:8001` (Docker bridge), NOT public
 - No cloud API keys on this box — no OpenAI key, no Anthropic key, no HF tokens needed
 - Cloudflare Access is the security boundary — do not bypass or open alternative ports
 - Never `sudo reboot` unattended; stop containers cleanly first
@@ -41,15 +52,17 @@ docker compose build odysseus && docker compose up -d --force-recreate odysseus
 
 ## Model switching
 
-ds4 and 80B cannot coexist (both need full 121 Gi):
+122B / 80B / ds4 each need the full 121 Gi pool — only one at a time:
 ```bash
-# Switch to 80B
-sudo systemctl stop ds4-ssd
-docker start qwen80b-vllm
+# Primary: 122B
+docker start vllm-qwen35
 
-# Switch to ds4
-docker stop qwen80b-vllm
+# Switch to ds4 (stop whichever vLLM is up first)
+docker stop vllm-qwen35    # or qwen80b-vllm
 sudo systemctl start ds4-ssd
+
+# Fallback: 80B
+sudo systemctl stop ds4-ssd; docker stop vllm-qwen35 2>/dev/null; docker start qwen80b-vllm
 ```
 
 ## Stopping on failures

@@ -3765,8 +3765,12 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
       requestAnimationFrame(() => toggleCsvPreview());
     }
 
-    // Exit HTML preview on switch
+    // Exit HTML preview on switch, then auto-show for HTML documents
     exitHtmlPreview();
+    const isHtml = doc.language === 'html';
+    if (isHtml) {
+      requestAnimationFrame(() => toggleHtmlPreview());
+    }
 
     // Show/hide email fields. Markdown preview uses the same editor wrapper
     // as email source mode, so clear it before showing the rich email body;
@@ -9032,15 +9036,15 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
   function toggleHtmlPreview() {
     const iframe = document.getElementById('doc-html-preview');
     const wrap = document.getElementById('doc-editor-wrap');
-    const textarea = document.getElementById('doc-editor-textarea');
-    if (!iframe || !wrap || !textarea) return;
+    if (!iframe || !wrap) return;
 
     if (!_htmlPreviewActive) {
       // Show preview — hide markdown preview if active
       const mdPreview = document.getElementById('doc-md-preview');
       if (mdPreview) mdPreview.style.display = 'none';
-      const code = textarea.value || '';
-      iframe.srcdoc = code;
+      // Load via dedicated route so the server's permissive CSP applies,
+      // allowing inline scripts (Chart.js etc.) while blocking API calls.
+      iframe.src = '/api/document/' + activeDocId + '/preview';
       iframe.style.display = '';
       wrap.style.display = 'none';
       _htmlPreviewActive = true;
@@ -9056,7 +9060,7 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
     const wrap = document.getElementById('doc-editor-wrap');
     if (!_htmlPreviewActive) return;
     _htmlPreviewActive = false;
-    if (iframe) { iframe.style.display = 'none'; iframe.srcdoc = ''; }
+    if (iframe) { iframe.style.display = 'none'; iframe.src = ''; }
     if (wrap) wrap.style.display = '';
     renderTabs();
   }

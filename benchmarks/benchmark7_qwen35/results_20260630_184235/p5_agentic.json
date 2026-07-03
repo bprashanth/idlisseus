@@ -1,0 +1,72 @@
+{
+  "task": "agentic",
+  "wall_s": 11.7,
+  "turns": 8,
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool": "web_search",
+      "args": {
+        "query": "recent papers forest fire management India Himalayas 2023 2024"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 2,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas research papers 2022 2023 2024"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 3,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire causes and management in India Himalayas 2023 2024 report"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 4,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas scientific papers 2021 2022 2023 2024"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 5,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas 2023 2024 site:sciencedirect.com OR site:springer.com OR site:researchgate.net"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 6,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas 2023 2024 site:gov.in OR site:nic.in"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 7,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas 2023 2024 site:ncbi.nlm.nih.gov OR site:arxiv.org"
+      },
+      "result_len": 17
+    },
+    {
+      "turn": 8,
+      "tool": "web_search",
+      "args": {
+        "query": "forest fire management India Himalayas 2023 2024 site:acp.copernicus.org OR site:mdpi.com"
+      },
+      "result_len": 17
+    }
+  ],
+  "final_answer": "TOOL_CALL: web_search\nARGS: {\"query\": \"forest fire management India Himalayas 2023 2024 site:acp.copernicus.org OR site:mdpi.com\"}"
+}

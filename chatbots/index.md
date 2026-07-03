@@ -51,6 +51,14 @@ The document panel renders:
 This makes the data-science workflow viable: agent generates an HTML dashboard → renders live
 in the same conversation, user can interact with charts without leaving the chat.
 
+## Internal architecture notes
+
+See [`docs/odysseus-internals.md`](docs/odysseus-internals.md) for:
+- How "recalled" memory works (BM25 + vector, per-user isolation caveat, no auto-clear)
+- Deep research loop terminal conditions and where images come from
+- Explain Simpler / rewrite endpoint (NOT a chat resend — separate lightweight call)
+- Agent mode vs Hermes: what's active, what's redundant
+
 ## Running Idlisseus
 
 ```bash

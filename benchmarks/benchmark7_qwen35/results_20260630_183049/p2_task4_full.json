@@ -1,0 +1,11 @@
+{
+  "task": "4",
+  "max_tokens": 8192,
+  "thinking": "on",
+  "elapsed_s": 106.4,
+  "finish_reason": "stop",
+  "content_chars": 12152,
+  "reasoning_words": 629,
+  "prompt_tokens": 20386,
+  "completion_tokens": 4498
+}

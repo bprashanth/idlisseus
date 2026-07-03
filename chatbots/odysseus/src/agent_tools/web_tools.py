@@ -133,6 +133,24 @@ class WebFetchTool:
             return {"error": f"web_fetch: timed out fetching {url}", "exit_code": 1}
         except Exception as e:
             return {"error": f"web_fetch: {url}: {e}", "exit_code": 1}
+
+        # fetch_webpage_content swallows SSL errors internally and returns them as
+        # {"error": "NetworkError: [SSL: ...]"} rather than raising — so the
+        # except block above never sees them. Check the result dict instead.
+        _SSL_KEYWORDS = ("ssl", "certificate", "cert", "tls", "handshake")
+        err = result.get("error") or ""
+        if verify_ssl and not result.get("content") and any(k in err.lower() for k in _SSL_KEYWORDS):
+            try:
+                result = await asyncio.wait_for(
+                    loop.run_in_executor(None, lambda: fetch_webpage_content(url, timeout=10, max_bytes=max_bytes, verify=False)),
+                    timeout=30,
+                )
+                verify_ssl = False  # triggers the [SSL verification disabled] banner below
+            except asyncio.TimeoutError:
+                return {"error": f"web_fetch: timed out fetching {url}", "exit_code": 1}
+            except Exception as e2:
+                return {"error": f"web_fetch: {url}: {e2}", "exit_code": 1}
+
         err = result.get("error")
         text = (result.get("content") or "").strip()
         title = result.get("title") or ""

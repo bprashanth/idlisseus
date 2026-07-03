@@ -419,6 +419,28 @@ def setup_document_routes(session_manager, upload_handler=None) -> APIRouter:
         finally:
             db.close()
 
+    # ---- GET /api/document/{doc_id}/preview ----
+    @router.get("/api/document/{doc_id}/preview")
+    async def preview_document(request: Request, doc_id: str):
+        """Return HTML document content for iframe preview.
+
+        Served with a permissive CSP (unsafe-inline allowed, connect-src none)
+        set by SecurityHeadersMiddleware so Chart.js and inline scripts run
+        while the iframe cannot make authenticated API calls back to the server.
+        """
+        from fastapi.responses import HTMLResponse
+        user = get_current_user(request)
+        db = SessionLocal()
+        try:
+            doc = db.query(Document).filter(Document.id == doc_id).first()
+            if not doc:
+                raise HTTPException(404, "Document not found")
+            _verify_doc_owner(db, doc, user)
+            content = doc.current_content or ""
+            return HTMLResponse(content=content)
+        finally:
+            db.close()
+
     # ---- POST /api/document/{doc_id}/archive — soft-archive / restore ----
     @router.post("/api/document/{doc_id}/archive")
     async def archive_document(request: Request, doc_id: str, archived: bool = Query(True)) -> Dict[str, Any]:

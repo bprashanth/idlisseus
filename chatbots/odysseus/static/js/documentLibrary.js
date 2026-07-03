@@ -954,8 +954,10 @@ let _libraryArchivedView = false;   // Documents tab showing archived docs?
         const frame = document.createElement('iframe');
         frame.className = 'doclib-card-html-frame';
         frame.style.cssText = 'width:100%;height:60vh;border:1px solid var(--border);border-radius:6px;background:#fff;opacity:0;transition:opacity 0.15s ease;';
-        frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
-        frame.srcdoc = content;
+        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');
+        // Load via dedicated route — server CSP allows inline scripts (Chart.js)
+        // while blocking all network calls (connect-src: none).
+        frame.src = '/api/document/' + doc.id + '/preview';
         if (existingPre) existingPre.remove();
         if (existingFrame) existingFrame.remove();
         if (existingHtmlFrame) existingHtmlFrame.remove();

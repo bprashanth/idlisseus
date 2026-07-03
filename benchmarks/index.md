@@ -40,7 +40,10 @@ prompts but adds visible reasoning transparency. 10 concurrent users is comforta
 - [`benchmark5_parallel/`](benchmark5_parallel/) — parallel load/throughput stress test
 - [`benchmark6_chatbot/`](benchmark6_chatbot/) — three-way chatbot comparison: ds4, sidekick, 80B
 - [`benchmark7_qwen35/`](benchmark7_qwen35/) — Qwen3.5-122B: conversation, doc tasks, thinking toggle, 2/5/10-user concurrency, agentic loop
-- [`semantic_broker/`](semantic_broker/) — **(in progress)** does a semantic dataset-card broker help Hermes find the right conservation data? IR benchmark over Zenodo/GBIF assets + Earth Engine/FIRMS/WDPA connectors, S. India AOI. See [`PLAN.md`](semantic_broker/PLAN.md), [`DATASETS.md`](semantic_broker/DATASETS.md)
+- [`semantic_broker/`](semantic_broker/) — **(active)** can we go from a conservation question to an insight over an AOI, correlating papers + CSVs + map layers? Runs on **Hermes/122B**, S. India (Nilgiris–Anamalai) AOI. Start with [`VISION.md`](semantic_broker/VISION.md) (the plain-language goal + the functions-vs-datacards split we arrived at).
+  - **v-1** ([`EXPERIMENT_v-1.md`](semantic_broker/EXPERIMENT_v-1.md)): raw Hermes *finds* the right data but can't *use* it (wrong legends, unwritable EE reductions).
+  - **connectors** ([`CONNECTORS_DESIGN.md`](semantic_broker/CONNECTORS_DESIGN.md), [`connectors/`](semantic_broker/connectors/)): 6 tested connectors (landcover/fire/terrain/WDPA/GBIF/geo) that own layer semantics + operations. Fixed both v-1 failure modes (correct fire ranking + correct land-cover, ~2 min).
+  - **next:** dataset cards / retrieval broker (the larger experiment still needs cards — see VISION), and more primitive families (time-series, etc.).
 
 ## Reproducing
 

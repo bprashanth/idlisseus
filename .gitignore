@@ -234,3 +234,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ds4 is its own git repo living in-tree (do not move, do not commit here)
+ds4/

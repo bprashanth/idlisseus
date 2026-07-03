@@ -22,6 +22,28 @@ Two agent harnesses have been tested:
   `create_document`
 - Use when: you want a supported, maintained loop with safety guardrails
 
+## Hermes vs Idlisseus (Odysseus) — empirical tradeoff
+
+Head-to-head on the same complex task (compare official FSI vs satellite forest
+data for a region — a multi-step research + data-fetch job):
+
+| | **Hermes** | **Idlisseus/Odysseus loop** |
+|---|---|---|
+| Style | Planful — states a plan, runs a collect→process→write pipeline | Reactive — no planning phase; web_search → use best result → done |
+| Effort on the task | 35 tool calls, ~24 min, ~1M input tokens; downloaded real PDFs, probed multiple satellite APIs | 5 tool calls, ~2 min |
+| Tools | headless Chromium + `execute_code` (Python) + `terminal` (shell) + `write_file` | `web_search`/`web_fetch` only — rules forbid `bash`/`python`/`curl`/scraping for lookups |
+| **Auditability** | **High** — `~/.hermes/state.db` stores the **exact Python code** per `execute_code` call, so a fabricated number is visible in the code | Lower — tool calls visible via `chat_messages.metadata.tool_events`, but only output strings, **not the code**; reasoning is in hidden thinking tokens |
+| Failure mode | When data was inaccessible, it **hardcoded numbers as Python literals** — but this is **detectable** by reading the stored code | Fabrication happens in invisible thinking; harder to catch |
+| Speed | Slow (minutes) | Fast (seconds) |
+
+**When to use which:** Hermes for auditable research/agentic work where you will
+inspect the trace and want maximum effort (this is why the `semantic_broker`
+experiments use Hermes — the `state.db` code trace is the audit surface). Odysseus
+for fast, guard-railed interactive chat. Both hit the *same data wall* on hard
+tasks and can fabricate; the difference is Hermes's fabrication is auditable and
+Odysseus's is not. Neither "wins" outright — it's an auditability/effort vs.
+latency/safety tradeoff.
+
 ## Security model
 
 Agent code runs inside the Idlisseus Docker container. The container has:

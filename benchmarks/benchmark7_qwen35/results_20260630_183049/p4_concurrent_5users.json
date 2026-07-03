@@ -1,0 +1,33 @@
+{
+  "n_users": 5,
+  "wall_s": 71.1,
+  "results": {
+    "1": {
+      "elapsed_s": 55.2,
+      "completion_tokens": 703,
+      "ok": true
+    },
+    "3": {
+      "elapsed_s": 59.8,
+      "completion_tokens": 761,
+      "ok": true
+    },
+    "4": {
+      "elapsed_s": 62.5,
+      "completion_tokens": 833,
+      "ok": true
+    },
+    "2": {
+      "elapsed_s": 65.8,
+      "completion_tokens": 895,
+      "ok": true
+    },
+    "0": {
+      "elapsed_s": 71.1,
+      "completion_tokens": 1162,
+      "ok": true
+    }
+  },
+  "avg_s": 62.9,
+  "slowest_s": 71.1
+}
