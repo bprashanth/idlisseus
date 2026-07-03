@@ -237,3 +237,14 @@ __marimo__/
 
 # ds4 is its own git repo living in-tree (do not move, do not commit here)
 ds4/
+
+# Benchmark run artifacts (downloaded papers, generated dashboards, research dumps).
+# These are agent OUTPUTS, not source — the value is the .md write-ups. Purged from
+# history 2026-07. Force-add (git add -f) if a specific chart is ever needed.
+benchmarks/**/*.pdf
+benchmarks/**/*.zip
+benchmarks/**/*.png
+benchmarks/**/*.jpg
+benchmarks/**/*.jpeg
+benchmarks/**/*.html
+benchmarks/**/*.webm
