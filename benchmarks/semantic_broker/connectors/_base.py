@@ -3,7 +3,20 @@
 The point-IO helpers are also the "hardcode the data-finding bit": they guess the
 lat/lon (and id) columns so the agent doesn't have to (Q1 wasted turns on this)."""
 import csv
+import importlib.util
+import os
 import sys
+
+# Self-heal interpreter: the Hermes terminal tool may run the connector with a
+# python whose site-packages lack earthengine-api even though the venv has it
+# (the venv's python3 is a symlink to the system binary, so comparing paths is
+# unreliable — use an env guard to avoid a re-exec loop). If `ee` isn't
+# importable, re-exec with the known-good venv interpreter so the agent can just
+# run `python connector.py ...`.
+_VENV_PY = "/opt/hermes/.venv/bin/python3"
+if (importlib.util.find_spec("ee") is None and os.path.exists(_VENV_PY)
+        and not os.environ.get("_CONN_REEXEC")):
+    os.execve(_VENV_PY, [_VENV_PY] + sys.argv, {**os.environ, "_CONN_REEXEC": "1"})
 
 _LAT_KEYS = ("lat", "latitude", "decimallatitude", "y", "ycoord", "y_coord")
 _LON_KEYS = ("lon", "lng", "long", "longitude", "decimallongitude", "x", "xcoord", "x_coord")
