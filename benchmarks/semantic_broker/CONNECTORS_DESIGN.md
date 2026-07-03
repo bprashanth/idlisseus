@@ -151,3 +151,38 @@ layer meets the retrieval layer later (v1+).
 3. `protected_areas`, `occurrence`, `terrain`, `geo`.
 4. Rerun Q1 and Q5 with the connectors + PLAYBOOK mounted; compare to the raw
    v-1 runs. Success = Q5 gets classes right, Q1 completes a real fire ranking.
+
+## Validation — connector-assisted vs raw v-1
+
+Run with `run_connectors.sh` (connectors + PLAYBOOK mounted, data-finding pre-staged).
+
+**QA "rank restoration sites by wildfire exposure" (= v-1 Q1 redux, 122B):**
+- **raw v-1 Q1:** ~25 min, ~25 EE calls, **never completed** the per-site fire
+  join — degraded to a qualitative habitat guess.
+- **with connector:** **1 min 44 s, 9 tool calls.** Read `fire.py --describe`, ran
+  one `fire.exposure(sites, radius_km=5, years=2020-2025)`, ranked. Correct result
+  matching the gold: Akkamalai 19.4, Akkamalai_Iyerpadi 15.2 top; ~12 zero-fire sites.
+
+The agent followed the playbook exactly (read describe → `mkdir /opt/data/work`
+→ connector `--out` → group). The one connector call replaced the reduction it
+could not hand-write.
+
+**Issues found + fixed while testing (per the "update on surprise" rule):**
+1. `--out` into the read-only input mount crashed with a traceback the agent
+   misread as an EE-auth error → `write_points` now falls back to stdout with a note.
+2. The Hermes *terminal* tool runs connectors with a python lacking `earthengine-api`
+   (`ModuleNotFoundError: ee`) → `_base` self-heals by re-exec'ing with the venv
+   interpreter. So `python connector.py …` works regardless of interpreter.
+3. WDPA lacks Western-Ghats reserve boundaries → documented as a `coverage_warning`
+   rather than a silent misleading "0% inside PA".
+
+**QB "land cover of lantana occurrences" (= v-1 Q5 semantic redux, 122B):**
+- **raw v-1 Q5:** invented the legend — "class 50 = Shrubland", a fake plantation
+  class, "898 km² scrub".
+- **with connector:** **2 min 15 s.** `landcover.py --describe` → `classify` →
+  group. Exact gold, correct names: Tree cover 186 (74%), Built-up 40, Grassland
+  17, Cropland 5. No fabricated classes.
+
+**Bottom line:** the connector layer fixes both v-1 failure modes — *couldn't
+complete* (QA) and *wrong semantics* (QB) — turning 25-min non-answers into
+~2-min correct ones with a handful of tool calls.
