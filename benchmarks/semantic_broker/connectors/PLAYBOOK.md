@@ -26,8 +26,13 @@ Earth Engine code yourself.
 
 ```
 python /opt/data/connectors/<name>.py --describe
-python /opt/data/connectors/<name>.py <function> --points in.csv --out out.csv
+python /opt/data/connectors/<name>.py <function> --points in.csv --out /opt/data/work/out.csv
 ```
+
+Write `--out` files to a **writable** path like `/opt/data/work/` (`mkdir -p` it
+first). The connector and input folders are mounted **read-only**; if `--out`
+can't be written the connector prints the CSV to stdout instead (so you still get
+the data — capture it).
 
 Available connectors: `landcover`, `fire`, `terrain`, `protected_areas`,
 `occurrence`, `geo`. One card each in this folder.

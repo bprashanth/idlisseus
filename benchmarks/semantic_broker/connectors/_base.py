@@ -44,13 +44,23 @@ def read_points(path):
 
 
 def write_points(pts, path=None):
-    """Write [{...}] rows as CSV to path or stdout."""
+    """Write [{...}] rows as CSV to path or stdout.
+
+    If `path` is not writable (e.g. a read-only mount), fall back to stdout with a
+    note on stderr instead of crashing — a write error must never be mistaken for
+    a data/auth error by the caller."""
     if not pts:
         return
     cols = list(pts[0].keys())
-    out = open(path, "w", newline="") if path else sys.stdout
+    out, close = sys.stdout, False
+    if path:
+        try:
+            out, close = open(path, "w", newline=""), True
+        except OSError as e:
+            print(f"[note] could not write {path} ({e.strerror}); "
+                  f"printing to stdout instead", file=sys.stderr)
     w = csv.DictWriter(out, fieldnames=cols)
     w.writeheader()
     w.writerows(pts)
-    if path:
+    if close:
         out.close()
