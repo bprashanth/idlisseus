@@ -1,0 +1,10 @@
+{
+  "site": "Elephants by the Lake (EBTL), Rainmatter Foundation",
+  "where": "~70-acre degraded dry-deciduous restoration site, foothill valley, Eastern Ghats, near Krishnagiri, Tamil Nadu (village Chinnathamandrapalli).",
+  "site_center_latlon": {"lat": 12.73394, "lon": 78.18344},
+  "site_bbox_wsen": [78.170, 12.721, 78.197, 12.747],
+  "site_bbox_note": "USE THIS ~2.9km AOI for 'our site / restoration site' questions — NOT the wide corridor.",
+  "donor_belt_wsen": [76.0, 11.0, 79.5, 13.6],
+  "donor_belt_note": "dry-Deccan analog belt (Bandipur/BRT/Mudumalai/Cauvery/Hosur) — gather DONOR occurrence here to transfer into the site via predict.route.",
+  "ebird_hotspot": "L36453021"
+}

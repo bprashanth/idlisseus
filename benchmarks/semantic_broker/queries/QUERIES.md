@@ -64,8 +64,10 @@ boundary workaround in QE).
 ## Connectors the query set suggests we still need (roadmap)
 
 Emerged from writing these — build when a query needs them:
-- **`greenness`** — NDVI/EVI time series (MODIS/Landsat) for *restoration recovery*
-  ("are restored plots greening up?"). The natural next connector.
+- ~~**`greenness`**~~ — **BUILT (2026-07-03, algebra loop).** MOD13Q1 NDVI trend
+  (`trend(points, years) → +ndvi_slope,+trend_class`) for *restoration recovery*.
+  The first **TREND** primitive. Gold: 26 sites → 12 greening / 13 flat / 1
+  declining. See `../../algebra/RESULTS_2h.md`.
 - **`forest_change`** — Hansen Global Forest Change loss/gain for degradation history.
 - **`rainfall`** — CHIRPS, for fire seasonality / drought context (fire is
   rainfall-gated, per the Prasad removal paper).

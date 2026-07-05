@@ -1,0 +1,60 @@
+{
+ "name": "meghalaya_groves",
+ "label": "Meghalaya sacred groves (Khasi Hills)",
+ "description": "NE India subtropical broadleaf; community sacred groves + degraded slopes restoration.",
+ "center": [
+  25.45,
+  91.75
+ ],
+ "bbox": [
+  91.3,
+  25.1,
+  92.4,
+  25.9
+ ],
+ "ecoregion": "Meghalaya subtropical forests",
+ "biome": "Tropical & Subtropical Moist Broadleaf Forests",
+ "landscape": "Khasi hills subtropical broadleaf; sacred groves as reference; shifting cultivation & degradation.",
+ "buckets": {
+  "restoration": 3,
+  "biodiversity": 3,
+  "water": 2,
+  "livelihoods": 2,
+  "invasives": 2,
+  "landuse": 2,
+  "fire": 1,
+  "governance": 2
+ },
+ "seed_species": [
+  "Chromolaena odorata",
+  "Rhododendron arboreum",
+  "Castanopsis indica"
+ ],
+ "native_trees": [
+  "Castanopsis indica",
+  "Rhododendron arboreum",
+  "Michelia champaca"
+ ],
+ "reference_forest": [
+  25.45,
+  91.72
+ ],
+ "analog_sites": [
+  {
+   "name": "Nokrek",
+   "bbox": [
+    90.2,
+    25.4,
+    90.5,
+    25.6
+   ]
+  }
+ ],
+ "catalogs": [
+  {
+   "type": "ckan",
+   "base": "https://data.gov.in",
+   "note": "India catalog"
+  }
+ ]
+}

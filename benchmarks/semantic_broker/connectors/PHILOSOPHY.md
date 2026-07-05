@@ -71,3 +71,23 @@ documented `gotcha`/`coverage_warning`, not silent behaviour.** Keep the code,
   boundaries; the connector discloses it and points to `geo.within` on a supplied
   GeoJSON rather than fabricating an inside/outside split.
 - **Zero can be signal** — wet evergreen sites returning 0 fire is correct, not a bug.
+
+## Lessons banked from the algebra loop (2026-07-03, `greenness`)
+
+- **TREND is a distinct primitive.** "Is it recovering?" is a *slope over years*,
+  not a map lookup — the first thing the FIND/LOOK-UP/SUMMARISE/RELATE/GROUP set
+  can't express. `greenness.trend` owns the annual compositing + the least-squares
+  fit so the agent never hand-writes a per-year EE reduction (which is exactly what
+  it hung 20 min on with no connector).
+- **Self-test fixtures for a fuzzy layer test direction/magnitude, not an exact
+  value** (NOTES §3): intact forest → NDVI high & flat; city → low; water → very
+  low. The bounds are chosen so a **broken scale factor** (0.0001 dropped → values
+  in the thousands) blows the ceiling and the gate rejects it. Verify fixture bounds
+  by *running the connector first*, then set them — don't guess.
+- **NDVI saturates over dense canopy** → a mature intact forest reads
+  *high-and-flat*, which is not "failing to recover." Read `trend_class` together
+  with `ndvi_end`; documented as the connector's `gotcha`.
+- **A gold answer is only as trustworthy as the self-test that gates it** (NOTES
+  §0). Mint gold *only* from a connector whose ground-truth self-test passes; the
+  meta-check (deliberately break it, confirm the test fails) is what makes a green
+  test mean something.

@@ -1,0 +1,48 @@
+{
+  "question": "For each restoration site, is it greening up between 2019 and 2024? Rank by NDVI trend.",
+  "chain": [
+    "greenness.trend(restoration_sites, years='2019-2024')",
+    "sort by ndvi_slope, bucket by trend_class"
+  ],
+  "n_sites": 26,
+  "class_counts": {
+    "greening": 12,
+    "flat": 13,
+    "declining": 1
+  },
+  "top5_greening": [
+    {
+      "id": "Selaliparai1",
+      "ndvi_slope": 0.01829,
+      "trend_class": "greening"
+    },
+    {
+      "id": "Akkamalai_Iyerpadi",
+      "ndvi_slope": 0.01412,
+      "trend_class": "greening"
+    },
+    {
+      "id": "Korangamudi",
+      "ndvi_slope": 0.01173,
+      "trend_class": "greening"
+    },
+    {
+      "id": "Akkamalai",
+      "ndvi_slope": 0.01162,
+      "trend_class": "greening"
+    },
+    {
+      "id": "Iyerpadi",
+      "ndvi_slope": 0.01147,
+      "trend_class": "greening"
+    }
+  ],
+  "declining_sites": [
+    "OldValparai_Coffee"
+  ],
+  "connector": {
+    "name": "greenness",
+    "dataset": "MODIS/061/MOD13Q1",
+    "self_test": "pass"
+  }
+}

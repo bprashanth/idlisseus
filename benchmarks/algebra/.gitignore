@@ -1,0 +1,22 @@
+# research broker runtime artifacts (regenerable — see DISPOSABLE.md)
+research/kb.jsonl
+research/narratives.jsonl
+research/state.json
+research/cache/
+research/*.log
+research/__pycache__/
+components/__pycache__/
+runs/*.log
+runs/*.console
+aois/*/
+
+# paper_data corpus artifacts (regenerable via research/paper_crawl.py; can be large)
+research/paper_cache/
+research/paper_catalog.jsonl
+research/paper_data_index.jsonl
+ebtl/occurrence_ebtl.csv
+discovery/cards.jsonl
+discovery/_emb*.json
+discovery/_emb.py
+discovery/*.log
+discovery/__pycache__/

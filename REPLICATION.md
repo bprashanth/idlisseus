@@ -59,6 +59,36 @@ sudo chown -R 10000:10000 ~/.hermes            # so the agent (uid 10000) can cd
 Set your own GEE project (we use `plantwars`) — edit the `project=` in the connectors
 or the creds file. GBIF needs no key.
 
+## 3.5 Dryad API creds (for the `paper_data` skill's authenticated source)
+
+Dryad search/metadata is open, but downloading dataset **file bytes needs an OAuth
+token**. Without it the `paper_data` connector still works over Zenodo/NCF, but the
+Dryad source is disabled (the corpus crawl skips hop 3, and Hermes can't search Dryad
+at runtime). Get creds and install them:
+
+```bash
+# 1. log into https://datadryad.org with ORCID, then generate API creds at /account
+# 2. install them (host-owned, never committed):
+cp ~/.config/idlisseus/dryad.json.example ~/.config/idlisseus/dryad.json   # fill in id+secret
+chmod 600 ~/.config/idlisseus/dryad.json
+# 3. validate end-to-end (creds -> token -> authenticated download -> ingest):
+python3 benchmarks/algebra/research/dryad_check.py
+```
+
+Read order: `DRYAD_CLIENT_ID`/`DRYAD_CLIENT_SECRET` env → `~/.hermes/secrets/dryad.json`
+(uid-10000, for the Hermes sandbox) → `~/.config/idlisseus/dryad.json` (host). Full
+detail: [`benchmarks/algebra/research/DRYAD_SETUP.md`](benchmarks/algebra/research/DRYAD_SETUP.md).
+
+## Preflight — verify a fresh clone before running
+
+```bash
+python3 preflight.py
+```
+Prints PASS/WARN/FAIL for the model endpoint, Hermes image, python deps, and each
+credential (Earth Engine, **Dryad**). Missing keys are loud WARNs that name exactly
+which capability they disable — so the `paper_data` skill never fails silently for a
+missing Dryad key. Exit 0 if the core stack is runnable.
+
 ## 4. semantic_broker corpus (gitignored `assets/`)
 
 Regenerate the S. India conservation corpus (NCF Zenodo community + specific
@@ -96,8 +126,10 @@ never completed. See [`CONNECTORS_DESIGN.md`](benchmarks/semantic_broker/CONNECT
 ## What is NOT in git (fetch/generate yourself)
 
 `~/models/*` weights · `ds4/` source repo · `ds4-kv/` · `chatbots/odysseus/.env`
-& `data/` · EE credentials · `benchmarks/semantic_broker/assets/` (corpus) &
-`runs/` (logs) · all venvs · Docker images.
+& `data/` · EE credentials · **Dryad creds (`~/.config/idlisseus/dryad.json`)** ·
+`benchmarks/semantic_broker/assets/` (corpus) & `runs/` (logs) · the `paper_data`
+corpus (`benchmarks/algebra/research/paper_cache/`, `paper_catalog.jsonl`,
+`paper_data_index.jsonl`) · all venvs · Docker images.
 
 ## Download-strategy notes (flaky-network survival)
 
