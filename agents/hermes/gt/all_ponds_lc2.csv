@@ -1,0 +1,12 @@
+id,lat,lon,landcover_code,landcover
+0,12.75021,78.20652,40,Cropland
+1,12.7154,78.1592,30,Grassland
+2,12.70381,78.20582,40,Cropland
+3,12.72318,78.19772,30,Grassland
+4,12.71351,78.18722,20,Shrubland
+5,12.7042,78.21644,40,Cropland
+6,12.73359,78.15773,30,Grassland
+7,12.71621,78.21983,30,Grassland
+8,12.70595,78.17804,60,Bare / sparse vegetation
+9,12.73474,78.21504,80,Permanent water bodies
+10,12.73389,78.1836,30,Grassland

@@ -27,6 +27,11 @@ a **specific data ask** (survey X, deploy Y sensor, get Z imagery).
 (transfer/bridge/answer) → surface data requests.` Full step-by-step, grounded in exactly what we
 did for EBTL: **[AOI_ONBOARDING.md](AOI_ONBOARDING.md)**.
 
+## Why the system behaves as it does (the ideology)
+Data-starvation as default · follow the data you have to build a case for more · helpful-then-honest,
+never fabricate/never empty · provenance over assertion · **experiment when unclear** (cards-vs-LLM,
+gate validity, head-to-head vs a frontier). Full: **[PHILOSOPHY.md](PHILOSOPHY.md)**.
+
 ## The data strategies we employ (the toolbox)
 Corpus crawl (community + author-graph + theme retargeting + authenticated sources) · paper search
 & document embeddings/cards · the axis-of-maximum-data-reliance bridge · transfer & interpolate

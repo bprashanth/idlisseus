@@ -1,0 +1,7 @@
+{
+  "_comment": "Copy this to ~/.config/idlisseus/openrouter.json (OUTSIDE the repo) and paste your key.",
+  "_key_from": "https://openrouter.ai/keys",
+  "_model_slugs_from": "https://openrouter.ai/models  (must support tool-calling)",
+  "api_key": "sk-or-v1-REPLACE_ME",
+  "model": "deepseek/deepseek-v4-flash"
+}

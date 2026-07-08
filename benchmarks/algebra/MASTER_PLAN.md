@@ -10,6 +10,41 @@ site. The core constraint is **DATA SCARCITY**; that's the whole reason we inves
 connector + paper-data toolings. Every decision is judged by: *does this help us show Varun
 something a plain CLI can't?*
 
+## END GOAL — converge into a replicable DSS (the productization)
+The EBTL work is the *proving ground*. The real deliverable is a **replicable Decision-Support
+System** (`../../dss/`) any new AOI/user can be onboarded into. The final exercise (do this once
+usability is proven, NOT before):
+1. **Order ALL md files by date** (here in `benchmarks/algebra/`, the relevant ones in
+   `benchmarks/semantic_broker/`, and the dss/ docs), walk the timeline **together**, and **distil each
+   learning into `dss/` documentation one-by-one** — then **move the assets out of `benchmarks/` into a
+   system in `dss/`.**
+2. Lay out, as a replicable system: the **infra** (loop / scout / controller / proposer / miner /
+   research crawl+KB), the **design principles** (connectors as points-in/points-out with metadata;
+   models; the gate/route transfer algebra; provenance/lineage; the login-connector pattern), and the
+   **eval frameworks** (head-to-head vs a frontier model; the curriculum that widens data search;
+   the CARDS-beat-LLM-search finding; the **experiment-when-unclear** ideology).
+3. Capture the **philosophy** (`dss/PHILOSOPHY.md`) + **onboarding/expansion** (`dss/AOI_ONBOARDING.md`,
+   incl. the greedy data-search / Scout, WII-corridor lineage, anti-hallucination guards) +
+   **strategies** (`dss/DATA_STRATEGIES.md`). Started; keep adding EVERY discovery here so compaction
+   never loses it (e.g. the corridor was derived in a PRIOR run by the Scout — don't re-derive/forget).
+
+## CURRENT PHASE (2026-07-05→): prove usability, then converge
+- **Now:** validate the connectors discovered overnight (phenology/indicators/water/ebird/bridge) actually
+  work in real Hermes sessions **and that lineage/provenance holds** (the `/why` view — see below).
+- **Then, toward the end goal (any/all):** more rounds of the **curriculum**, or **expand the curriculum**,
+  or **another head-to-head vs a different frontier model**, or **run A itself on a frontier model** — all
+  in service of a bigger, honest win margin + a distilled, replicable system.
+- **`/why` provenance view — BUILT (2026-07-05).** Hermes **plugin** (no source hack): source in
+  `agents/hermes/plugins/why/` (plugin.yaml + __init__.py + ledger.py), installed to `~/.hermes/plugins/why`
+  + enabled. `post_tool_call` hook captures connector calls into a per-answer ledger; `pre_llm_call`
+  resets on a new user question; **`/why` command renders client-side** (data→gate→model→result, ANSI
+  tree, plain language, no emoji, out of the transcript). VERIFIED: plugin loads + registers 2 hooks +
+  /why command; render validated standalone (teak: gate refuses look-alike 0.10 → uses climate SDM).
+  Interactive `/why` needs a TTY (can't pipe-test) → **USER tests it live: `./chat.sh` (interactive) →
+  ask → `/why`.** Also wired the **absence data-request** into every transfer-model output (predict.py
+  ABSENCE_ASK). TODO: HTML side-by-side view for demos; turn-scoping refinement.
+  Guide: https://github.com/NousResearch/hermes-agent/blob/main/website/docs/guides/build-a-hermes-plugin.md
+
 ## The measure of success (THE benchmark)
 Head-to-head, on **Varun-style questions**:
 - **A = our stack** — Hermes + 12 connectors + real EE/GBIF/**paper** data + the skill.
@@ -44,6 +79,29 @@ improving whatever dimension is weakest. **Give cursor the edge; make our stack 
   (re-arm on timeout); build improvements between per-question notifications.
 
 ### Overnight loop LOG (newest first)
+- **[cycle 9 — /why polish + Gemini + s2 (2026-07-05)]** **/why improved** (agents/hermes/plugins/why,
+  documented + install.sh + shiftable): named sources in brackets (GBIF/RESOLVE-WWF/ESA-WorldCover/…),
+  shows the actual RESULT value, visible ● bullet, plain-English custom-code explanations (co-occurrence
+  = "measured how close points are"), honesty footer flagging INFERRED-vs-measured claims. Fixed capture
+  regex (both `connectors/x.py` and `cd connectors && python x.py`) + doc-read skip + consolidation.
+  **GEMINI works as Hermes LLM:** `agents/hermes/chat_gemini.sh` renders a Gemini config (OpenAI-compat
+  endpoint, key at ~/.config/idlisseus/gemini.json — free-tier AI-Studio key, ~$0). Gotcha: must insert
+  api_key into the TOP `model:` block (awk) + chmod 644 the temp config (uid-10000 reads it). Smoke:
+  Hermes+Gemini ran occurrence + answered. **`s2` connector BUILT** (Sentinel-2 10m NDVI canopy-density;
+  EBTL site = NDVI 0.558, 71% dense). Running: 2 head-to-heads Hermes+qwen vs Hermes+Gemini.
+  **Skill items surfaced (TODO):** (a) label inferred-vs-measured claims, (b) USE available data (S2)
+  not just suggest it, (c) scale-default guard, (d) promote co-occurrence/proximity into `geo`. Also
+  wired **absence data-request** into predict outputs (ABSENCE_ASK).
+- **[cycle 8 — SDM methodology + absence-from-paper experiment]** Documented the modelling layer's
+  honesty gap in `connectors/MODELLING.md`: absence = **random background pseudo-absence** (weak; RF
+  treats presence/bg as classification, sensitive to bg draw + sampling bias). RF-vs-MaxEnt: MaxEnt
+  better-suited for presence-only, BUT **background quality matters more** (target-group bg + spatial
+  thinning) and EE has no MaxEnt (needs local libs the container lacks). **KEY EXPERIMENT (quick-check
+  DONE, viable): TRUE ABSENCE from paper PLOT CENSUSES** — a complete plot list that omits a species =
+  real absence at that coord. Found **43 plot-census candidate datasets** in the corpus (mostly wet →
+  need dry-Deccan for EBTL). **Planned SDM upgrade order:** (1) target-group bg + spatial thinning,
+  (2) `paper_data.absence(species, region)` → feed real absence into predict, (3) MaxEnt/maxnet. This
+  is our data moat (a chatbot can't derive absence from plot censuses).
 - **[cycle 7 — FINAL RESULT, 18/18 done]** **A beats cursor 16–2 overall (88%); on the CLEAN
   subset (13 Qs where cursor was NOT leaked = fair frontier test) A 11–2 (84%).** Both losses = the
   human-use category (Q11 grazing, Q15 firewood), root-caused + fixed (skill guidance) → expected to
@@ -215,3 +273,67 @@ v-1 measures whether 1+2 suffice or we need 3.
 - `paper_data_v-1/` — the skill-evaluation experiment (this next step).
 - Docs: this file, `NOTES.md`, `NEXT_STEPS.md`, `ONBOARDING.md`, `ebtl/DATA_ASSESSMENT.md`, `DISPOSABLE.md`.
 Keep it all here for now; this map lets us untangle later.
+
+---
+
+## OVERNIGHT RUN — 2026-07-06 (models × skills × the free map)
+
+**Alignment (user GO):** free pipeline only (no SkyWatch/SkyFi keys obtained). Three deliverables:
+1. **Model × skill benchmark** on all 3 (122B local, `z-ai/glm-5.2`, `deepseek/deepseek-v4-flash`)
+   — `/why`-scored, `agents/hermes/chat.sh --model`, $12 OpenRouter hard cap.
+2. **Hardened PLAYBOOK** (miner mines rules from `/why` traces of what worked/failed).
+3. **A syllabus (≥10 Q)** that makes **s2 + colocation** central — invasives, birds, elephants,
+   overlap/"what grows near X", forest inventory, open questions — stress-test, improve, use to SCOUT
+   for more data. Then **the free invasive MAP** (S2 multitemporal phenology anomaly → AE-similarity
+   to known presence → GBIF validation; intersect datasets to make it as strong as possible free).
+
+**Guiding principle — the cost-aware data funnel:** free/coarse data (S2, AlphaEarth, GBIF) NARROWS
+(generate candidates, decide where spend is worth it); paid/fine data (Planet/Pixxel/drone) CONFIRMS at
+those few points via similarity-to-presence. The transfer-gate + a COST axis. `s2` = primitive AND a
+step inside skills; invasive-detection is its OWN skill. Tonight dry-runs the WHOLE funnel for $0.
+
+**Model facts:** GLM-5.2 = reasoning model (needs max_tokens headroom); DeepSeek-flash plain+cheap;
+slugs verified live; 1 local + 2 remote loops parallelise, never 2 local. Ecology rubric (Bandipur):
+Lantana↔teak/amla/Stereospermum; elephant ~85% grass/15% browse, Tamarindus/Acacia in dung.
+
+---
+
+## RICH SUBGOAL — Invasive-map reliability benchmark + SkyFi imagery (2026-07-06)
+
+**Skill taxonomy adopted** (`semantic_broker/SKILL_ALGEBRA.md`): STATE / RELATION / CHANGE / TREND /
+VALUE, + TRANSFER as a cross-cutting modifier. Every new skill declares its bucket + a `/why` template.
+Fork into DSS as the skill contract. The invasive map = **CHANGE (S2 phenology) + TRANSFER**; the paid
+high-res approach = **STATE (GLCM/OBIA/NIR) + TRANSFER**.
+
+**Benchmark** (`semantic_broker/experiments/INVASIVE_MAP_BENCHMARK.md`): which map product gives a reliable
+invasive map, and when is paid high-res worth it? No in-AOI ground truth (0 GBIF Lantana in the AOI;
+nearest 20.8 km) → validate via (1) transfer accuracy from a GBIF-rich reference region w/ matched
+negatives [real numbers], (2) cross-method concordance A1↔A2, (3) photo-interp, (4) future field GPS.
+H1 = S2 hotspots predict high-res Lantana (⇒ screen-free-then-buy); H2 = spatial method AUC≥0.8;
+H3 = agreement map. **Phased cost: A=$45 (committed), B=+$48 (real accuracy), C=+$45 (optional 2nd date).**
+
+**SkyFi LIVE.** Key works; `skyfi.py` = search/best/price/order/download, budget-guarded. Vantor EULA
+accepted. **Phase A ORDERED:** SUPER HIGH 35 cm, cloud-free 2026-04-02, 1.87 km² over EBTL core+hotspots,
+**$44.88**, orderId 168c903d-71a9-4e04-a0a6-ba2d979c7bc8 (status STARTED, ~24h delivery; poller running).
+A2 analysis runs on a host venv (rasterio/skimage — container venv lacks them; bake in later for the skill).
+
+**Data contract for the UX fork:** `invasive.py` build→`data.json`→render. Freeze `data.json`; UX iterates
+render independently. **After this subgoal: return to the model×skill comparison (51 cells done, needs
+miner+report) and /why.** Overall goal unchanged: replicable DSS that beats a context-free CLI on EBTL.
+
+---
+
+## Invasives exploration TIED OFF for a new agent (2026-07-06)
+
+**Handed to `benchmarks/invasive_skill/`** (README + DATA_AND_KEYS + IMPROVE_ROADMAP) — a self-contained
+benchmark for another agent to improve the free invasive skill's MODELLING without touching this plan.
+Working skill = `connectors/invasive.py` (deployed). Ground-truthing = `experiments/label_sheet.py` (eyescan
+→ labels) + `connectors/groundtruth_lens.py` (reusable verify lens). Phase-A finding: hand-rules fail (flag
+orchards/dry-soil), free↔high-res disagree (rho 0.36), **labels are the missing ingredient**. Roadmap ranks
+phenology-time-series (CHANGE, free) + label-trained 8-band classifier as top upgrades.
+
+**New reusable skill: the GROUND-TRUTH lens** (`groundtruth_lens.py`, added to `SKILL_ALGEBRA.md` as a
+cross-cutting output layer): any TRANSFER can emit a static-HTML map with multi-method prediction toggle +
+cursor lens onto high-res. No server/RAM (self-contained). Generalises to colocation / "what grows here" /
+"is Y greening". **iNaturalist direct = big free point source** (EBTL bbox 218 obs vs ~0 GBIF research-grade)
+— wire an iNat puller. **Back to the master plan next** (model×skill re-run + /why + dss convergence).

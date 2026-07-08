@@ -44,6 +44,28 @@ def buffer_count(points, others, radius_km=5):
             for p in points]
 
 
+def cooccur(a_points, b_points, radius_km=5):
+    """Co-occurrence SUMMARY (species/point-set colocation): of the B points, how many fall within
+    `radius_km` of ANY A point, and the mean nearest A-B distance. This is the 'do X and Y occur
+    together?' metric the agent kept hand-rolling — now a checked tool. NOTE: proximity of PRESENCE
+    records is a shared-habitat PROXY, not true co-occurrence (same plot) — say so; paper plot data
+    or predict SDM-overlap are the stronger confirmations."""
+    near, dists = 0, []
+    for b in b_points:
+        d = min((_km(b, a) for a in a_points), default=None)
+        if d is None:
+            continue
+        dists.append(d)
+        if d <= radius_km:
+            near += 1
+    n = len(b_points)
+    return {"n_b": n, "n_b_within_radius_of_a": near, "radius_km": radius_km,
+            "frac_near": round(near / n, 3) if n else None,
+            "mean_nearest_km": round(sum(dists) / len(dists), 2) if dists else None,
+            "note": "Proximity of presence records = shared-habitat PROXY, not true co-occurrence. "
+                    "Confirm with paper plot data (same-plot lists) or predict SDM-overlap."}
+
+
 def _in_ring(lat, lon, ring):
     inside = False
     n = len(ring)
@@ -79,6 +101,12 @@ def within(points, polygons_geojson):
     return out
 
 
+def _resolve(species, bbox):
+    """Species name -> cached points CSV path, via the `points` resolver (geo stays source-agnostic)."""
+    import points
+    return points.get(species, bbox)["path"]
+
+
 def describe():
     return {
         "connector": "geo",
@@ -87,6 +115,10 @@ def describe():
         "functions": [
             "nearest(points, others) -> + nearest_dist_km, nearest_id",
             "buffer_count(points, others, radius_km) -> + n_within",
+            "cooccur(a, b, radius_km) -> SUMMARY: how many B are within radius of A + mean nearest "
+            "(species/point-set COLOCATION — use for 'do X and Y occur together?'). CLI accepts "
+            "--a-species/--b-species (+ --bbox): the `points` resolver fetches+caches the points, so you "
+            "never create or name CSVs yourself.",
             "within(points, polygons_geojson) -> + inside, poly_name",
         ],
         "gotcha": "Distances are great-circle km; fine for ranking at landscape "
@@ -103,6 +135,11 @@ def _main(argv=None):
     bc = sub.add_parser("buffer_count"); bc.add_argument("--points", required=True); bc.add_argument("--others", required=True)
     bc.add_argument("--radius-km", type=float, default=5); bc.add_argument("--out")
     wi = sub.add_parser("within"); wi.add_argument("--points", required=True); wi.add_argument("--polygons", required=True); wi.add_argument("--out")
+    co = sub.add_parser("cooccur")
+    co.add_argument("--a"); co.add_argument("--b")                       # point-file mode (if you already have CSVs)
+    co.add_argument("--a-species"); co.add_argument("--b-species"); co.add_argument("--bbox")  # species mode (resolver)
+    co.add_argument("--b-species-list")                                  # MANY candidates in ONE call (ranked)
+    co.add_argument("--radius-km", type=float, default=5)
     args = ap.parse_args(argv)
     if args.describe or not args.cmd:
         print(json.dumps(describe(), indent=2)); return
@@ -110,6 +147,27 @@ def _main(argv=None):
         write_points(nearest(read_points(args.points), read_points(args.others)), args.out)
     elif args.cmd == "buffer_count":
         write_points(buffer_count(read_points(args.points), read_points(args.others), args.radius_km), args.out)
+    elif args.cmd == "cooccur":
+        # species mode: let the points resolver fetch/cache the sets (no filename juggling, source-agnostic)
+        bbox = args.bbox.split(",") if args.bbox else None
+        a_pts = read_points(_resolve(args.a_species, bbox) if getattr(args, "a_species", None) else args.a)
+        if getattr(args, "b_species_list", None):
+            # MANY candidates in ONE call — the colocation sweep, ranked (no N sequential calls)
+            ranked = []
+            for cand in [s.strip() for s in args.b_species_list.split(",") if s.strip()]:
+                try:
+                    r = cooccur(a_pts, read_points(_resolve(cand, bbox)), args.radius_km)
+                    r["species"] = cand; ranked.append(r)
+                except Exception as ex:
+                    ranked.append({"species": cand, "error": str(ex)[:60]})
+            ranked.sort(key=lambda r: -(r.get("frac_near") or 0))
+            print(json.dumps({"anchor": args.a_species or args.a, "radius_km": args.radius_km,
+                              "ranked": ranked, "note": "frac_near = share of candidate records within "
+                              "radius of the anchor = shared-habitat PROXY (not same-plot). Confirm with "
+                              "paper plot lists / predict SDM-overlap."}, indent=2))
+        else:
+            b_pts = read_points(_resolve(args.b_species, bbox) if getattr(args, "b_species", None) else args.b)
+            print(json.dumps(cooccur(a_pts, b_pts, args.radius_km), indent=2))
     elif args.cmd == "within":
         with open(args.polygons) as f:
             polys = json.load(f)

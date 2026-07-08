@@ -34,6 +34,11 @@ BANDS = [f"A{i:02d}" for i in range(64)]
 WORLDCLIM = "WORLDCLIM/V1/BIO"
 BIO = [f"bio{i:02d}" for i in range(1, 20)]  # 19 bioclim variables
 
+# every transfer model uses random background as pseudo-absence — surface the ask to improve it.
+ABSENCE_ASK = ("DATA REQUEST: this model used random background as pseudo-absence. If you can provide "
+               "confirmed ABSENCE points (sites surveyed where the species was NOT found — e.g. plot "
+               "censuses), the estimate improves markedly.")
+
 
 EMB_MAX_YEAR = 2024  # AlphaEarth V1 annual is published through 2024; later years are empty
 
@@ -163,8 +168,8 @@ def presence(species_rows, bbox, year=2023, n_bg=300, trees=120, project="plantw
             "test_accuracy": round(acc, 3) if acc else None,
             "modelled_present_fraction": round(frac, 3) if frac is not None else None,
             "top_feature_bands": [k for k, _ in top],
-            "caveat": "MODELLED presence (SDM via RF on embeddings) — corroborative, not observed. "
-                      "Occurrence sampling is biased; treat as a hypothesis-strength signal."}
+            "caveat": "MODELLED presence (RF on embeddings) — corroborative, not observed. Occurrence "
+                      "sampling is biased; treat as a hypothesis-strength signal. " + ABSENCE_ASK}
 
 
 def gate(train_rows, bbox, year=2023, n_aoi=100, project="plantwars",
@@ -271,6 +276,7 @@ def sdm_climate(presence_rows, bbox, year=2023, n_bg=500, trees=150, project="pl
             "test_accuracy": round(acc, 3) if acc else None,
             "modelled_suitable_fraction": round(frac, 3) if frac is not None else None,
             "aoi_in_climate_envelope_frac": round(frac_in, 3),
+            "data_request": ABSENCE_ASK,
             "caveat": "MODELLED climate suitability, not observed. Cross-ecoregion projection is "
                       "valid ONLY where aoi_in_climate_envelope_frac ~1; lower => extrapolation. "
                       "Climate niche only — ignores land-use, biotic interactions, dispersal."}

@@ -70,6 +70,59 @@ frugivore dispersers → Lantana-spread signal (bridge) despite 0 plant records.
 
 ---
 
+## AOI expansion — the "greedy data search" (how we go from one site to a searchable landscape)
+
+A user supplies **one** AOI (the parcel). To model a data-starved parcel we must **widen outward
+to where borrowable data exists** — but every widened AOI must be *derived, cited, and overridable*,
+never fabricated. This is what the **Scout** does (`components/scout.py`), and it's the reproducible
+replacement for ad-hoc model judgment.
+
+**Procedure (pseudocode):**
+```
+onboard(aoi_hint):
+  site      = geocode(aoi_hint)                    # coords/bbox — CITE the geocoder (Plus Code, OSM…)
+  ecoregion = ecoregion.at(site); climate = worldclim(site)
+  mission   = read_org_clues(aoi_hint)             # web-fetch the org's own page → flagship species /
+                                                   # stated goals ("elephants","corridor"). CITE the URL.
+  # GREEDY EXPANSION — widen until data is usable (the "dotted-line AOI"):
+  box = site
+  while gbif_density(box) < USABLE and box < MAX:
+      box = widen(box toward the mission clue)      # e.g. a NAMED corridor from a CITED atlas
+  corridor = box   # tag: derived-by-density + cited source + "geometry APPROXIMATE if no shapefile"
+  analog_sites = same_ecoregion_reserves(ecoregion) # known reserves; VERIFY each by real GBIF count
+  sources = search(GBIF, eBird, Zenodo, CKAN, data.gov.in, paper_data)  # VERIFY rows>0; stamp provenance
+  return {site, corridor(cited,approx), analog_sites(verified), sources(stamped)}
+```
+
+**EBTL (verified, not invented):** the corridor `[77.4,11.9,78.5,12.9]` = the real **WII/WTI Elephant
+Corridors of India 2023** atlas (Hosur–Dharmapuri) — cited in `aois/elephants_by_the_lake.json`
+(`wii_corridors`, flagged "no open shapefile → request from WII / digitize"). The **bbox was set by
+widening the 0.5° property box until GBIF density was usable: 37k → 1.72M records.** Analog reserves
+verified by GBIF count (Bandipur-Mudumalai 892k, Sathyamangalam-BRT 508k, Cauvery/MM Hills 326k).
+`data.gov.in` was queried and returned **0 hits** (recorded as attempted-empty, not used).
+
+**Anti-hallucination guards (protect every future AOI):** each derived AOI / source must carry
+(a) **how it was derived**, (b) a **citation or "VERIFIED n rows"**, (c) an **approximate/phantom
+flag** when geometry or data is soft, (d) be **overridable** by the user. The Scout already does the
+"phantom guard" (found-but-0-rows is flagged, never admitted) + provenance stamps; extend that to the
+*derived AOIs themselves*. **Never present a widened AOI/number without its lineage.**
+
+**User-facing disclosure template** (so choices never look hallucinated):
+> "You gave me the ~70-acre site. To find enough data to model it, I widened outward: read EBTL's
+> mission (elephants, corridor restoration), matched it to the WII/WTI corridor atlas
+> (Hosur–Dharmapuri), and expanded the box until GBIF had usable density (37k→1.7M). I also pulled 3
+> same-ecoregion reserves for borrowable data. The corridor geometry is approximate (no open shapefile
+> — flagged); you can narrow or replace any of these."
+
+## The bootstrap infra (what runs onboarding — don't re-derive these)
+- **`components/loop.py`** — the AOI bootstrap tick (orchestrator).
+- **`components/scout.py`** — data-frontier discovery: GBIF/eBird/Zenodo/CKAN + analog-ecoregion,
+  verifies rows, stamps provenance, phantom-guard.
+- **`components/proposer.py` + `controller.py`** — turn the AOI's weighted buckets into a question
+  curriculum + question bank.
+- **`components/miner.py`** — mines run logs into permanent playbook rules (`playbook_rules.md`).
+- **`research/`** — the crawl (`paper_crawl.py`), KB (`kb.py`), discovery loop (`loop.py`, `autoloop.py`).
+
 ### Onboarding checklist (for the next AOI)
 - [ ] AOI geometry resolved (site vs corridor) — *automate the geocode step*
 - [ ] ecoregion + climate + landcover characterized

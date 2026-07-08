@@ -1,0 +1,10 @@
+name: why
+version: 0.1.0
+description: >
+  Provenance ledger. Captures every connector call (data pulled, gate decision, model run,
+  result) and exposes /why to show — client-side, out of the transcript — how the last answer
+  was derived: data -> gate -> model -> result.
+author: idlisseus
+provides_hooks:
+  - post_tool_call
+  - pre_llm_call
