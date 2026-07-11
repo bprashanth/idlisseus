@@ -238,6 +238,13 @@ __marimo__/
 # ds4 is its own git repo living in-tree (do not move, do not commit here)
 ds4/
 
+# dss/ production DSS — git the small text indexes in dss/corpus/ (cards, catalog, points index);
+# never the large regenerable caches (raw dataset downloads, embedding .npy). See dss/corpus/README.md.
+dss/**/paper_cache/
+dss/**/*.npy
+dss/loop/runs/
+dss/**/__pycache__/
+
 # Benchmark run artifacts (downloaded papers, generated dashboards, research dumps).
 # These are agent OUTPUTS, not source — the value is the .md write-ups. Purged from
 # history 2026-07. Force-add (git add -f) if a specific chart is ever needed.

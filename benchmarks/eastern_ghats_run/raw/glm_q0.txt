@@ -1,0 +1,210 @@
+Query: Which microhabitats at the Elephants by the Lake restoration site 
+(~12.735°N, 78.184°E)—rocky outcrops, dry-deciduous litter, riparian edges along
+seasonal tanks, and abandoned stone bunds—show the highest encounter rates for 
+Russell's viper (Daboia russelii) and common krait (Bungarus caeruleus) during 
+post-monsoon night surveys?
+Initializing agent...
+────────────────────────────────────────
+
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    I'll start by loading the conservation data analysis skill and reading the playbook to see what data connectors are available.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 📚 preparing skill_view…
+  ┊ 📚 skill     conservation-data-analysis  0.0s
+  ┊ 📖 preparing read_file…
+  ┊ 📖 read      /opt/data/connectors/PLAYBOOK.md  0.1s
+  ┊ 📖 preparing read_file…
+  ┊ 📖 read      /opt/data/connectors/SITE_EBTL.json  0.1s
+  ┊ 📖 preparing read_file…
+  ┊ 📖 read      /opt/data/connectors/recipes/spatial-where.md  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me resolve both species names and check for relevant paper data. I'll run these in sequence.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Daboia russelii"  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Bungarus caeruleus"  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Both species names resolve cleanly. Now let me get occurrence points for both species across the dry-Deccan analog belt, and search the paper corpus for microhabitat/encounter-rate data. These are independent so I'll batch them.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Daboia russelii" --bbox 76.0,11.0,79.5,13.6  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Bungarus caeruleus" --bbox 76.0,11.0,79.5,13.6  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py --help 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --help 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Russell's viper microhabitat encounter rate India" 2>&1 | head -80  4.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "snake microhabitat encounter survey krait viper India night" 2>&1 | head -80  3.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         head -5 /opt/data/work/points/daboia_russelii__850a50.csv && echo "---" && head -5 /opt/data/work/points/bungarus_caeruleus__850a50.csv  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py --describe 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py --describe 2>&1 | head -40  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me annotate both species' points with terrain and land cover to see what microhabitat classes the actual occurrence points fall in.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/daboia_russelii__850a50.csv 2>&1 | tail -5  5.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/daboia_russelii__850a50.csv 2>&1 | head -1  5.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/daboia_russelii__850a50.csv --out /opt/data/work/daboia_terrain.csv 2>&1 | tail -3  6.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/bungarus_caeruleus__850a50.csv --out /opt/data/work/bungarus_terrain.csv 2>&1 | tail -3  3.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py classify --points /opt/data/work/points/daboia_russelii__850a50.csv --out /opt/data/work/daboia_landcover.csv 2>&1 | tail -3  6.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py classify --points /opt/data/work/points/bungarus_caeruleus__850a50.csv --out /opt/data/work/bungarus_landcover.csv 2>&1 | tail -3  7.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         head -3 /opt/data/work/daboia_terrain.csv && echo "===" && head -3 /opt/data/work/daboia_landcover.csv && echo "===" && head -3 /opt/data/work/bungarus_terrain.csv && echo "===" && head -3 /opt/data/work/bungarus_landcover.csv  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me analyze the annotated data to get the distributions by land cover class and terrain for both species.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, collections, json  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python water.py --describe 2>&1 | head -20  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python water.py at --points /opt/data/work/points/daboia_russelii__850a50.csv --out /opt/data/work/daboia_water.csv 2>&1 | tail -3  5.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python water.py at --points /opt/data/work/points/bungarus_caeruleus__850a50.csv --out /opt/data/work/bungarus_water.csv 2>&1 | tail -3  4.8s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, collections  0.1s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, collections  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me run the habitat suitability transfer for both species onto the site, which will give us a spatial picture of where within the site each species is most likely.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py --help 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --points /opt/data/work/points/daboia_russelii__850a50.csv --bbox 78.170,12.721,78.197,12.747 --question presence --out /opt/data/work/daboia_predict.json 2>&1  0.1s [exit 2]
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --help 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --points /opt/data/work/points/daboia_russelii__850a50.csv --bbox 78.170,12.721,78.197,12.747 --question presence 2>&1  26.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --points /opt/data/work/points/bungarus_caeruleus__850a50.csv --bbox 78.170,12.721,78.197,12.747 --question presence 2>&1  18.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me check the site's own land cover composition and terrain to understand what microhabitats actually exist there, so I can map the species' habitat affinities onto them.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py area_by_class --bbox 78.170,12.721,78.197,12.747 2>&1  5.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python water.py ponds --bbox 78.170,12.721,78.197,12.747 2>&1  5.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Daboia russelii habitat use India" 2>&1 | python3 -c "import sys,json; data=json.load(sys.stdin); [print(d['title']) for d in data[:10]]"  4.0s [exit 1]
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Daboia russelii habitat" 2>&1 | head -60  1.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The paper corpus doesn't have specific snake microhabitat encounter rate papers. Let me now look at the terrain of the site itself to understand which microhabitats exist there, and check the occurrence point distances.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, math, collections  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Let me check the site's terrain to identify rocky outcrop areas (steep slopes) within the site.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py --help 2>&1 | head -20  0.1s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      # Generate a grid of points across the site bbox to sample terrain  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/site_grid.csv --out /opt/data/work/site_grid_terrain.csv 2>&1 | tail -3  8.0s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, collections  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now I have all the data I need. Let me compile the final synthesis.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, collections, math  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Here is the data-driven answer. I'll be direct about what the data actually shows and where it falls short.
+    
+    
+    
+    RUSSELL'S VIPER (Daboia russelii) & COMMON KRAIT (Bungarus caeruleus)
+    Microhabitat Encounter Patterns — EBTL Site Region
+    
+    Both species names resolved cleanly to the correct scientific names (GBIF exact match). I then pulled all available occurrence records across the dry-Deccan analog belt (76.0-79.5E / 11.0-13.6N), annotated each point with ESA WorldCover land cover (10 m), SRTM terrain (30 m), and JRC surface-water seasonality, and classified each record into your four microhabitat categories.
+    
+    THE NUMBERS (donor-belt occurrence, all available seasons)
+    
+      Microhabitat proxy           Russell's viper    Common krait
+      (from satellite annotations)  (n=356)            (n=136)
+    
+      Abandoned stone bunds          166 (46.6%)        53 (39.0%)
+      Dry-deciduous litter           124 (34.8%)        48 (35.3%)
+      Open scrub (shrub/grass)        55 (15.4%)        29 (21.3%)
+      Riparian edge (seasonal tank)    6 (1.7%)          3 (2.2%)
+      Rocky outcrop (steep/bare)       5 (1.4%)          3 (2.2%)
+    
+    RANKING BY ENCOUNTER PROXY (highest to lowest)
+    
+      1. ABANDONED STONE BUNDS / CROPLAND-BUILT-UP EDGE — highest for both species. Russell's viper 46.6%, Common krait 39.0%. This makes ecological sense: both species are well-documented commensals in agricultural landscapes. Russell's viper hunts rodents near bunds and field margins; kraits shelter in stone rubble and crevices near human habitation.
+    
+      2. DRY-DECIDUOUS LITTER (TREE COVER) — second for both. Viper 34.8%, krait 35.3%. This is the dominant natural-forest microhabitat. Leaf litter under dry-deciduous canopy provides thermoregulation and prey (rodents, frogs, other snakes for the krait).
+    
+      3. OPEN SCRUB (SHRUBLAND/GRASSLAND) — third. Viper 15.4%, krait 21.3%. The krait shows a relatively higher affinity here than the viper. Your nearest krait record (8.5 km away) falls in grassland on a 15.7° slope.
+    
+      4. RIPARIAN EDGES (SEASONAL TANKS) — very low for both. Viper 1.7%, krait 2.2%. However, this is likely under-sampled. Your site's single seasonal tank is only 0.79 ha and holds water ~2.6 months/year (dries fast). Post-monsoon, when the tank is full and frog/rodent prey peaks, encounter rates here could be temporarily higher than the annual record suggests.
+    
+      5. ROCKY OUTCROPS — lowest. Viper 1.4%, krait 2.2%. Surprising, given your site is 55.8% steep slopes (>10°). But satellite-annotated "steep" doesn't mean "rocky outcrop with crevices" — and occurrence records rarely come from rocky terrain because it's hard to access. This is a data artifact, not necessarily a true low.
+    
+    NEAREST CONFIRMED RECORDS TO YOUR SITE
+    
+      Russell's viper: nearest 14.8 km (shrubland, 672 m elev, 2022 iNaturalist)
+      Common krait:    nearest  8.5 km (grassland, 885 m elev, 15.7° slope, 2024 iNaturalist)
+      Zero records inside the 2.9 km site bbox for either species.
+    
+    HABITAT-SUITABILITY TRANSFER (modelled, not observed)
+    
+      The predict.route RF model confirmed the site is a climate/embedding analog of the donor belt (cosine 0.88-0.90, climate envelope 100% in-bounds). Both RF and SDM agree on very low modelled present fraction (viper 4%, krait 2.1%). This means: the habitat CAN support both species, but expected density is low. This is a hypothesis-strength signal, not a confirmed count.
+    
+    YOUR SITE'S MICROHABITAT COMPOSITION
+    
+      Shrubland 4.37 km² (50.4%), Tree cover 3.63 km² (41.9%), Cropland 0.50 km² (5.8%). Elevation 566-865 m. Slope median 11.4° (77% of site >5°). One seasonal tank (0.79 ha, dries in ~2.6 months). The site is overwhelmingly shrubland + tree cover on sloping terrain.
+    
+    WHAT THIS MEANS FOR POST-MONSsoon NIGHT SURVEYS
+    
+      Based on the occurrence data, prioritize in this order:
+    
+      1. Abandoned stone bunds and cropland edges (0.50 km² on site) — highest expected encounter rate for both species. Check stone crevices, bund bases, and field margins with headlamps after dusk.
+    
+      2. Dry-deciduous litter under tree canopy (3.63 km²) — second priority. Spotlightting on dirt roads and trails through tree cover, focusing on leaf-litter patches and fallen logs.
+    
+      3. Open scrub / shrubland transitions — especially for the krait, which showed relatively higher affinity here. Your nearest krait record was in grassland on steep slope, 8.5 km away.
+    
+      4. Riparian edge of the seasonal tank — check post-monsoon when water is present and prey (frogs, rodents) concentrate. The annual data under-represents this seasonal pulse.
+    
+      5. Rocky outcrops — the data shows low occurrence here, but this is likely a sampling artifact (rocky areas are inaccessible to most recorders). Your site has extensive steep terrain; if rocky crevices exist, they're worth checking for krait shelter specifically.
+    
+    HONEST LIMITS
+    
+      -- These are presence-only occurrence records (GBIF + iNaturalist), not systematic post-monsoon night-survey encounter rates. No such survey data exists in the available datasets for this region.
+      -- No paper in the research corpus contains snake microhabitat encounter-rate data for India.
+      -- The microhabitat classification uses 10 m land cover and 30 m terrain as proxies — ESA WorldCover can't distinguish "abandoned stone bund" from "cropland," or "dry-deciduous litter" from "tree cover." These are coarse proxies.
+      -- Occurrence records are heavily biased toward accessible areas (roads, villages, farms), which inflates the "built-up/cropland" counts.
+      -- Zero records exist inside your site bbox. The nearest are 8.5-14.8 km away.
+      -- All records span all seasons — I cannot filter to post-monsoon only.
+    
+    ONE CONCRETE DATA ASK
+    
+      If you run standardised post-monsoon night transects (say 500 m per microhabitat type, 4-6 repeat nights per habitat, recording encounters per km walked), share the GPS-tracked results as a CSV. I can then compute true per-microhabitat encounter rates (snakes/km/night) and compare them against this modelled ranking — confirming or correcting the proxy order.
+╰──────────────────────────────────────────────────────────────────────────────╯
+[chat] backend=glm-5.2 (openrouter) (container hermes-live)  ·  flags: -m z-ai/glm-5.2 --provider openrouter --yolo --source egb_glm_q0_1783530032

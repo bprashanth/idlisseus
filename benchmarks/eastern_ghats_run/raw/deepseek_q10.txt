@@ -1,0 +1,382 @@
+&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+info = re.findall(r'<div[^>]*class=\"gs_a\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:5]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:400])}')
+    if i < len(info):
+        a = re.sub(r'<[^>]+>', '', info[i])
+        print(f'   {html.unescape(a.strip()[:250])}')
+    print()
+" 2>&1  2.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=Kotumsar+cave+spider+Heteropoda+Pholcidae&hl=en" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:400])}')
+    print()
+" 2>&1  2.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "https://link.springer.com/article/10.1007/s10531-009-9710-x" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+# Extract abstract text
+abstract = re.search(r'class=\"c-article-section__content\"[^>]*id=\"Abs(?:tract|tract)-content\">(.*?)</div', content, re.DOTALL)
+if abstract:
+    text = re.sub(r'<[^>]+>', ' ', abstract.group(1))
+    text = re.sub(r'\s+', ' ', text).strip()
+    print('ABSTRACT:', text[:1500])
+else:
+    # Try other patterns
+    abs2 = re.search(r'id=\"Abs(?:tract|tract)\"(.*?)</section', content, re.DOTALL)
+    if abs2:
+        text = re.sub(r'<[^>]+>', ' ', abs2.group(1))
+        text = re.sub(r'\s+', ' ', text).strip()
+        print('ABSTRACT:', text[:1500])
+    else:
+        text = re.sub(r'<[^>]+>', ' ', content)
+        text = re.sub(r'\s+', ' ', text).strip()
+        print(f'Content length: {len(content)} chars')
+        print(f'Text preview: {text[:1000]}')
+" 2>&1  1.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=%22Deccan+limestone+cave%22+spider+troglobite&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:400])}')
+    print()
+" 2>&1  2.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://www.zoologicalrecords.com/peninsular-india-cave-biodiversity" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+text = re.sub(r'<[^>]+>', ' ', content)
+text = re.sub(r'\s+', ' ', text).strip()
+print(text[:3000])
+" 2>&1  0.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "https://scholar.google.com/scholar?q=%22cave%22+%22eastern+ghats%22+spider+arachnida+limestone&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+info = re.findall(r'<div[^>]*class=\"gs_a\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:12]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:350])}')
+    if i < len(info):
+        a = re.sub(r'<[^>]+>', '', info[i])
+        print(f'   {html.unescape(a.strip()[:200])}')
+    print()
+" 2>&1  2.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://recordsofzsi.com/index.php/zsoi/article/view/153784" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+text = re.sub(r'<[^>]+>', ' ', content)
+text = re.sub(r'\s+', ' ', text).strip()
+# Find abstract section
+idx = text.lower().find('abstract')
+if idx > 0:
+    print(text[idx:idx+2000])
+else:
+    print(text[:3000])
+" 2>&1  0.3s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://www.researchgate.net/publication/349212479_Molecular_investigation_of_Cavernicoles_from_Kotumsar_Cave_in_Northern_Eastern_Ghats_India" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+# Try to get the abstract
+text = re.sub(r'<[^>]+>', '\n', content)
+text = re.sub(r'\n+', '\n', text).strip()
+
+# Look for abstract
+lines = text.split('\n')
+for i, line in enumerate(lines):
+    line = line.strip()
+    if 'abstract' in line.lower() and len(line) > 20:
+        # Print surrounding lines
+        for j in range(max(0,i-1), min(len(lines), i+20)):
+            print(lines[j][:300])
+        print('---')
+" 2>&1 | head -40  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "https://scholar.google.com/scholar?q=%22Kotumsar%22+%22Dandak%22+%22cave%22+spider&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+info = re.findall(r'<div[^>]*class=\"gs_a\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:400])}')
+    if i < len(info):
+        a = re.sub(r'<[^>]+>', '', info[i])
+        print(f'   {html.unescape(a.strip()[:250])}')
+    print()
+" 2>&1  1.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "https://scholar.google.com/scholar?q=cave+fauna+arachnida+Krishnagiri+Dharmapuri+Tamil+Nadu&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:350])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:350])}')
+    print()
+" 2>&1  2.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=%22spider%22+%22Tamil+Nadu%22+%22cave%22+fau&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:10]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:350])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:350])}')
+    print()
+" 2>&1  2.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=Turinyphia+cave+spider+India&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:400])}')
+    print()
+" 2>&1  2.0s
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=%22Biswas%22+%22cave%22+%22Heteropoda%22+%22peninsular+India%22&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:400])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:350])}')
+    print()
+" 2>&1  2.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=%22Biodiversity+of+cave-dwelling+organisms+in+peninsular+India%22+Moreau+2023&hl=en&num=5" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+info = re.findall(r'<div[^>]*class=\"gs_a\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for s in snippets[:3]:
+    clean = re.sub(r'<[^>]+>', '', s)
+    print(f'Snippet: {html.unescape(clean.strip()[:500])}')
+for a in info[:3]:
+    clean = re.sub(r'<[^>]+>', '', a)
+    print(f'Info: {html.unescape(clean.strip()[:300])}')
+" 2>&1  0.8s
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=granite+cave+troglo*+spider+south+India&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:350])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:350])}')
+    print()
+" 2>&1  2.0s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      from hermes_tools import read_file, terminal  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me check the landcover context at the spider occurrence points to understand their habitat associations:
+    
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         mkdir -p /opt/data/work && cd /opt/data/connectors && python3 landcover.py classify --points /opt/data/work/points/heteropoda_venatoria__7bc980.csv --out /opt/data/work/heteropoda_venatoria_landcover.csv 2>&1 | tail -10  4.2s
+  ┊ 💻 $         cd /opt/data/connectors && python3 landcover.py classify --points /opt/data/work/points/pholcidae__7bc980.csv --out /opt/data/work/pholcidae_landcover.csv 2>&1 | tail -10  6.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/work && python3 -c "
+import csv
+from collections import Counter
+
+# Heteropoda landcover
+lc = Counter()
+with open('heteropoda_venatoria_landcover.csv') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        lc[row.get('landcover','?')] += 1
+print('=== Heteropoda venatoria landcover ===')
+for k,v in lc.most_common():
+    print(f'  {k}: {v}')
+
+print()
+# Pholcidae landcover 
+lc2 = Counter()
+with open('pholcidae_landcover.csv') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        lc2[row.get('landcover','?')] += 1
+print('=== Pholcidae landcover ===')
+for k,v in lc2.most_common():
+    print(f'  {k}: {v}')
+" 2>&1  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s -L --max-time 20 -H "User-Agent: Mozilla/5.0" "https://scholar.google.com/scholar?q=Krishnagiri+gneiss+granite+cave+shelter+archaeology&hl=en&num=10" 2>&1 | python3 -c "
+import sys, re, html
+content = sys.stdin.read()
+titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+snippets = re.findall(r'<div[^>]*class=\"gs_rs\"[^>]*>(.*?)</div>', content, re.DOTALL)
+for i, t in enumerate(titles[:8]):
+    clean = re.sub(r'<[^>]+>', '', t)
+    print(f'{i+1}. {html.unescape(clean.strip()[:350])}')
+    if i < len(snippets):
+        s = re.sub(r'<[^>]+>', '', snippets[i])
+        print(f'   {html.unescape(s.strip()[:300])}')
+    print()
+" 2>&1  1.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Here's what the available data shows.
+    
+    
+    
+    Cave systems within ~50 km of Krishnagiri
+    
+    The short answer is: there are no documented limestone karst caves within ~50 km of Krishnagiri that have been surveyed for troglobitic spiders. The area is underlain by granite/gneiss (granetoid gneissic terrain — Krishnagiri's famous black granite), not karst-forming limestone. What exists are granite boulder rock shelters — Neolithic/archaeological sites formed by interlocking boulders on castellated granite hills — rather than true solution caves with the deep, dark, stable-humidity zones that harbor troglobites.
+    
+    The known troglobitic spider research in the Eastern Ghats is concentrated in the Northern Eastern Ghats (Chhattisgarh), ~700 km from Krishnagiri:
+    - Kotumsar Cave (~19.0°N, 81.9°E) — biologically the best-studied cave in India (Biswas 2010)
+    - Dandak Cave — a mammalian-dominated cave ecosystem (Biswas & Shrotriya 2011)
+    - Mandhip Khol Cave Complex — recent bioinventory
+    
+    These are well-developed limestone karst systems in the Kanger Valley / Bastar region, a fundamentally different geology from the granitic Southern Eastern Ghats around Krishnagiri.
+    
+    
+    
+    Spider occurrence data we DO have in the corridor (77.4–78.5E / 11.9–12.9N)
+    
+    From the points connector (GBIF + iNaturalist merged):
+    
+    Group: Heteropoda venatoria (Pantropical Huntsman Spider)
+    Records: 34
+    Dominant landcover: 38% tree cover, 18% grassland, 15% built-up, 15%
+      cropland
+    ────────────────────────────────────────
+    Group: Pholcidae (Cellar Spiders — Crossopriza lyoni, Micropholcus
+      fauroti)
+    Records: 75
+    Dominant landcover: 57% built-up, 28% tree cover
+    ────────────────────────────────────────
+    Group: Idiops spp. (trapdoor mygalomorphs)
+    Records: 7
+    Dominant landcover: shrub/grass (ground-dwelling)
+    ────────────────────────────────────────
+    Group: Mygalomorphae (unidentified)
+    Records: 2
+    Dominant landcover: tree cover
+    
+    The landcover data from ESA WorldCover shows none of these points are labelled "Bare/sparse" or "rocky" (= potential cave habitat). Instead:
+    - Pholcidae are overwhelmingly in built-up (57%) — these are synanthropic cellar spiders found in buildings, not deep cave habitats
+    - H. venatoria is in generalist habitats (tree cover, grassland, cropland, built-up)
+    - No records carry "cave" habitat annotations in their GBIF/iNat metadata
+    
+    
+    
+    Troglobite vs troglophile status from the literature
+    
+    From the published literature (Biswas 2010; Laskar et al. 2021; Moreau et al. 2023):
+    
+    Species: Heteropoda venatoria
+    Status: Troglophile
+    Evidence: Recorded "right from the entrance passage to the innermost
+      passages" in Kotumsar Cave; may be H. bahuvistara per molecular data
+      (Laskar et al. 2021)
+    ────────────────────────────────────────
+    Species: Pholcidae (Crossopriza, Micropholcus)
+    Status: Troglophile/subtroglophile
+    Evidence: Common in cave twilight zones and entrance passages throughout
+      Indian caves
+    ────────────────────────────────────────
+    Species: Linyphiidae (e.g. Turinyphia cavernicola)
+    Status: Troglobite (Azores)
+    Evidence: The Linyphiidae family has cave-specialist species, but these
+      are mostly documented outside India
+    ────────────────────────────────────────
+    Species: Mygalomorphs (Idiops etc.)
+    Status: Accidental/edaphobitic
+    Evidence: Not cavernicolous; occasionally found near entrances but lack
+      troglomorphisms
+    
+    No obligate troglobitic spiders have been described from the Southern Eastern Ghats. Moreau et al. (2023) note that the Deccan limestone caves (Northern Eastern Ghats, not Southern) yielded 18 candidate new troglobitic species, representing a 43% increase in known peninsular Indian troglobitic fauna.
+    
+    
+    
+    Abiotic variables known to predict occupancy
+    
+    From the Kotumsar Cave studies (Biswas 2010 — 25 years of monitoring; Laskar et al. 2021):
+    
+    1. Humidity — the strongest predictor. Dark-zone humidity >90% (near saturation). Troglobites are restricted to zones where RH never drops below 85%. The granite rock shelters near Krishnagiri are far drier and more variable.
+    
+    2. Temperature stability — Kotumsar cave maintains 26–28°C year-round (amplitude <2°C). Surface granite shelters in the Krishnagiri area fluctuate far more (day/night and seasonal).
+    
+    3. Guano presence — bat guano is the primary energy input supporting detritivore communities (Collembola, Diplopoda, cockroaches), which form the prey base for arachnid predators. Kotumsar and Dandak have extensive bat colonies. Without a significant bat roost, the food web collapses.
+    
+    4. Light gradient (distance from entrance) — spiders show zonation: entrance zone (Heteropoda, Pholcidae), twilight zone (some Linyphiidae), dark zone (true troglobites). Pholcidae occupy the entrance/twilight zone 0–30 m from the entrance.
+    
+    5. Structural complexity — crevice density, ceiling roughness, and availability of web-anchor points predict pholcid and linyphiid density.
+    
+    The honest limit: All these variable-occupancy relationships come from Kotumsar/Dandak (Northern Eastern Ghats limestone karst). No equivalent study exists for the granitic rock shelters of the Southern Eastern Ghats near Krishnagiri. The spider occurrence data we have (34 H. venatoria, 75 Pholcidae) lacks microhabitat covariates — no humidity, temperature, or guano measurements are attached to the GBIF/iNat records.
+    
+    
+    
+    What would close the gap
+    
+    1. A targeted cave-spider survey of the granite boulder shelters and any small solution cavities in the Krishnagiri-Hosur-Dharmapuri area (the "castellated granite hills" noted in archaeological surveys)
+    2. HOBO data loggers (temperature+RH) placed at 5 m intervals from entrance to deep zone in any candidate caves found
+    3. Guano presence/absence + bat roost counts at each survey transect
+    4. Your own GPS polygons of any local caves/shelters you know of — send me a CSV and I'll run the full annotation pipeline (landcover, terrain, greenness) on each point
+    
+    Want me to look at any specific rock shelter location you have in mind?
+╰──────────────────────────────────────────────────────────────────────────────╯
+[chat] backend=deepseek-v4-flash (openrouter) (container hermes-live)  ·  flags: -m deepseek/deepseek-v4-flash --provider openrouter --yolo --source egb_deepseek_q10_1783531424

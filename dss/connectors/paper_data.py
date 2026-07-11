@@ -573,7 +573,12 @@ def _main(argv=None):
     if args.describe or not args.cmd:
         print(json.dumps(describe(), indent=2)); return
     if args.cmd == "find":
-        print(json.dumps(find(args.query, args.community), indent=2)[:4000])
+        try:
+            print(json.dumps(find(args.query, args.community), indent=2)[:4000])
+        except Exception as e:                       # transient API/network error → clean message, not a traceback
+            print(json.dumps({"query": args.query, "error": str(e)[:140],
+                              "hint": "likely a transient Zenodo/API error — retry once with a SHORT 1-3 word "
+                                      "query (e.g. 'snake' or 'reptile'), or move on and note the gap."}, indent=2))
     elif args.cmd == "ingest":
         print(json.dumps(ingest(args.url), indent=2))
 

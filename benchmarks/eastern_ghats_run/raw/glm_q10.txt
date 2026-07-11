@@ -1,0 +1,297 @@
+_search.json; tail -c 200 /opt/data/work/mygal_search.json | cat -v | head -5  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The output is being truncated at 4000 chars. Let me check the connector's options.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py --describe 2>&1 | head -40  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --help 2>&1 | head -30  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The output seems truncated at 4000 chars. Let me try redirecting to a file and reading it with the read_file tool, which handles larger content.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python -c "
+import subprocess, json, sys
+result = subprocess.run([sys.executable, 'paper_data.py', 'find', '--query', 'mygalomorph spider India'], capture_output=True, text=True)
+# Write raw output
+with open('/opt/data/work/mygal_raw.txt', 'w') as f:
+    f.write(result.stdout)
+print('stdout chars:', len(result.stdout))
+print('stderr:', result.stderr[:200] if result.stderr else 'none')
+print('exit:', result.returncode)
+"  2.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python -c "
+import subprocess, sys
+# Try direct Python import to bypass any truncation
+result = subprocess.run([sys.executable, 'paper_data.py', 'find', '--query', 'troglofauna'], capture_output=True, text=True)
+print('chars:', len(result.stdout))
+# Save to file
+with open('/opt/data/work/trog_raw.txt', 'w') as f:
+    f.write(result.stdout)
+"  0.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cat /opt/data/work/trog_raw.txt  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The paper_data connector is Zenodo-based (NCF community) and returns mostly Western Ghats vertebrate datasets — not cave-spider literature. Let me now resolve the specific spider taxa via the occurrence/points connector to see what real georeferenced records exist near Krishnagiri.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Heteropoda" 2>&1 | head -30  4.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Pholcidae" 2>&1 | head -20  3.6s
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Araneae Tamil Nadu" 2>&1 | head -20  3.6s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me fetch actual occurrence points for these spider groups within the ~50 km area around Krishnagiri. The site AOI is near 12.735N, 78.184E; a 50 km radius box would be roughly 77.6-78.8E / 12.25-13.25N. Let me get points for Heteropoda, Pholcidae, and mygalomorphs in that region.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         mkdir -p /opt/data/work/spiders && cd /opt/data/connectors && python points.py get --species "Heteropoda" --bbox 77.55,12.20,78.85,13.25 --out /opt/data/work/spiders/heteropoda_50km.csv 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --help 2>&1 | head -20  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Heteropoda" --bbox 77.55,12.20,78.85,13.25 2>&1 | head -40  7.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Heteropoda" --bbox 77.55,12.20,78.85,13.25 2>&1 | python3 -c "
+import sys, json
+raw = sys.stdin.read()
+import re
+cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', raw)
+d = json.loads(cleaned)
+print('n_points:', d.get('n'))
+print('by_source:', d.get('by_source'))
+print('path:', d.get('path'))
+pts = d.get('points', [])
+for p in pts[:10]:
+    print(p.get('lat'), p.get('lon'), p.get('source'), p.get('species'))
+" 2>&1 | head -20  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Heteropoda" --bbox 77.55,12.20,78.85,13.25 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', raw)
+d = json.loads(cleaned)
+pts = d.get('points', [])
+print('Total points:', len(pts))
+for p in pts[:15]:
+    lat = p.get('lat') or p.get('latitude') or p.get('decimalLatitude')
+    lon = p.get('lon') or p.get('longitude') or p.get('decimalLongitude')
+    src = p.get('source','')
+    sp = p.get('species') or p.get('scientificName','')
+    print(f'{lat},{lon} src={src} sp={sp}')
+"  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         head -5 /opt/data/work/points/heteropoda_venatoria__d3c3bd.csv; echo "---"; wc -l /opt/data/work/points/heteropoda_venatoria__d3c3bd.csv  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Good — there are 40 Heteropoda venatoria records in the bbox (all iNaturalist). Let me now get points for Pholcidae and mygalomorphs in the same area, and also look at the full Heteropoda data.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Pholcidae" --bbox 77.55,12.20,78.85,13.25 2>&1 | tail -5  11.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Pholcidae" --bbox 77.55,12.20,78.85,13.25 2>&1 | grep '"path"'  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         wc -l /opt/data/work/points/pholcidae__d3c3bd.csv; echo "---"; head -6 /opt/data/work/points/pholcidae__d3c3bd.csv  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Mygalomorphae" --bbox 77.55,12.20,78.85,13.25 2>&1 | grep '"path"'  9.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         wc -l /opt/data/work/points/mygalomorphae__d3c3bd.csv; echo "---"; head -10 /opt/data/work/points/mygalomorphae__d3c3bd.csv  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Araneae" --bbox 77.55,12.20,78.85,13.25 2>&1 | grep '"path"'  7.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Araneae" --bbox 77.55,12.20,78.85,13.25 2>&1 | grep -E '"n"|"by_source"|"path"'  4.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         head -5 /opt/data/work/points/cordyceps_araneae__d3c3bd.csv; echo "---"; wc -l /opt/data/work/points/cordyceps_araneae__d3c3bd.csv  0.0s [exit 1]
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      from hermes_tools import read_file  0.3s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me analyze these records spatially — how close they are to Krishnagiri, what elevations, and what the terrain/landcover context looks like. Let me also look at the terrain connector to annotate the points with elevation and geology context.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py --describe 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/heteropoda_venatoria__d3c3bd.csv 2>&1 | tail -10  5.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/points/pholcidae__d3c3bd.csv 2>&1 | tail -5; echo "==="; python terrain.py at --points /opt/data/work/points/mygalomorphae__d3c3bd.csv 2>&1  11.4s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me compute distances from each record to Krishnagiri (12.52N, 78.22E) and summarize the terrain stats. Let me also run a quick landcover annotation to see if any of these are near rocky/limestone terrain.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, math  0.1s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      import csv, math  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me check the terrain (elevation/slope) of these within-50km records to see if any are in rocky/limestone/karst terrain, and run a landcover annotation to see the habitat context.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && cat /opt/data/work/spiders_within_50km.csv 2>/dev/null | head -3; echo "check if file exists"  0.0s
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      from hermes_tools import write_file  0.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python terrain.py at --points /opt/data/work/spiders_within_50km.csv 2>&1  4.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py --describe 2>&1 | head -20  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py classify --points /opt/data/work/spiders_within_50km.csv 2>&1  5.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now let me also search for broader literature on cave spiders in India via the paper corpus, with a wider search angle. Let me also check if there's a predict connector that could model habitat suitability.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "spider cave troglobite" 2>&1 | head -5; echo "==="; python paper_data.py find --query "Heteropoda" 2>&1 | head -5; echo "==="; python paper_data.py find --query "karst limestone cave arthropod" 2>&1 | head -5  2.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "spider" 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x1f\x7f]', ' ', raw)
+try:
+    d = json.loads(cleaned)
+    print(len(d), 'results')
+    for r in d[:10]:
+        print(r.get('title','')[:90])
+except Exception as e:
+    print('Error:', e)
+    print(raw[:500])
+"  0.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "arachnid" 2>&1; echo "==="; python paper_data.py find --query "cave" 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x1f\x7f]', ' ', raw)
+try:
+    d = json.loads(cleaned)
+    print(len(d), 'results')
+    for r in d[:10]:
+        print(r.get('title','')[:90])
+except Exception as e:
+    print('Parse error:', e)
+"  1.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Krishnagiri" 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x1f\x7f]', ' ', raw)
+try:
+    d = json.loads(cleaned)
+    print(len(d), 'results')
+    for r in d[:10]:
+        print(r.get('title','')[:90])
+except Exception as e:
+    print('Parse error:', e, repr(raw[:200]))
+"  0.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The paper corpus (NCF Zenodo community) has no cave-spider literature at all. Let me try the predict connector for habitat-suitability transfer, using the donor occurrence points to see if the area around Krishnagiri has suitable habitat for these spider taxa.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py --describe 2>&1 | head -30  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --points /opt/data/work/points/heteropoda_venatoria__d3c3bd.csv --bbox 77.55,12.20,78.85,13.25 --question presence 2>&1 | head -40  15.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python predict.py route --points /opt/data/work/points/pholcidae__d3c3bd.csv --bbox 77.55,12.20,78.85,13.25 --question presence 2>&1 | head -20  11.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Good — the gate says the training points already fall in the AOI, so I should report observed records rather than model. Now let me get one more piece of context — let me search the paper corpus for any troglofauna or guano-arthropod literature at all, and also try a wider search to be thorough.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "guano" 2>&1; echo "==="; python paper_data.py find --query "subterranean" 2>&1; echo "==="; python paper_data.py find --query "troglomorph" 2>&1; echo "==="; python paper_data.py find --query "limestone" 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x1f\x7f]', ' ', raw)
+try:
+    d = json.loads(cleaned)
+    print(len(d), 'results')
+    for r in d[:5]:
+        print(r.get('title','')[:90])
+except Exception as e:
+    print('Parse error:', e)
+"  2.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Eastern Ghats" 2>&1 | python3 -c "
+import sys, json, re
+raw = sys.stdin.read()
+cleaned = re.sub(r'[\x00-\x1f\x7f]', ' ', raw)
+try:
+    d = json.loads(cleaned)
+    print(len(d), 'results')
+    for r in d[:10]:
+        print(r.get('title','')[:90])
+except Exception as e:
+    print('Parse error:', e, repr(raw[:200]))
+"  3.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The paper corpus is entirely NCF/Zenodo-based and has no cave-spider or troglofauna literature. Let me do one final check — the iNaturalist records for these spider species to confirm whether any were actually found in caves, and also look at the geological/lithology context via the terrain data. Let me also check the ecoregion connector for the broader habitat context.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python ecoregion.py --describe 2>&1 | head -15  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python ecoregion.py at --points /opt/data/work/spiders_within_50km.csv 2>&1  6.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    I now have a complete picture from the connectors. Let me compile the final analysis.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 🐍 preparing execute_code…
+  ┊ 🐍 exec      # Final summary table for the answer  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Here is the honest answer from the connectors.
+    
+    ============================================================
+    CAVE SPIDERS NEAR KRISHNAGIRI — WHAT THE DATA ACTUALLY SHOWS
+    ============================================================
+    
+    THE SHORT ANSWER: No cave systems, no troglobitic/troglophile spider records, and no abiotic-variable data exist in our connectors for the ~50 km area around Krishnagiri. Here is exactly what I ran and what I found.
+    
+    WHAT I DID (real connector runs, not literature recall):
+    
+    1. PAPER CORPUS (paper_data, Zenodo/NCF community)
+       Searched 11 query angles: "cave spider troglobitic Eastern Ghats Tamil Nadu", "Heteropoda cave spider India", "Pholcidae cave India troglofauna", "mygalomorph spider India", "karst limestone cave arthropod", "guano", "subterranean", "troglomorph", "spider cave troglobite", "cave", "arachnid", "Eastern Ghats".
+       RESULT: Zero relevant papers or datasets. The corpus is the NCF Zenodo community — strong on Western Ghats vertebrates, empty on cave arachnology for any region of India.
+    
+    2. OCCURRENCE POINTS (points.py — merged GBIF + iNaturalist + paper_data)
+       I pulled every georeferenced spider record in a 77.55-78.85E / 12.20-13.25N box (~100 km) and measured the distance to Krishnagiri (12.526N, 78.215E):
+    
+       Heteropoda venatoria (pantropical huntsman spider)
+         40 records total; 12 within 50 km; nearest 22.4 km (at 12.620N, 78.033E)
+         Terrain at nearest records: 657-687 m elev, 3-8 deg slope
+         Landcover: Shrubland, Grassland, Cropland — NOT cave/karst
+    
+       Pholcidae (cellar spiders — Crossopriza lyoni, Micropholcus fauroti, Physocyclus globosus, Smeringopus pallidus)
+         172 records total; 9 within 50 km; nearest 31.6 km (at 12.797N, 78.303E)
+         Terrain at nearest: 749-761 m elev, 2.7-3.9 deg slope
+         Landcover: Built-up, Shrubland — these are synanthropic records (buildings), NOT cave records
+    
+       Mygalomorphae (suborder — tarantulas, trapdoor spiders)
+         1 record total, at 75.1 km from Krishnagiri (too far, and only one iNat observation)
+    
+    3. PREDICT GATE (predict.py route)
+       For both Heteropoda and Pholcidae, the gate returned verdict=overlap — the training points already fall inside the AOI, so the connector recommends reporting observed records, not modelling. No suitability surface was produced.
+    
+    4. ECOREGION (ecoregion.py)
+       All within-50km records fall in: South Deccan Plateau dry deciduous forests + Deccan thorn scrub forests. These are granite/gneiss terrain (Deccan craton), not limestone karst.
+    
+    THE KEY FINDING: These are surface-dwelling, synanthropic spider records (huntsman spiders on shrubland, cellar spiders in buildings). None are tagged as cave-associated, none come from karst or limestone geology, and the connector data has no cave-habitat layer, no humidity/temperature/guano field, and no troglobitic designation anywhere.
+    
+    WHAT THE DATA CANNOT TELL YOU (the honest limits):
+    
+    - The connectors have NO cave/karst inventory layer. ESA WorldCover (10 m) resolves tree/shrub/crop/built-up/bare — it cannot identify a cave entrance or limestone pavement.
+    - The connectors have NO microclimate data (cave humidity, temperature, guano). The weather station in the corpus is the Valparai station (Western Ghats, >200 km away).
+    - The occurrence records (GBIF + iNaturalist) are presence-only and biased toward accessible locations (roads, towns). Caves are undersampled everywhere, and Indian cave arachnology is severely under-published — this is a well-known gap, not a true absence.
+    - The paper corpus (NCF Zenodo community) has no arachnology content at all.
+    
+    WHAT WOULD SHARPEN THIS (one concrete data ask):
+    
+    If you are planning a cave-spider survey near Krishnagiri, send me:
+    (a) GPS coordinates of specific cave entrances you know of (even approximate), and
+    (b) Any microclimate data you collect (temperature, humidity, guano presence/absence) per cave.
+    
+    I can then run the predict connector's SDM (climate-suitability transfer) from analog-region cave-spider data (e.g., from the Belum/Undavalli caves in Andhra, or any Eastern Ghats records you can provide) onto your cave points, and annotate them with terrain/landcover to rank which caves are most likely to harbor troglophile/troglobitic species. Without cave coordinates and microclimate readings, the data gap is too wide to model meaningfully.
+╰──────────────────────────────────────────────────────────────────────────────╯
+[chat] backend=glm-5.2 (openrouter) (container hermes-live)  ·  flags: -m z-ai/glm-5.2 --provider openrouter --yolo --source egb_glm_q10_1783531219

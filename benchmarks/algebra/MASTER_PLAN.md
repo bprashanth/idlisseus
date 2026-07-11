@@ -28,6 +28,57 @@ usability is proven, NOT before):
    **strategies** (`dss/DATA_STRATEGIES.md`). Started; keep adding EVERY discovery here so compaction
    never loses it (e.g. the corridor was derived in a PRIOR run by the Scout — don't re-derive/forget).
 
+## WHERE WE ARE NOW (2026-07-11) — usability proven, TRANSITIONING OUT OF benchmarks/
+
+Usability is proven; we are now doing the END-GOAL convergence, **code first, then docs**. Progress since
+the overnight benchmarks (full detail: `benchmarks/place_memory_run/`, `eastern_ghats_run/`, memory):
+- **Constitution + router refactor** — PLAYBOOK is a thin always-on router + on-demand `recipes/*.md`
+  (progressive disclosure); the domain skill is thin. **L1** name-resolve (points.get only), **L2**
+  where→transfer+lens, **litscout** (author-graph paper/dataset discovery).
+- **The `discipline` hermes plugin** (`agents/hermes/plugins/discipline/`, live in real `./chat.sh`):
+  short answers, tool-cap+answer-now, clarify-at-most-once, observed-vs-modelled+N, **model-conditional
+  parallelism**. KEY finding: the cheap MECHANISM (nudge+cap) beats a smart gate end-to-end; brevity is a
+  mechanism not a model; **don't stack smart models** on a capable runner (planner-buys-nothing).
+- **Model options** (`agents/hermes/MODEL_OPTIONS.md`): `-m deepseekv4` = capable + **batches (parallel)**;
+  qwen = free/local but **serial** — the vLLM `qwen3_xml` tool-parser emits a phantom empty-name call on
+  batches (isolated: qwen 2, deepseek 0). Token proxy NOT in path. Clarify classifier: glm5.2 = 0.94.
+- **Golden regression gate** + a multi-turn benchmark harness (`conv_bench.py`) exist.
+
+**THE TRANSITION (in progress):** the live production code sits *inside* a benchmark dir
+(`benchmarks/semantic_broker/connectors/` is mounted into the container). Moving to a production shape:
+```
+dss/connectors/   # capability library (25 connectors + recipes + PLAYBOOK + skill) — LIVE, mounted
+dss/corpus/       # ingested-data indexes (cards/embeddings/points) in git + cache/ gitignored
+dss/loop/         # the EXPANSION ENGINE (first-class): scout · crawl · cards+embeddings · proposer ·
+                  # controller · miner — "search many sources → embed/card → propose syllabus scored by a
+                  # rubric → mine traces to improve". (Now buried in benchmarks/algebra/{components,research,discovery}.)
+agents/hermes/    # agent runtime (chat.sh, plugins, SOUL) — stays
+benchmarks/       # records/experiments/findings — STAY (the evidence)
+```
+Order: (1) move `dss/connectors/` + rewire chat.sh mount + smoke-test — **DONE**; (2) **wire embeddings as a
+`discovery` capability** + **benchmark keyword-vs-cards+embeddings on deepseekv4** — **DONE (2026-07-11)**;
+(3) move corpus + `loop/` — **NEXT**; (4) docs.
+In-use vs not: `invasive.py` LIVE (dir `invasive_skill/` is findings only).
+
+**(2) DONE — `discovery` connector wired + benchmarked (2026-07-11).** `dss/connectors/discovery.py` =
+semantic retrieval over 169 content cards (`dss/corpus/cards.jsonl`, title+all-columns+codebook) via
+bge-small (fastembed, ONNX, no torch), self-heals to the persistent `/opt/data/work/venv`, embeddings
+cached under `/opt/data/work/discovery`. Registered in the PLAYBOOK router + constitution rule 4 (now
+"first literature call is `discovery.search`") + `recipes/papers-first.md`.
+- **Retrieval bench** (`benchmarks/discovery_bench/bench.py`, 12 deliberately PARAPHRASED queries, corpus
+  held constant so retriever is the only variable): **embeddings recall@5 .75 vs keyword .50; MRR .67 vs
+  .20.** The win is RANKING — the right dataset lands at **rank 1 for 8/12** where keyword buries it at
+  rank 3–5 or misses ("bee numbers on tribal coffee farms", "birds coming back after replanting" → keyword
+  whiffs, embeddings rank-1). 2 genuine misses both ways (roadkill, myna). Confirms the semantic map
+  ("weed in coffee"→"coffee invasion") the earlier keyword≈emb finding missed because THOSE queries
+  weren't paraphrased.
+- **Agent bench (deepseekv4, real hermes run).** Before the rule-4 fix the agent ignored `discovery` and
+  fell back to habitual `paper_data.find` (4×, keyword) — wiring alone wasn't enough; the constitution had
+  to NAME discovery as the first literature call. After the fix it ran the intended chain
+  **`discovery.search` → `paper_data.extract` on discovery's DOIs** (13 tools vs 18), surfacing the
+  "Brewing trouble: coffee invasion" dataset end-to-end for a lay "Lantana in coffee" ask. LESSON: a wired
+  connector is invisible until the always-on constitution reflex points at it.
+
 ## CURRENT PHASE (2026-07-05→): prove usability, then converge
 - **Now:** validate the connectors discovered overnight (phenology/indicators/water/ebird/bridge) actually
   work in real Hermes sessions **and that lineage/provenance holds** (the `/why` view — see below).

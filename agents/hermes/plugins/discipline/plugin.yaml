@@ -1,0 +1,11 @@
+name: discipline
+version: 0.1.0
+description: >
+  Puts the benchmark-winning behavior into the REAL chat, natively (keeps the hermes UI). Two hooks:
+  pre_llm_call injects a per-turn STEER (be brief; observed-vs-modelled+N; clarify-first on vague openers;
+  records only via points.get; short paper_data queries). pre_tool_call caps tool calls per turn and, past
+  the budget, BLOCKS further tools with an "answer now" message so it never over-runs or truncates empty.
+author: idlisseus
+provides_hooks:
+  - pre_llm_call
+  - pre_tool_call

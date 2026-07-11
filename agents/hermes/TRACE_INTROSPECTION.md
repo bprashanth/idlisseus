@@ -71,6 +71,36 @@ own session UUID — match them by timestamp.
    `/opt/data/skills/…` — and it can persist *wrong* facts (it did: it mislabelled a snake and saved it).
    Treat auto-written skill files as **unverified** until reviewed; re-mine and correct them the same way.
 
+## The Miner — current vs. desired (productionized)
+
+The self-improvement loop above is run **by hand today**, and that's fine for now: after each benchmark
+run we read `state.db` for odd patterns and refine them into router rules / recipes / connectors / skills.
+`benchmarks/algebra/components/miner.py` is the seed of the automated version (regex over run logs → a
+few playbook rules), but it does not yet read transcripts or reason about them.
+
+**Desired behavior (once the DSS is productionized):** a scheduled **Miner** that closes the loop
+automatically, with a human gate on writes.
+- **Trigger:** a **cron** (Hermes has `CronCreate`) — nightly/weekly, or kicked off after each benchmark
+  run. Not a naive "every N rows" DB trigger (a SQLite trigger can't reason; row-count ≠ something-went-
+  wrong). Gate the run on **cheap signal flags** so it reviews the ~handful of *interesting* sessions, not
+  all of them: user pushback ("hmm/that's wrong/did you check"), a rephrased/repeated question, a turn
+  that returned empty/short, a **named species never tool-verified**, a spatial "where" that produced **no
+  map**, a connector call that errored.
+- **Re-mine ALL flagged traces** across runs (`state.db` transcripts + `agent.log` shape), cluster
+  **recurring** failures (a one-off isn't a rule), and for each produce a **diagnosis + a proposed edit at
+  the right layer**: a router rule, a `recipes/<x>.md`, a connector guard, or a skill/reference — and note
+  which layer and why.
+- **Propose, don't silently apply.** Write proposals to a review file (diffs + the evidence session ids).
+  A **human (or a review gate) approves before anything is written** — precisely because auto-curation has
+  already persisted *wrong* facts (the snake→skill-file poisoning, `LIMITATIONS.md` L3). Negative learning
+  is worse than none.
+- **Close the loop:** after approval, apply the edit, re-run the offending questions, and confirm the
+  metric moved (name-resolved / map-produced / papers-first / not-empty). Record the before→after in the
+  run's report so the improvement is auditable.
+
+So the shape is: **cron → signal-gated selection → cluster recurring failures → propose layered edits →
+human-approve → apply → re-verify.** Until it's built, we run that pipeline manually after each bench.
+
 ## Caveats
 - `state.db` is inside the container and owned by uid 10000 — read via `docker exec` (or `sudo` on the
   host mount), never assume host-shell access.

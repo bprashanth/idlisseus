@@ -1,0 +1,667 @@
+{
+ "topics": {
+  "Uropeltis shieldtail snake Eastern Ghats": {
+   "papers": 12,
+   "datasets": 2,
+   "total_hits": 24
+  },
+  "Eastern Ghats herpetofauna reptile diversity": {
+   "papers": 12,
+   "datasets": 1,
+   "total_hits": 329
+  },
+  "cave spider India troglobitic Pholcidae": {
+   "papers": 8,
+   "datasets": 0,
+   "total_hits": 8
+  },
+  "spider Eastern Ghats taxonomy new species mygalomorph": {
+   "papers": 12,
+   "datasets": 0,
+   "total_hits": 20
+  },
+  "snake stable isotope diet trophic India": {
+   "papers": 12,
+   "datasets": 0,
+   "total_hits": 156
+  },
+  "Ahaetulla vine snake phylogeny peninsular India": {
+   "papers": 12,
+   "datasets": 2,
+   "total_hits": 30
+  }
+ },
+ "datasets": [
+  {
+   "title": "Chordata: Reptilia",
+   "doi": "10.26515/fauna/1/2023/chordata:reptilia",
+   "year": 2024,
+   "authors": [
+    "Pratyush P. Mohapatra",
+    "S. K. Ray",
+    "Sagnik Sarkar"
+   ]
+  },
+  {
+   "title": "Chordata: Reptilia",
+   "doi": "10.26515/fauna/2/2025/chordata:reptilia",
+   "year": 2026,
+   "authors": [
+    "Nayak B. D",
+    "Ray S.",
+    "Bhupathy B."
+   ]
+  },
+  {
+   "title": "Species assembly patterns and protected area effectiveness in times of change: a focus on African avifauna",
+   "doi": "10.5281/zenodo.4757028",
+   "year": 2013,
+   "authors": [
+    "Bernard Walter Thomas Coetzee"
+   ]
+  }
+ ],
+ "papers": [
+  {
+   "title": "A new species of shieldtail snake (Reptilia: Squamata: Uropeltidae) from Kolli Hill complex, southern Eastern Ghats, peninsular India",
+   "doi": "10.11609/jott.5680.12.4.15436-15442",
+   "year": 2020,
+   "authors": [
+    "S.R. Ganesh",
+    "N.S. Achyuthan"
+   ]
+  },
+  {
+   "title": "A new species of shieldtail snake (Squamata: Uropeltidae: Uropeltis) from the Bengaluru uplands, India",
+   "doi": "10.11609/jott.6736.13.6.18508-18517",
+   "year": 2021,
+   "authors": [
+    "S.R. Ganesh",
+    "K.G. Punith",
+    "Omkar Dilip Adhikari"
+   ]
+  },
+  {
+   "title": "A new species of Uropeltis Cuvier, 1829 (Serpentes: Uropeltidae) from the Anaikatty Hills of the Western Ghats of India",
+   "doi": "10.11646/zootaxa.4415.3.1",
+   "year": 2018,
+   "authors": [
+    "Vallanattu James Jins",
+    "Filipa L. Sampaio",
+    "David J. Gower"
+   ]
+  },
+  {
+   "title": "Taxonomic reassessment of two Indian shieldtail snakes in the Uropeltis ceylanicus species group (Reptilia: Uropeltidae)",
+   "doi": "10.11609/jott.o3636.5305-14",
+   "year": 2014,
+   "authors": [
+    "S.R. Ganesh",
+    "R. Aengals",
+    "Eric Ramanujam"
+   ]
+  },
+  {
+   "title": "Taxonomy and natural history of the poorly known Dindigul shieldtail Uropeltis dindigalensis (Beddome, 1877) (Serpentes: Uropeltidae)",
+   "doi": "10.11646/zootaxa.5209.1.6",
+   "year": 2022,
+   "authors": [
+    "S.R. Ganesh",
+    "Filipa L. Sampaio",
+    "David J. Gower"
+   ]
+  },
+  {
+   "title": "Discovery of a deeply divergent new lineage of vine snake (Colubridae: Ahaetuliinae: Proahaetulla gen. nov.) from the southern Western Ghats of Peninsular India with a revised key for Ahaetuliinae",
+   "doi": "10.1371/journal.pone.0218851",
+   "year": 2019,
+   "authors": [
+    "Ashok Kumar Mallik",
+    "Achyuthan N. Srikanthan",
+    "S.R. Ganesh"
+   ]
+  },
+  {
+   "title": "Three little known reptile species from the Araku Valley, Eastern Ghats with notes on their distribution",
+   "doi": "10.11609/jott.o2329.1109-13",
+   "year": 2010,
+   "authors": [
+    "Basundhara Chettri",
+    "Subramanian Bhupathy"
+   ]
+  },
+  {
+   "title": "Herpetological diversity in the Central Eastern Ghats, Peninsular India",
+   "doi": "10.52547/jad.2021.3.3.3",
+   "year": 2021,
+   "authors": [
+    "Ganesh S.R.",
+    "Chennai Snake Park, Rajbhavan post, Chennai, Tamil Nadu, India",
+    "Bubesh Guptha"
+   ]
+  },
+  {
+   "title": "A near-complete species-level phylogeny of uropeltid snakes harnessing historical museum collections as a DNA source",
+   "doi": "10.1016/j.ympev.2022.107651",
+   "year": 2022,
+   "authors": [
+    "Filipa L. Sampaio",
+    "Julia J. Day",
+    "L. J. Mendis Wickramasinghe"
+   ]
+  },
+  {
+   "title": "A checklist of reptiles of Kerala, India",
+   "doi": "10.11609/jott.2002.7.13.8010-8022",
+   "year": 2015,
+   "authors": [
+    "Muhamed Jafer Palot"
+   ]
+  },
+  {
+   "title": "Catalogue of herpetological specimens from peninsular India at the Sálim Ali Centre for Ornithology &amp; Natural History (SACON), India",
+   "doi": "10.11609/jott.6036.12.9.16123-16135",
+   "year": 2020,
+   "authors": [
+    "S.R. Ganesh",
+    "Subramanian Bhupathy",
+    "Pandi Karthik"
+   ]
+  },
+  {
+   "title": "Distribution pattern, zoogeographic similarities and affinities of montane herpetofauna of Southern Eastern Ghats, peninsular India",
+   "doi": "",
+   "year": 2016,
+   "authors": [
+    "S.R. Ganesh",
+    "Munusamy Arumugam"
+   ]
+  },
+  {
+   "title": "Herpetofauna and roads: a review",
+   "doi": "10.11160/bah.12008",
+   "year": 2012,
+   "authors": [
+    "Víctor J. Colino-Rabanal",
+    "Miguel Lizana"
+   ]
+  },
+  {
+   "title": "The Plight of Reptiles as Ecological Actors in the Tropics",
+   "doi": "10.3389/fevo.2017.00159",
+   "year": 2017,
+   "authors": [
+    "Everton B. P. Miranda"
+   ]
+  },
+  {
+   "title": "High Levels of Diversity Uncovered in a Widespread Nominal Taxon: Continental Phylogeography of the Neotropical Tree Frog Dendropsophus minutus",
+   "doi": "10.1371/journal.pone.0103958",
+   "year": 2014,
+   "authors": [
+    "Marcelo Gehara",
+    "Andrew J. Crawford",
+    "Victor G. D. Orrico"
+   ]
+  },
+  {
+   "title": "New verified nonindigenous amphibians and reptiles in Florida, 1976 through 2015, with a summary of over 152 years of introductions",
+   "doi": "10.17161/randa.v23i2.14119",
+   "year": 2016,
+   "authors": [
+    "Kenneth L. Krysko",
+    "Louis A. Somma",
+    "Dustin Smith"
+   ]
+  },
+  {
+   "title": "The database of the <scp>PREDICTS</scp> (Projecting Responses of Ecological Diversity In Changing Terrestrial Systems) project",
+   "doi": "10.1002/ece3.2579",
+   "year": 2016,
+   "authors": [
+    "Lawrence N. Hudson",
+    "Tim Newbold",
+    "Sara Contu"
+   ]
+  },
+  {
+   "title": "Elevational gradients of reptile richness in the southern Western Ghats of India: Evaluating spatial and bioclimatic drivers",
+   "doi": "10.1111/btp.12878",
+   "year": 2020,
+   "authors": [
+    "Vallanattu James Jins",
+    "Madhumita Panigrahi",
+    "Rajah Jayapal"
+   ]
+  },
+  {
+   "title": "Does selective wood exploitation affect amphibian diversity? The case of An'Ala, a tropical rainforest in eastern Madagascar",
+   "doi": "10.1017/s003060530400078x",
+   "year": 2004,
+   "authors": [
+    "Denis Vallan",
+    "Franco Andreone",
+    "Vola H. Raherisoa"
+   ]
+  },
+  {
+   "title": "Short Communication: The herpetofauna around human settlements in Lubuklinggau City, South Sumatra, Indonesia: Composition and diversity",
+   "doi": "10.13057/biodiv/d210422",
+   "year": 2020,
+   "authors": [
+    "Dian Samitra",
+    "Zico Fakhrur Rozi"
+   ]
+  },
+  {
+   "title": "Reptilian Mycophagy: A global review of mutually beneficial associations between reptiles and macrofungi",
+   "doi": "10.5943/mycosphere/10/1/18",
+   "year": 2019,
+   "authors": [
+    "Todd F. Elliott"
+   ]
+  },
+  {
+   "title": "Leaping frogs (Anura: Ranixalidae) of the Western Ghats of India: An integrated taxonomic review",
+   "doi": "10.11609/jott.2532.8.10.9221-9288",
+   "year": 2016,
+   "authors": [
+    "Neelesh Dahanukar",
+    "Nikhil Modak",
+    "Keerthi Krutha"
+   ]
+  },
+  {
+   "title": "Ongoing declines for the world’s amphibians in the face of emerging threats",
+   "doi": "10.1038/s41586-023-06578-4",
+   "year": 2023,
+   "authors": [
+    "Jennifer Luedtke",
+    "Janice Chanson",
+    "Kelsey Neam"
+   ]
+  },
+  {
+   "title": "The world’s largest cave fish from Meghalaya, Northeast India, is a new species, Neolissochilus pnar (Cyprinidae, Torinae)",
+   "doi": "10.3897/vz.73.e101011",
+   "year": 2023,
+   "authors": [
+    "Neelesh Dahanukar",
+    "Remya L. Sundar",
+    "Duwaki Rangad"
+   ]
+  },
+  {
+   "title": "Species diversity of cave-dwelling spiders on Siargao island, Philippines",
+   "doi": "10.5281/zenodo.8188618",
+   "year": 2014,
+   "authors": [
+    "Michael Henry D. Cabili",
+    "Olga M. Nuñeza"
+   ]
+  },
+  {
+   "title": "New spider taxa of the world in 2021",
+   "doi": "10.17520/biods.2022163",
+   "year": 2022,
+   "authors": [
+    "Ludan Zhang",
+    "Ying Lü",
+    "Chang Chu"
+   ]
+  },
+  {
+   "title": "Discovery of Web-Building Spiders in Gua Kelam, Perlis State Park, Malaysia",
+   "doi": "10.21315/tlsr2024.35.1.5",
+   "year": 2024,
+   "authors": [
+    "Johan Ariff Mohtar",
+    "Khadijah Hanim Abdul Rahman",
+    "Saktheswaran Nyanasilan"
+   ]
+  },
+  {
+   "title": "ARACHNOGEOGRAPHICAL COMPARISON BETWEEN WEST PALEARCTIC AND AFROTROPICAL AREAS",
+   "doi": "10.37828/em.2016.7.20",
+   "year": 2016,
+   "authors": [
+    "Petâr Beron"
+   ]
+  },
+  {
+   "title": "Bioinventory And The Associated Ecosystem Developed Inside The Mandhip Khol Cave Complex",
+   "doi": "10.53555/jaz.v45i1.3702",
+   "year": 2023,
+   "authors": [
+    "Akhilesh Kumar",
+    "Gokul Prasad",
+    "Laxmikant Laxmikant"
+   ]
+  },
+  {
+   "title": "THE REMARKABLE GEOSITES TRIPLE VOLCANO AND TAYOS CAVES IN ECUADOR – POTENTIAL CANDIDATES FOR THE WORLD NATURAL HERITAGE LIST",
+   "doi": "10.30892/gtg.62443-1609",
+   "year": 2025,
+   "authors": [
+    "Theofilos TOULKERIDIS",
+    "Aaron ADDISON",
+    "Silviu CONSTANTIN"
+   ]
+  },
+  {
+   "title": "Comparative arachnogeographical analysis of Australia, Papuan Area, New Caledonia and New Zealand",
+   "doi": "10.5281/zenodo.4043938",
+   "year": 2017,
+   "authors": [
+    "Petar Beron"
+   ]
+  },
+  {
+   "title": "Preliminary Review of Indian Eumenophorinae (Araneae: Theraphosidae) with Description of a New Genus and Five New Species from the Western Ghats",
+   "doi": "10.1371/journal.pone.0087928",
+   "year": 2014,
+   "authors": [
+    "Zeeshan A. Mirza",
+    "Rajesh V. Sanap",
+    "Harshal Bhosale"
+   ]
+  },
+  {
+   "title": "Fauna of protected areas - 2: A preliminary list of spiders from Parambikulam Wildlife Sanctuary, Kerala, with descriptions of three new species",
+   "doi": "10.11609/jott.zpj.18.10.1207-12",
+   "year": 2003,
+   "authors": [
+    "Bharat Patel"
+   ]
+  },
+  {
+   "title": "Spider (Arachnida: Araneae) fauna of the scrub jungle in the Madras Christian College campus, Chennai, India",
+   "doi": "10.11609/jott.5758.12.7.15711-15766",
+   "year": 2020,
+   "authors": [
+    "John T. D. Caleb"
+   ]
+  },
+  {
+   "title": "Spider burrows in ichnological context: a review of literature data and burrows of the wolf spider Trochosa hispanica Simon, 1870 from Albania",
+   "doi": "10.1007/s12210-017-0662-7",
+   "year": 2017,
+   "authors": [
+    "Alfred Uchman",
+    "Blerina Vrenozi",
+    "Bardhyl Muceku"
+   ]
+  },
+  {
+   "title": "Common names of South Asian theraphosid spiders (Araneae: Theraphosidae)",
+   "doi": "10.11609/jott.zpj.1230.1657-62",
+   "year": 2004,
+   "authors": [
+    "Sanjay Molur",
+    "Manju Siliwal"
+   ]
+  },
+  {
+   "title": "FAUNAL DIVERSITY OF SPIDER FAMILIES DICTYNIDAE, DYSDERIDAE, ERESIDAE AND FILISTATIDAE (ARANEOMORPHAE: ARANEAE: ARACHNIDA) IN INDIA",
+   "doi": "10.5281/zenodo.4460086",
+   "year": 2021,
+   "authors": [
+    "Singh, Rajendra"
+   ]
+  },
+  {
+   "title": "Assessing the diversity of Australian tarantulas (Araneae: Theraphosidae) using DNA barcoding and iterative species delimitation",
+   "doi": "10.1111/aen.12666",
+   "year": 2023,
+   "authors": [
+    "Ethan Briggs",
+    "Renan Castro Santana",
+    "Robert J. Raven"
+   ]
+  },
+  {
+   "title": "Sequestered defensive toxins in tetrapod vertebrates: principles, patterns, and prospects for future studies",
+   "doi": "10.1007/s00049-012-0112-z",
+   "year": 2012,
+   "authors": [
+    "Alan H. Savitzky",
+    "Akira Mori",
+    "Deborah A. Hutchinson"
+   ]
+  },
+  {
+   "title": "DIVERSITY AND DISTRIBUTION OF CRAB SPIDERS (THOMISIDAE: ARANEOMORPHAE: ARANEAE:ARACHNIDA) IN INDIA",
+   "doi": "10.5281/zenodo.5111580",
+   "year": 2021,
+   "authors": [
+    "Rajendra Singh"
+   ]
+  },
+  {
+   "title": "AN UPDATED CHECKLIST OF SPIDERS (ARACHNIDA: ARANEAE) OF GOA, INDIA",
+   "doi": "10.46505/ijbi.2022.4105",
+   "year": 2022,
+   "authors": [
+    "Rajendra Kumar Singh",
+    "Bhim Singh"
+   ]
+  },
+  {
+   "title": "Diversity of Amycoida and Astioida (Arachnida: Araneae: Salticidae: Salticinae) in India",
+   "doi": "10.22271/j.ento.2020.v8.i5u.7709",
+   "year": 2020,
+   "authors": [
+    "Rajendra Singh",
+    "Garima Singh",
+    "Bindra Bihari Singh"
+   ]
+  },
+  {
+   "title": "The Generation of a Biodiversity Hotspot: Biogeography and Phylogeography of the Western Indian Ocean Islands",
+   "doi": "10.5772/38958",
+   "year": 2012,
+   "authors": [
+    "Ingi Agnarsson",
+    "Matja Kuntner"
+   ]
+  },
+  {
+   "title": "Oxygen isotopes in bioarchaeology: Principles and applications, challenges and opportunities",
+   "doi": "10.1016/j.earscirev.2018.11.005",
+   "year": 2018,
+   "authors": [
+    "Sarah Pederzani",
+    "Kate Britton"
+   ]
+  },
+  {
+   "title": "Apparent resource partitioning and trophic structure of large-bodied marine predators in a relatively pristine seagrass ecosystem",
+   "doi": "10.3354/meps10235",
+   "year": 2013,
+   "authors": [
+    "Michael R. Heithaus",
+    "JJ Vaudo",
+    "Sina Kreicker"
+   ]
+  },
+  {
+   "title": "Future Directions in the Research and Management of Marine Snakes",
+   "doi": "10.3389/fmars.2018.00399",
+   "year": 2018,
+   "authors": [
+    "Vinay Udyawer",
+    "Peter W. Barnes",
+    "Xavier Bonnet"
+   ]
+  },
+  {
+   "title": "The habitat function of mangroves for terrestrial and marine fauna: A review",
+   "doi": "10.1016/j.aquabot.2007.12.007",
+   "year": 2008,
+   "authors": [
+    "Ivan Nagelkerken",
+    "S. J. M. Blaber",
+    "Steven Bouillon"
+   ]
+  },
+  {
+   "title": "Trophic ecology of largehead hairtail Trichiurus japonicus in the South Sea of Korea revealed by stable isotope and stomach content analyses",
+   "doi": "10.3389/fmars.2022.910436",
+   "year": 2022,
+   "authors": [
+    "Donghoon Shin",
+    "Tae Hee Park",
+    "Chung Il Lee"
+   ]
+  },
+  {
+   "title": "Trophic functioning of integrated rice-fish farming in Madagascar: Insights from stable isotopes (δ13C &amp; δ15N)",
+   "doi": "10.1016/j.aquaculture.2022.738240",
+   "year": 2022,
+   "authors": [
+    "Jean‐Michel Mortillaro",
+    "Lionel Dabbadie",
+    "Andoniaina E. Raminoharisoa"
+   ]
+  },
+  {
+   "title": "Viviparous sea snakes can be used as bioindicators for diverse marine environments",
+   "doi": "10.26757/pjsb2020b14013",
+   "year": 2021,
+   "authors": [
+    "Arne Redsted Rasmussen",
+    "Anders Hay‐Schmidt",
+    "Farnis B. Boneka"
+   ]
+  },
+  {
+   "title": "Biology of the sauropod dinosaurs: the evolution of gigantism",
+   "doi": "10.1111/j.1469-185x.2010.00137.x",
+   "year": 2010,
+   "authors": [
+    "P. Martin Sander",
+    "Andreas Christian",
+    "Marcus Clauß"
+   ]
+  },
+  {
+   "title": "Edge-mediated effects of forest fragments on the trophic structure of stream fish",
+   "doi": "10.1007/s10750-015-2330-1",
+   "year": 2015,
+   "authors": [
+    "Cristiane de Paula Ferreira",
+    "Lílian Casatti",
+    "Jaquelini O. Zeni"
+   ]
+  },
+  {
+   "title": "Stable isotope ecology of Quaternary cervid and bovid species in Southeast Asia with implications for wildlife conservation",
+   "doi": "10.1038/s41598-025-88065-6",
+   "year": 2025,
+   "authors": [
+    "Sanober Shaikh",
+    "Hervé Bocherens",
+    "Kantapon Suraprasit"
+   ]
+  },
+  {
+   "title": "Trophic Ecology of the Cuban Boa, Chilabothrus angulifer (Boidae)",
+   "doi": "10.17161/randa.v27i2.14176",
+   "year": 2020,
+   "authors": [
+    "Tomás M. Rodríguez-Cabrera",
+    "Ernesto Morell Savall",
+    "Sheila Rodríguez-Machado"
+   ]
+  },
+  {
+   "title": "Resource use and the impacts of fisheries on two sympatric sea snake species on the West Coast of India.",
+   "doi": "10.21203/rs.3.rs-328406/v1",
+   "year": 2021,
+   "authors": [
+    "Shawn Dsouza",
+    "Chetan Rao",
+    "Muralidharan Manoharakrishnan"
+   ]
+  },
+  {
+   "title": "Taxonomic revaluation of the Ahaetulla prasina (H. Boie in F. Boie, 1827) complex from Northeast India: resurrection and redescription of Ahaetulla flavescens (Wall, 1910) (Reptilia: Serpentes: Colubridae)",
+   "doi": "10.5852/ejt.2022.839.1937",
+   "year": 2022,
+   "authors": [
+    "Achyuthan N. Srikanthan",
+    "Omkar Dilip Adhikari",
+    "Ashok Kumar Mallik"
+   ]
+  },
+  {
+   "title": "Herpetofauna of Shuklaphanta National Park, Nepal",
+   "doi": "10.11609/jott.5611.12.5.15587-15611",
+   "year": 2020,
+   "authors": [
+    "Yam Bahadur Rawat",
+    "Santosh Bhattarai",
+    "Laxman Prasad Poudyal"
+   ]
+  },
+  {
+   "title": "Molecular phylogeny reveals distinct evolutionary lineages of the banded krait, Bungarus fasciatus (Squamata, Elapidae) in Asia",
+   "doi": "10.1038/s41598-023-28241-8",
+   "year": 2023,
+   "authors": [
+    "Lal Biakzuala",
+    "Hmar Tlawmte Lalremsanga",
+    "Vishal Santra"
+   ]
+  },
+  {
+   "title": "Systematic Assessment of Hebius beddomei (Günther, 1864) (Serpentes: Colubridae: Natricinae) with Description of a New Genus and a New Allied Species from the Western Ghats, India",
+   "doi": "10.3390/taxonomy3030024",
+   "year": 2023,
+   "authors": [
+    "Harshil Patel",
+    "Tejas Thackeray",
+    "Patrick D. Campbell"
+   ]
+  },
+  {
+   "title": "Diversifying on the Ark: multiple new endemic lineages of dwarf geckos from the Western Ghats provide insights into the systematics and biogeography of South Asian &lt;i&gt;Cnemaspis&lt;/i&gt; (Reptilia: Squamata)",
+   "doi": "10.24272/j.issn.2095-8137.2021.074",
+   "year": 2021,
+   "authors": [
+    "Saunak Pal",
+    "Bombay Natural History Society, Mumbai, Maharashtra 400001, India",
+    "Bombay Natural History Society, Mumbai, Maharashtra 400001, India"
+   ]
+  },
+  {
+   "title": "King or royal family? Testing for species boundaries in the King Cobra, Ophiophagus hannah (Cantor, 1836), using morphology and multilocus DNA analyses",
+   "doi": "10.1016/j.ympev.2021.107300",
+   "year": 2021,
+   "authors": [
+    "P. Gowri Shankar",
+    "Priyanka Swamy",
+    "Rhiannon Williams"
+   ]
+  },
+  {
+   "title": "Speciation in the Peninsular Indian Flying Lizard (<i>Draco dussumieri</i>) Follows Climatic Transition and Not Physical Barriers",
+   "doi": "10.1111/mec.17800",
+   "year": 2025,
+   "authors": [
+    "R. CHAITANYA",
+    "Aranya Dhibar",
+    "Akshay Khandekar"
+   ]
+  },
+  {
+   "title": "Dynamic gap crossing in <i>Dendrelaphis</i>, the sister taxon of flying snakes",
+   "doi": "10.1242/jeb.245094",
+   "year": 2023,
+   "authors": [
+    "Mal Graham",
+    "John J. Socha"
+   ]
+  }
+ ]
+}

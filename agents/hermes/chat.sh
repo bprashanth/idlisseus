@@ -30,6 +30,13 @@ MODEL (default = local 122B / qwen)
   --model glm5.2        GLM-5.2 via OpenRouter (reasoning, thorough)
   --model <prov/slug>   any OpenRouter slug (routed via OPENROUTER_API_KEY)
 
+ASSEMBLED MODE ("smart bookends, cheap middle")
+  --smart-model M   enable the 3-stage loop: clarify-gate (smart) → cheap runner → synthesizer (smart)
+  --cheap-model M   the runner that executes connectors (defaults qwen122b)
+  Both default to qwen122b if unset; absent both flags, chat.sh runs the normal single-model path.
+  e.g.  chat.sh --smart-model glm5.2 --cheap-model qwen122b        (interactive)
+        chat.sh --smart-model glm5.2 "tell me about the invasives here"
+
 IN-SESSION (interactive)
   /model z-ai/glm-5.2 --provider openrouter     switch to GLM live
   /model deepseek/deepseek-v4-flash --provider openrouter
@@ -48,7 +55,7 @@ HELP
 fi
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-SB="$(cd "$HERE/../../benchmarks/semantic_broker" && pwd)"
+DSS="$(cd "$HERE/../../dss" && pwd)"   # capability library moved out of benchmarks/ (2026-07-11)
 IMAGE="${HERMES_IMAGE:-hermes-agent-local}"
 NAME="${HERMES_CONTAINER:-hermes-live}"
 CREDS="$HOME/.config/idlisseus/openrouter.json"
@@ -61,8 +68,9 @@ start_container() {
   docker run -d --name "$NAME" --network host -e HOME=/opt/data \
     ${key:+-e OPENROUTER_API_KEY="$key"} \
     -v "$HOME/.hermes:/opt/data" \
-    -v "$SB/connectors:/opt/data/connectors:ro" \
-    -v "$SB/queries/data:/opt/data/query_data:ro" \
+    -v "$DSS/connectors:/opt/data/connectors:ro" \
+    -v "$DSS/queries/data:/opt/data/query_data:ro" \
+    -v "$DSS/corpus:/opt/data/corpus:ro" \
     -v "$HERE/gt:/opt/data/work/gt" \
     --entrypoint /opt/hermes/.venv/bin/python3 "$IMAGE" -c "import time; time.sleep(1e9)" >/dev/null
   sleep 2
@@ -73,6 +81,25 @@ if [ "${1:-}" = "--restart" ]; then start_container; echo "[chat] $NAME recreate
 
 # ensure the persistent container is up
 docker ps --filter "name=^${NAME}$" --filter status=running -q | grep -q . || start_container
+
+# ── assembled "smart bookends, cheap middle" mode ──────────────────────────────────────────────
+# --smart-model / --cheap-model enable the 3-stage loop (clarify-gate → cheap runner → synthesizer).
+# Both default to qwen122b if unset. Absent both flags, chat.sh runs the normal single-model path.
+SMART_MODEL=""; CHEAP_MODEL=""
+while true; do
+  case "${1:-}" in
+    --smart-model) SMART_MODEL="${2:-}"; shift 2 ;;
+    --cheap-model) CHEAP_MODEL="${2:-}"; shift 2 ;;
+    *) break ;;
+  esac
+done
+if [ -n "$SMART_MODEL" ] || [ -n "$CHEAP_MODEL" ]; then
+  SMART_MODEL="${SMART_MODEL:-qwen122b}"; CHEAP_MODEL="${CHEAP_MODEL:-qwen122b}"
+  ASM="$(cd "$HERE/../../benchmarks/eastern_ghats_run" && pwd)/assembled.py"
+  echo "[chat] assembled mode — smart=$SMART_MODEL · cheap=$CHEAP_MODEL (container $NAME)" >&2
+  if [ "$#" -gt 0 ]; then exec python3 "$ASM" -q "$*" --smart "$SMART_MODEL" --cheap "$CHEAP_MODEL"
+  else exec python3 "$ASM" repl --smart "$SMART_MODEL" --cheap "$CHEAP_MODEL"; fi
+fi
 
 # model selection — the model is set EXPLICITLY on every call (deterministic), never inherited from
 # config default or a prior /model switch. Each invocation is a FRESH session unless CONTINUE=1.
@@ -92,6 +119,9 @@ case "$MODEL" in
 esac
 [ "${AUTO_APPROVE:-0}" = "1" ] && MFLAGS+=(--yolo)
 [ "${CONTINUE:-0}" = "1" ] && MFLAGS+=(-c)
+[ -n "${HERMES_SOURCE:-}" ] && MFLAGS+=(--source "$HERMES_SOURCE")   # bench: unique per-run session tag
+[ -n "${HERMES_RESUME:-}" ] && MFLAGS+=(--resume "$HERMES_RESUME")   # multi-turn: continue a specific session
+[ -n "${HERMES_MAXTURNS:-}" ] && MFLAGS+=(--max-turns "$HERMES_MAXTURNS")  # cap tool-loop iterations (discipline mechanism)
 echo "[chat] backend=$LABEL (container $NAME)  ·  flags: ${MFLAGS[*]}" >&2
 
 if [ "$#" -gt 0 ]; then

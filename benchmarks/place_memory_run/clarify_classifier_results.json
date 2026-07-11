@@ -1,0 +1,204 @@
+{
+ "glm5.2": {
+  "acc": 0.9375,
+  "rows": [
+   [
+    "tell me about snakes at ebtl",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the invasives here",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the spiders here",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "what's here?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "what should I plant?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "how's the site doing?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the birds",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "which venomous snakes are recorded around ebtl?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "where are the lakes and ponds on our land?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "map where russell's viper is likely across the site",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "do cobras live around the lantana here?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "is the forest coming back over the last 5 years?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "how much tree cover do we have?",
+    "PROCEED",
+    "CLARIFY",
+    false
+   ],
+   [
+    "which native trees are fruiting now for seed collection?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "where are the rocky, steep patches to avoid planting?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "what's the IUCN status of the indian rock python here?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ]
+  ]
+ },
+ "deepseekv4": {
+  "acc": 0.875,
+  "rows": [
+   [
+    "tell me about snakes at ebtl",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the invasives here",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the spiders here",
+    "CLARIFY",
+    "PROCEED",
+    false
+   ],
+   [
+    "what's here?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "what should I plant?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "how's the site doing?",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "tell me about the birds",
+    "CLARIFY",
+    "CLARIFY",
+    true
+   ],
+   [
+    "which venomous snakes are recorded around ebtl?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "where are the lakes and ponds on our land?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "map where russell's viper is likely across the site",
+    "PROCEED",
+    "CLARIFY",
+    false
+   ],
+   [
+    "do cobras live around the lantana here?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "is the forest coming back over the last 5 years?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "how much tree cover do we have?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "which native trees are fruiting now for seed collection?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "where are the rocky, steep patches to avoid planting?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ],
+   [
+    "what's the IUCN status of the indian rock python here?",
+    "PROCEED",
+    "PROCEED",
+    true
+   ]
+  ]
+ }
+}

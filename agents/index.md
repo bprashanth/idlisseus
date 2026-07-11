@@ -136,6 +136,11 @@ Gotcha: a **bare** `--provider custom` with NO matching `providers` entry routes
 "not a valid model ID") — the vLLM must be registered. Verify routing via `docker logs vllm-qwen35` (a
 qwen call shows a `POST /v1/chat/completions`; a DeepSeek call does not).
 
+## Which model to run the agent on
+`chat.sh -m deepseekv4` (batches tool calls → parallel, capable) vs default qwen (free/local, **serial** —
+the vLLM `qwen3_xml` parser emits a phantom empty-name call on batches) vs glm. The `discipline` plugin
+adapts parallelism per-model automatically. Tradeoffs + the parser fix: [`hermes/MODEL_OPTIONS.md`](hermes/MODEL_OPTIONS.md).
+
 ## Studying / improving the agent from its own traces
 
 Every session is recorded in the persistent container (`state.db` = full transcript, `agent.log` = per-call
