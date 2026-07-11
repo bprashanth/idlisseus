@@ -15,6 +15,15 @@ passes. This doc defines (a) the fixed **baseline** every feature benchmark meas
 A feature "wins" and may be integrated only if: **(1)** it beats this baseline on its benchmark's metric,
 **AND (2)** the golden suite below still passes. Both, or it doesn't ship.
 
+### Baseline snapshot (2026-07-12, `golden --run --model deepseekv4`, 5 golden scenarios)
+**Green on all correctness dimensions** — clarify (asked on `invasives_vague`, did NOT over-clarify the
+answerable `forest_recovery`), name-resolve (`green_cat_snake` → *Boiga cyanea*), observed-vs-modelled flag,
+papers-first — across all 5. **One standing flag:** `uropeltis_tax` (a taxonomy answer at 1857 chars > the
+1600 "short" bar). The **"short" bar = 1600 chars** (a lead finding + numbers + a small table + follow-ups
+runs to ~1550; beyond is an essay). The gate rule going forward: a change ships if it introduces **no NEW**
+golden failure vs this baseline; the standing `uropeltis_tax` length gets retired by the brevity/discipline
+work, not treated as a fresh regression.
+
 ## Golden traces — behavioral assertions (not answer text)
 Behavioral, because scoring only *content* misses the regressions that actually hurt (stopped asking,
 started writing essays, stopped transferring). Signals are mined from the `state.db` trace.

@@ -83,7 +83,9 @@ def score(sc, turns, sid):
     r = {
         "clarified_ok": (clar1 == sc["expect_clarify"]) or (clar1 and not sc["expect_clarify"]) is False and (bool(clar1) == sc["expect_clarify"]),
         "clarified": bool(clar1),
-        "short": all(t["len"] < 1100 for t in turns) if turns else False,
+        # a data answer (lead finding + numbers + a small table + follow-ups) legitimately runs to ~1550;
+        # beyond that it's an essay. Bar calibrated on the deepseek baseline (2026-07-12).
+        "short": all(t["len"] < 1600 for t in turns) if turns else False,
         "conn_hit": round(hit, 2),
         "transfer_flag_ok": (not sc["expect_transfer_flag"]) or bool(re.search(r"model|transpose|estimate|backed by|record", alltext)),
         "papers_ok": (not sc["papers_first"]) or m["papers"],
