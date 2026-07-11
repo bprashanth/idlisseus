@@ -66,7 +66,7 @@ Two always-loaded parts (this fixes "had to search for EBTL" and makes the syste
 - **Indicators** — for change/health questions: use satellite AND name the bioindicators + prompt to
   survey/acquire them. Communities/settlements: answer from map/landcover data, flag if modelled.
 
-## 4. Control plane vs reasoning plane (the model-positioning answer)
+## 4. Control plane vs reasoning plane
 Splitting these is the fix for our regressions — not a "smart planner over a dumb runner" (that only added
 latency in the bench, +33% for 0 quality, because the failures are discipline/state, not planning).
 - **Control plane** (cheap model + code/hooks): classify the theme → **clarify-or-proceed** (ask when the
@@ -78,7 +78,7 @@ latency in the bench, +33% for 0 quality, because the failures are discipline/st
 
 ## 5. Improvement loop — getting better WITHOUT regressing
 - **Syllabus / curriculum** (`algebra/components/controller.py`, run syllabi): realistic, **multi-turn**,
-  neutrally generated (cursor) question sets.
+  neutrally generated (larger model generated) question sets.
 - **Bench + GOLDEN traces**: run the syllabus; a fixed **golden subset carries behavioral ASSERTIONS**
   (site-known, short, offered-follow-up, did-transfer, asked-when-ambiguous, flagged-modelled). Run after
   every change — a failed assertion is a caught regression. (Substrate: `eg_bench.py` + `state.db` mining.)
@@ -88,7 +88,7 @@ latency in the bench, +33% for 0 quality, because the failures are discipline/st
   sources, author co-authorship graph → datasets → points) → feed the site brain's FACTS.
 - Loop: scout finds data → connectors use it → bench measures → golden guards → miner proposes → ledger records.
 
-## 6. How skills/context load (avoiding PLAYBOOK bloat)
+## 6. How skills/context load - avoiding PLAYBOOK bloat
 The load ladder — **small index always, detail on demand** (the progressive-disclosure principle):
 1. **Constitution + Site brain** (always, tiny): invariants + FACTS + ledger tail/summary.
 2. **Router** (`connectors/PLAYBOOK.md`, ~45 ln, always): question-type → recipe table + universal how-to.
@@ -98,7 +98,7 @@ Skills (Hermes Agent-Skills): only `name`+`description` sit in the always-on ind
 via `skill_view` when matched. **Invariants are the exception — always-on and tested; everything else is
 disclosed on demand.** That split is what prevents bloat AND regression at the same time.
 
-## 7. How the constitution is actually enforced (three mechanisms, light for now)
+## 7. How the constitution is actually enforce
 1. **Prose** — the always-on invariant block (necessary, not sufficient; models drift).
 2. **Golden-trace tests** — assertions over `state.db` traces catch a regression *after* a change but
    *before* it ships (the guardrail we lacked).
@@ -107,11 +107,27 @@ disclosed on demand.** That split is what prevents bloat AND regression at the s
    ask before assuming. This is where quick-turns / no-thesis / ask-when-unsure actually get *held*, because
    we proved prose can't hold them.
 
-## Open questions (resolve in the doc-by-doc review)
-- Ledger schema, chunking, and recall policy (recent tail + summary vs retrieval).
-- Which control-plane steps are a cheap MODEL vs pure code; the exact clarify-gate.
-- Hook implementation (Hermes plugin) for budget/length/clarify.
-- The smart/less-smart split — decided by experiment, not assertion.
+## Status & gaps — what's wired vs what's a v2 job
+Each architecture piece has a wiring reality (full status map: `benchmarks/CONCEPT_MAP.md` Part 2). The
+gaps below are the v2 work; each is owned by a benchmark spec in `docs/benchmarks/` so it's driven by
+evidence against a fixed baseline, guarded by the regression suite (`docs/REGRESSION_SUITE.md`).
 
-See: `PHILOSOPHY.md` · `AOI_ONBOARDING.md` · `DATA_STRATEGIES.md` · `../benchmarks/algebra/MASTER_PLAN.md`
-· `../benchmarks/semantic_broker/SKILL_ALGEBRA.md` · `../agents/hermes/TRACE_INTROSPECTION.md`.
+| Piece | Status | Gap → benchmark |
+|---|---|---|
+| Constitution, connectors, points-resolver, discovery, skill | 🟢 wired | guarded by the regression suite |
+| **Control plane vs reasoning plane** (§4) | 🟡 assembled mode + clarify-classifier BUILT, not default | `docs/benchmarks/model-positioning.md` |
+| **Improvement loop** (§5) — miner + golden gate | 🟡/🔴 offline; golden gate re-checks stored results, doesn't re-run | `docs/benchmarks/improvement-loop.md` |
+| **Name-verify (L1/L4) + where→transfer routing (L2)** | 🟡 correctness gaps (`../benchmarks/semantic_broker/LIMITATIONS.md`) | `docs/benchmarks/correctness-routing.md` |
+| **Transfer perf** — RF retrains every call | 🟡 no covariate cache / sklearn fast-path | `docs/benchmarks/correctness-routing.md` |
+| **Discovery hybrid re-rank + functions-vs-cards** | 🟡 open (VISION.md §open) | `docs/benchmarks/retrieval-onboarding.md` |
+| **Ledger** (§2) — the site work-history | 🔴 designed, not built | `docs/benchmarks/improvement-loop.md` |
+| **Cold-AOI onboarding** end-to-end | 🟡 only EBTL battle-tested | `docs/benchmarks/retrieval-onboarding.md` |
+
+Still-open DESIGN questions (settle as the benchmarks resolve): ledger schema/chunking/recall; which
+control-plane steps are a cheap MODEL vs pure code; the exact clarify-gate; one taxonomy for
+constitution-vs-recipe-vs-skill (they overlap today).
+
+See: `docs/README.md` (the heartwood-mirrored reading order) · `HISTORY.md` · `PHILOSOPHY.md` ·
+`AOI_ONBOARDING.md` · `DATA_STRATEGIES.md` · `../benchmarks/CONCEPT_MAP.md` ·
+`../benchmarks/algebra/MASTER_PLAN.md` · `../benchmarks/semantic_broker/SKILL_ALGEBRA.md` ·
+`../agents/hermes/TRACE_INTROSPECTION.md`. General mirror: `../../heartwood/docs/architecture/memory/`.

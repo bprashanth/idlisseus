@@ -28,10 +28,23 @@ usability is proven, NOT before):
    **strategies** (`dss/DATA_STRATEGIES.md`). Started; keep adding EVERY discovery here so compaction
    never loses it (e.g. the corridor was derived in a PRIOR run by the Scout — don't re-derive/forget).
 
-## WHERE WE ARE NOW (2026-07-11) — usability proven, TRANSITIONING OUT OF benchmarks/
+## WHERE WE ARE NOW (2026-07-11) — code moved + docs captured; NEXT = benchmark-driven v2
 
-Usability is proven; we are now doing the END-GOAL convergence, **code first, then docs**. Progress since
-the overnight benchmarks (full detail: `benchmarks/place_memory_run/`, `eastern_ghats_run/`, memory):
+**Code move DONE** (connectors + corpus + discovery + `dss/loop/` out of benchmarks; see
+`dss/PRODUCTION_MOVE_CHECKPOINT.md`). **Docs captured DONE** — the scattered benchmark narrative is now
+cohesive in `dss/`, mirroring `../../heartwood/docs/architecture/memory/`, no bloat:
+- `dss/HISTORY.md` (9-phase discovery narrative) · `benchmarks/CONCEPT_MAP.md` (every doc + wiring status) ·
+  `dss/docs/README.md` (heartwood-mirrored reading order + doc disposition) · `dss/ARCHITECTURE.md` (Status &
+  gaps table) · `dss/docs/REGRESSION_SUITE.md` (golden G1–G7 + baseline) · `dss/docs/benchmarks/*` (4 specs).
+
+**NEXT (Phase 2, benchmark-driven, AWAITING APPROVAL):** knock off the v2 features against the frozen
+baseline, each gated by "beats bench metric AND golden stays green", each an independent commit. Order:
+(1) close the improvement loop (`golden --run` first), (2) correctness cluster (L1/L2/L4 + perf),
+(3) model positioning (control/reasoning planes), (4) retrieval re-rank + cold-AOI onboarding. Full plan in
+the checkpoint's "PHASE 2" section.
+
+Usability is proven; we are now doing the END-GOAL convergence. Progress since the overnight benchmarks
+(full detail: `benchmarks/place_memory_run/`, `eastern_ghats_run/`, memory):
 - **Constitution + router refactor** — PLAYBOOK is a thin always-on router + on-demand `recipes/*.md`
   (progressive disclosure); the domain skill is thin. **L1** name-resolve (points.get only), **L2**
   where→transfer+lens, **litscout** (author-graph paper/dataset discovery).

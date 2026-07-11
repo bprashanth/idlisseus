@@ -52,8 +52,35 @@ a lay Lantana ask. chat.sh ALREADY mounts `dss/corpus` → `/opt/data/corpus` (w
       species + analog sites; proposer/controller emitted native-species Qs (restoration/greening, Elephas
       land-cover, Lantana elevation, PA governance); miner → 3 playbook rules. Output in
       `dss/loop/runs/elephants_by_the_lake/`.
-- [ ] (4) docs (Phase 2, later) — reconcile dss/{ARCHITECTURE,AOI_ONBOARDING,DATA_STRATEGIES}.md path refs
-      (they still say `components/` `research/`), and the older `benchmarks/algebra/discovery/` bench note.
+- [x] (4) docs — captured the scattered benchmark narrative into the cohesive dss/ set, mirroring heartwood,
+      NO bloat (slotted into existing docs; new docs only for what was missing):
+      - `dss/HISTORY.md` — the 9-phase discovery narrative (from `docs/scratchpad/chronology.md`).
+      - `benchmarks/CONCEPT_MAP.md` — every doc + its wiring status (🟢/🟡/🔴), Parts 1-3.
+      - `dss/docs/README.md` — heartwood-mirrored reading order over EXISTING dss docs + a doc-disposition
+        table (where each benchmark doc's content now lives: CAPTURED vs KEEP-as-evidence).
+      - `dss/ARCHITECTURE.md` — "Open questions" expanded into a **Status & gaps** table (each 🟡/🔴 → a bench).
+      - `dss/docs/REGRESSION_SUITE.md` — the golden traces (G1–G7) + the frozen baseline.
+      - `dss/docs/benchmarks/{model-positioning,improvement-loop,correctness-routing,retrieval-onboarding}.md`.
+
+## PHASE 2 — knock off the v2 features, benchmark-driven (PLAN — awaiting approval to execute)
+
+**Regression suite (decided):** `dss/docs/REGRESSION_SUITE.md`. Baseline = `chat.sh --model deepseekv4` +
+current PLAYBOOK/discipline/discovery. **Ship gate for any feature: (1) beats baseline on its bench metric
+AND (2) golden G1–G7 still green.** Each integrated feature = its own commit.
+
+**Task list / feature order** (highest value first; each owned by a bench spec):
+1. **Close the improvement loop** (`improvement-loop.md`) — `golden --run` (real regression gate) FIRST,
+   then the signal-gated miner tick, then the ledger. *Do the golden-`--run` fix before any other feature so
+   every later change is guarded.*
+2. **Correctness cluster** (`correctness-routing.md`) — L1 name-verify (⚠), L4 resolver-bypass guard, L2
+   where→transfer routing, transfer perf (covariate cache). One commit per limitation.
+3. **Model positioning** (`model-positioning.md`) — clarify-gate / synthesizer / bookends; make the winning
+   arm default. (The user-named "control plane / reasoning plane dual model" task.)
+4. **Retrieval + onboarding** (`retrieval-onboarding.md`) — discovery emb→LLM re-rank; settle
+   functions-vs-cards; a second cold AOI as onboarding proof.
+
+**GATE: do not start executing (running benchmarks / integrating) until the user approves** the regression
+suite, the feature order, and the baseline.
 
 ## PATH FIXES REQUIRED when moving to dss/loop/ (they point at OLD locations)
 
