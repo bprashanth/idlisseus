@@ -21,12 +21,15 @@ import urllib.parse
 import urllib.request
 import zipfile
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "semantic_broker", "connectors"))
+HERE = os.path.dirname(os.path.abspath(__file__))               # dss/loop
+DSS = os.path.dirname(HERE)                                     # dss
+sys.path.insert(0, os.path.join(DSS, "connectors"))            # dss/connectors (for paper_data)
 import paper_data as pdm  # noqa: E402
 
-INDEX = os.path.join(HERE, "paper_data_index.jsonl")
-CATALOG = os.path.join(HERE, "paper_catalog.jsonl")  # every inspected dataset -> card material
+# crawl OUTPUTS are the corpus (git the small indexes; the raw cache stays local/gitignored).
+CORPUS = os.path.join(DSS, "corpus")
+INDEX = os.path.join(CORPUS, "paper_data_index.jsonl")
+CATALOG = os.path.join(CORPUS, "paper_catalog.jsonl")  # every inspected dataset -> card material
 ZENODO = "https://zenodo.org/api/records"
 # AOIs to tag points against (name -> bbox w,s,e,n)
 AOIS = {"anamalai": [76.3, 10.2, 77.2, 11.7], "ebtl_corridor": [77.4, 11.9, 78.5, 12.9]}

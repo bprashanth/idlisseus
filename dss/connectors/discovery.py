@@ -85,7 +85,7 @@ def describe():
                "call, no keyword fumbling). `--points-only` keeps datasets with extractable points. Then feed "
                "a `doi` to `paper_data.extract --url <doi>` for the points inside. Complements litscout (live "
                "OpenAlex discovery of NEW papers) — discovery searches the INGESTED corpus.",
-        "gotcha": "Corpus = /opt/data/corpus/cards.jsonl (169 cards). First run embeds the corpus (~cached to "
+        "gotcha": "Corpus = /opt/data/corpus/cards.jsonl (256 cards). First run embeds the corpus (~cached to "
                   "/opt/data/work/discovery). bge-small via fastembed (self-heals to the venv). Semantic, not "
                   "keyword — good for lay/paraphrased queries.",
         "example": "python /opt/data/connectors/discovery.py search --query \"lantana invasive spread dry deciduous\" --points-only",

@@ -10,7 +10,8 @@ detect struggle -> write+gate connector -> mint gold -> judge -> ledger), with t
 Controller escalating and the Miner mining each tick. Bootstrap itself makes no
 LLM/solve call, so it's fast and safe to run first.
 
-Usage: python3 components/loop.py --aoi aois/elephants_by_the_lake.json
+Usage: python3 dss/loop/loop.py --aoi benchmarks/algebra/aois/elephants_by_the_lake.json
+       (LOOP_OUT overrides the output dir; MINER_LOGS overrides the run-log glob the Miner reads.)
 """
 import argparse
 import glob
@@ -18,16 +19,21 @@ import json
 import os
 import sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ALGEBRA = os.path.dirname(HERE)
-SB_CONNECTORS = os.path.normpath(os.path.join(ALGEBRA, "..", "semantic_broker", "connectors"))
+HERE = os.path.dirname(os.path.abspath(__file__))               # dss/loop
+DSS = os.path.dirname(HERE)                                     # dss
+CONNECTORS = os.path.join(DSS, "connectors")                   # dss/connectors (the capability library)
+# where the bootstrap writes each AOI's starter corpus, and where the miner reads past run logs. Both
+# override via env so the loop is location-agnostic; defaults keep it self-contained under dss/loop/runs.
+OUT_ROOT = os.environ.get("LOOP_OUT", os.path.join(HERE, "runs"))
+MINER_LOGS = os.environ.get("MINER_LOGS",
+                            os.path.join(DSS, "..", "benchmarks", "algebra", "runs", "*.log"))
 sys.path.insert(0, HERE)
 import scout, proposer, controller, miner  # noqa: E402
 
 
 def library_connectors():
     out = set()
-    for f in glob.glob(os.path.join(SB_CONNECTORS, "*.py")):
+    for f in glob.glob(os.path.join(CONNECTORS, "*.py")):
         n = os.path.splitext(os.path.basename(f))[0]
         if n not in ("_base", "__init__"):
             out.add(n)
@@ -36,7 +42,7 @@ def library_connectors():
 
 def bootstrap(aoi_path):
     aoi = json.load(open(aoi_path))
-    outdir = os.path.join(ALGEBRA, "aois", aoi["name"])
+    outdir = os.path.join(OUT_ROOT, aoi["name"])
     os.makedirs(outdir, exist_ok=True)
     lib = library_connectors()
 
@@ -50,7 +56,7 @@ def bootstrap(aoi_path):
     admitted, data_needs = controller.next_batch(aoi, cands, lib, available_species, bank)
     controller.append_bank(bank_path, admitted)
 
-    mined = miner.mine(os.path.join(ALGEBRA, "runs", "*.log"),
+    mined = miner.mine(MINER_LOGS,
                        statedb=os.path.expanduser("~/.hermes/state.db"))
     miner.write_playbook_rules(mined, os.path.join(outdir, "playbook_rules.md"))
 

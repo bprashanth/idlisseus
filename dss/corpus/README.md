@@ -8,7 +8,7 @@ regenerates via the crawler).
 
 | file | lines / size | what it is | produced by |
 |---|---|---|---|
-| `cards.jsonl` | 169 cards / ~0.9 MB | one **content card** per dataset = title + ALL column names + codebook definitions + n_points + georef status. The retrieval surface `discovery.py` embeds. | `dss/loop/build_cards.py` (over `paper_catalog.jsonl`) |
+| `cards.jsonl` | 256 cards / ~1.3 MB | one **content card** per dataset = title + ALL column names + codebook definitions + n_points + georef status. The retrieval surface `discovery.py` embeds. | `dss/loop/build_cards.py` (over `paper_catalog.jsonl`) |
 | `paper_catalog.jsonl` | 256 / ~0.75 MB | every inspected dataset's raw metadata + columns + codebook — the **card source material**. | `dss/loop/crawl.py` |
 | `paper_data_index.jsonl` | 21 084 / ~7.7 MB | the **extracted georeferenced points** (35 datasets, ~28.8k points) — occurrences pulled out of dataset tables. | `dss/loop/crawl.py` |
 

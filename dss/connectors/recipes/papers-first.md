@@ -19,8 +19,8 @@ hills / Tamil Nadu / Andhra), the **method** ("stable isotope", "phylogeography"
 **`discovery` is the SEMANTIC lever — run it FIRST for a lay/paraphrased ask.** It searches the ingested
 corpus by MEANING over content cards (title + every column + codebook), so "weed taking over coffee" reaches
 the dataset titled *"Brewing trouble: coffee invasion"* and "invasives near my seedlings" reaches a
-*canopy-cover/fruit-removal of an invasive weed* dataset — matches keyword search buries or misses (bench:
-MRR 0.67 vs 0.20, right dataset at **rank 1** where keyword lands it at rank 3–5). One call, no keyword
+*canopy-cover/fruit-removal of an invasive weed* dataset — matches keyword search buries or misses (bench
+over 256 cards: MRR 0.40 vs 0.17, recall .58 vs .33 — right dataset ranked higher, robustly). One call, no keyword
 fumbling; then feed the returned `doi` straight to `paper_data.extract --url <doi>` for the points inside.
 Use `discovery` for the INGESTED corpus; `litscout` for live OpenAlex discovery of NEW papers.
 

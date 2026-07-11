@@ -15,15 +15,24 @@ docker exec hermes-live /opt/data/work/venv/bin/python3 /opt/data/work/bench.py
 
 ## Result (2026-07-11)
 
-| retriever | recall@5 | MRR |
-|---|---|---|
-| keyword (BM25-lite over cards) | 0.50 | 0.20 |
-| **embeddings (discovery.search)** | **0.75** | **0.67** |
+Run at the true **256-card** corpus (the `dss/loop/` move surfaced that `cards.jsonl` was stale at 169 —
+the catalog had grown to 256; `build_cards.py` over the catalog is the source of truth):
 
-The win is **ranking**: the right dataset lands at rank 1 for 8/12 paraphrased queries where keyword buries
-it at rank 3–5 or misses entirely. This is the earlier "keyword ≈ embeddings (both .91)" finding's blind
-spot — that bench used queries whose keywords literally matched; these don't, which is the real lay-user
-case. 2 genuine misses both ways (roadkill, myna).
+| retriever | recall@5 | MRR | (169-card, for reference) |
+|---|---|---|---|
+| keyword (BM25-lite over cards) | 0.33 | 0.17 | 0.50 / 0.20 |
+| **embeddings (discovery.search)** | **0.58** | **0.40** | **0.75 / 0.67** |
+
+**Embeddings beats keyword robustly across corpus sizes** (recall ~1.75×, MRR ~2.4×). The win is
+**ranking** — the right dataset lands at rank 1 where keyword buries it at rank 3–5 or misses. Absolute
+recall is lower at 256 than 169 because **doubling the corpus adds semantically-adjacent distractors**:
+several "misses" now return a plausibly-relevant NEIGHBOUR (e.g. "birds coming back after replanting" →
+*"Native trees within plantations and surrounding forest"*; "weed in coffee" → *"Simplification of shade
+tree diversity in coffee"*), which the strict single-title gold doesn't credit. Gold is left unchanged (no
+coercion). 2 hard misses both ways (roadkill, myna).
+
+This is the earlier "keyword ≈ embeddings (both .91)" finding's blind spot — that bench used queries whose
+keywords literally matched; these are paraphrased, the real lay-user case.
 
 Agent-level: after PLAYBOOK constitution rule 4 was rewritten to name `discovery.search` as the FIRST
 literature call, a deepseekv4 hermes run chained `discovery.search → paper_data.extract` (13 tools vs 18)

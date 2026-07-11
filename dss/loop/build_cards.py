@@ -13,9 +13,10 @@ import json
 import os
 import re
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-CATALOG = os.path.join(HERE, "..", "research", "paper_catalog.jsonl")
-CARDS = os.path.join(HERE, "cards.jsonl")
+HERE = os.path.dirname(os.path.abspath(__file__))               # dss/loop
+CORPUS = os.path.join(HERE, "..", "corpus")                     # dss/corpus
+CATALOG = os.path.join(CORPUS, "paper_catalog.jsonl")          # card source material (from crawl.py)
+CARDS = os.path.join(CORPUS, "cards.jsonl")                    # what discovery.py embeds/searches
 
 # columns that are parsing noise (a whole row swallowed into one "column", or blank)
 _NOISE = re.compile(r"^(col\d+|unnamed|nan|none|)$", re.I)
