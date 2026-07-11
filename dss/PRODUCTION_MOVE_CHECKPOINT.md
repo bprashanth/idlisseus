@@ -70,17 +70,19 @@ AND (2) golden G1–G7 still green.** Each integrated feature = its own commit.
 
 **Task list / feature order** (highest value first; each owned by a bench spec). PROGRESS:
 1. **Close the improvement loop** (`improvement-loop.md`):
-   - [x] `golden --run` (real regression gate) — `conv_bench.py golden --run --model M` re-runs the golden
-     subset fresh (commit 4cbdeb4). Baseline locked, short bar=1600, green except uropeltis_tax (12e5077).
+   - [x] `golden --run` real regression gate (4cbdeb4); baseline locked, bar=1600 (12e5077).
+   - [x] **Gate hardened** — two-tier: HARD correctness (blocks, new-vs-ref) / SOFT brevity (reported;
+     only systematic >25% mean-len bloat blocks). Fixed the single-sample "short" flap (7fcd0a6).
    - [ ] signal-gated miner tick · [ ] the site ledger.
 2. **Correctness cluster** (`correctness-routing.md`):
-   - [x] **L1 name-verify** (⚠) — relevance guard, confident wrong-kingdom 2→0 (commit cc07aed, gate green).
-   - [ ] L4 resolver-bypass guard · [ ] L2 where→transfer routing · [ ] transfer perf (covariate cache).
+   - [x] **L1 name-verify** (⚠) — relevance guard, confident wrong-kingdom 2→0 (cc07aed).
+   - [x] **L4 resolver-bypass guard** — discipline plugin blocks occurrence/inaturalist-by-name (42fd75e).
+   - [ ] L2 where→transfer routing · [ ] transfer perf (covariate cache).
 3. [ ] **Model positioning** (`model-positioning.md`) — clarify-gate / synthesizer / bookends → default.
 4. [ ] **Retrieval + onboarding** (`retrieval-onboarding.md`) — discovery re-rank; functions-vs-cards; 2nd AOI.
 
-Baseline + gate: `dss/docs/REGRESSION_SUITE.md`. Every feature = independent commit, gated by golden --run.
-NEXT: L4 (resolver-bypass guard).
+Baseline + gate: `dss/docs/REGRESSION_SUITE.md` (two-tier). Every feature = independent commit, gated by
+`golden --run` (HARD correctness must not regress vs `results_base.ref.jsonl`). NEXT: L2 (where→transfer).
 
 ## PATH FIXES REQUIRED when moving to dss/loop/ (they point at OLD locations)
 
