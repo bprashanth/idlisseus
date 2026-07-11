@@ -13,6 +13,7 @@ Cache dir: $POINTS_CACHE or /opt/data/work/points (container) or ../runs/points 
 import argparse
 import hashlib
 import json
+import re
 import os
 import sys
 import urllib.parse
@@ -113,11 +114,26 @@ def resolve(name, refresh=False):
             out["note"] = ("common name '%s' maps to multiple taxa — picked the most-observed (%s); verify."
                            % (name, best["scientific"]))
     elif inat:
-        best = max(inat, key=lambda t: (t["rank"] == "SPECIES", t["obs"]))
-        out.update(scientific=best["scientific"], common=best.get("common"), rank=best["rank"], source="inat",
-                   match="fuzzy")
-        out["note"] = "no exact name match; best iNaturalist guess '%s' — VERIFY before asserting." % best["scientific"]
-        out["candidates"] = [{"scientific": t["scientific"], "common": t.get("common"), "obs": t["obs"]} for t in inat[:4]]
+        # L1 relevance guard: a bare common word makes iNat autocomplete return typo-fuzzy GARBAGE from the
+        # WRONG kingdom (gaur->fireweed, sambar->a dragonfly), and picking the most-observed hit asserts it
+        # confidently. Only trust a fuzzy hit that RELATES to the query — its common/scientific shares a word
+        # with what the user said. Otherwise resolve to NOTHING: an honest "unverified, ask" beats a
+        # confident wrong-species (the #1 correctness failure, LIMITATIONS L1).
+        toks = {w for w in key.replace("'", " ").replace("-", " ").split() if len(w) > 2}
+        def _rel(t):   # WHOLE-WORD overlap (not substring — else 'gaur' matches the plant 'Gaura')
+            words = set(re.findall(r"[a-z]+", ((t.get("common") or "") + " " + (t.get("scientific") or "")).lower()))
+            return bool(toks & words)
+        rel = [t for t in inat if _rel(t)]
+        if rel:
+            best = max(rel, key=lambda t: (t["rank"] == "SPECIES", t["obs"]))
+            out.update(scientific=best["scientific"], common=best.get("common"), rank=best["rank"],
+                       source="inat", match="fuzzy")
+            out["note"] = "no exact name match; best RELATED iNaturalist guess '%s' — VERIFY before asserting." % best["scientific"]
+            out["candidates"] = [{"scientific": t["scientific"], "common": t.get("common"), "obs": t["obs"]} for t in rel[:4]]
+        else:
+            out["note"] = ("'%s' matched no taxon by name (iNaturalist returned only unrelated species) — "
+                           "UNVERIFIED; say you could not resolve it and ask which species is meant." % name)
+            out["candidates"] = [{"scientific": t["scientific"], "common": t.get("common"), "obs": t["obs"]} for t in inat[:3]]
     elif gb:
         out.update(scientific=gb["scientific"], rank=gb["rank"], match=gb["match"], source="gbif")
         out["note"] = "GBIF %s match only — verify." % gb["match"]
