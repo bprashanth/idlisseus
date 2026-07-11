@@ -45,6 +45,18 @@ def _pre_llm(user_message=None, is_first_turn=None, model=None, **kw):
 
 
 def _pre_tool(tool_name=None, function_name=None, **kw):
+    # L4 guard (LIMITATIONS L4): block a DIRECT occurrence/inaturalist call that passes a --species NAME —
+    # it bypasses the points.py resolver, and a common name maps to the wrong species. Scan every kwarg
+    # value (robust to the command's exact key). Allow --describe and already-resolved taxon-key calls,
+    # and never touch points.py get (which resolves internally). This does NOT count against the cap.
+    cmd = " ".join(str(v) for v in list(kw.values()) + [function_name, tool_name] if v).lower()
+    if ("--species" in cmd and "--describe" not in cmd
+            and ("occurrence.py" in cmd or "inaturalist.py" in cmd) and "points.py" not in cmd):
+        return {"action": "block",
+                "message": ("BLOCKED (L4): don't call occurrence.py/inaturalist.py with a --species NAME — a "
+                            "common name maps to the WRONG species. Use `points.py get --species \"<name>\" "
+                            "--bbox w,s,e,n` (it resolves the name + merges GBIF/iNat/paper), then read the "
+                            "returned CSV. For an already-resolved id use the connector's taxon-key/--describe.")}
     _state["tools"] += 1
     if _state["tools"] > _CAP:
         return {"action": "block",

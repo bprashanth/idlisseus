@@ -27,4 +27,20 @@ Gate: golden suite re-run on deepseekv4 (green_cat_snake still resolves + flags)
 (gaur→*Bos gaurus*, sambar→*Rusa unicolor*, spotted deer→*Axis axis*) would resolve them correctly and
 disambiguate toward the India-native. Kept out of this commit to avoid overfitting the general fix.
 
-## L4 (resolver-bypass guard), L2 (where→transfer routing), perf — PENDING.
+## L4 — resolver-bypass guard. DONE 2026-07-12.
+
+**Finding:** recent traces had **15 direct `occurrence`/`inaturalist`-by-name calls** vs 85 via
+`points.get` (~15% bypass the resolver → a common name can map to the wrong species).
+
+**Fix** (`agents/hermes/plugins/discipline/__init__.py`, `pre_tool_call`): a guard that **blocks** a tool
+command containing `occurrence.py`/`inaturalist.py` **with `--species`** (a NAME) and redirects to
+`points.py get`. Allows `--describe`, already-resolved `--taxon-key`, and never touches `points.py get`
+(which resolves internally). Doesn't count against the tool cap. Unit-tested (6/6: blocks by-name,
+allows resolver/describe/taxon-key/other connectors).
+
+**Smoke (deepseekv4, "how many king cobra records around EBTL"):** answered correctly (15 records, all
+Western Ghats, none at EBTL, OBSERVED + 15 GBIF pts, predict refused to model, 3 follow-ups) using
+`points.get` ×5, 0 direct-by-name — guard is a validated safety net that doesn't harm the normal flow.
+Gate: golden --run green (new vs `results_base_ref.jsonl`).
+
+## L2 (where→transfer routing), transfer perf — PENDING.
