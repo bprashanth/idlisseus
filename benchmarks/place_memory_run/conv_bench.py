@@ -140,25 +140,45 @@ def golden(rerun=False, model="deepseekv4"):
             os.remove(p)                      # fresh baseline each golden --run
         print(f"[golden --run] {len(GOLDEN_IDS)} scenarios on {model} …", flush=True)
         run("base", len(SYL), 3, model, set(GOLDEN_IDS))
-    fails = []
-    # in rerun mode assert ONLY on the fresh baseline; stale qwen/capnudge/bookends files are old runs.
+    # Two tiers. HARD = correctness (stable run-to-run; a regression here is a real bug): resolve, flag,
+    # clarify-appropriately, papers-first, not-empty/not-crashed. SOFT = brevity (deepseek length swings
+    # ~800 chars run-to-run, so a single-sample hard 1600 bar FLAPS — proven: lakes 872 vs 1760 same code).
+    # Brevity is REPORTED + compared to the ref; only a SYSTEMATIC bloat (mean length up a lot vs ref) hard-
+    # fails. New-vs-old: a scenario that regresses a HARD signal vs the ref baseline is the real gate.
+    ref = {}
+    refp = os.path.join(HERE, "results_base.ref.jsonl")   # the "old" baseline snapshot for new-vs-old
+    if os.path.exists(refp):
+        ref = {json.loads(l)["id"]: json.loads(l) for l in open(refp)}
+    fails, warns, lens_new, lens_ref = [], [], [], []
     configs = ["base"] if rerun else ["base", "qwen", "capnudge", "bookends"]
     for c in configs:
         if not os.path.exists(OUT(c)):
             continue
         for r in (json.loads(l) for l in open(OUT(c))):
-            i = r["id"]
-            if i == "green_cat_snake":                                   # G2
+            i = r["id"]; rf = ref.get(i, {})
+            if i == "green_cat_snake":                                          # G2 (HARD)
                 if not r["resolved_ok"]: fails.append(f"{c}:{i} did NOT resolve to Boiga cyanea")
                 if not r["transfer_flag_ok"]: fails.append(f"{c}:{i} did NOT flag modelled")
             if i in ("invasives_vague", "forest_recovery") and not r["clarified_ok"]:
-                fails.append(f"{c}:{i} did NOT clarify a vague ask (G1)")       # G1
-            if r.get("papers_ok") is False: fails.append(f"{c}:{i} not papers-first (G5)")
-            if not r["short"]: fails.append(f"{c}:{i} not short (G7)")          # G7
-            if not r["not_empty"]: fails.append(f"{c}:{i} empty (G7)")
+                fails.append(f"{c}:{i} clarify behavior wrong (G1)")            # G1 (HARD)
+            if r.get("papers_ok") is False: fails.append(f"{c}:{i} not papers-first (G5)")  # HARD
+            if not r["not_empty"]: fails.append(f"{c}:{i} EMPTY/crashed (G7)")  # HARD
+            if not r["short"]:                                                  # G7 brevity (SOFT)
+                was = "(long in ref too)" if rf.get("short") is False else "(was short in ref — VARIANCE?)"
+                warns.append(f"{c}:{i} long {[t['len'] for t in r['turns']]} {was}")
+            if c == "base":
+                lens_new.append(max(t["len"] for t in r["turns"]))
+                if rf: lens_ref.append(max(t["len"] for t in rf["turns"]))
+    # systematic-bloat guard (HARD): mean answer length up >25% vs the ref baseline across the suite
+    if lens_new and lens_ref:
+        mn, mr = sum(lens_new)/len(lens_new), sum(lens_ref)/len(lens_ref)
+        print(f"[brevity] mean max-len new={mn:.0f} vs ref={mr:.0f} ({100*(mn-mr)/mr:+.0f}%)")
+        if mn > mr * 1.25:
+            fails.append(f"SYSTEMATIC brevity regression: mean len {mn:.0f} > ref {mr:.0f} +25%")
+    for w in warns: print("  ~ (soft)", w)
     if fails:
-        print("GOLDEN FAIL:"); [print("  -", f) for f in fails]; return 1
-    print("GOLDEN PASS"); return 0
+        print("GOLDEN FAIL (hard):"); [print("  -", f) for f in fails]; return 1
+    print("GOLDEN PASS" + (f" ({len(warns)} soft brevity warning(s))" if warns else "")); return 0
 
 
 if __name__ == "__main__":

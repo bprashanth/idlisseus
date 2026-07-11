@@ -46,15 +46,20 @@ eroding (re-deriving the site, dropping the "modelled" label, writing essays) as
 continues. G8 runs the multi-turn harness (`conv_bench.py`, user-simulator) and asserts the invariants on
 **every** turn's trace, not just the first.
 
-## How it runs (and the one fix it needs)
-Harness = `benchmarks/place_memory_run/conv_bench.py` (multi-turn, user-simulator, config spread).
-- **Gap to fix first:** `golden()` today **re-checks stored `results_*.jsonl`** — it does not re-run the
-  scenarios. So "golden pass" on stale data is not a real guard. **Fix:** add a `golden --run` mode that
-  executes the G1–G7 scenarios fresh on the baseline, then asserts. Until then, always re-run the configs
-  before calling `golden` (this is exactly why the post-move check ran the scenarios by hand).
-- **Cadence:** run before every feature integration (the "(2)" gate above) and after. A failed assertion
-  **blocks** the change.
-- **Cost:** G1–G7 on deepseekv4 ≈ a few minutes; cheap enough to run every change.
+## How it runs (two-tier, new-vs-old)
+Harness = `benchmarks/place_memory_run/conv_bench.py` (multi-turn, user-simulator). `golden --run --model M`
+RE-RUNS the golden subset fresh (the real guard) and compares to a saved reference
+(`results_base.ref.jsonl` = the "old" baseline). Two tiers, because they behave differently run-to-run:
+- **HARD (must not regress vs ref) — correctness:** resolved-name, observed-vs-modelled flag, clarify-
+  appropriately (ask the vague, don't over-clarify the answerable), papers-first, **not-empty/not-crashed**.
+  These are STABLE across runs; a new failure here is a real bug and **blocks** the change.
+- **SOFT (reported, not a hard block) — brevity:** deepseek answer length swings ~800 chars run-to-run
+  (proven: `lakes` 872 vs 1760 chars on *identical* code), so a single-sample hard 1600 bar FLAPS. Per-
+  scenario length is reported as a warning; only a **SYSTEMATIC** bloat (suite mean max-length up >25% vs
+  ref) hard-fails. This catches real verbosity regressions without flapping on variance.
+- **Update the ref** (`cp results_base.jsonl results_base.ref.jsonl`) after a change lands green, so the
+  next feature compares against the new floor. Standing `uropeltis_tax` length is a soft warning, not a block.
+- **Cadence/cost:** run `golden --run` before and after every feature integration; ≈13 min on deepseekv4.
 
 ## The miner side (human-gated)
 After each benchmark, mine the interesting sessions (signal-gated: user pushback, repeated question,
