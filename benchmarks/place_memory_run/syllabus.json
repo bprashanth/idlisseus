@@ -1,15 +1,188 @@
 [
- {"id":"invasives_vague","open":"tell me about the invasives here","goal":"I'm deciding where to weed this season and want to know if lantana is spreading near my nursery plots.","category":"distribution","expect_clarify":true,"expect_connectors":["invasive","points","predict"],"expect_transfer_flag":true,"papers_first":false,"regression":false},
- {"id":"green_cat_snake","open":"where can I find the green cat snake at ebtl?","goal":"I want to know if the green cat snake occurs on our site and where.","category":"name+transfer","expect_clarify":false,"expect_connectors":["points","predict"],"expect_transfer_flag":true,"papers_first":false,"regression":true,"must_resolve":"Boiga cyanea"},
- {"id":"lakes","open":"where are the lakes and ponds on our land?","goal":"I need to know which waterbodies exist and which dry up first, for dry-season planning.","category":"landscape","expect_clarify":false,"expect_connectors":["water"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"cobra_lantana","open":"do cobras live around the lantana here?","goal":"a worker was bitten near a lantana thicket; I want to know if cobras associate with lantana on site.","category":"colocation","expect_clarify":false,"expect_connectors":["points","geo"],"expect_transfer_flag":true,"papers_first":false,"regression":false},
- {"id":"forest_recovery","open":"is our forest actually coming back?","goal":"I need evidence of recovery over the last ~5 years for a donor report, plus indicators to monitor.","category":"trend","expect_clarify":true,"expect_connectors":["greenness","landcover","indicators"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"uropeltis_tax","open":"what's known about the shieldtail snakes here taxonomically?","goal":"I'm a researcher checking whether the local Uropeltis is an undescribed lineage before a survey.","category":"literature","expect_clarify":false,"expect_connectors":["paper_data","litscout","points"],"expect_transfer_flag":false,"papers_first":true,"regression":false},
- {"id":"tree_cover","open":"how much tree cover do we have and how dense is it?","goal":"I want a canopy-density baseline across the site.","category":"landscape","expect_clarify":false,"expect_connectors":["landcover","s2"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"russell_viper","open":"map where russell's viper is likely across our site","goal":"I want a modelled risk map to plan where to warn field staff, knowing we have few local records.","category":"transfer","expect_clarify":false,"expect_connectors":["points","predict","groundtruth_lens"],"expect_transfer_flag":true,"papers_first":false,"regression":false},
- {"id":"nursery","open":"which native trees should I collect seed from now?","goal":"I run the nursery and need drought-tolerant natives that are fruiting now and grow near the site.","category":"phenology","expect_clarify":true,"expect_connectors":["phenology","points"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"birds","open":"which birds are here and which spread seeds?","goal":"I want the frugivores that could disperse natives (or invasives) across the site.","category":"bird-bridge","expect_clarify":false,"expect_connectors":["ebird"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"soil_indicators","open":"which creatures tell me our soil is getting healthier?","goal":"I want bioindicator taxa to survey for soil-health monitoring.","category":"indicators","expect_clarify":false,"expect_connectors":["indicators"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"terrain","open":"where are the rocky and steep patches we should leave alone?","goal":"I'm planning planting and want to avoid rocky/steep ground.","category":"landscape","expect_clarify":false,"expect_connectors":["terrain","landcover"],"expect_transfer_flag":false,"papers_first":false,"regression":false},
- {"id":"grazing","open":"where is grazing pressure hurting regeneration?","goal":"I suspect cattle near the village edge are stopping regrowth and want to see it.","category":"human-use","expect_clarify":false,"expect_connectors":["greenness","landcover","geo"],"expect_transfer_flag":false,"papers_first":false,"regression":false}
+  {
+    "id": "invasives_vague",
+    "open": "tell me about the invasives here",
+    "goal": "I'm deciding where to weed this season and want to know if lantana is spreading near my nursery plots.",
+    "category": "distribution",
+    "expect_clarify": true,
+    "expect_connectors": [
+      "invasive",
+      "points",
+      "predict"
+    ],
+    "expect_transfer_flag": true,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "green_cat_snake",
+    "open": "where can I find the green cat snake at ebtl?",
+    "goal": "I want to know if the green cat snake occurs on our site and where.",
+    "category": "name+transfer",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "points",
+      "predict"
+    ],
+    "expect_transfer_flag": true,
+    "papers_first": false,
+    "regression": true,
+    "must_resolve": "Boiga cyanea"
+  },
+  {
+    "id": "lakes",
+    "open": "where are the lakes and ponds on our land?",
+    "goal": "I need to know which waterbodies exist and which dry up first, for dry-season planning.",
+    "category": "landscape",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "water"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "cobra_lantana",
+    "open": "do cobras live around the lantana here?",
+    "goal": "a worker was bitten near a lantana thicket; I want to know if cobras associate with lantana on site.",
+    "category": "colocation",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "points",
+      "geo"
+    ],
+    "expect_transfer_flag": true,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "forest_recovery",
+    "open": "is our forest actually coming back?",
+    "goal": "I need evidence of recovery over the last ~5 years for a donor report, plus indicators to monitor.",
+    "category": "trend",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "greenness",
+      "landcover",
+      "indicators"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false,
+    "_clarify_note": "answerable directly (greenness trend over AOI); clarifying = over-clarify (place_memory finding)"
+  },
+  {
+    "id": "uropeltis_tax",
+    "open": "what's known about the shieldtail snakes here taxonomically?",
+    "goal": "I'm a researcher checking whether the local Uropeltis is an undescribed lineage before a survey.",
+    "category": "literature",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "paper_data",
+      "litscout",
+      "points"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": true,
+    "regression": false
+  },
+  {
+    "id": "tree_cover",
+    "open": "how much tree cover do we have and how dense is it?",
+    "goal": "I want a canopy-density baseline across the site.",
+    "category": "landscape",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "landcover",
+      "s2"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "russell_viper",
+    "open": "map where russell's viper is likely across our site",
+    "goal": "I want a modelled risk map to plan where to warn field staff, knowing we have few local records.",
+    "category": "transfer",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "points",
+      "predict",
+      "groundtruth_lens"
+    ],
+    "expect_transfer_flag": true,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "nursery",
+    "open": "which native trees should I collect seed from now?",
+    "goal": "I run the nursery and need drought-tolerant natives that are fruiting now and grow near the site.",
+    "category": "phenology",
+    "expect_clarify": true,
+    "expect_connectors": [
+      "phenology",
+      "points"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "birds",
+    "open": "which birds are here and which spread seeds?",
+    "goal": "I want the frugivores that could disperse natives (or invasives) across the site.",
+    "category": "bird-bridge",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "ebird"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "soil_indicators",
+    "open": "which creatures tell me our soil is getting healthier?",
+    "goal": "I want bioindicator taxa to survey for soil-health monitoring.",
+    "category": "indicators",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "indicators"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "terrain",
+    "open": "where are the rocky and steep patches we should leave alone?",
+    "goal": "I'm planning planting and want to avoid rocky/steep ground.",
+    "category": "landscape",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "terrain",
+      "landcover"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  },
+  {
+    "id": "grazing",
+    "open": "where is grazing pressure hurting regeneration?",
+    "goal": "I suspect cattle near the village edge are stopping regrowth and want to see it.",
+    "category": "human-use",
+    "expect_clarify": false,
+    "expect_connectors": [
+      "greenness",
+      "landcover",
+      "geo"
+    ],
+    "expect_transfer_flag": false,
+    "papers_first": false,
+    "regression": false
+  }
 ]

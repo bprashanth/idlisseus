@@ -37,11 +37,16 @@ cohesive in `dss/`, mirroring `../../heartwood/docs/architecture/memory/`, no bl
   `dss/docs/README.md` (heartwood-mirrored reading order + doc disposition) · `dss/ARCHITECTURE.md` (Status &
   gaps table) · `dss/docs/REGRESSION_SUITE.md` (golden G1–G7 + baseline) · `dss/docs/benchmarks/*` (4 specs).
 
-**NEXT (Phase 2, benchmark-driven, AWAITING APPROVAL):** knock off the v2 features against the frozen
-baseline, each gated by "beats bench metric AND golden stays green", each an independent commit. Order:
-(1) close the improvement loop (`golden --run` first), (2) correctness cluster (L1/L2/L4 + perf),
-(3) model positioning (control/reasoning planes), (4) retrieval re-rank + cold-AOI onboarding. Full plan in
-the checkpoint's "PHASE 2" section.
+**PHASE 2 — EXECUTING (2026-07-11, approved).** Knocking off the v2 features against the frozen baseline
+(`chat.sh --model deepseekv4` + current PLAYBOOK/discipline/discovery), each gated by "beats bench metric
+AND golden stays green", each an independent commit. Order: (1) close the improvement loop (`golden --run`
+FIRST — done: `conv_bench.py golden --run --model deepseekv4` now re-runs the golden subset fresh instead of
+re-checking stale results), (2) correctness cluster (L1/L2/L4 + perf), (3) model positioning (control/
+reasoning planes), (4) retrieval re-rank + cold-AOI onboarding. Full plan: checkpoint "PHASE 2" section.
+- **Step 0 (now): base regression run** to confirm the baseline is green before changing anything. Also
+  added an English-output invariant to constitution rule 2 (deepseek occasionally drifted to Chinese —
+  data pipeline was correct, but it would pollute benchmarks). Regression suite = `dss/docs/REGRESSION_SUITE.md`
+  (golden G1–G8).
 
 Usability is proven; we are now doing the END-GOAL convergence. Progress since the overnight benchmarks
 (full detail: `benchmarks/place_memory_run/`, `eastern_ghats_run/`, memory):
