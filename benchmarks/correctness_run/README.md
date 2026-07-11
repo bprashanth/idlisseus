@@ -43,4 +43,17 @@ Western Ghats, none at EBTL, OBSERVED + 15 GBIF pts, predict refused to model, 3
 `points.get` ×5, 0 direct-by-name — guard is a validated safety net that doesn't harm the normal flow.
 Gate: golden --run green (new vs `results_base_ref.jsonl`).
 
-## L2 (where→transfer routing), transfer perf — PENDING.
+## L2 — where→transfer routing. VERIFIED HANDLED (no code change) 2026-07-12.
+
+L2 (a "where can I find X" question returning a raw point instead of routing to the transfer/map pipeline)
+was a **local-qwen** behavior. On the deepseek baseline + the `recipes/spatial-where.md` recipe it routes
+correctly: probe "where can I find russell's viper across our site?" → resolved 356 regional donor records,
+ran `predict` (transfer pipeline), labeled modelled/likelihood, offered the rendered suitability map as a
+follow-up (not a single GPS dot). The golden `green_cat_snake` ("where") also passes with transfer-flagging.
+So L2 is satisfied on the baseline — recorded here rather than "fixed" (no coercion; don't invent a change
+that isn't needed).
+
+## Transfer perf (RF retrains every call → covariate cache) — DEFERRED.
+Real but a larger optimization (cache sampled AlphaEarth/WorldClim vectors per donor+AOI point, add a
+sklearn local fast-path). Latency is currently acceptable (~1–1.5 min for a modelled "where"). Own session;
+bench spec `dss/docs/benchmarks/correctness-routing.md`.

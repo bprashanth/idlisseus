@@ -77,7 +77,9 @@ AND (2) golden G1–G7 still green.** Each integrated feature = its own commit.
 2. **Correctness cluster** (`correctness-routing.md`):
    - [x] **L1 name-verify** (⚠) — relevance guard, confident wrong-kingdom 2→0 (cc07aed).
    - [x] **L4 resolver-bypass guard** — discipline plugin blocks occurrence/inaturalist-by-name (42fd75e).
-   - [ ] L2 where→transfer routing · [ ] transfer perf (covariate cache).
+   - [x] **L2 where→transfer routing** — VERIFIED already handled on deepseek + spatial-where recipe (no
+     code change; it routes to predict/transfer + labels modelled). It was a local-qwen behavior.
+   - [~] transfer perf (covariate cache) — DEFERRED (larger optimization; latency acceptable ~1-1.5m).
 3. [ ] **Model positioning** (`model-positioning.md`) — clarify-gate / synthesizer / bookends → default.
 4. [ ] **Retrieval + onboarding** (`retrieval-onboarding.md`) — discovery re-rank; functions-vs-cards; 2nd AOI.
 
