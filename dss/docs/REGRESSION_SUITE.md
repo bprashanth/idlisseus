@@ -28,9 +28,14 @@ started writing essays, stopped transferring). Signals are mined from the `state
 | G5 | "what data exists on X" (literature) | called **`discovery`** FIRST (semantic), not keyword-fumbling · pulled **points from datasets**, not just titles |
 | G6 | "which birds tell me the forest is healthy?" (change/health) | used a proxy + **bioindicator survey ask** · did NOT force a distribution model |
 | G7 | every scenario | **not empty** (retried smaller then answered) · **short** (no thesis) · **observed-vs-modelled labelled** |
+| G8 | **multi-turn** (3 turns): vague ask → user gives direction → "is that reliable / where exactly?" | invariants **hold across ALL turns, not just turn 1**: site-known every turn (no re-derivation mid-conversation) · **clarified ONCE** (turn 1) then proceeded — no re-clarify loop · short every turn · observed-vs-modelled label **persists** on turns 2–3 · did not drift into an essay as the thread grew |
 
 G2 + G7 are already asserted by `benchmarks/place_memory_run/conv_bench.py golden` (green_cat_snake
-resolves + flags modelled; short; not_empty). This suite **extends** that to G1/G3–G6.
+resolves + flags modelled; short; not_empty). This suite **extends** that to G1/G3–G6, and **G8 is the
+cross-turn invariant guard** — the most common decay mode is the constitution holding on turn 1 then
+eroding (re-deriving the site, dropping the "modelled" label, writing essays) as the conversation
+continues. G8 runs the multi-turn harness (`conv_bench.py`, user-simulator) and asserts the invariants on
+**every** turn's trace, not just the first.
 
 ## How it runs (and the one fix it needs)
 Harness = `benchmarks/place_memory_run/conv_bench.py` (multi-turn, user-simulator, config spread).
