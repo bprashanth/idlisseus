@@ -46,7 +46,7 @@ def main():
     ing = pd.ingest_dataset(r)
     print(f"✓ ingest strategy={ing.get('strategy')} points={len(ing.get('points', []))}")
     print("\nDryad is live. Re-run the crawl to fold Dryad into the corpus:")
-    print("  python3 research/paper_crawl.py --max-datasets 250 --theme-per-query 15")
+    print("  python3 dss/loop/crawl.py --max-datasets 250 --theme-per-query 15")
     return 0
 
 
