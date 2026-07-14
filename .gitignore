@@ -255,3 +255,6 @@ benchmarks/**/*.jpg
 benchmarks/**/*.jpeg
 benchmarks/**/*.html
 benchmarks/**/*.webm
+
+# golden --run regenerated outputs (benchmark evidence, not source)
+benchmarks/place_memory_run/results_base*.jsonl

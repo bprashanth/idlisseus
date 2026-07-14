@@ -1,4 +1,4 @@
-# Operating philosophy (why the system behaves as it does)
+# Operating philosophy: why the system behaves as it does
 
 The ideology behind the connectors, the transfer algebra, and the overnight benchmark. This is the
 part that's easy to lose in code; keep it explicit.
