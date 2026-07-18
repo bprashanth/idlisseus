@@ -74,6 +74,17 @@ start_container() {
     -v "$HERE/gt:/opt/data/work/gt" \
     --entrypoint /opt/hermes/.venv/bin/python3 "$IMAGE" -c "import time; time.sleep(1e9)" >/dev/null
   sleep 2
+  # Stage login-connector keys (ebird/dryad/skyfi) so the in-container connectors find them. They check
+  # ~/.config/idlisseus/*.json, which inside the container (HOME=/opt/data) is /opt/data/.config/idlisseus.
+  # The host source ~/.config/idlisseus is NOT reachable from the container, and ~/.hermes is owned by the
+  # agent uid (10000) so a host-side cp is denied — copy via docker + fix ownership. Durable via the mount.
+  if [ -d "$HOME/.config/idlisseus" ]; then
+    docker exec --user root "$NAME" sh -c 'mkdir -p /opt/data/.config/idlisseus' 2>/dev/null || true
+    for f in ebird dryad skyfi; do
+      [ -f "$HOME/.config/idlisseus/$f.json" ] && docker cp "$HOME/.config/idlisseus/$f.json" "$NAME":/opt/data/.config/idlisseus/"$f".json 2>/dev/null || true
+    done
+    docker exec --user root "$NAME" sh -c 'chown -R 10000:10000 /opt/data/.config/idlisseus' 2>/dev/null || true
+  fi
 }
 
 # --restart: recreate and exit
