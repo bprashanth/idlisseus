@@ -39,6 +39,8 @@ def test_idli_insight_model_request_is_explicit_and_file_backed():
     assert "export function renderT4GCModelRequest" in renderer
     assert "Request this model from T4GC" in renderer
     assert "Use the request-model-from-t4gc skill" in renderer
+    assert "response variable, candidate predictors" in renderer
+    assert "measurable validation target" in renderer
     assert "send.click()" in renderer
 
 

@@ -110,6 +110,10 @@ totalrecall/ecology_memory/integration/codex_native/runs/model_requests.jsonl
 The file is created with mode `0600`. This operational skill is layered over the frozen benchmark
 catalog and therefore does not mutate the historical 12-skill benchmark input.
 
+The button asks the agent to structure the request with the missing response variable, candidate
+predictors, labels or ground truth, spatial extent and a measurable validation target. Unknowns are
+recorded as unknown rather than silently filled from model memory.
+
 ## Query-bound evidence and field maps
 
 Three runtime skills extend the frozen benchmark catalogue:

@@ -840,6 +840,7 @@ export function renderT4GCModelRequest(messageElement, content, trace) {
     const auditId = String(trace?.audit_id || '').trim();
     input.value = [
       'Use the request-model-from-t4gc skill to record this model request.',
+      'Include the missing response variable, candidate predictors, required labels or ground truth, spatial extent, and a measurable validation target. Mark unknown fields explicitly.',
       auditId ? `The evidence gap was identified in audit ${auditId}.` : '',
       `Unsupported capability and context: ${context}`,
     ].filter(Boolean).join('\n\n');
