@@ -116,7 +116,8 @@ recorded as unknown rather than silently filled from model memory.
 
 ## Query-bound evidence and field maps
 
-Four runtime skills extend the frozen benchmark catalogue:
+Five evidence/runtime skills extend the frozen benchmark catalogue, alongside the separate T4GC
+request skill described above:
 
 - `discover-ecology-evidence` passes the user's actual query to the admitted local semantic,
   OpenAlex, Zenodo and Dryad connectors. Model knowledge may supply a labelled query seed, but a
@@ -126,6 +127,10 @@ Four runtime skills extend the frozen benchmark catalogue:
   this material and label adaptations. DOI matching accepts repository-prefixed (`doi:`), bare and
   `https://doi.org/` forms; an exact Dryad DOI lookup gets one bounded same-query retry when its
   file-list request transiently returns no rows.
+- `relate-taxon-occurrences` retrieves two named taxa in one admitted region, calculates pairs at
+  a declared distance, and keeps both input denominators in the audit. The short label
+  `donor belt` resolves to the declared dry-Deccan donor belt. Its answer must state that proximity
+  does not prove interaction, shared habitat or simultaneous presence.
 - `build-source-backed-field-protocol` turns an inspected dataset into a side-panel protocol reader
   and blank CSV datasheet. Returned source columns stay separate from programme-added point, effort,
   detection and notes fields. When a codebook declares several tables, the caller selects one
@@ -160,6 +165,14 @@ model hypothesis -> admitted query result -> retrieved data -> independent gates
 Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
 shared habitat or simultaneous presence.
 
+The bridge now reports 18 visible skills: the frozen 12 plus six operational skills. In the
+two-pass development bank, the original relation/sparse-taxa conversation exposed the missing
+generic relation operation. After the operation and region alias were added, an isolated native
+replay scored all eight turns across two passes and reproduced every turn score. The complete
+four-arm report remains in Totalrecall at
+`ecology_memory/narrative/benchmarks/evidence-chain-map/runs/overnight-001/REPORT.md`; it is
+development evidence, not a saturation claim.
+
 ## Cache affinity
 
 For local OpenAI-compatible inference endpoints, Odysseus adds a stable `slot_id` derived from the
@@ -190,6 +203,7 @@ The baseline includes focused coverage for:
 - responsive Activity and Why panels;
 - explicit T4GC request action;
 - query-bound discovery with session-scoped result handles;
+- generic two-taxon proximity with a declared threshold and both denominators;
 - matching map, GeoJSON and CSV point ids;
 - `#map-` side-panel routing through the existing sandboxed HTML preview;
 - map hash isolation and Chat-mode preservation;
