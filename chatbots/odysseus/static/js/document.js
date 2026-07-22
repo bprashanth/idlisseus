@@ -3933,7 +3933,7 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
 
   // ---- Panel open/close ----
 
-  export function openPanel() {
+  export function openPanel({ preserveMode = false } = {}) {
     if (isOpen) return;
     // Clear any pane/divider still sliding out from a just-fired close so we
     // don't end up with two #doc-editor-pane nodes (and a stale close stripping
@@ -3954,7 +3954,10 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
     // Doc was opened last → it goes in front of the email windows (clears the
     // email-front flag; the doc/email z-index alternation lives in CSS).
     document.body.classList.remove('email-front');
-    _ensureAgentMode();
+    // Read-only HTML artefacts opened from an Idli Insight chat belong to that chat. Switching
+    // the whole session to Agent mode tears down the current Chat view before the document pane
+    // mounts. Ordinary document authoring keeps the historical Agent-mode behaviour.
+    if (!preserveMode) _ensureAgentMode();
     _markDocVisibleState(_lastSessionId, 'open');
 
     document.body.classList.add('doc-view');
@@ -6220,17 +6223,17 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
   // pane was torn down by another full-screen view (e.g. opening a doc from the
   // email modal): in that case openPanel() early-returns and nothing mounts, so
   // the doc silently never appears. Reset the stale flag and re-open for real.
-  function _ensureDocPaneMounted() {
+  function _ensureDocPaneMounted(preserveMode = false) {
     if (!isOpen || !document.getElementById('doc-editor-pane')) {
       isOpen = false;
-      openPanel();
+      openPanel({ preserveMode });
     }
   }
 
   export async function loadDocument(docId) {
     // If already in tabs, just switch
     if (docs.has(docId)) {
-      _ensureDocPaneMounted();
+      _ensureDocPaneMounted(docs.get(docId)?.language === 'html');
       switchToDoc(docId);
       return;
     }
@@ -6239,7 +6242,7 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
       if (!res.ok) throw new Error(res.status === 404 ? 'Not found' : `HTTP ${res.status}`);
       const doc = await res.json();
       addDocToTabs(doc, doc.session_id);
-      _ensureDocPaneMounted();
+      _ensureDocPaneMounted(doc.language === 'html');
       switchToDoc(doc.id);
     } catch (e) {
       console.error('Failed to load document:', e);
@@ -6252,12 +6255,12 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
     }
   }
 
-  // Deep-link: #document-<id> opens that document on load / URL-bar nav.
+  // Deep-link: #document-<id> and semantic #map-<id> links open that document on load / URL-bar nav.
   // Clicks on in-chat document anchors are handled separately (they call
   // preventDefault, so they don't change the hash); this covers refresh
   // and pasted/typed document URLs, which previously did nothing.
   function _maybeOpenDocFromHash() {
-    const m = (window.location.hash || '').match(/^#document-(.+)$/);
+    const m = (window.location.hash || '').match(/^#(?:document|map)-(.+)$/);
     if (m) loadDocument(m[1]);
   }
 
@@ -6375,7 +6378,7 @@ import { bindMenuDismiss, dismissOrRemove } from './escMenuStack.js';
       // the panel closed on first entry to a chat with docs, which
       // hides the doc unless the user manually opens the panel.
       _markDocVisibleState(sessionId, 'open');
-      if (!isOpen) openPanel();
+      if (!isOpen) openPanel({ preserveMode: target.language === 'html' });
       switchToDoc(target.id);
     } catch (e) {
       _hideLoadingOverlay();

@@ -146,6 +146,10 @@ enter the sandboxed preview, so the user sees the responsive map instead of sour
 has toggleable observed/modelled layers, numbered collection points, interpretation limits and
 download buttons for its matching GeoJSON and CSV field sheet.
 
+Map/document anchors are captured before generic hash navigation, and `map-` hashes are excluded
+from chat-session routing. Read-only HTML artefacts preserve the active **Chat** mode when their
+document pane mounts; opening a map must not reset the conversation or switch it to Agent mode.
+
 The evidence contract is strict:
 
 ```text
@@ -188,6 +192,7 @@ The baseline includes focused coverage for:
 - query-bound discovery with session-scoped result handles;
 - matching map, GeoJSON and CSV point ids;
 - `#map-` side-panel routing through the existing sandboxed HTML preview;
+- map hash isolation and Chat-mode preservation;
 - local-only prompt-cache affinity; and
 - generic Idli provider branding.
 

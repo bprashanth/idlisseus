@@ -1374,7 +1374,10 @@ document.addEventListener('click', function(e) {
   const m = href.match(/^#(session|document|map|note|image|email|event|task|skill|research)-(.+)$/);
   if (!m) return;
   e.preventDefault();
-  e.stopPropagation();
+  // Capture this before generic chat/session link handlers. If a semantic map link is allowed to
+  // perform its native hash navigation, a later session-list refresh can treat the non-session
+  // hash as "no selected chat" and tear down both the answer and the just-mounted document pane.
+  e.stopImmediatePropagation();
   const [, kind, id] = m;
   if (kind === 'session') {
     import('./sessions.js').then(mod => {
@@ -1425,7 +1428,7 @@ document.addEventListener('click', function(e) {
       if (open) open(id);
     }).catch(() => {});
   }
-});
+}, true);
 
 /**
  * Build a generated-image bubble element.

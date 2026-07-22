@@ -38,3 +38,15 @@ def test_field_map_link_opens_the_html_document_panel():
     js = (_REPO / "static" / "js" / "chatRenderer.js").read_text(encoding="utf-8")
     assert "document|map|note" in js
     assert "kind === 'document' || kind === 'map'" in js
+    assert "e.stopImmediatePropagation()" in js
+    assert "}, true);" in js
+
+
+def test_field_map_hash_is_not_misrouted_as_a_chat_and_preserves_chat_mode():
+    document_js = (_REPO / "static" / "js" / "document.js").read_text(encoding="utf-8")
+    sessions_js = (_REPO / "static" / "js" / "sessions.js").read_text(encoding="utf-8")
+    assert "#(?:document|map)-" in document_js
+    assert "openPanel({ preserveMode })" in document_js
+    assert "if (!preserveMode) _ensureAgentMode()" in document_js
+    assert "openPanel({ preserveMode: target.language === 'html' })" in document_js
+    assert "document|map|note" in sessions_js
