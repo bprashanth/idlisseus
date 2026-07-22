@@ -110,6 +110,42 @@ totalrecall/ecology_memory/integration/codex_native/runs/model_requests.jsonl
 The file is created with mode `0600`. This operational skill is layered over the frozen benchmark
 catalog and therefore does not mutate the historical 12-skill benchmark input.
 
+## Query-bound evidence and field maps
+
+Three runtime skills extend the frozen benchmark catalogue:
+
+- `discover-ecology-evidence` passes the user's actual query to the admitted local semantic,
+  OpenAlex, Zenodo and Dryad connectors. Model knowledge may supply a labelled query seed, but a
+  candidate is not actionable until one of these sources returns it.
+- `inspect-evidence-dataset` opens a Zenodo/Dryad result by its discovery `result_id` and DOI and
+  returns its real files, headers, sample rows and codebook text. Protocols and datasheets must cite
+  this material and label adaptations.
+- `build-ecology-field-map` retrieves and gates every taxon independently, then creates a
+  self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
+  produces a labelled spatial sampling design; it does not draw invented overlap.
+
+Discovery and inspection results receive session-scoped handles. The map skill records the handles,
+gate results, point ids and document id in the normal audit. Map links use the form:
+
+```text
+[Open field map](#map-<document-id>)
+```
+
+The `#map-` link opens Odysseus's existing HTML document side panel. HTML documents automatically
+enter the sandboxed preview, so the user sees the responsive map instead of source code. The map
+has toggleable observed/modelled layers, numbered collection points, interpretation limits and
+download buttons for its matching GeoJSON and CSV field sheet.
+
+The evidence contract is strict:
+
+```text
+model hypothesis -> admitted query result -> retrieved data -> independent gates
+                 -> estimate or precise DataRequest -> answer + audit -> field map
+```
+
+Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
+shared habitat or simultaneous presence.
+
 ## Cache affinity
 
 For local OpenAI-compatible inference endpoints, Odysseus adds a stable `slot_id` derived from the
@@ -139,6 +175,9 @@ The baseline includes focused coverage for:
 - coalesced progress/skill marker handling;
 - responsive Activity and Why panels;
 - explicit T4GC request action;
+- query-bound discovery with session-scoped result handles;
+- matching map, GeoJSON and CSV point ids;
+- `#map-` side-panel routing through the existing sandboxed HTML preview;
 - local-only prompt-cache affinity; and
 - generic Idli provider branding.
 
@@ -153,13 +192,10 @@ python -m pytest -q \
   tests/test_providers_mixtral_logo_js.py
 ```
 
-## Known baseline limitation
+## Frozen baseline comparison
 
-The baseline `semantic-literature-discovery` ecology skill is not yet a general literature search.
-It is bound to the fixed `EBTL Lantana literature` entity and searches the locally ingested semantic
-card corpus with a Lantana-specific query. It does not perform live OpenAlex, Zenodo or Dryad
-discovery for an arbitrary entity. Consequently, an Eucalyptus request can incorrectly exercise a
-Lantana search. The next implementation phase must make discovery query-bound and preserve the
-complete chain from hypothesis through admitted observations, gated estimate and mapped field-data
-request.
-
+The frozen `semantic-literature-discovery` benchmark skill remains bound to `EBTL Lantana
+literature`. It is retained unchanged so historical runs stay reproducible. New conversations should
+use `discover-ecology-evidence` for arbitrary questions. Keeping the operational repair outside the
+frozen twelve-skill catalogue makes the old Eucalyptus-to-Lantana failure directly testable without
+preserving it as current behaviour.

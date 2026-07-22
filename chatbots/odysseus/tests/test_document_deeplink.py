@@ -31,3 +31,10 @@ def test_failed_document_load_surfaces_user_error():
     js = (_REPO / "static" / "js" / "document.js").read_text(encoding="utf-8")
     assert "uiModule.showError" in js
     assert "Document not found" in js
+
+
+def test_field_map_link_opens_the_html_document_panel():
+    """#map-<document-id> is a semantic chat link but uses the existing HTML preview."""
+    js = (_REPO / "static" / "js" / "chatRenderer.js").read_text(encoding="utf-8")
+    assert "document|map|note" in js
+    assert "kind === 'document' || kind === 'map'" in js

@@ -1370,7 +1370,7 @@ document.addEventListener('click', function(e) {
   if (!a) return;
   const href = a.getAttribute('href') || '';
   if (!href.startsWith('#')) return;
-  const m = href.match(/^#(session|document|note|image|email|event|task|skill|research)-(.+)$/);
+  const m = href.match(/^#(session|document|map|note|image|email|event|task|skill|research)-(.+)$/);
   if (!m) return;
   e.preventDefault();
   e.stopPropagation();
@@ -1380,7 +1380,7 @@ document.addEventListener('click', function(e) {
       const fn = mod.selectSession || (mod.default && mod.default.selectSession);
       if (fn) fn(id);
     });
-  } else if (kind === 'document') {
+  } else if (kind === 'document' || kind === 'map') {
     import('./document.js').then(mod => {
       const open = mod.loadDocument
         || mod.openDocument
