@@ -72,6 +72,27 @@ def test_no_session_id_is_a_noop(monkeypatch):
     assert payload == {}
 
 
+def test_idli_bridge_gets_session_attachments_and_owner_context():
+    payload = {}
+    attachments = [{"id": "sheet.xlsx", "path": "/authorized/sheet.xlsx"}]
+    context = {"owner": "alice", "session_id": "sess-123"}
+    llm_core._apply_idli_bridge_context(
+        payload, "idli-insight", "sess-123", attachments, context,
+    )
+    assert payload == {
+        "session_id": "sess-123", "attachments": attachments,
+        "idlisseus_context": context,
+    }
+
+
+def test_idli_bridge_private_fields_never_reach_other_models():
+    payload = {}
+    llm_core._apply_idli_bridge_context(
+        payload, "deepseek-chat", "sess-123", [{"path": "/private"}], {"owner": "alice"},
+    )
+    assert payload == {}
+
+
 # Cloud-host sweep absorbed from #3839 (credit: Shabablinchikow) - every cloud
 # API that falls through provider detection to the OpenAI-compatible default
 # must stay clean, not just the Mistral host from the original report.

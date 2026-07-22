@@ -34,3 +34,7 @@ def test_mixtral_ministral_get_a_logo():
 
 def test_unknown_vendor_has_no_logo():
     assert _has_logo("totally-unknown-model-xyz") is False
+
+
+def test_idli_insight_has_product_logo():
+    assert _has_logo("idli-insight") is True

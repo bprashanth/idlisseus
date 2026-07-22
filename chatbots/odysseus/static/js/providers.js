@@ -3,6 +3,11 @@
 // All SVGs use viewBox="0 0 24 24" fill="currentColor"
 
 const _PROVIDERS = [
+  // Idli / Idlistack — provider-neutral product identity. Keep before model-vendor patterns so
+  // the public Idli route never inherits the logo of whichever backend handled this turn.
+  [/^idli(?:-|$)|idlistack/i,
+    '<svg viewBox="0 0 24 24" fill="currentColor" aria-label="Idli"><path d="M12 21.1 10.55 19.8C5.4 15.15 2 12.05 2 8.25 2 5.15 4.45 2.75 7.55 2.75c1.75 0 3.45.82 4.45 2.1 1-1.28 2.7-2.1 4.45-2.1C19.55 2.75 22 5.15 22 8.25c0 3.8-3.4 6.9-8.55 11.55L12 21.1Z"/></svg>'],
+
   // Ollama
   [/ollama|:11434/i,
     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c-3.1 0-5.65 2.43-5.86 5.48A6.62 6.62 0 0 0 3 13.62C3 18 6.8 21.5 12 21.5s9-3.5 9-7.88a6.62 6.62 0 0 0-3.14-5.64C17.65 4.93 15.1 2.5 12 2.5Zm-2.7 8.25a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Zm5.4 0a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Zm-5.15 5.15c.75.7 1.55 1.04 2.45 1.04s1.7-.34 2.45-1.04c.26-.24.66-.23.9.03.24.26.23.66-.03.9-.98.91-2.08 1.37-3.32 1.37s-2.34-.46-3.32-1.37a.64.64 0 0 1-.03-.9.64.64 0 0 1 .9-.03Z"/></svg>'],

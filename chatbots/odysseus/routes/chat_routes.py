@@ -48,6 +48,62 @@ logger = logging.getLogger(__name__)
 # Track active streams for partial-save safety net
 _active_streams: Dict[str, dict] = {}
 _IMAGE_MODEL_PREFIXES = ("gpt-image", "dall-e", "chatgpt-image")
+_IDLI_BRIDGE_MODELS = {"idli-insight", "gpt-5.4-codex-native-skills"}
+
+
+def _idli_attachment_manifest(upload_handler, attachment_ids, owner, auth_manager=None) -> list:
+    """Return only owner-authorized upload metadata for the internal Idli bridge."""
+    manifest = []
+    for upload_id in attachment_ids or []:
+        info = upload_handler.resolve_upload(
+            str(upload_id), owner=owner, auth_manager=auth_manager,
+        )
+        if not info:
+            logger.warning("Idli bridge attachment %s was not found or not authorized", upload_id)
+            continue
+        path = info.get("path")
+        if not path:
+            continue
+        manifest.append({
+            "id": str(info.get("id") or upload_id),
+            "name": str(info.get("name") or info.get("original_name") or os.path.basename(path)),
+            "mime": str(info.get("mime") or "application/octet-stream"),
+            "path": os.path.realpath(path),
+        })
+    return manifest
+
+
+def _idli_insight_event(data: dict) -> dict | None:
+    """Return the only bridge trace event that is safe for the chat transcript."""
+    event_type = data.get("type")
+    if event_type == "insight_progress":
+        label = str(data.get("label") or "").strip()
+        if not label:
+            return None
+        return {"type": "insight_progress", "phase": str(data.get("phase") or "work"),
+                "label": label[:160]}
+    if event_type == "insight_skill":
+        skill = str(data.get("skill") or "").strip()
+        if not skill:
+            return None
+        event = {
+            "type": "insight_skill", "skill": skill,
+            "status": str(data.get("status") or "done"),
+        }
+        if data.get("audit_id"):
+            event["audit_id"] = str(data["audit_id"])
+        if data.get("summary"):
+            event["summary"] = " ".join(str(data["summary"]).split())[:500]
+        return event
+    if event_type not in ("tool_start", "tool_output") or data.get("kind") != "skill":
+        return None
+    skill = str(data.get("tool") or "").strip()
+    if not skill:
+        return None
+    status = "running" if event_type == "tool_start" else (
+        "failed" if data.get("exit_code") not in (0, None) else "done"
+    )
+    return {"type": "insight_skill", "skill": skill, "status": status}
 
 
 def _stream_set(session_id: str, **fields) -> None:
@@ -808,6 +864,14 @@ def setup_chat_routes(
         # Enforce per-user privileges
         _privs = {}
         _user = ctx.user
+        _idli_attachments = []
+        _idli_context = None
+        if str(getattr(sess, "model", "") or "").lower() in _IDLI_BRIDGE_MODELS:
+            _auth_manager = getattr(request.app.state, "auth_manager", None)
+            _idli_attachments = _idli_attachment_manifest(
+                upload_handler, att_ids, _user, auth_manager=_auth_manager,
+            )
+            _idli_context = {"owner": _user or "", "session_id": session}
         if _user and hasattr(request.app.state, 'auth_manager') and request.app.state.auth_manager:
             _privs = request.app.state.auth_manager.get_privileges(_user)
         if _privs:
@@ -1119,6 +1183,8 @@ def setup_chat_routes(
                 _answered_by = None  # set if the selected model failed and a fallback answered
                 _requested_model = sess.model
                 _actual_model = None
+                _bridge_insight_skills = {}
+                _bridge_audit_id = ""
                 # ── Chat mode: call stream_llm directly, NO tools, NO document access ──
                 try:
                     _chat_candidates = [(sess.endpoint_url, sess.model, sess.headers)] + _fallback_candidates
@@ -1135,6 +1201,8 @@ def setup_chat_routes(
                         prompt_type=preset_id,
                         tools=None,
                         session_id=session,
+                        attachments=_idli_attachments,
+                        idlisseus_context=_idli_context,
                     ):
                         if chunk.startswith("data: ") and not chunk.startswith("data: [DONE]"):
                             try:
@@ -1148,6 +1216,33 @@ def setup_chat_routes(
                                         full_response += data["delta"]
                                         _stream_set(session, partial=full_response)
                                     yield chunk
+                                elif data.get("type") in ("insight_skill", "insight_progress"):
+                                    _safe_event = _idli_insight_event(data)
+                                    if _safe_event:
+                                        if _safe_event["type"] == "insight_skill":
+                                            _skill = _safe_event["skill"]
+                                            _bridge_insight_skills[_skill] = {
+                                                "name": _skill,
+                                                "status": _safe_event["status"],
+                                            }
+                                            _bridge_audit_id = str(_safe_event.get("audit_id") or _bridge_audit_id)
+                                        yield f'data: {json.dumps(_safe_event)}\n\n'
+                                elif data.get("type") in ("tool_start", "tool_output"):
+                                    # Compatibility with a bridge that predates insight_skill:
+                                    # retain actual skill invocations, but never forward raw
+                                    # commands, paths, outputs, skill reads or discovery chatter.
+                                    _safe_event = _idli_insight_event(data)
+                                    if _safe_event:
+                                        _skill = _safe_event["skill"]
+                                        _status = _safe_event["status"]
+                                        _bridge_insight_skills[_skill] = {
+                                            "name": _skill, "status": _status,
+                                        }
+                                        yield f'data: {json.dumps(_safe_event)}\n\n'
+                                elif data.get("type") == "agent_step":
+                                    # Codex progress commentary belongs in the server audit, not
+                                    # in the user-facing answer.
+                                    continue
                                 elif data.get("type") == "fallback":
                                     # Selected model failed; a fallback answered.
                                     # Forward the notice and remember the real model.
@@ -1206,6 +1301,12 @@ def setup_chat_routes(
                                 }
                                 yield f'data: {json.dumps({"type": "metrics", "data": last_metrics})}\n\n'
                             if full_response:
+                                if _bridge_insight_skills:
+                                    last_metrics = dict(last_metrics or {})
+                                    last_metrics["insight_trace"] = {
+                                        "skills": list(_bridge_insight_skills.values()),
+                                        "audit_id": _bridge_audit_id,
+                                    }
                                 _saved_id = save_assistant_response(
                                     sess, session_manager, session, full_response, last_metrics,
                                     character_name=ctx.preset.character_name,

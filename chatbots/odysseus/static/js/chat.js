@@ -55,13 +55,18 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
   var _shortModel = chatRenderer.shortModel;
   var _modelRouteLabel = chatRenderer.modelRouteLabel;
   var _sameModelName = chatRenderer.sameModelName;
+  var _isInsightModel = chatRenderer.isInsightModel;
   var _applyModelColor = chatRenderer.applyModelColor;
   function _setRoleModelLabel(roleEl, requestedModel, actualModel, opts) {
     if (!roleEl) return;
     opts = opts || {};
     const tsSpan = roleEl.querySelector('.role-timestamp');
-    const req = requestedModel || actualModel || '';
-    const actual = actualModel || requestedModel || '';
+    let req = requestedModel || actualModel || '';
+    let actual = actualModel || requestedModel || '';
+    if (_isInsightModel(req) || _isInsightModel(actual)) {
+      req = 'idli-insight';
+      actual = 'idli-insight';
+    }
     let label = _modelRouteLabel(req, actual);
     if (opts.suffix) label += ' (' + opts.suffix + ')';
     if (opts.characterName) label = opts.characterName;
@@ -561,6 +566,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
     let holder = null;
     let finalMeta = null;
     let spinner = null;
+    let insightActivity = null;
     let timedOut = false;
     let processingProbeTimer = null;
     let processingProbeAbort = null;
@@ -570,6 +576,40 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
     let timeoutId = null;
     let responseTimeoutCleared = false;
     let clearResponseTimeout = () => {};
+    const clearInsightActivity = () => {
+      if (insightActivity) insightActivity.remove();
+      insightActivity = null;
+    };
+    const appendInsightActivity = (label, state = 'running') => {
+      if (!holder || !label) return;
+      const body = holder.querySelector('.body');
+      if (!body) return;
+      if (!insightActivity) {
+        insightActivity = document.createElement('details');
+        insightActivity.className = 'insight-live-activity';
+        insightActivity.open = true;
+        const summary = document.createElement('summary');
+        summary.textContent = 'Activity';
+        const log = document.createElement('div');
+        log.className = 'insight-live-activity-log';
+        insightActivity.append(summary, log);
+        body.appendChild(insightActivity);
+      }
+      const log = insightActivity.querySelector('.insight-live-activity-log');
+      const previous = log?.lastElementChild;
+      if (previous && previous.dataset.label === label) {
+        previous.dataset.state = state;
+        return;
+      }
+      const row = document.createElement('div');
+      row.className = 'insight-live-activity-row';
+      row.dataset.label = label;
+      row.dataset.state = state;
+      row.textContent = label;
+      log?.appendChild(row);
+      while (log && log.children.length > 8) log.firstElementChild.remove();
+      if (log) log.scrollTop = log.scrollHeight;
+    };
     let firstTokenWaitTimers = [];
     const clearFirstTokenWaitTimers = () => {
       firstTokenWaitTimers.forEach(t => { try { clearTimeout(t); } catch (_) {} });
@@ -1175,6 +1215,18 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
       // Direct render helper for streaming text
       _renderStream = () => {
         let dt = markdownModule.normalizeThinkingMarkup(stripToolBlocks(roundText));
+        const insight = chatRenderer.parseInsightResponse(dt, modelName, {
+          model: holder._actualModel,
+          requested_model: holder._requestedModel,
+          insight_trace: holder._insightTrace,
+        });
+        if (insight.isInsight) {
+          dt = insight.content;
+          if (insight.trace?.skills?.length) {
+            holder._insightTrace = insight.trace;
+            chatRenderer.renderInsightTrace(holder, holder._insightTrace);
+          }
+        }
         const bodyEl = roundHolder.querySelector('.body');
         const contentEl = _ensureStreamLayout(bodyEl);
 
@@ -1393,7 +1445,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 typewriterInto(roundHolder.querySelector('.body'), errMsg);
                 break;
               }
-              if (json.delta || json.type === 'agent_prep' || json.type === 'tool_start' || json.type === 'tool_output' || json.type === 'tool_progress' || json.type === 'agent_step' || json.type === 'doc_stream_open' || json.type === 'doc_stream_delta' || json.type === 'research_progress') {
+              if (json.delta || json.type === 'agent_prep' || json.type === 'insight_progress' || json.type === 'insight_skill' || json.type === 'tool_start' || json.type === 'tool_output' || json.type === 'tool_progress' || json.type === 'agent_step' || json.type === 'doc_stream_open' || json.type === 'doc_stream_delta' || json.type === 'research_progress') {
                 clearResponseTimeout();
                 clearProcessingProbe();
                 clearFirstTokenWaitTimers();
@@ -1406,6 +1458,57 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 continue;
               }
               if (json.delta) {
+                // Compatibility transports may coalesce several invisible events into one delta.
+                // Consume every complete marker, not just a single anchored marker.
+                const compatDelta = String(json.delta);
+                const compatMarkers = Array.from(
+                  compatDelta.matchAll(/<!--\s*idli-(progress|skill):([\s\S]*?)-->/gi),
+                );
+                if (compatMarkers.length) {
+                  for (const marker of compatMarkers) {
+                    const kind = String(marker[1] || '').toLowerCase();
+                    let payload = null;
+                    try { payload = JSON.parse(marker[2]); } catch (_) { continue; }
+                    if (kind === 'progress') {
+                      const label = String(payload?.label || '').trim();
+                      if (label) {
+                        if (spinner) spinner.updateMessage(label);
+                        appendInsightActivity(label);
+                      }
+                      continue;
+                    }
+                    const skillName = String(payload?.skill || '').trim();
+                    if (!skillName) continue;
+                    holder._insightTrace = holder._insightTrace || { skills: [], audit_id: '' };
+                    const skills = holder._insightTrace.skills;
+                    const existing = skills.find((skill) => skill.name === skillName);
+                    if (existing) {
+                      existing.status = payload.status || existing.status || 'done';
+                      if (payload.summary) existing.summary = payload.summary;
+                    } else skills.push({
+                      name: skillName,
+                      status: payload.status || 'done',
+                      summary: payload.summary || '',
+                    });
+                    if (payload.audit_id) holder._insightTrace.audit_id = payload.audit_id;
+                    if (payload.status === 'running' && spinner) {
+                      spinner.updateMessage(`Using ${skillName}`);
+                      appendInsightActivity(`Using ${skillName}`);
+                    } else if (payload.status === 'done') {
+                      const summary = String(payload.summary || '').trim();
+                      appendInsightActivity(
+                        summary ? `Finished ${skillName} — ${summary}` : `Finished ${skillName}`,
+                        'done',
+                      );
+                    }
+                  }
+                  const visibleDelta = compatDelta.replace(
+                    /<!--\s*idli-(?:progress|skill):[\s\S]*?-->/gi, '',
+                  );
+                  if (!visibleDelta.trim()) continue;
+                  json.delta = visibleDelta;
+                }
+                clearInsightActivity();
                 _cancelThinkingTimer();
                 _removeThinkingSpinner();
                 // Text arrived after tools — connect thread line to this bubble
@@ -1994,6 +2097,38 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                   // collapsible on the user bubble — the user can view/edit
                   // it via the "Caption" button on the photo thumbnail.
                 }
+              } else if (json.type === 'insight_progress') {
+                if (_isBg) continue;
+                const label = String(json.label || '').trim();
+                if (!label) continue;
+                if (spinner) spinner.updateMessage(label);
+                appendInsightActivity(label);
+                uiModule.scrollHistory();
+
+              } else if (json.type === 'insight_skill') {
+                if (_isBg) continue;
+                const skillName = String(json.skill || '').trim();
+                if (!skillName) continue;
+                holder._insightTrace = holder._insightTrace || { skills: [], audit_id: '' };
+                const skills = holder._insightTrace.skills;
+                const existing = skills.find((skill) => skill.name === skillName);
+                if (existing) {
+                  existing.status = json.status || existing.status || 'done';
+                  if (json.summary) existing.summary = json.summary;
+                } else skills.push({ name: skillName, status: json.status || 'done', summary: json.summary || '' });
+                if (json.audit_id) holder._insightTrace.audit_id = json.audit_id;
+                // Keep live execution in the existing progress affordance. The compact Why panel
+                // is added only when the answer is finalized, so operational state never mixes
+                // with response prose.
+                if (json.status === 'running' && spinner) spinner.updateMessage(`Using ${skillName}`);
+                appendInsightActivity(
+                  json.status === 'done'
+                    ? `Finished ${skillName}${json.summary ? ` — ${json.summary}` : ''}`
+                    : `Using ${skillName}`,
+                  json.status || 'running',
+                );
+                uiModule.scrollHistory();
+
               } else if (json.type === 'rag_sources') {
                 if (_isBg) continue;
                 holder._ragSources = json.data;
@@ -2516,7 +2651,20 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         if (_streamContent) _streamContent.style.minHeight = '';
 
         // Finalize the last round's bubble — flatten stream-content wrapper for clean DOM
-        const finalDisplay = stripToolBlocks(roundText);
+        let finalDisplay = stripToolBlocks(roundText);
+        const finalInsight = chatRenderer.parseInsightResponse(finalDisplay, modelName, {
+          model: holder._actualModel,
+          requested_model: holder._requestedModel,
+          insight_trace: holder._insightTrace,
+        });
+        if (finalInsight.isInsight) {
+          finalDisplay = finalInsight.content;
+          if (finalInsight.trace?.skills?.length) {
+            holder._insightTrace = finalInsight.trace;
+            chatRenderer.renderInsightTrace(holder, holder._insightTrace);
+          }
+          holder.dataset.raw = finalDisplay;
+        }
         if (finalDisplay.trim()) {
           var _body4 = roundHolder.querySelector('.body');
           // Preserve sources expanded state before final render
@@ -2595,6 +2743,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
               _lastThread.classList.remove('has-bottom');
             }
           }
+        }
+
+        if (finalInsight.isInsight) {
+          chatRenderer.renderT4GCModelRequest(roundHolder, finalDisplay, holder._insightTrace);
         }
 
 
@@ -2891,6 +3043,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
       clearResponseTimeout();
       clearProcessingProbe();
       clearFirstTokenWaitTimers();
+      clearInsightActivity();
       // Streaming done — let screen readers announce the settled response.
       const _chatLogDone = document.getElementById('chat-history');
       if (_chatLogDone) _chatLogDone.setAttribute('aria-busy', 'false');
@@ -3311,7 +3464,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             if (documentModule && json.delta) documentModule.streamDocDelta(json.delta);
           } else if (json.type === 'metrics') {
             metricsData = json.data || metricsData;
-          } else if (json.type === 'tool_start' || json.type === 'tool_output' ||
+          } else if (json.type === 'insight_skill' || json.type === 'tool_start' || json.type === 'tool_output' ||
                      json.type === 'tool_progress' || json.type === 'agent_step' ||
                      json.type === 'web_sources' || json.type === 'rag_sources' ||
                      json.type === 'research_progress' || json.type === 'research_sources' ||
