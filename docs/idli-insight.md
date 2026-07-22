@@ -104,7 +104,7 @@ Clicking the button sends a new chat turn that explicitly invokes the runtime-on
 region, reason, owner and audit id in:
 
 ```text
-totalrecall/ecology_memory/integration/codex_native/runs/model_requests.jsonl
+totalrecall/ecology_memory/integration/codex_native/runs/service/sessions/model_requests.jsonl
 ```
 
 The file is created with mode `0600`. This operational skill is layered over the frozen benchmark
@@ -123,10 +123,13 @@ Four runtime skills extend the frozen benchmark catalogue:
   candidate is not actionable until one of these sources returns it.
 - `inspect-evidence-dataset` opens a Zenodo/Dryad result by its discovery `result_id` and DOI and
   returns its real files, headers, sample rows and codebook text. Protocols and datasheets must cite
-  this material and label adaptations.
+  this material and label adaptations. DOI matching accepts repository-prefixed (`doi:`), bare and
+  `https://doi.org/` forms; an exact Dryad DOI lookup gets one bounded same-query retry when its
+  file-list request transiently returns no rows.
 - `build-source-backed-field-protocol` turns an inspected dataset into a side-panel protocol reader
   and blank CSV datasheet. Returned source columns stay separate from programme-added point, effort,
-  detection and notes fields.
+  detection and notes fields. When a codebook declares several tables, the caller selects one
+  declared source filename rather than merging unrelated columns.
 - `build-ecology-field-map` retrieves and gates every taxon independently, then creates a
   self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
   produces a labelled spatial sampling design; it does not draw invented overlap.
