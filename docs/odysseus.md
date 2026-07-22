@@ -3,6 +3,9 @@
 Day-to-day operation of the Odysseus instance. For starting/stopping the container stack, see
 `setup.md`. For which model it's currently pointed at, see `models.md`.
 
+For the provider-neutral Codex ecology bridge, live skill activity, Why/audit panel and explicit
+T4GC model-request flow, see `idli-insight.md`.
+
 ## Login
 
 - **URL:** `http://localhost:7000` (or via the SSH tunnel described in `setup.md`).
