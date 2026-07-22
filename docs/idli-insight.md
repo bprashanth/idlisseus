@@ -116,7 +116,7 @@ recorded as unknown rather than silently filled from model memory.
 
 ## Query-bound evidence and field maps
 
-Three runtime skills extend the frozen benchmark catalogue:
+Four runtime skills extend the frozen benchmark catalogue:
 
 - `discover-ecology-evidence` passes the user's actual query to the admitted local semantic,
   OpenAlex, Zenodo and Dryad connectors. Model knowledge may supply a labelled query seed, but a
@@ -124,6 +124,9 @@ Three runtime skills extend the frozen benchmark catalogue:
 - `inspect-evidence-dataset` opens a Zenodo/Dryad result by its discovery `result_id` and DOI and
   returns its real files, headers, sample rows and codebook text. Protocols and datasheets must cite
   this material and label adaptations.
+- `build-source-backed-field-protocol` turns an inspected dataset into a side-panel protocol reader
+  and blank CSV datasheet. Returned source columns stay separate from programme-added point, effort,
+  detection and notes fields.
 - `build-ecology-field-map` retrieves and gates every taxon independently, then creates a
   self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
   produces a labelled spatial sampling design; it does not draw invented overlap.
