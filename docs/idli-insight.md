@@ -162,6 +162,12 @@ model hypothesis -> admitted query result -> retrieved data -> independent gates
                  -> estimate or precise DataRequest -> answer + audit -> field map
 ```
 
+For relation questions, “admitted query result” means one returned source that directly connects
+the candidate, focal entity and requested relation. A general paper naming the candidate may seed a
+new `candidate + focal entity + relation` search, but it is not enough to send that candidate into
+occurrence or estimation. If only one admitted named taxon remains when the user requests a map,
+the map may show a one-taxon balanced collection design and must say it is not two-taxon overlap.
+
 Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
 shared habitat or simultaneous presence.
 
