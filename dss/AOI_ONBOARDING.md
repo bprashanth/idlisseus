@@ -53,6 +53,63 @@ Algebra, Codex, a typed controller, or a hybrid. Those remain runtime/benchmark 
 consume the same profile, connector results, gates and evidence labels so comparisons are meaningful
 and onboarding work is not tied to a model choice.
 
+### Seed the guided investigation policy, not dialogue scripts
+
+An onboarded organisation should inherit one generic staged interaction:
+
+```text
+local evidence -> wider evidence -> raw map -> transfer gate/model -> confirmation design
+```
+
+This is a capability graph. It must not contain elephant-, snake- or organisation-specific dialogue
+branches. The organisation profile supplies site aliases, local evidence, donor regions, admitted
+connectors, available estimators and missing-model destinations. Runtime state carries the focal
+entity and result handles between stages.
+
+The interaction layer distinguishes:
+
+- a **typed hole**, where a required value is missing and the user must clarify;
+- a **guided action**, where a useful result exists and the user chooses whether to broaden the
+  search, create a visual, run a model or stop; and
+- a **DataRequest**, where evidence, a valid gate or a required model is genuinely unavailable.
+
+Cheap local evidence may run before asking a question when it produces an immediate finding. Wider
+retrieval, modelling and map generation remain separate choices unless the user explicitly requests
+the complete workflow. A failed or empty retrieval cannot expose downstream map/model actions.
+
+The portable profile therefore also needs:
+
+- a declared default local-first stage and allowed scope-expansion regions;
+- connector capability metadata sufficient to derive the next valid operations;
+- stable result handles and a session-bound action state;
+- labels for observed, reported, proxy, modelled and designed outputs; and
+- a destination and explicit authorization policy for missing-model requests.
+
+The current Codex-native trial stores this interaction envelope outside the frozen scientific
+Algebra. That preserves the option to compare Algebra, Codex and hybrid planners later without
+changing the AOI bundle or hardcoding a conversational flow.
+
+### Compile a runtime site overview from the profile
+
+A broad question such as “tell me about the site” is an inventory request, not an entity search.
+The runtime should call a generic `site-overview(site_id)` operation that fans in the registered
+profile, geometry roles, local-evidence partitions, configured connector/model capabilities and
+known gaps. It must not semantic-search the words in an organisation name; for example,
+`Elephants by the Lake` remains an opaque site alias unless the user separately asks about
+elephants.
+
+Each returned row must carry a section and evidence label, such as `declared profile`,
+`declared geometry`, `observed`, `reported`, `indirect`, `runtime capability` or `data gap`.
+The overview should disclose when the only geometry is an analysis bbox and no parcel KML/GeoJSON
+has been registered. It ends with generic topic choices derived from available capabilities rather
+than a site-specific dialogue script.
+
+A hybrid planner may use a knowledge model for clearly labelled background and a local Algebra
+model for the data plan. In that arm the original question and permitted skill catalogue are
+controller-owned, plan steps receive stable ids, and only exact plan-bound skill calls execute.
+Replanning consumes audited prior outcomes and is bounded; it does not alter this onboarding
+profile or the frozen scientific Algebra.
+
 ## Step 0 — Resolve the AOI to precise geometry
 **Do:** take the user's indication (place name, Plus Code, a pin, a boundary file) and resolve it to
 a tight bbox/polygon. Distinguish **site** (the actual parcel) from **corridor/region** (context) —

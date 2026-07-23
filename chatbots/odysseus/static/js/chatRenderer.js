@@ -635,6 +635,22 @@ function _normaliseInsightTrace(trace) {
   return { skills, audit_id: String(trace?.audit_id || '').trim() };
 }
 
+function _normaliseInsightActions(actions) {
+  const rawOptions = Array.isArray(actions?.options) ? actions.options : [];
+  const options = rawOptions.slice(0, 3).map((raw) => ({
+    label: String(typeof raw === 'string' ? raw : raw?.label || '').trim().slice(0, 60),
+    description: String(typeof raw === 'object' ? raw?.description || '' : '').trim().slice(0, 180),
+  })).filter((option) => option.label);
+  if (!options.length) return null;
+  return {
+    question: String(actions?.question || 'What should I do next?').trim().slice(0, 180),
+    options,
+    multi: false,
+    state_id: String(actions?.state_id || '').trim(),
+    audit_id: String(actions?.audit_id || '').trim(),
+  };
+}
+
 /**
  * Convert the original markdown-in-a-message bridge format into a clean answer
  * and a small structured audit summary. This makes existing Idli Insight chats
@@ -645,6 +661,7 @@ export function parseInsightResponse(content, modelName, metadata) {
   const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
   const skillEnvelopes = Array.from(source.matchAll(/<!--\s*idli-skill:([\s\S]*?)-->/gi));
   const progressEnvelopes = Array.from(source.matchAll(/<!--\s*idli-progress:([\s\S]*?)-->/gi));
+  const actionEnvelopes = Array.from(source.matchAll(/<!--\s*idli-actions:([\s\S]*?)-->/gi));
   const legacy = source.match(/<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>([\s\S]*?)<\/details>\s*/i);
   const legacyStart = legacy ? null : source.match(
     /<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>/i,
@@ -656,14 +673,25 @@ export function parseInsightResponse(content, modelName, metadata) {
     || !!envelope
     || skillEnvelopes.length > 0
     || progressEnvelopes.length > 0
-    || !!metadata?.insight_trace;
-  if (!insight) return { content: source, trace: null, isInsight: false };
+    || actionEnvelopes.length > 0
+    || !!metadata?.insight_trace
+    || !!metadata?.insight_actions;
+  if (!insight) return { content: source, trace: null, actions: null, isInsight: false };
 
   let clean = source;
   if (progressEnvelopes.length) {
     clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
   }
   let trace = _normaliseInsightTrace(metadata?.insight_trace || {});
+  let actions = _normaliseInsightActions(metadata?.insight_actions);
+  if (actionEnvelopes.length) {
+    for (const match of actionEnvelopes) {
+      try {
+        actions = _normaliseInsightActions(JSON.parse(match[1])) || actions;
+      } catch (_) { /* malformed compatibility metadata is simply hidden */ }
+    }
+    clean = clean.replace(/<!--\s*idli-actions:[\s\S]*?-->/gi, '').trim();
+  }
   if (skillEnvelopes.length) {
     const byName = new Map(trace.skills.map((skill) => [skill.name, skill]));
     for (const match of skillEnvelopes) {
@@ -722,7 +750,7 @@ export function parseInsightResponse(content, modelName, metadata) {
       ? (source.slice(0, legacy.index) + source.slice(legacy.index + legacy[0].length)).trim()
       : source.slice(0, legacyStart.index).trim();
   }
-  return { content: clean, trace, isInsight: true };
+  return { content: clean, trace, actions, isInsight: true };
 }
 
 /** Render or update the compact, responsive audit panel above an answer. */
@@ -804,7 +832,7 @@ export function renderInsightTrace(messageElement, trace) {
 
 function _suggestedModelRequest(content) {
   const source = String(content || '')
-    .replace(/<!--\s*idli-(?:insight|skill|progress):[\s\S]*?-->/gi, ' ')
+    .replace(/<!--\s*idli-(?:insight|skill|progress|actions):[\s\S]*?-->/gi, ' ')
     .replace(/[`*_>#]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -2282,7 +2310,7 @@ export function renderAskUserCard(payload, options) {
   const aq = payload || {};
   const opts = Array.isArray(aq.options) ? aq.options : [];
   const chatBox = document.getElementById('chat-history');
-  if (!chatBox || !aq.question || opts.length < 2) return null;
+  if (!chatBox || !aq.question || opts.length < 1) return null;
 
   const renderOptions = options || {};
   removeAskUserCards(chatBox);
@@ -2419,10 +2447,14 @@ export function addMessage(role, content, modelName, metadata) {
     const renderedContent = Array.isArray(content) ? markdownModule.renderContent(content) : content;
     const insightResponse = role === 'assistant'
       ? parseInsightResponse(renderedContent, modelName, metadata)
-      : { content: renderedContent, trace: null, isInsight: false };
+      : { content: renderedContent, trace: null, actions: null, isInsight: false };
     const textRaw = insightResponse.content;
     if (insightResponse.isInsight) {
-      metadata = { ...(metadata || {}), insight_trace: insightResponse.trace };
+      metadata = {
+        ...(metadata || {}),
+        insight_trace: insightResponse.trace,
+        insight_actions: insightResponse.actions || metadata?.insight_actions,
+      };
     }
 
     // --- Agent multi-bubble reconstruction from saved metadata ---
@@ -2881,6 +2913,9 @@ export function addMessage(role, content, modelName, metadata) {
     }
 
     box.appendChild(wrap);
+    if (role === 'assistant' && insightResponse.isInsight && metadata?.insight_actions) {
+      renderAskUserCard(metadata.insight_actions, { focus: false, scroll: false });
+    }
 
     // TTS is now part of the msg-actions system
     if (role === 'assistant' && markdownModule.renderMermaid) {

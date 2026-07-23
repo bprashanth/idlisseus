@@ -1462,7 +1462,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 // Consume every complete marker, not just a single anchored marker.
                 const compatDelta = String(json.delta);
                 const compatMarkers = Array.from(
-                  compatDelta.matchAll(/<!--\s*idli-(progress|skill):([\s\S]*?)-->/gi),
+                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions):([\s\S]*?)-->/gi),
                 );
                 if (compatMarkers.length) {
                   for (const marker of compatMarkers) {
@@ -1475,6 +1475,11 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                         if (spinner) spinner.updateMessage(label);
                         appendInsightActivity(label);
                       }
+                      continue;
+                    }
+                    if (kind === 'actions') {
+                      holder._insightActions = payload;
+                      chatRenderer.renderAskUserCard(payload);
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();
@@ -1503,7 +1508,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                   }
                   const visibleDelta = compatDelta.replace(
-                    /<!--\s*idli-(?:progress|skill):[\s\S]*?-->/gi, '',
+                    /<!--\s*idli-(?:progress|skill|actions):[\s\S]*?-->/gi, '',
                   );
                   if (!visibleDelta.trim()) continue;
                   json.delta = visibleDelta;
@@ -2747,6 +2752,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
 
         if (finalInsight.isInsight) {
           chatRenderer.renderT4GCModelRequest(roundHolder, finalDisplay, holder._insightTrace);
+          const guidedActions = finalInsight.actions || holder._insightActions;
+          if (guidedActions) {
+            chatRenderer.renderAskUserCard(guidedActions);
+          }
         }
 
 

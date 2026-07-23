@@ -14,6 +14,7 @@ def test_idli_insight_history_parser_strips_legacy_trace_and_extracts_skills():
     assert "idli-insight:" in renderer
     assert "idli-skill:" in renderer
     assert "idli-progress:" in renderer
+    assert "idli-actions:" in renderer
     assert "source.slice(0, legacy.index)" in renderer
 
 
@@ -30,8 +31,20 @@ def test_idli_insight_live_handler_uses_compact_event_not_generic_tool_cards():
     assert "json.type === 'insight_skill'" in chat
     assert "spinner.updateMessage(`Using ${skillName}`)" in chat
     assert "const compatMarkers" in chat
-    assert ".matchAll(/<!--\\s*idli-(progress|skill):" in chat
+    assert ".matchAll(/<!--\\s*idli-(progress|skill|actions):" in chat
     assert "appendInsightActivity" in chat
+    assert "chatRenderer.renderAskUserCard(payload)" in chat
+
+
+def test_idli_insight_guided_actions_reuse_durable_choice_card():
+    renderer = (ROOT / "static/js/chatRenderer.js").read_text(encoding="utf-8")
+    routes = (ROOT / "routes/chat_routes.py").read_text(encoding="utf-8")
+    assert "function _normaliseInsightActions" in renderer
+    assert "metadata?.insight_actions" in renderer
+    assert "renderAskUserCard(metadata.insight_actions" in renderer
+    assert 'event_type == "insight_actions"' in routes
+    assert '"type": "ask_user", "data": _bridge_insight_actions' in routes
+    assert 'last_metrics["insight_actions"]' in routes
 
 
 def test_idli_insight_model_request_is_explicit_and_file_backed():
@@ -57,5 +70,7 @@ def test_idli_insight_panel_has_mobile_layout():
     assert ".insight-live-activity-log" in style
     assert ".insight-skill-result" in style
     assert ".insight-model-request-btn" in style
+    assert ".ask-user-option {" in style
+    assert "height: auto;" in style
     assert "@media (max-width: 600px)" in style
     assert ".insight-skill code { white-space: normal; overflow-wrap: anywhere; }" in style

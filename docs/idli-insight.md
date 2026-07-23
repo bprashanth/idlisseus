@@ -41,11 +41,12 @@ Relevant implementation:
 
 ## Live activity and the final answer
 
-The browser recognizes three compatibility envelopes in streamed text:
+The browser recognizes four compatibility envelopes in streamed text:
 
 - `idli-progress`: a safe activity label such as `Reading historical-fire-exposure`.
 - `idli-skill`: one skill name, state, audit id and bounded result summary.
 - `idli-insight`: the final compact list of invoked skills and the turn audit id.
+- `idli-actions`: a validated question and up to three guided next-step labels.
 
 These are HTML comments for compatibility with an older OpenAI-compatible event transport. They
 are metadata, not answer prose. The stream parser consumes every complete envelope, including when
@@ -66,6 +67,41 @@ reasoning are not rendered in the chat. They remain in the server audit.
 
 The parser still recognizes the original `Codex CLI · native skill trace` and `Why · N skills
 used` Markdown formats so historical chats become readable without rewriting the database.
+
+## Guided investigations
+
+Idli Insight defaults to one evidence-bearing stage per turn unless the user explicitly requests
+the complete workflow. The Codex model selects and explains the current scientific operation; a
+deterministic capability graph derives only the operations that are valid after its audited skill
+result.
+
+For example:
+
+```text
+local evidence
+  -> wider admitted occurrences
+  -> raw observations-only map OR environmental transfer test
+  -> modelled field map or failed-gate confirmation design
+```
+
+The next operations appear through Odysseus's existing durable `ask_user` choice card. A click
+sends the short visible label as the user's next turn. The bridge resolves that exact label against
+the pending session state, binds the stored entity/region arguments, and limits the selected turn
+to the authorized skill set. An unrelated typed message invalidates the old pending actions.
+
+This is a capability graph, not a species script. Species, AOI, donor region and result handles are
+carried from audited skill inputs and outputs. Failed or empty occurrence retrievals never offer a
+map or transfer. Discovery results are offered for inspection only when their returned title
+matches a focal query term; a repository search hit alone is not evidence.
+
+The raw-map branch calls `build-ecology-field-map` with `map_mode: observed`. It does not invoke an
+estimator or create synthetic field points. The map exports every returned observation with stable
+`OBS-...` ids; its potentially long record table is collapsed by default. `map_mode: modelled`
+remains a separate user-selected operation.
+
+Pending action state and a bounded investigation history are stored with the resumable bridge
+session. The scientific Algebra remains unchanged: typed holes still cover missing values, while
+guided actions cover user decisions to expand scope.
 
 Relevant implementation:
 
@@ -137,7 +173,8 @@ request skill described above:
   declared source filename rather than merging unrelated columns.
 - `build-ecology-field-map` retrieves and gates every taxon independently, then creates a
   self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
-  produces a labelled spatial sampling design; it does not draw invented overlap.
+  produces a labelled spatial sampling design; it does not draw invented overlap. Its separate
+  observations-only mode maps returned records without running a gate or estimator.
 
 Discovery and inspection results receive session-scoped handles. The map skill records the handles,
 gate results, point ids and document id in the normal audit. Map links use the form:
@@ -214,11 +251,13 @@ The baseline includes focused coverage for:
 - stripping legacy and compatibility metadata from live and saved answers;
 - safe DOM rendering of skill names and audit ids;
 - coalesced progress/skill marker handling;
+- persisted guided choices, safe action forwarding and single-option cards;
 - responsive Activity and Why panels;
 - explicit T4GC request action;
 - query-bound discovery with session-scoped result handles;
 - generic two-taxon proximity with a declared threshold and both denominators;
 - matching map, GeoJSON and CSV point ids;
+- observations-only maps that never invoke an estimate;
 - `#map-` side-panel routing through the existing sandboxed HTML preview;
 - map hash isolation and Chat-mode preservation;
 - local-only prompt-cache affinity; and

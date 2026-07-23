@@ -38312,6 +38312,7 @@ body.theme-frosted .modal {
   gap: 8px;
   width: 100%;
   /* Match the height of the free-text input below (.styled-prompt-input). */
+  height: auto;
   min-height: 39px;
   text-align: left;
   padding: 9px 12px;
