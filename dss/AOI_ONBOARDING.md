@@ -6,6 +6,53 @@ land" to "a system that answers grounded questions about it + knows what data to
 
 ---
 
+## Cross-cutting — the organisation/AOI profile (portable input, not a species skill)
+
+The reusable unit should be an **organisation profile plus one or more AOIs**, not a fork of the
+agent with site- or species-specific skills. Shared skills call stable adapter contracts; an
+organisation seeds those adapters with its own evidence and connector configuration.
+
+Minimum profile bundle:
+
+```text
+organisation/
+├── profile.json                 # org id/name, owners, policy and enabled capabilities
+├── sites/
+│   └── <site>.json              # site aliases, parcel geometry, context/corridor and donor AOIs
+├── evidence/
+│   ├── records.jsonl            # normalized, source-linked local observations/reports/surveys
+│   └── sources.json             # source ids, titles, files/URLs, pages, dates, licences
+├── corpus/
+│   └── cards.json               # literature/dataset cards for semantic discovery
+├── connectors.json              # admitted external connectors and credentials-by-reference
+└── models.json                  # available estimators, gates, validation targets and known gaps
+```
+
+Every local evidence record should carry at least:
+
+- stable record id and source id;
+- AOI/site id;
+- entity/taxon/topic names and aliases;
+- date or declared time uncertainty;
+- evidence type (`direct_observation`, `indirect_sign`, `survey_summary`, `reported`,
+  `proxy`, `modelled`, etc.);
+- geometry or an explicit `not_georeferenced`;
+- source page/row/record locator;
+- limitations, licence and any redistribution restriction.
+
+The shared local operation is `local-site-evidence-search(query, site, time, limit)`. It searches
+the seeded registry for **any** entity or topic. A local registry non-match is never absence.
+Organisation-specific parsing belongs in an adapter/importer that emits the normalized contract;
+it must not become `elephant-skill`, `tiger-skill`, or one new skill per local failure.
+
+Site aliases and context terms are profile data. EBTL happens to use `EBTL` and `Elephants by the
+Lake`; another organisation supplies its own names without changing routing code.
+
+This profile contract deliberately does **not** choose whether planning and gating are performed by
+Algebra, Codex, a typed controller, or a hybrid. Those remain runtime/benchmark arms. They should all
+consume the same profile, connector results, gates and evidence labels so comparisons are meaningful
+and onboarding work is not tied to a model choice.
+
 ## Step 0 — Resolve the AOI to precise geometry
 **Do:** take the user's indication (place name, Plus Code, a pin, a boundary file) and resolve it to
 a tight bbox/polygon. Distinguish **site** (the actual parcel) from **corridor/region** (context) —
@@ -52,6 +99,24 @@ study's `prosopis` column) becomes findable.
 **EBTL:** 140→169 cards; retrieval bench — embeddings/hybrid ≈ 0.91 semantic, one-prompt-LLM degrades
 at scale. **Code:** `benchmarks/algebra/discovery/`.
 
+### Keep two local data planes separate
+
+Onboarding produces two related but different search surfaces:
+
+1. **Local evidence registry:** the organisation's own surveys, field records, newsletters,
+   protocols and reports. This answers “what is known at this site?” and must be searched first for
+   a local-site question.
+2. **Semantic literature/dataset corpus:** ingested cards for papers and repositories. This answers
+   “what literature or reusable data exists?” and may supply a query seed, donor dataset or method.
+
+Do not use an external literature miss to erase local evidence. Do not present a semantic-card hit
+as a local observation. A normal local question routes to the local registry first; external
+discovery runs when the user asks for wider sources or after the local result/gap is disclosed.
+
+Both corpus and embedding-cache paths must be explicit profile/runtime inputs. Startup health checks
+should execute one bounded semantic query and one local-registry query. A dependency being installed
+on the host must not silently change paths from the container/profile corpus to `/opt/data` defaults.
+
 ## Step 5 — Per question: route the answer (transfer / bridge / answer)
 **Do:** `gate` the AOI vs available data (AlphaEarth NN-analog + WorldClim MESS), then `route` →
 **overlap** (use observed), **transfer_rf** (AlphaEarth-analog), **sdm_climate** (climate-analog,
@@ -67,6 +132,26 @@ frugivore dispersers → Lantana-spread signal (bridge) despite 0 plant records.
 **EBTL asks:** higher-res hyperspectral (Pixxel ~5 m) for invasive mapping; acoustic bird hardware
 (AudioMoth+BirdNET) for unbiased site birds; eBird habitat logging; dung-beetle/community surveys.
 **Code:** `benchmarks/algebra/ebtl/DATA_GAPS.md`, `ROADBLOCKS.md` (account/paywall blocks).
+
+### User-facing products seeded by the same profile
+
+The profile and evidence chain should support reusable outputs rather than organisation-specific
+answer prose:
+
+- query-bound paper/dataset discovery with source ids;
+- dataset inspection followed by source-backed protocols and blank datasheets;
+- two-entity proximity/overlap calculations with both denominators and a declared threshold;
+- independently gated estimates;
+- a self-contained field map with matching GeoJSON/CSV and stable point ids;
+- a precise spatial data request when a gate fails;
+- a structured missing-model request with response variable, predictors, labels, spatial extent and
+  validation target;
+- an optional shareable report/dashboard assembled from the same audited results.
+
+Maps must distinguish observed records, modelled surfaces and designed collection points. If only
+one supported entity remains, a one-entity collection design is useful, but it must not be labelled
+two-entity overlap. A dashboard/report is a presentation of audited results, not a new evidence
+source.
 
 ---
 
@@ -124,10 +209,19 @@ flag** when geometry or data is soft, (d) be **overridable** by the user. The Sc
 - **`research/`** — the crawl (`paper_crawl.py`), KB (`kb.py`), discovery loop (`loop.py`, `autoloop.py`).
 
 ### Onboarding checklist (for the next AOI)
+- [ ] organisation profile created; owner/policy and enabled capabilities declared
 - [ ] AOI geometry resolved (site vs corridor) — *automate the geocode step*
+- [ ] site aliases, parcel/context/donor geometries and lineage recorded
+- [ ] local evidence imported to normalized records with source locators and evidence labels
+- [ ] local-evidence adapter tested with at least two unrelated taxa/topics and one honest non-match
 - [ ] ecoregion + climate + landcover characterized
 - [ ] data census done → abundant axis + scarce gaps identified
 - [ ] corpus crawled (ecoregion-retargeted) + cataloged
 - [ ] cards + retrieval built
+- [ ] corpus and embedding-cache paths explicit; startup semantic/local searches pass
+- [ ] admitted external connectors configured and empty/error results remain distinguishable
 - [ ] transfer algebra validated (gate says what's transferable)
+- [ ] maps/protocols/datasheets preserve result ids, evidence labels and source lineage
 - [ ] data requests drafted for the scarce axes
+- [ ] missing estimator requests declare response, predictors, labels, spatial extent and validation
+- [ ] runtime arm recorded separately from the profile (Algebra/Codex/typed/hybrid remains swappable)
