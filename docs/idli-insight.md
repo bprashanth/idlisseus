@@ -179,11 +179,13 @@ four-arm report remains in Totalrecall at
 `ecology_memory/narrative/benchmarks/evidence-chain-map/runs/overnight-001/REPORT.md`; it is
 development evidence, not a saturation claim.
 
-Local evidence has routing priority over broad discovery. A question containing elephant(s) and
-EBTL first invokes `local-elephant-site-evidence`, which returns two dated, source-linked passage
-reports based on physical signs and property damage. They remain labelled as indirect evidence,
-not direct sightings, abundance, frequency or proof of resident presence. Literature discovery is
-used only when the user separately asks for wider papers or datasets.
+Local evidence has routing priority over broad discovery. A local-site question first invokes
+`local-site-evidence-search` with the focal entity or topic. The skill is taxon-neutral: an ecology
+organisation supplies a local evidence adapter and site aliases, rather than adding one skill per
+species. The EBTL adapter currently covers local survey, bird, snake, elephant-passage, nursery,
+soil and evidence-summary categories. Returned limitations remain intact, and a registry non-match
+is not absence. Literature discovery is used when the user asks for wider papers/datasets or after
+the local result is made clear.
 
 ## Cache affinity
 
