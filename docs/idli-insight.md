@@ -41,12 +41,13 @@ Relevant implementation:
 
 ## Live activity and the final answer
 
-The browser recognizes four compatibility envelopes in streamed text:
+The browser recognizes five compatibility envelopes in streamed text:
 
 - `idli-progress`: a safe activity label such as `Reading historical-fire-exposure`.
 - `idli-skill`: one skill name, state, audit id and bounded result summary.
 - `idli-insight`: the final compact list of invoked skills and the turn audit id.
 - `idli-actions`: a validated question and up to three guided next-step labels.
+- `idli-evidence`: controller-derived evidence classes for the completed answer.
 
 These are HTML comments for compatibility with an older OpenAI-compatible event transport. They
 are metadata, not answer prose. The stream parser consumes every complete envelope, including when
@@ -61,6 +62,20 @@ During a turn:
 3. When answer text begins, temporary activity is removed from the prose area.
 4. The final message receives a responsive **Why** disclosure listing each invoked skill and its
    bounded result summary.
+5. A compact badge row identifies **Local asset**, **Public data**, **Proxy**, **Modelled**,
+   **Designed**, **Data gap**, and **Model background**. Icons, text and colour are all used so the
+   distinction does not depend on colour alone.
+
+The dialogue model cannot award itself a `Modelled` badge. The bridge emits that class only after a
+validated `ESTIMATE` answers or a map contains an admitted modelled surface. A failed gate that
+produces balanced collection points is labelled `Designed`.
+
+Broad site orientation, local-registry lookup, accumulated-dashboard publication, historical-fire
+exposure and vegetation-greenness trend are deterministic capability routes. The controller starts
+these immediately and streams their skill state before Codex writes the short explanation. Fire
+and greenness remain labelled historical/remote-sensing proxies with their geometry and time
+limits. This reduces time to first useful result without letting the dialogue model choose an
+unrelated local asset or substitute source.
 
 Raw commands, filesystem paths, unrestricted connector rows, model routing and private model
 reasoning are not rendered in the chat. They remain in the server audit.
@@ -74,6 +89,12 @@ Idli Insight defaults to one evidence-bearing stage per turn unless the user exp
 the complete workflow. The Codex model selects and explains the current scientific operation; a
 deterministic capability graph derives only the operations that are valid after its audited skill
 result.
+
+A modelled-map choice is an ordered exception: the controller requires donor occurrence retrieval,
+then Algebra 9B compilation, then the map renderer. Calls made out of order are rejected.
+For an explicit free-text map request, the controller also checks completion: if Codex finishes a
+valid estimate but omits the renderer call, it renders the map from the latest admitted taxon and
+adds the link in the same turn.
 
 For example:
 
@@ -97,7 +118,9 @@ matches a focal query term; a repository search hit alone is not evidence.
 The raw-map branch calls `build-ecology-field-map` with `map_mode: observed`. It does not invoke an
 estimator or create synthetic field points. The map exports every returned observation with stable
 `OBS-...` ids; its potentially long record table is collapsed by default. `map_mode: modelled`
-remains a separate user-selected operation.
+remains a separate user-selected operation. If the intended occurrence source fails and no
+source-identified cache is admitted, the map does not switch connectors: it returns stable
+`FIELD-...` points labelled `Designed`.
 
 Pending action state and a bounded investigation history are stored with the resumable bridge
 session. The scientific Algebra remains unchanged: typed holes still cover missing values, while
@@ -152,8 +175,8 @@ recorded as unknown rather than silently filled from model memory.
 
 ## Query-bound evidence and field maps
 
-Five evidence/runtime skills extend the frozen benchmark catalogue, alongside the separate T4GC
-request skill described above:
+The generic evidence/runtime layer extends the frozen benchmark catalogue, alongside the separate
+T4GC request skill described above:
 
 - `discover-ecology-evidence` passes the user's actual query to the admitted local semantic,
   OpenAlex, Zenodo and Dryad connectors. Model knowledge may supply a labelled query seed, but a
@@ -175,6 +198,12 @@ request skill described above:
   self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
   produces a labelled spatial sampling design; it does not draw invented overlap. Its separate
   observations-only mode maps returned records without running a gate or estimator.
+- `discover-biotic-interactions` queries source-linked GloBI interaction rows for a named source
+  taxon and optional target/relation. It supplies evidence-derived candidates and retained source
+  identifiers; it never asserts that the indexed interaction occurs at the site.
+- `publish-evidence-dashboard` accepts only current-session result handles. The controller derives
+  its cards, row-count visuals, map links and gap list. It cannot accept model-authored metrics,
+  claims or HTML.
 
 Discovery and inspection results receive session-scoped handles. The map skill records the handles,
 gate results, point ids and document id in the normal audit. Map links use the form:
@@ -208,13 +237,10 @@ the map may show a one-taxon balanced collection design and must say it is not t
 Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
 shared habitat or simultaneous presence.
 
-The bridge now reports 19 visible skills: the frozen 12 plus seven operational skills. In the
-two-pass development bank, the original relation/sparse-taxa conversation exposed the missing
-generic relation operation. After the operation and region alias were added, an isolated native
-replay scored all eight turns across two passes and reproduced every turn score. The complete
-four-arm report remains in Totalrecall at
-`ecology_memory/narrative/benchmarks/evidence-chain-map/runs/overnight-001/REPORT.md`; it is
-development evidence, not a saturation claim.
+The bridge currently reports 23 visible skills: the frozen 12 plus 11 operational skills. The
+current multi-turn operational bank is in Totalrecall at
+`ecology_memory/narrative/benchmarks/site-ecology-dialogue/`. It scores the Codex-outer +
+Algebra-9B compiler architecture directly; the 9B is not a post-hoc verifier.
 
 Local evidence has routing priority over broad discovery. A local-site question first invokes
 `local-site-evidence-search` with the focal entity or topic. The skill is taxon-neutral: an ecology

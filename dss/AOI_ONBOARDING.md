@@ -210,6 +210,22 @@ one supported entity remains, a one-entity collection design is useful, but it m
 two-entity overlap. A dashboard/report is a presentation of audited results, not a new evidence
 source.
 
+The organisation resource pack should also declare connector roles, not just connector URLs:
+
+- authoritative local registry;
+- public occurrence retrieval;
+- literature/dataset discovery;
+- biotic-interaction discovery;
+- environmental time series or raster annotation;
+- optional source inspection/download.
+
+For each role record the intended source family, cache/version policy, health probe and failure
+meaning. A runtime must not answer a failed occurrence query with literature counts, replace a
+weather predictor with greenness, or treat a live interaction-index row as a site interaction.
+When a source is unavailable, preserve the estimand and return the same-query retry, auditable
+cache, or a spatial collection design. This source-invariance policy belongs to the reusable
+profile, not a species-specific skill.
+
 ---
 
 ## AOI expansion — the "greedy data search" (how we go from one site to a searchable landscape)

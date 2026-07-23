@@ -15,6 +15,7 @@ def test_idli_insight_history_parser_strips_legacy_trace_and_extracts_skills():
     assert "idli-skill:" in renderer
     assert "idli-progress:" in renderer
     assert "idli-actions:" in renderer
+    assert "idli-evidence:" in renderer
     assert "source.slice(0, legacy.index)" in renderer
 
 
@@ -31,9 +32,23 @@ def test_idli_insight_live_handler_uses_compact_event_not_generic_tool_cards():
     assert "json.type === 'insight_skill'" in chat
     assert "spinner.updateMessage(`Using ${skillName}`)" in chat
     assert "const compatMarkers" in chat
-    assert ".matchAll(/<!--\\s*idli-(progress|skill|actions):" in chat
+    assert ".matchAll(/<!--\\s*idli-(progress|skill|actions|evidence):" in chat
     assert "appendInsightActivity" in chat
     assert "chatRenderer.renderAskUserCard(payload)" in chat
+
+
+def test_idli_insight_evidence_badges_are_structured_and_controller_sanitized():
+    renderer = (ROOT / "static/js/chatRenderer.js").read_text(encoding="utf-8")
+    routes = (ROOT / "routes/chat_routes.py").read_text(encoding="utf-8")
+    style = (ROOT / "static/style.css").read_text(encoding="utf-8")
+    assert "export function renderInsightEvidence" in renderer
+    assert "INSIGHT_EVIDENCE_KINDS" in renderer
+    assert "badge.dataset.kind = item.kind" in renderer
+    assert "label.textContent = item.label" in renderer
+    assert 'event_type == "insight_evidence"' in routes
+    assert 'last_metrics["insight_evidence"]' in routes
+    assert '.insight-evidence-badge[data-kind="modelled"]' in style
+    assert '.insight-evidence-badge[data-kind="data_gap"]' in style
 
 
 def test_idli_insight_guided_actions_reuse_durable_choice_card():

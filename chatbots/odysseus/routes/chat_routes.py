@@ -76,6 +76,31 @@ def _idli_attachment_manifest(upload_handler, attachment_ids, owner, auth_manage
 def _idli_insight_event(data: dict) -> dict | None:
     """Return the only bridge trace event that is safe for the chat transcript."""
     event_type = data.get("type")
+    if event_type == "insight_evidence":
+        allowed = {
+            "local_asset", "public_connector", "modelled", "proxy",
+            "designed", "data_gap", "model_background",
+        }
+        items = []
+        for raw in (data.get("items") or [])[:8]:
+            if not isinstance(raw, dict) or raw.get("kind") not in allowed:
+                continue
+            label = " ".join(str(raw.get("label") or "").split())[:40]
+            if not label:
+                continue
+            items.append({
+                "kind": raw["kind"],
+                "label": label,
+                "summary": " ".join(str(raw.get("summary") or "").split())[:240],
+            })
+        if not items:
+            return None
+        return {
+            "type": "insight_evidence",
+            "schema": 1,
+            "audit_id": str(data.get("audit_id") or "")[:160],
+            "items": items,
+        }
     if event_type == "insight_actions":
         options = []
         for raw in (data.get("options") or [])[:3]:
@@ -1208,6 +1233,7 @@ def setup_chat_routes(
                 _bridge_insight_skills = {}
                 _bridge_audit_id = ""
                 _bridge_insight_actions = None
+                _bridge_insight_evidence = None
                 # ── Chat mode: call stream_llm directly, NO tools, NO document access ──
                 try:
                     _chat_candidates = [(sess.endpoint_url, sess.model, sess.headers)] + _fallback_candidates
@@ -1240,7 +1266,8 @@ def setup_chat_routes(
                                         _stream_set(session, partial=full_response)
                                     yield chunk
                                 elif data.get("type") in (
-                                        "insight_skill", "insight_progress", "insight_actions"):
+                                        "insight_skill", "insight_progress", "insight_actions",
+                                        "insight_evidence"):
                                     _safe_event = _idli_insight_event(data)
                                     if _safe_event:
                                         if _safe_event["type"] == "insight_skill":
@@ -1260,6 +1287,13 @@ def setup_chat_routes(
                                                 "audit_id": _safe_event["audit_id"],
                                             }
                                             yield f'data: {json.dumps({"type": "ask_user", "data": _bridge_insight_actions})}\n\n'
+                                        elif _safe_event["type"] == "insight_evidence":
+                                            _bridge_insight_evidence = {
+                                                "schema": 1,
+                                                "audit_id": _safe_event["audit_id"],
+                                                "items": _safe_event["items"],
+                                            }
+                                            yield f'data: {json.dumps(_safe_event)}\n\n'
                                         else:
                                             yield f'data: {json.dumps(_safe_event)}\n\n'
                                 elif data.get("type") in ("tool_start", "tool_output"):
@@ -1345,6 +1379,9 @@ def setup_chat_routes(
                                 if _bridge_insight_actions:
                                     last_metrics = dict(last_metrics or {})
                                     last_metrics["insight_actions"] = _bridge_insight_actions
+                                if _bridge_insight_evidence:
+                                    last_metrics = dict(last_metrics or {})
+                                    last_metrics["insight_evidence"] = _bridge_insight_evidence
                                 _saved_id = save_assistant_response(
                                     sess, session_manager, session, full_response, last_metrics,
                                     character_name=ctx.preset.character_name,

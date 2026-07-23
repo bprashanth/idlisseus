@@ -9024,6 +9024,43 @@ body.fullwidth-chat .chat-history {
 
 .insight-audit-id { cursor: copy; }
 
+.insight-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: min(100%, 620px);
+  margin: -2px 0 9px;
+}
+.insight-evidence-badge {
+  --evidence-color: color-mix(in srgb, var(--fg) 60%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 25px;
+  padding: 3px 8px;
+  border: 1px solid color-mix(in srgb, var(--evidence-color) 40%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--evidence-color) 9%, transparent);
+  color: color-mix(in srgb, var(--evidence-color) 78%, var(--fg));
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: help;
+}
+.insight-evidence-icon {
+  width: 12px;
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+.insight-evidence-badge[data-kind="local_asset"] { --evidence-color: #2f9e74; }
+.insight-evidence-badge[data-kind="public_connector"] { --evidence-color: #3784d6; }
+.insight-evidence-badge[data-kind="modelled"] { --evidence-color: #8b65d6; }
+.insight-evidence-badge[data-kind="proxy"] { --evidence-color: #c47b27; }
+.insight-evidence-badge[data-kind="designed"] { --evidence-color: #a45cbe; }
+.insight-evidence-badge[data-kind="data_gap"] { --evidence-color: #d25b55; }
+.insight-evidence-badge[data-kind="model_background"] { --evidence-color: #6f7782; }
+
 .insight-live-activity {
   width: min(100%, 520px);
   margin-top: 8px;
@@ -9164,6 +9201,7 @@ body.fullwidth-chat .chat-history {
 }
 @media (max-width: 600px) {
   .insight-why { width: 100%; margin-top: 1px; }
+  .insight-evidence { width: 100%; }
   .insight-why > summary { min-height: 34px; padding-inline: 8px; }
   .insight-skill-list { grid-template-columns: 1fr; padding-inline: 8px; }
   .insight-skill code { white-space: normal; overflow-wrap: anywhere; }

@@ -1219,6 +1219,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
           model: holder._actualModel,
           requested_model: holder._requestedModel,
           insight_trace: holder._insightTrace,
+          insight_evidence: holder._insightEvidence,
         });
         if (insight.isInsight) {
           dt = insight.content;
@@ -1445,7 +1446,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 typewriterInto(roundHolder.querySelector('.body'), errMsg);
                 break;
               }
-              if (json.delta || json.type === 'agent_prep' || json.type === 'insight_progress' || json.type === 'insight_skill' || json.type === 'tool_start' || json.type === 'tool_output' || json.type === 'tool_progress' || json.type === 'agent_step' || json.type === 'doc_stream_open' || json.type === 'doc_stream_delta' || json.type === 'research_progress') {
+              if (json.delta || json.type === 'agent_prep' || json.type === 'insight_progress' || json.type === 'insight_skill' || json.type === 'insight_evidence' || json.type === 'tool_start' || json.type === 'tool_output' || json.type === 'tool_progress' || json.type === 'agent_step' || json.type === 'doc_stream_open' || json.type === 'doc_stream_delta' || json.type === 'research_progress') {
                 clearResponseTimeout();
                 clearProcessingProbe();
                 clearFirstTokenWaitTimers();
@@ -1462,7 +1463,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 // Consume every complete marker, not just a single anchored marker.
                 const compatDelta = String(json.delta);
                 const compatMarkers = Array.from(
-                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions):([\s\S]*?)-->/gi),
+                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions|evidence):([\s\S]*?)-->/gi),
                 );
                 if (compatMarkers.length) {
                   for (const marker of compatMarkers) {
@@ -1480,6 +1481,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     if (kind === 'actions') {
                       holder._insightActions = payload;
                       chatRenderer.renderAskUserCard(payload);
+                      continue;
+                    }
+                    if (kind === 'evidence') {
+                      holder._insightEvidence = payload;
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();
@@ -1508,7 +1513,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                   }
                   const visibleDelta = compatDelta.replace(
-                    /<!--\s*idli-(?:progress|skill|actions):[\s\S]*?-->/gi, '',
+                    /<!--\s*idli-(?:progress|skill|actions|evidence):[\s\S]*?-->/gi, '',
                   );
                   if (!visibleDelta.trim()) continue;
                   json.delta = visibleDelta;
@@ -2134,6 +2139,13 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 );
                 uiModule.scrollHistory();
 
+              } else if (json.type === 'insight_evidence') {
+                if (_isBg) continue;
+                holder._insightEvidence = {
+                  items: Array.isArray(json.items) ? json.items : [],
+                  audit_id: String(json.audit_id || ''),
+                };
+
               } else if (json.type === 'rag_sources') {
                 if (_isBg) continue;
                 holder._ragSources = json.data;
@@ -2661,12 +2673,17 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
           model: holder._actualModel,
           requested_model: holder._requestedModel,
           insight_trace: holder._insightTrace,
+          insight_evidence: holder._insightEvidence,
         });
         if (finalInsight.isInsight) {
           finalDisplay = finalInsight.content;
           if (finalInsight.trace?.skills?.length) {
             holder._insightTrace = finalInsight.trace;
             chatRenderer.renderInsightTrace(holder, holder._insightTrace);
+          }
+          if (finalInsight.evidence?.items?.length) {
+            holder._insightEvidence = finalInsight.evidence;
+            chatRenderer.renderInsightEvidence(holder, holder._insightEvidence);
           }
           holder.dataset.raw = finalDisplay;
         }
@@ -3473,7 +3490,8 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             if (documentModule && json.delta) documentModule.streamDocDelta(json.delta);
           } else if (json.type === 'metrics') {
             metricsData = json.data || metricsData;
-          } else if (json.type === 'insight_skill' || json.type === 'tool_start' || json.type === 'tool_output' ||
+          } else if (json.type === 'insight_skill' || json.type === 'insight_evidence' ||
+                     json.type === 'tool_start' || json.type === 'tool_output' ||
                      json.type === 'tool_progress' || json.type === 'agent_step' ||
                      json.type === 'web_sources' || json.type === 'rag_sources' ||
                      json.type === 'research_progress' || json.type === 'research_sources' ||

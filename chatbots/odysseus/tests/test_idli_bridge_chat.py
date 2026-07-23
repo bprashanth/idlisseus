@@ -74,6 +74,26 @@ def test_idli_insight_event_keeps_sanitized_progress_milestone():
     }) is None
 
 
+def test_idli_insight_event_allows_only_known_evidence_badges():
+    assert _idli_insight_event({
+        "type": "insight_evidence",
+        "audit_id": "session-1/3",
+        "items": [
+            {"kind": "modelled", "label": "Modelled",
+             "summary": "Estimate passed its gate.", "private": "/tmp/result"},
+            {"kind": "invented", "label": "Trust me", "summary": "not admitted"},
+        ],
+    }) == {
+        "type": "insight_evidence",
+        "schema": 1,
+        "audit_id": "session-1/3",
+        "items": [{
+            "kind": "modelled", "label": "Modelled",
+            "summary": "Estimate passed its gate.",
+        }],
+    }
+
+
 def test_idli_insight_event_sanitizes_legacy_skill_tool_event():
     assert _idli_insight_event({
         "type": "tool_output", "kind": "skill", "tool": "declared-site-centre",
