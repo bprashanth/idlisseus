@@ -171,13 +171,19 @@ the map may show a one-taxon balanced collection design and must say it is not t
 Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
 shared habitat or simultaneous presence.
 
-The bridge now reports 18 visible skills: the frozen 12 plus six operational skills. In the
+The bridge now reports 19 visible skills: the frozen 12 plus seven operational skills. In the
 two-pass development bank, the original relation/sparse-taxa conversation exposed the missing
 generic relation operation. After the operation and region alias were added, an isolated native
 replay scored all eight turns across two passes and reproduced every turn score. The complete
 four-arm report remains in Totalrecall at
 `ecology_memory/narrative/benchmarks/evidence-chain-map/runs/overnight-001/REPORT.md`; it is
 development evidence, not a saturation claim.
+
+Local evidence has routing priority over broad discovery. A question containing elephant(s) and
+EBTL first invokes `local-elephant-site-evidence`, which returns two dated, source-linked passage
+reports based on physical signs and property damage. They remain labelled as indirect evidence,
+not direct sightings, abundance, frequency or proof of resident presence. Literature discovery is
+used only when the user separately asks for wider papers or datasets.
 
 ## Cache affinity
 
