@@ -566,8 +566,11 @@ bank.
 
 ## First-site feasibility result
 
-The maintained first site pack is [`../dss/sites/valparai/`](../dss/sites/valparai/). Its
-dependency-light prototype currently:
+The maintained first site pack and generic builder live in the companion Totalrecall repository:
+[`dss/sites/valparai/`](../../totalrecall/dss/sites/valparai/) and
+[`dss/visual_index/`](../../totalrecall/dss/visual_index/). Idlisseus keeps this design and the
+presentation layer; it does not duplicate the source data. The dependency-light prototype
+currently:
 
 - ingests seven versioned sources;
 - indexes 13,592 events, 229 explicit effort rows and 580 measurements;

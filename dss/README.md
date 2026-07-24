@@ -1,9 +1,13 @@
 # DSS — the decision-support / data layer (meta layer above the agent)
 
 Future visual-ready AOI data work starts at
-[`../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md). The first
-maintained feasibility site pack is [`sites/valparai/`](sites/valparai/), with the generic
-dependency-light builder in [`visual_index/`](visual_index/).
+[`../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md).
+
+Site packs, their source data and the generic visual-index builder live only in the companion
+Totalrecall repository under
+[`dss/`](../../totalrecall/dss/). Idlisseus owns the UI and endpoint registry; it must not become a
+second source-data store. The deployment-pinned POC is documented in
+[`SITE_PACK_DEPLOYMENT.md`](../../totalrecall/dss/SITE_PACK_DEPLOYMENT.md).
 
 This directory documents the **system around** the Hermes agent + chatbot: how we take a new
 user's Area of Interest (AOI), build up its data, and decide how to answer questions when the data
