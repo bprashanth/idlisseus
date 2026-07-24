@@ -1,0 +1,127 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-time-series",
+  "request_id": "fixture-request-time-series",
+  "revision": 1,
+  "status": "complete",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37"
+  },
+  "question": {
+    "original": "How has this metric changed through time?",
+    "resolved": "Plot unit-compatible measurements with an explicit coverage strip.",
+    "bindings": {
+      "aoi_ids": [
+        "target"
+      ],
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "Sixty monthly values are available; three months are missing.",
+    "detail": "Synthetic renderer fixture; not evidence about a real place.",
+    "evidence_classes": [
+      "observed",
+      "derived"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "time-series",
+      "visual_type": "chart",
+      "view": "metric-time-series",
+      "title": "Metric through time",
+      "priority": "primary",
+      "status": "ready",
+      "scope": {
+        "aoi_ids": [
+          "target",
+          "context"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "metric-series",
+          "evidence_class": "observed",
+          "geometry_type": "series",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "metric-series",
+            "media_type": "application/json",
+            "digest": "sha256:563c79b164d4468eb5b17f25fa7490709334c26de4bd0bce45c9b984765bdcb4"
+          },
+          "legend": {
+            "label": "Monthly measurements"
+          },
+          "style_hint": {
+            "palette_role": "observed"
+          }
+        },
+        {
+          "layer_id": "coverage-strip",
+          "evidence_class": "derived",
+          "geometry_type": "series",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "coverage-strip",
+            "media_type": "application/json",
+            "digest": "sha256:7842d7e85af7a1a7a2a0c7b5b3c9a1938203a239f193a7e08950f824e86f0dd3"
+          },
+          "legend": {
+            "label": "Monthly coverage"
+          },
+          "style_hint": {
+            "palette_role": "derived"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "The chart contains 60 monthly values with units and coverage.",
+        "denominators": {
+          "months": 60,
+          "missing_months": 3,
+          "sources": 1
+        }
+      },
+      "drilldowns": [
+        {
+          "action_id": "inspect-time-series",
+          "label": "Inspect source rows",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "time-series-rows",
+            "media_type": "application/json",
+            "digest": "sha256:04fb1e2f35329ac5841f636834c2dfb39becbf6e0c60c490452f4d47e98a873c"
+          }
+        }
+      ],
+      "limitations": []
+    }
+  ],
+  "limitations": [],
+  "actions": [],
+  "audit": {
+    "audit_id": "fixture-audit-time-series",
+    "source_versions": [
+      {
+        "source_id": "synthetic-fixture-source",
+        "version": "1",
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb"
+      }
+    ],
+    "capability_runs": [
+      {
+        "capability_id": "metric-time-series",
+        "version": "1.0.0",
+        "status": "complete"
+      }
+    ],
+    "query_hash": "sha256:f39f924a4a1eb4147b786bbf6a0094278c57bf1c0102b1b8c6fa3cec262e2661"
+  }
+}

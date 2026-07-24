@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://idli.cc/schemas/idli-activity-1.json",
+  "title": "Idli result activity",
+  "description": "Safe, ephemeral progress for one evidence-result request.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "request_id",
+    "phase",
+    "label",
+    "state"
+  ],
+  "properties": {
+    "schema_version": {"const": "idli-activity/1"},
+    "request_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "phase": {
+      "enum": [
+        "resolve",
+        "select",
+        "query",
+        "compute",
+        "render",
+        "publish"
+      ]
+    },
+    "label": {"type": "string", "minLength": 1, "maxLength": 200},
+    "capability_id": {
+      "type": ["string", "null"],
+      "maxLength": 200
+    },
+    "state": {"enum": ["queued", "running", "complete", "failed"]},
+    "sequence": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,160 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-empty-target-surrounding",
+  "request_id": "fixture-request-empty-target-surrounding",
+  "revision": 1,
+  "status": "partial",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37"
+  },
+  "question": {
+    "original": "Is this entity present at the site?",
+    "resolved": "Check the target first, then show admitted data in the context area.",
+    "bindings": {
+      "aoi_ids": [
+        "target"
+      ],
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "No target records were returned; surrounding data is available.",
+    "detail": "Synthetic renderer fixture; not evidence about a real place.",
+    "evidence_classes": [
+      "observed",
+      "missing"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "surrounding-map",
+      "visual_type": "map",
+      "view": "surrounding-data",
+      "title": "Where data exists around the target",
+      "priority": "primary",
+      "status": "partial",
+      "scope": {
+        "aoi_ids": [
+          "target",
+          "context"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "target-aoi",
+          "evidence_class": "reported",
+          "geometry_type": "polygon",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "target-aoi",
+            "media_type": "application/geo+json",
+            "digest": "sha256:d2bb34aaa82acabc4d192ed308c2344aa3348b9b8d8e653fa7225c4c39111148"
+          },
+          "legend": {
+            "label": "Target area"
+          },
+          "style_hint": {
+            "palette_role": "reported"
+          }
+        },
+        {
+          "layer_id": "surrounding-records",
+          "evidence_class": "observed",
+          "geometry_type": "point",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "surrounding-records",
+            "media_type": "application/geo+json",
+            "digest": "sha256:45e745eda1b05a53dabb26f592ebae33a837a8e55a65a3f35e378ac3c4470ca9"
+          },
+          "legend": {
+            "label": "Surrounding records"
+          },
+          "style_hint": {
+            "palette_role": "observed"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "No target records were returned; 27 records are available in the context area.",
+        "denominators": {
+          "target_records": 0,
+          "context_records": 27
+        }
+      },
+      "drilldowns": [
+        {
+          "action_id": "inspect-surrounding-map",
+          "label": "Inspect source rows",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "surrounding-map-rows",
+            "media_type": "application/json",
+            "digest": "sha256:5458286ad92c2950f28e0671ae9920657509dc354e8e23d7efab2698f981d6d3"
+          }
+        }
+      ],
+      "limitations": [
+        {
+          "code": "no-target-records",
+          "severity": "warning",
+          "message": "No admitted records fall inside the target area; this is not evidence of absence.",
+          "affects": [
+            "surrounding-map",
+            "answer"
+          ],
+          "details_ref": null
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "code": "no-target-records",
+      "severity": "warning",
+      "message": "No admitted records fall inside the target area; this is not evidence of absence.",
+      "affects": [
+        "surrounding-map",
+        "answer"
+      ],
+      "details_ref": null
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "test-transfer",
+      "kind": "run_capability",
+      "label": "Test transfer to the target",
+      "capability_id": "gated-transfer",
+      "arguments": {
+        "donor_scope": "context",
+        "target_scope": "target"
+      },
+      "requires_confirmation": true
+    }
+  ],
+  "audit": {
+    "audit_id": "fixture-audit-empty-target-surrounding",
+    "source_versions": [
+      {
+        "source_id": "synthetic-fixture-source",
+        "version": "1",
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb"
+      }
+    ],
+    "capability_runs": [
+      {
+        "capability_id": "observed-presence-map",
+        "version": "1.0.0",
+        "status": "partial"
+      }
+    ],
+    "query_hash": "sha256:379f4d303b50764cd64224b0ec5eae93d55eae486bfaf1e27c28fec3ac58dc10"
+  }
+}

@@ -128,8 +128,8 @@ Every member of `visuals` has this shape:
       "evidence_class": "observed",
       "geometry_type": "point",
       "data_ref": {
-        "kind": "query",
-        "href": "/results/immutable-result-id/data/observations",
+        "kind": "result_data",
+        "handle": "observations",
         "media_type": "application/geo+json",
         "digest": "sha256:..."
       },
@@ -146,8 +146,8 @@ Every member of `visuals` has this shape:
       "action_id": "open-records",
       "label": "Inspect records",
       "data_ref": {
-        "kind": "query",
-        "href": "/results/immutable-result-id/rows",
+        "kind": "result_data",
+        "handle": "source-rows",
         "media_type": "application/json"
       }
     }
@@ -169,8 +169,12 @@ not hide valid primary evidence.
 
 Large rows, points, rasters, tiles and documents stay behind immutable `data_ref` handles. Do not
 put a multi-megabyte payload into chat JSON. A reference must include its media type and should
-include a digest. Access control is enforced when dereferencing it, not by hiding a browser
-button.
+include a digest.
+
+The producer emits an opaque `handle`; it does not guess a browser URL. Idlisseus resolves that
+handle through the authenticated result proxy described below and may add an `href` in its
+client-facing state. `href` is permitted by the schema for already published same-origin
+artifacts, but renderers must accept handle-only references.
 
 ## Evidence classes
 
@@ -232,6 +236,81 @@ The benchmark supplies valid capability ids and typed arguments. Idlisseus decid
 render them as buttons, chips, menu entries or ordinary follow-up prompts. Pressing an action
 starts a new audited request; the browser does not run analysis itself.
 
+## Live transport
+
+The current bridge remains OpenAI chat-completions compatible. `idli-result/1` and
+`idli-activity/1` travel as typed, non-token events inside that existing SSE stream; they are not
+encoded as answer text, comments, tool-call arguments or trailing prose.
+
+An activity frame from the bridge is:
+
+```text
+data: {
+  "id": "chatcmpl-...",
+  "object": "chat.completion.chunk",
+  "model": "idli-insight",
+  "choices": [],
+  "idlisseus_event": {
+    "type": "idli_activity",
+    "activity": { "schema_version": "idli-activity/1", "...": "..." }
+  }
+}
+```
+
+A result revision uses the same outer chunk:
+
+```text
+data: {
+  "id": "chatcmpl-...",
+  "object": "chat.completion.chunk",
+  "model": "idli-insight",
+  "choices": [],
+  "idlisseus_event": {
+    "type": "idli_result",
+    "result": { "schema_version": "idli-result/1", "...": "..." }
+  }
+}
+```
+
+Normal answer tokens continue in ordinary `choices[].delta.content` chunks. A bridge may emit
+several revisions with one `result_id`; their revision numbers must increase. It emits the final
+`complete`, `partial`, `blocked` or `cancelled` revision before `data: [DONE]`.
+
+Idlisseus's upstream reader already unwraps `idlisseus_event` objects from OpenAI-compatible
+chunks. The chat route must schema-validate and forward only the two event types above; unknown or
+invalid result events are retained in operator audit and not rendered. This transport is additive
+to the existing skill/progress compatibility events.
+
+## Result data transport and ownership
+
+The benchmark result service owns immutable bytes internally:
+
+```text
+GET /v1/results/{result_id}
+GET /v1/results/{result_id}/data/{handle}
+```
+
+That service is bound to one configured site pack. It is reachable by the bridge or Idlisseus
+server with a service credential and is not a public browser origin.
+
+Idlisseus owns the browser-facing, same-origin surface:
+
+```text
+GET /api/visual-results/{result_id}
+GET /api/visual-results/{result_id}/data/{handle}
+```
+
+For every request Idlisseus verifies the signed-in user can access the chat/session that received
+the result, resolves the session's pinned endpoint and pack digest, then proxies the internal
+result service using server-side credentials. It must verify the returned media type and digest,
+apply response-size limits and preserve download/embedding policy. The browser never receives a
+bridge bearer token or an internal host/port.
+
+This ownership keeps authentication, CSP, iframe policy, range requests and revocation in the
+Idlisseus layer while leaving result computation and immutable bytes benchmark-side. A later
+object-store implementation may replace the proxy with short-lived same-origin or signed URLs
+without changing `idli-result/1`.
+
 ## Capability descriptors
 
 Site packs register capabilities independently from individual sources:
@@ -256,6 +335,10 @@ version. Fable uses descriptors for discoverability and loading states, not to r
 calculation.
 
 ## Compatibility and validation
+
+The normative machine-readable schemas and synthetic fixture corpus are in
+[`contracts/`](contracts/). The fixtures contain no organisation/site records; real producer
+conformance stays in the benchmark repository.
 
 The contract version uses `name/major`. Additive fields and new `view` values are compatible
 within `idli-result/1`. Removing or changing a required field, enum meaning or reference

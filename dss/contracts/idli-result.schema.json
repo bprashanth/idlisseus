@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://idli.cc/schemas/idli-result-1.json",
+  "title": "Idli visual result",
+  "description": "Browser-facing evidence result returned by a benchmark query service.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "result_id",
+    "request_id",
+    "revision",
+    "status",
+    "site",
+    "question",
+    "answer",
+    "visuals",
+    "limitations",
+    "actions",
+    "audit"
+  ],
+  "properties": {
+    "schema_version": {"const": "idli-result/1"},
+    "result_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "request_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "revision": {"type": "integer", "minimum": 1},
+    "status": {
+      "enum": ["working", "complete", "partial", "blocked", "cancelled"]
+    },
+    "site": {"$ref": "#/$defs/site"},
+    "question": {"$ref": "#/$defs/question"},
+    "answer": {"$ref": "#/$defs/answer"},
+    "visuals": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/visual"}
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/limitation"}
+    },
+    "actions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/action"}
+    },
+    "audit": {"$ref": "#/$defs/audit"}
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "evidenceClass": {
+      "enum": [
+        "observed",
+        "reported",
+        "derived",
+        "proxy",
+        "modelled",
+        "designed",
+        "model_memory",
+        "missing"
+      ]
+    },
+    "site": {
+      "type": "object",
+      "required": ["site_id", "label", "pack_digest"],
+      "properties": {
+        "site_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "pack_digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "question": {
+      "type": "object",
+      "required": ["original", "resolved", "bindings"],
+      "properties": {
+        "original": {"type": "string"},
+        "resolved": {"type": "string"},
+        "bindings": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "answer": {
+      "type": "object",
+      "required": ["headline", "evidence_classes"],
+      "properties": {
+        "headline": {"type": "string", "minLength": 1},
+        "detail": {"type": "string"},
+        "evidence_classes": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/evidenceClass"},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "timeScope": {
+      "type": "object",
+      "properties": {
+        "start": {"type": ["string", "null"]},
+        "end": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "aoi_ids": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "time": {"$ref": "#/$defs/timeScope"}
+      },
+      "additionalProperties": true
+    },
+    "dataRef": {
+      "type": "object",
+      "required": ["kind", "media_type"],
+      "properties": {
+        "kind": {
+          "enum": ["result_data", "query", "tile", "document", "artifact"]
+        },
+        "handle": {"type": "string", "minLength": 1, "maxLength": 240},
+        "href": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "media_type": {"type": "string", "minLength": 1},
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "anyOf": [
+        {"required": ["handle"]},
+        {"required": ["href"]}
+      ],
+      "additionalProperties": true
+    },
+    "layer": {
+      "type": "object",
+      "required": [
+        "layer_id",
+        "evidence_class",
+        "geometry_type",
+        "data_ref",
+        "legend"
+      ],
+      "properties": {
+        "layer_id": {"type": "string", "minLength": 1},
+        "evidence_class": {"$ref": "#/$defs/evidenceClass"},
+        "geometry_type": {
+          "enum": [
+            "point",
+            "line",
+            "polygon",
+            "raster",
+            "cell",
+            "table",
+            "series",
+            "node",
+            "edge",
+            "none"
+          ]
+        },
+        "data_ref": {"$ref": "#/$defs/dataRef"},
+        "legend": {
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": true
+        },
+        "style_hint": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "drilldown": {
+      "type": "object",
+      "required": ["action_id", "label", "data_ref"],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "data_ref": {"$ref": "#/$defs/dataRef"}
+      },
+      "additionalProperties": true
+    },
+    "visual": {
+      "type": "object",
+      "required": [
+        "visual_id",
+        "visual_type",
+        "view",
+        "title",
+        "priority",
+        "status",
+        "scope",
+        "layers",
+        "summary",
+        "drilldowns",
+        "limitations"
+      ],
+      "properties": {
+        "visual_id": {"type": "string", "minLength": 1},
+        "visual_type": {
+          "enum": [
+            "map",
+            "chart",
+            "table",
+            "matrix",
+            "network",
+            "hierarchy",
+            "timeline",
+            "metric",
+            "dashboard",
+            "report"
+          ]
+        },
+        "view": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "priority": {"enum": ["primary", "supporting", "audit"]},
+        "status": {"enum": ["ready", "partial", "blocked", "failed"]},
+        "scope": {"$ref": "#/$defs/scope"},
+        "layers": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/layer"}
+        },
+        "summary": {
+          "type": "object",
+          "required": ["headline", "denominators"],
+          "properties": {
+            "headline": {"type": "string", "minLength": 1},
+            "denominators": {
+              "type": "object",
+              "additionalProperties": {
+                "type": ["number", "integer", "string", "null"]
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "drilldowns": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/drilldown"}
+        },
+        "limitations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/limitation"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "limitation": {
+      "type": "object",
+      "required": ["code", "severity", "message", "affects"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "severity": {"enum": ["info", "warning", "error"]},
+        "message": {"type": "string", "minLength": 1},
+        "affects": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "details_ref": {
+          "oneOf": [
+            {"$ref": "#/$defs/dataRef"},
+            {"type": "null"}
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "action_id",
+        "kind",
+        "label",
+        "capability_id",
+        "arguments",
+        "requires_confirmation"
+      ],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "kind": {
+          "enum": [
+            "follow_up",
+            "filter",
+            "drilldown",
+            "run_capability",
+            "request_data",
+            "request_model",
+            "open_dashboard",
+            "export_report"
+          ]
+        },
+        "label": {"type": "string", "minLength": 1},
+        "capability_id": {"type": "string", "minLength": 1},
+        "arguments": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "requires_confirmation": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "sourceVersion": {
+      "type": "object",
+      "required": ["source_id", "digest"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "version": {"type": ["string", "null"]},
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "capabilityRun": {
+      "type": "object",
+      "required": ["capability_id", "version", "status"],
+      "properties": {
+        "capability_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "status": {"enum": ["complete", "partial", "blocked", "failed"]}
+      },
+      "additionalProperties": true
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "audit_id",
+        "source_versions",
+        "capability_runs",
+        "query_hash"
+      ],
+      "properties": {
+        "audit_id": {"type": "string", "minLength": 1},
+        "source_versions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/sourceVersion"}
+        },
+        "capability_runs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/capabilityRun"}
+        },
+        "query_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
