@@ -208,8 +208,9 @@ access_class, capabilities, adapter_version
 ```
 
 Capabilities are explicit: `semantic_searchable`, `inspectable`, `mappable`,
-`has_effort`, `has_measurements`, `eligible_as_model_input`, and so on. UI actions and agent tools
-must be derived from capabilities, not guessed from the presence of a DOI or filename.
+`has_effort`, `has_measurements`, `candidate_model_input`, and so on. Candidate input means only
+that the source can enter a later model-specific eligibility check. UI actions and agent tools must
+be derived from capabilities, not guessed from the presence of a DOI or filename.
 
 ### `aois` and `locations`
 
@@ -407,7 +408,7 @@ The data service should return a typed visual bundle, not arbitrary HTML:
   "provenance": {"source_versions": [], "query_hash": "..."},
   "drilldowns": [{"label": "Open records", "data_ref": "..."}],
   "limitations": [],
-  "next_capabilities": ["filter_entity", "filter_time", "run_transfer"]
+  "next_capabilities": ["filter_entity", "filter_time", "open_records"]
 }
 ```
 
@@ -569,7 +570,7 @@ The maintained first site pack is [`../dss/sites/valparai/`](../dss/sites/valpar
 dependency-light prototype currently:
 
 - ingests seven versioned sources;
-- indexes 13,578 events, 229 explicit effort rows and 580 measurements;
+- indexes 13,592 events, 229 explicit effort rows and 580 measurements;
 - resolves 1,039 aliases into 543 entity records, while retaining unresolved/broad labels;
 - joins 3,684 plot records to source coordinates;
 - materialises 284 spatial cells;

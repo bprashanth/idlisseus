@@ -8,7 +8,7 @@
       "url": "https://zenodo.org/records/7008315",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "candidate_model_input"],
       "local_metadata": "raw/zenodo-7008315/README.txt",
       "adapters": [
         {
@@ -33,7 +33,7 @@
       "url": "https://zenodo.org/records/11903722",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "has_entity_crosswalk", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "has_entity_crosswalk", "candidate_model_input"],
       "local_metadata": "raw/zenodo-11903722/README.txt",
       "crosswalks": [
         {
@@ -66,7 +66,7 @@
       "url": "https://zenodo.org/records/13910696",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "candidate_model_input"],
       "local_metadata": "raw/zenodo-13910696/README.txt",
       "adapters": [
         {
@@ -91,7 +91,7 @@
       "url": "https://zenodo.org/records/10077040",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "has_locations", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "has_locations", "candidate_model_input"],
       "local_metadata": "raw/zenodo-10077040/README.txt",
       "adapters": [
         {
@@ -129,7 +129,7 @@
       "url": "https://zenodo.org/records/7060430",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "has_effort", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "has_effort", "candidate_model_input"],
       "local_metadata": "raw/zenodo-7060430/README.txt",
       "adapters": [
         {
@@ -173,7 +173,7 @@
       "url": "https://zenodo.org/records/7457732",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_events", "has_locations", "has_entity_hierarchy", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_events", "has_locations", "has_entity_hierarchy", "candidate_model_input"],
       "local_metadata": "raw/zenodo-7457732/README.txt",
       "hierarchy": {
         "path": "raw/zenodo-7457732/entity_names.csv",
@@ -226,7 +226,7 @@
       "url": "https://zenodo.org/records/18646715",
       "publisher": "Nature Conservation Foundation",
       "license": "CC-BY-4.0",
-      "capabilities": ["inspectable", "mappable", "has_measurements", "eligible_as_model_input"],
+      "capabilities": ["inspectable", "mappable", "has_measurements", "candidate_model_input"],
       "local_metadata": "raw/zenodo-18646715/README.txt",
       "adapters": [
         {

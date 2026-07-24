@@ -34,12 +34,28 @@ class ValparaiVisualIndexTest(unittest.TestCase):
         report = json.loads((self.output / "build_report.json").read_text())
         self.assertEqual(report["integrity"], "ok")
         self.assertEqual(report["sources"], 7)
-        self.assertGreater(report["events"], 13_000)
-        self.assertGreater(report["georeferenced_events"], 13_000)
+        self.assertEqual(report["events"], 13_592)
+        self.assertEqual(report["georeferenced_events"], 13_577)
         self.assertEqual(report["effort_rows"], 229)
         self.assertEqual(report["measurements"], 580)
         self.assertGreaterEqual(report["ready_views"], 8)
         self.assertLess(self.elapsed, 3.0)
+
+    def test_duplicate_upstream_keys_do_not_drop_source_rows(self):
+        expected = {
+            "zenodo-7008315": 3741,
+            "zenodo-11903722": 879,
+            "zenodo-13910696": 638,
+            "zenodo-10077040": 3684,
+            "zenodo-7060430": 2473,
+            "zenodo-7457732": 2177,
+        }
+        actual = dict(
+            self.db.execute(
+                "SELECT source_id,COUNT(*) FROM events GROUP BY source_id"
+            ).fetchall()
+        )
+        self.assertEqual(actual, expected)
 
     def test_common_and_scientific_names_resolve_to_one_entity(self):
         row = self.db.execute(

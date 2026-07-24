@@ -31,8 +31,8 @@ python3 -m unittest dss.visual_index.tests.test_build -v
 
 The current build indexes:
 
-- 13,578 source-linked events;
-- 13,563 georeferenced events;
+- 13,592 source-linked events;
+- 13,577 georeferenced events;
 - 543 resolved or retained broad entities and 1,039 aliases;
 - 29 named/source locations;
 - 229 explicit effort rows;
@@ -58,5 +58,15 @@ mapping is blocked because there is no versioned uncertainty surface or action-c
   rather than being discarded or described as target observations.
 - The available long metric series is suitable for time visuals. Event counts by year are coverage
   visuals, not population trends.
+- 4,552 georeferenced event rows are outside the target envelope; 9,025 are inside it.
+- Twenty-five opportunistic effort rows have no matching route geometry. They remain explicit
+  effort records but cannot appear in a cell-level effort map.
+- Fifteen event rows have no usable coordinates. They remain queryable through source and time
+  fields instead of being dropped.
+- Upstream natural keys are reused in 14 rows. Stable event ids therefore include the immutable
+  source-row locator as well as the source's identifier.
+- The 2024 source metadata describes a name crosswalk that is absent from the local source subset.
+  Those common names resolve only when an earlier admitted crosswalk matches; other labels remain
+  unresolved rather than being guessed.
 
 See [`raw/README.md`](raw/README.md) for source attribution and licence details.

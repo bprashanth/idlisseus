@@ -410,7 +410,9 @@ class Builder:
             date_value = row.get(spec.get("date", "")) or spec.get("date_value")
             event_date, year, month = _date_parts(date_value)
             original_id = _row_id(row, spec.get("record_id"), row_number)
-            event_id = _stable("evt", source_id, original_id)
+            # Upstream "unique" keys are not always unique. Retain the immutable source-row
+            # locator so duplicate natural keys never silently replace evidence.
+            event_id = _stable("evt", source_id, original_id, row_number)
             event_type = str(row.get(spec.get("event_type", "")) or spec.get("event_type_value") or "event")
             status = str(row.get(spec.get("status", "")) or "present").lower()
             self.sql.execute(
