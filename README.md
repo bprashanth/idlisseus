@@ -48,6 +48,7 @@ see [`REPLICATION.md`](REPLICATION.md) for what to download to reproduce this.
 
 | Doc | What's in it |
 |-----|-------------|
+| [`docs/IDLI_INSIGHT_MODEL_COMPOSITION.md`](docs/IDLI_INSIGHT_MODEL_COMPOSITION.md) | **Start here for Idli Insight** — live Codex CLI + 9B composition, request path, model responsibilities, isolation, and invariants |
 | [`docs/access.md`](docs/access.md) | **Team access** — invite users, network flow, cloudflared |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System architecture, model inventory, next steps |
 | [`models/index.md`](models/index.md) | All models — specs, memory, start/stop |
