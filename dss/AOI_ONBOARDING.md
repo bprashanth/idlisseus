@@ -58,7 +58,8 @@ and onboarding work is not tied to a model choice.
 An onboarded organisation should inherit one generic staged interaction:
 
 ```text
-local evidence -> wider evidence -> raw map -> transfer gate/model -> confirmation design
+local evidence -> bounded wider evidence -> observed data-coverage map
+               -> transfer gate/model -> confirmation design
 ```
 
 This is a capability graph. It must not contain elephant-, snake- or organisation-specific dialogue
@@ -73,15 +74,19 @@ The interaction layer distinguishes:
   search, create a visual, run a model or stop; and
 - a **DataRequest**, where evidence, a valid gate or a required model is genuinely unavailable.
 
-Cheap local evidence may run before asking a question when it produces an immediate finding. Wider
-retrieval, modelling and map generation remain separate choices unless the user explicitly requests
-the complete workflow. A failed or empty retrieval cannot expose downstream map/model actions.
+Cheap local evidence may run before asking a question when it produces an immediate finding. An
+empty exact-site retrieval may expose a bounded scope-expansion choice; it must not expose transfer
+as though donor data already existed. Once wider coordinates return, they are independently useful:
+map those exact points and the target AOI even if every later model gate fails. Wider retrieval,
+modelling and target-map generation remain separate choices unless the user explicitly requests the
+complete workflow.
 
 The portable profile therefore also needs:
 
 - a declared default local-first stage and allowed scope-expansion regions;
 - connector capability metadata sufficient to derive the next valid operations;
 - stable result handles and a session-bound action state;
+- immutable hashes for result snapshots used by later maps or scientific execution;
 - labels for observed, reported, proxy, modelled and designed outputs; and
 - a destination and explicit authorization policy for missing-model requests.
 
@@ -104,11 +109,12 @@ The overview should disclose when the only geometry is an analysis bbox and no p
 has been registered. It ends with generic topic choices derived from available capabilities rather
 than a site-specific dialogue script.
 
-A hybrid planner may use a knowledge model for clearly labelled background and a local Algebra
-model for the data plan. In that arm the original question and permitted skill catalogue are
-controller-owned, plan steps receive stable ids, and only exact plan-bound skill calls execute.
-Replanning consumes audited prior outcomes and is bounded; it does not alter this onboarding
-profile or the frozen scientific Algebra.
+A hybrid runtime may use a knowledge model for clearly labelled background and a local Algebra
+model for the scientific expression. In the current thin-runtime arm, the outer model owns the
+question, retrieval, scope expansion and corrective action. Algebra receives the scientific
+question plus named evidence snapshots; trusted code only validates the IR, binds matching leaves
+to those immutable results and executes gates. This does not alter the onboarding profile or the
+frozen scientific Algebra, and other planner/controller benchmark arms remain comparable.
 
 ## Step 0 — Resolve the AOI to precise geometry
 **Do:** take the user's indication (place name, Plus Code, a pin, a boundary file) and resolve it to
@@ -177,7 +183,7 @@ on the host must not silently change paths from the container/profile corpus to 
 ## Step 5 — Per question: route the answer (transfer / bridge / answer)
 **Do:** `gate` the AOI vs available data (AlphaEarth NN-analog + WorldClim MESS), then `route` →
 **overlap** (use observed), **transfer_rf** (AlphaEarth-analog), **sdm_climate** (climate-analog,
-cross-ecoregion within envelope), or **refuse→collect**. When direct data is scarce, **bridge** via
+cross-ecoregion within envelope), or **refuse→show donor data / widen / collect**. When direct data is scarce, **bridge** via
 the abundant dataset + known ecology. Match method to question type; NEVER force species modelling on
 human-use questions; NEVER return empty.
 **EBTL:** dry-Deccan Lantana → EBTL = valid climate transfer; wet-Valparai → EBTL = refuse. Birds →
@@ -199,13 +205,16 @@ answer prose:
 - dataset inspection followed by source-backed protocols and blank datasheets;
 - two-entity proximity/overlap calculations with both denominators and a declared threshold;
 - independently gated estimates;
+- an observed data-coverage map built from immutable occurrence/survey result handles, with the
+  target AOI outlined and no connector rerun;
 - a self-contained field map with matching GeoJSON/CSV and stable point ids;
 - a precise spatial data request when a gate fails;
 - a structured missing-model request with response variable, predictors, labels, spatial extent and
   validation target;
 - an optional shareable report/dashboard assembled from the same audited results.
 
-Maps must distinguish observed records, modelled surfaces and designed collection points. If only
+Maps must distinguish observed records, modelled surfaces and designed collection points. A failed
+transfer does not invalidate the observed donor-point map. If only
 one supported entity remains, a one-entity collection design is useful, but it must not be labelled
 two-entity overlap. A dashboard/report is a presentation of audited results, not a new evidence
 source.
@@ -225,6 +234,12 @@ weather predictor with greenness, or treat a live interaction-index row as a sit
 When a source is unavailable, preserve the estimand and return the same-query retry, auditable
 cache, or a spatial collection design. This source-invariance policy belongs to the reusable
 profile, not a species-specific skill.
+
+For dangerous or inaccessible taxa, “collect local data” must not be the only fallback. The
+portable default is: identify each source-reported taxon, search progressively wider trusted
+sources, map where records actually exist, test transfer species by species, and retain every gate
+failure. Any combined staff-safety view is model-informed caution, never a declaration that an area
+is safe.
 
 ---
 

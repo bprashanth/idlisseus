@@ -1,6 +1,6 @@
 # Idli Insight: audited ecology answers in Odysseus
 
-Last updated: 2026-07-23  
+Last updated: 2026-07-24
 Baseline commit: `471f811b61ec81732714eeaa13484a0241188bc8`
 
 ## Purpose
@@ -31,6 +31,10 @@ which preserves conversational context without putting internal commands into th
 The route also sends an `idlisseus_context` object containing the authenticated owner and session
 id. Attachments are resolved through Odysseus's owner-aware upload resolver before their paths are
 sent to the bridge. Missing or unauthorized uploads are omitted.
+
+The bridge strips Idlisseus's injected date/time transport block before ecology routing and local
+semantic queries. This prevents calendar words from selecting an unrelated evidence partition;
+the raw request remains available in the server audit.
 
 Relevant implementation:
 
@@ -71,7 +75,7 @@ validated `ESTIMATE` answers or a map contains an admitted modelled surface. A f
 produces balanced collection points is labelled `Designed`.
 
 Broad site orientation, local-registry lookup, accumulated-dashboard publication, historical-fire
-exposure and vegetation-greenness trend are deterministic capability routes. The controller starts
+exposure and vegetation-greenness trend are deterministic capability routes. The runtime starts
 these immediately and streams their skill state before Codex writes the short explanation. Fire
 and greenness remain labelled historical/remote-sensing proxies with their geometry and time
 limits. This reduces time to first useful result without letting the dialogue model choose an
@@ -90,7 +94,7 @@ the complete workflow. The Codex model selects and explains the current scientif
 deterministic capability graph derives only the operations that are valid after its audited skill
 result.
 
-A modelled-map choice is an ordered exception: the controller requires donor occurrence retrieval,
+A modelled-map choice is an ordered exception: the trusted runtime requires donor occurrence retrieval,
 then Algebra 9B compilation, then the map renderer. Calls made out of order are rejected.
 For an explicit free-text map request, the controller also checks completion: if Codex finishes a
 valid estimate but omits the renderer call, it renders the map from the latest admitted taxon and
@@ -100,8 +104,8 @@ For example:
 
 ```text
 local evidence
-  -> wider admitted occurrences
-  -> raw observations-only map OR environmental transfer test
+  -> bounded wider admitted occurrences
+  -> immutable observed-data coverage map OR environmental transfer test
   -> modelled field map or failed-gate confirmation design
 ```
 
@@ -111,8 +115,9 @@ the pending session state, binds the stored entity/region arguments, and limits 
 to the authorized skill set. An unrelated typed message invalidates the old pending actions.
 
 This is a capability graph, not a species script. Species, AOI, donor region and result handles are
-carried from audited skill inputs and outputs. Failed or empty occurrence retrievals never offer a
-map or transfer. Discovery results are offered for inspection only when their returned title
+carried from audited skill inputs and outputs. An empty exact-site occurrence retrieval can offer a
+bounded wider search, but not transfer. Once coordinates return, the exact result handles can be
+mapped even if every later gate fails. Discovery results are offered for inspection only when their returned title
 matches a focal query term; a repository search hit alone is not evidence.
 
 The raw-map branch calls `build-ecology-field-map` with `map_mode: observed`. It does not invoke an
@@ -121,6 +126,11 @@ estimator or create synthetic field points. The map exports every returned obser
 remains a separate user-selected operation. If the intended occurrence source fails and no
 source-identified cache is admitted, the map does not switch connectors: it returns stable
 `FIELD-...` points labelled `Designed`.
+
+The preferred wider-data visual is `map-evidence-coverage`. It reads one or more immutable
+current-session result handles, accepts several taxa/sources, outlines and marks the target AOI,
+and never reruns a connector or estimator. Its colour-coded points remain observations; stable
+`OBS-*` ids are retained in the table, CSV and GeoJSON.
 
 Pending action state and a bounded investigation history are stored with the resumable bridge
 session. The scientific Algebra remains unchanged: typed holes still cover missing values, while
@@ -198,10 +208,13 @@ T4GC request skill described above:
   self-contained HTML map plus matching CSV and GeoJSON field points. A failed fine-scale model
   produces a labelled spatial sampling design; it does not draw invented overlap. Its separate
   observations-only mode maps returned records without running a gate or estimator.
+- `map-evidence-coverage` renders georeferenced rows from current-session result handles exactly as
+  returned, together with the target AOI. It is the default “where does data exist?” map and
+  remains useful after a failed transfer.
 - `discover-biotic-interactions` queries source-linked GloBI interaction rows for a named source
   taxon and optional target/relation. It supplies evidence-derived candidates and retained source
   identifiers; it never asserts that the indexed interaction occurs at the site.
-- `publish-evidence-dashboard` accepts only current-session result handles. The controller derives
+- `publish-evidence-dashboard` accepts only current-session result handles. The runtime derives
   its cards, row-count visuals, map links and gap list. It cannot accept model-authored metrics,
   claims or HTML.
 
@@ -228,6 +241,14 @@ model hypothesis -> admitted query result -> retrieved data -> independent gates
                  -> estimate or precise DataRequest -> answer + audit -> field map
 ```
 
+For scientific execution, outer Codex supplies one short question and the exact evidence-result
+handles. Algebra 9B emits only frozen IR. Trusted code validates its symbols, binds an `ESTIMATE`
+donor `SELECT` to the exact extent of the explicitly selected occurrence snapshot, and executes
+from those immutable rows without rerunning the connector. The extent binding and snapshot hash
+remain in the audit. Codex—not this runtime—chooses whether to widen, retry, map or ask the user.
+The legacy direct transfer binding remains only for frozen benchmark reproducibility and is
+rejected in interactive chat.
+
 For relation questions, “admitted query result” means one returned source that directly connects
 the candidate, focal entity and requested relation. A general paper naming the candidate may seed a
 new `candidate + focal entity + relation` search, but it is not enough to send that candidate into
@@ -237,7 +258,7 @@ the map may show a one-taxon balanced collection design and must say it is not t
 Spatial overlap remains a confirmation hypothesis. It is not evidence of dispersal, avoidance,
 shared habitat or simultaneous presence.
 
-The bridge currently reports 23 visible skills: the frozen 12 plus 11 operational skills. The
+The bridge currently reports 24 visible skills: the frozen 12 plus 12 operational skills. The
 current multi-turn operational bank is in Totalrecall at
 `ecology_memory/narrative/benchmarks/site-ecology-dialogue/`. It scores the Codex-outer +
 Algebra-9B compiler architecture directly; the 9B is not a post-hoc verifier.
