@@ -1,5 +1,10 @@
 # DSS — the decision-support / data layer (meta layer above the agent)
 
+Future visual-ready AOI data work starts at
+[`../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md). The first
+maintained feasibility site pack is [`sites/valparai/`](sites/valparai/), with the generic
+dependency-light builder in [`visual_index/`](visual_index/).
+
 This directory documents the **system around** the Hermes agent + chatbot: how we take a new
 user's Area of Interest (AOI), build up its data, and decide how to answer questions when the data
 is thin. It is deliberately OUTSIDE `benchmarks/` — the benchmark measures whether it works; this

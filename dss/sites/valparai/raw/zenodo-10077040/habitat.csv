@@ -1,0 +1,957 @@
+"Year","verbatimLocality","Fragment","Point","0-1m","1-2m","2-4m","4-8m","8-16m","16-24m","24-32m","over32m","VertStrata","CanopyHeight","CanopyOpenness","CanopyCover","CanopyOverlap","UC","MC","CC","Altitude","RfShrub","Coffee","Maesopsis","Strobilanthes","TotalShrub","Liana","Cane","Lantana","Bamboo","LeafLitter","CutTrees"
+2000,"Puthuthotam","Puthuthottam",1,1,1,1,1,0,1,0,0,5,19.5,7,93.00,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",0,"Absent","Absent","NA","Absent",4.5,0
+2000,"Puthuthotam","Puthuthottam",2,1,1,1,1,1,1,0,0,6,22,11,89.00,"NA","NA","NA","NA",1090,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",4,0
+2000,"Puthuthotam","Puthuthottam",3,1,1,1,1,0,0,1,0,5,27,4,96.00,"NA","NA","NA","NA",1200,"NA","NA","NA","NA",4,"Absent","Absent","NA","Absent",7,1
+2000,"Puthuthotam","Puthuthottam",4,1,1,1,0,1,1,0,0,5,23,12,88.00,"NA","NA","NA","NA",1200,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",3,2
+2000,"Puthuthotam","Puthuthottam",5,1,1,1,1,1,0,0,0,5,12,15,85.00,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",4,"Absent","Absent","NA","Absent",1,1
+2000,"Puthuthotam","Puthuthottam",6,1,1,1,1,1,0,0,0,5,12,11,89.00,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",2,0
+2000,"Puthuthotam","Puthuthottam",7,1,1,0,1,0,0,1,1,5,33,8,92.00,"NA","NA","NA","NA",1160,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",8,1,0,0,1,0,1,1,0,4,24,12,88.00,"NA","NA","NA","NA",1160,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",7,1
+2000,"Puthuthotam","Puthuthottam",9,1,1,1,1,0,0,1,0,5,20,5,95.00,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",13,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",10,1,0,1,1,1,1,1,0,6,28,2,98.00,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",11,1,0,0,1,1,0,1,0,4,30,21,79.00,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",2.5,1
+2000,"Puthuthotam","Puthuthottam",12,1,1,1,1,0,0,1,0,5,30,6,94.00,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",7,0
+2000,"Puthuthotam","Puthuthottam",13,1,1,1,1,1,1,1,1,8,35,11,89.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",14,1,1,1,1,0,0,0,0,4,9,4,96.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",6,0
+2000,"Puthuthotam","Puthuthottam",15,1,1,1,1,0,0,0,0,4,8,19,81.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",3,"Absent","Absent","NA","Absent",8,0
+2000,"Puthuthotam","Puthuthottam",16,1,1,1,1,1,0,0,0,5,9,4,96.00,"NA","NA","NA","NA",1130,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",17,1,1,1,1,1,1,1,0,7,28,10,90.00,"NA","NA","NA","NA",1130,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",2,0
+2000,"Puthuthotam","Puthuthottam",18,1,1,1,1,0,1,1,1,7,34,8,92.00,"NA","NA","NA","NA",1130,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",2.5,0
+2000,"Puthuthotam","Puthuthottam",19,1,1,1,1,1,0,0,0,5,7,11,89.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3,0
+2000,"Puthuthotam","Puthuthottam",20,1,1,1,0,0,0,1,1,5,32,28,72.00,"NA","NA","NA","NA",1130,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",3.5,0
+2000,"Puthuthotam","Puthuthottam",21,1,1,1,1,1,0,0,0,5,10,8,92.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",2,0
+2000,"Puthuthotam","Puthuthottam",22,1,1,1,1,1,0,0,1,6,35,9,91.00,"NA","NA","NA","NA",1140,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",3,2
+2000,"Puthuthotam","Puthuthottam",23,1,1,1,0,0,0,1,0,4,25,10,90.00,"NA","NA","NA","NA",1160,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",2,0
+2000,"Puthuthotam","Puthuthottam",24,1,1,0,1,0,0,1,0,4,27,21,79.00,"NA","NA","NA","NA",1160,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",2.5,0
+2000,"Puthuthotam","Puthuthottam",25,1,1,0,1,0,0,1,0,4,28,18,82.00,"NA","NA","NA","NA",1160,"NA","NA","NA","NA",17,"Absent","Absent","NA","Absent",1,0
+2000,"Tata Finley","Old Valparai",1,1,1,1,1,0,1,1,1,7,37.5,0,100.00,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",21,"Absent","Absent","NA","Absent",5.5,0
+2000,"Tata Finley","Old Valparai",2,1,1,1,0,0,1,1,1,6,39,1,99.00,"NA","NA","NA","NA",1010,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",7.5,1
+2000,"Tata Finley","Old Valparai",3,1,1,1,1,0,0,1,1,6,30.5,1,99.00,"NA","NA","NA","NA",1010,"NA","NA","NA","NA",17,"Present","Absent","NA","Absent",8,0
+2000,"Tata Finley","Old Valparai",4,1,1,1,1,0,0,1,1,6,45,0,100.00,"NA","NA","NA","NA",1010,"NA","NA","NA","NA",19,"Absent","Absent","NA","Absent",6.5,1
+2000,"Tata Finley","Old Valparai",5,1,1,1,1,0,0,1,1,6,43,2,98.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",3,0
+2000,"Tata Finley","Old Valparai",6,1,0,0,0,0,1,1,0,3,28,7,93.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",2,"Absent","Absent","NA","Absent",5,0
+2000,"Tata Finley","Old Valparai",7,1,1,1,1,0,0,0,0,4,7.5,20,80.00,"NA","NA","NA","NA",1025,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",2.5,0
+2000,"Tata Finley","Old Valparai",8,1,1,1,0,0,1,0,1,5,41,7,93.00,"NA","NA","NA","NA",1025,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",2,1
+2000,"Tata Finley","Old Valparai",9,1,1,1,1,1,1,1,1,8,39,0,100.00,"NA","NA","NA","NA",1025,"NA","NA","NA","NA",10,"Present","Absent","NA","Absent",10,0
+2000,"Tata Finley","Old Valparai",10,1,1,1,0,1,1,0,0,5,22,3,97.00,"NA","NA","NA","NA",1025,"NA","NA","NA","NA",17,"Absent","Absent","NA","Absent",5.5,0
+2000,"Tata Finley","Old Valparai",11,0,1,1,1,0,0,1,1,5,32,1,99.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",10.5,0
+2000,"Tata Finley","Old Valparai",12,0,1,1,1,0,0,1,0,4,29,0,100.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",3,1
+2000,"Tata Finley","Old Valparai",13,1,1,1,0,1,1,1,1,7,38,0,100.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",4.5,2
+2000,"Tata Finley","Old Valparai",14,1,1,1,0,1,1,0,0,5,21,7,93.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",2,2
+2000,"Tata Finley","Old Valparai",15,1,0,1,1,0,0,1,1,5,38,4,96.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",5,1
+2000,"Tata Finley","Old Valparai",16,1,1,1,0,1,0,0,0,4,8.5,25,75.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",4,0
+2000,"Tata Finley","Old Valparai",17,1,1,1,0,0,1,1,0,5,27,0,100.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",5,"Present","Absent","NA","Absent",4,2
+2000,"Tata Finley","Old Valparai",18,1,0,0,1,0,1,1,0,4,28,0,100.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",6,"Absent","Present","NA","Absent",5,2
+2000,"Tata Finley","Old Valparai",19,1,1,1,0,0,1,1,0,5,29,5,95.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",3,1
+2000,"Tata Finley","Old Valparai",20,1,1,1,1,0,0,1,0,5,25,1,99.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",4,0
+2000,"Tata Finley","Old Valparai",21,1,0,1,1,0,1,1,0,5,32,2,98.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",5.5,0
+2000,"Tata Finley","Old Valparai",22,1,1,0,1,0,1,1,1,6,43.5,5,95.00,"NA","NA","NA","NA",1015,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",4.5,0
+2000,"Tata Finley","Old Valparai",23,0,0,1,1,0,1,1,0,4,28.5,0,100.00,"NA","NA","NA","NA",1015,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",3,3
+2000,"Tata Finley","Old Valparai",24,1,1,1,0,1,1,1,1,7,33,1,99.00,"NA","NA","NA","NA",1015,"NA","NA","NA","NA",14,"Absent","Absent","NA","Absent",2.5,1
+2000,"Tata Finley","Old Valparai",25,1,0,1,1,1,0,1,1,6,38,0,100.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",18,"Absent","Absent","NA","Absent",5,0
+2000,"Varattuparai","Varattuparai 1-3",1,1,1,1,1,1,0,0,0,5,8.5,17,83.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",13,"Present","Present","NA","Absent",3.5,1
+2000,"Varattuparai","Varattuparai 1-3",2,1,1,1,0,0,0,1,1,5,48.5,3,97.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",11,"Present","Present","NA","Absent",3,1
+2000,"Varattuparai","Varattuparai 1-3",3,1,1,1,1,1,0,0,0,5,14.5,9,91.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",3,0
+2000,"Varattuparai","Varattuparai 1-3",4,1,1,1,1,1,1,1,0,7,25.5,0,100.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",16,"Present","Absent","NA","Absent",6,0
+2000,"Varattuparai","Varattuparai 1-3",5,1,1,1,1,1,0,0,0,5,14.5,3,97.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",10,"Present","Present","NA","Absent",4.5,0
+2000,"Varattuparai","Varattuparai 1-3",6,1,1,1,1,0,0,0,0,4,8,3,97.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",13,"Present","Present","NA","Absent",6,2
+2000,"Varattuparai","Varattuparai 1-3",7,1,1,1,1,1,0,0,0,5,18.5,0,100.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",21,"Present","Absent","NA","Absent",4.5,0
+2000,"Varattuparai","Varattuparai 1-3",8,1,1,1,1,0,0,0,0,4,7,2,98.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",17,"Present","Absent","NA","Absent",3.5,1
+2000,"Varattuparai","Varattuparai 1-3",9,1,1,1,1,0,0,0,0,4,7.5,3,97.00,"NA","NA","NA","NA",1015,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",4,0
+2000,"Varattuparai","Varattuparai 1-3",10,1,1,1,1,1,0,0,0,5,9,3,97.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",13,"Present","Present","NA","Absent",3.5,1
+2000,"Varattuparai","Varattuparai 1-3",11,1,1,1,0,1,0,0,0,4,9,12,88.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",11,"Present","Present","NA","Absent",3,1
+2000,"Varattuparai","Varattuparai 1-3",12,1,1,1,1,0,0,0,0,4,7,10,90.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",3,0
+2000,"Varattuparai","Varattuparai 1-3",13,1,0,0,0,1,0,0,0,2,15.5,9,91.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",16,"Present","Absent","NA","Absent",6,0
+2000,"Varattuparai","Varattuparai 1-3",14,1,0,1,1,0,1,0,0,4,19,2,98.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",10,"Present","Present","NA","Absent",4.5,0
+2000,"Varattuparai","Varattuparai 1-3",15,1,0,0,1,0,0,0,0,2,6,2,98.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",13,"Present","Present","NA","Absent",6,2
+2000,"Varattuparai","Varattuparai 1-3",16,1,0,1,1,0,0,0,0,3,7,3,97.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",21,"Present","Absent","NA","Absent",4.5,0
+2000,"Varattuparai","Varattuparai 1-3",17,1,1,1,1,0,0,0,0,4,6,0,100.00,"NA","NA","NA","NA",1010,"NA","NA","NA","NA",17,"Present","Absent","NA","Absent",3.5,1
+2000,"Varattuparai","Varattuparai 1-3",18,1,1,1,1,1,1,1,0,7,25,4,96.00,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",4,0
+2000,"Varattuparai","Varattuparai 1-3",19,1,1,1,0,1,1,0,0,5,20,3,97.00,"NA","NA","NA","NA",980,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",3.5,2
+2000,"Varattuparai","Varattuparai 1-3",20,1,1,1,1,1,1,1,0,7,26.5,1,99.00,"NA","NA","NA","NA",1010,"NA","NA","NA","NA",9,"Present","Present","NA","Absent",4,1
+2000,"Varattuparai","Varattuparai 1-3",21,1,1,1,1,1,1,0,0,6,17.5,0,100.00,"NA","NA","NA","NA",1005,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",3.5,0
+2000,"Varattuparai","Varattuparai 1-3",22,1,0,0,1,0,0,1,0,3,29,0,100.00,"NA","NA","NA","NA",1005,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3,2
+2000,"Varattuparai","Varattuparai 1-3",23,1,0,1,1,1,1,0,0,5,26,1,99.00,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",7,"Present","Absent","NA","Absent",4.5,2
+2000,"Varattuparai","Varattuparai 1-3",24,1,0,1,1,1,1,0,0,5,19,0,100.00,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",14,"Absent","Absent","NA","Absent",3,0
+2000,"Varattuparai","Varattuparai 1-3",25,1,1,1,1,1,0,0,1,6,41,2,98.00,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",6,"Absent","Present","NA","Absent",2.5,0
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",1,1,1,1,1,1,0,0,0,5,16.5,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",3.5,2
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",2,0,0,1,0,1,1,0,0,3,22,0,100.00,"NA","NA","NA","NA",1235,"NA","NA","NA","NA",7,"Present","Absent","NA","Absent",10.5,2
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",3,1,1,0,0,1,1,0,0,4,28,1,99.00,"NA","NA","NA","NA",1245,"NA","NA","NA","NA",3,"Absent","Absent","NA","Absent",5.5,0
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",4,1,1,1,1,1,1,0,0,6,23,0,100.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",6,0
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",5,1,1,1,0,1,1,1,0,6,27,0,100.00,"NA","NA","NA","NA",1310,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",5.5,0
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",6,1,1,1,1,0,1,1,1,7,42,0,100.00,"NA","NA","NA","NA",1285,"NA","NA","NA","NA",15,"Absent","Present","NA","Absent",13.5,1
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",7,1,1,1,1,1,1,1,1,8,33,0,100.00,"NA","NA","NA","NA",1305,"NA","NA","NA","NA",15,"Absent","Present","NA","Absent",6.5,0
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",8,1,1,0,1,1,1,0,0,5,18.5,2,98.00,"NA","NA","NA","NA",1305,"NA","NA","NA","NA",12,"Present","Absent","NA","Absent",7,1
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",9,1,1,1,1,1,1,0,0,6,28,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",7,"Present","Present","NA","Absent",5,1
+2000,"36th Hairpin Bend","Iyerpadi Akkamalai",10,1,1,1,1,1,1,1,1,8,37,2,98.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",9,"Present","Absent","NA","Present",10,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",1,1,1,1,1,1,1,1,0,7,28,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",9,"Absent","Present","NA","Absent",10,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",2,1,1,0,1,0,1,0,0,4,21,2,98.00,"NA","NA","NA","NA",1315,"NA","NA","NA","NA",13,"Present","Present","NA","Absent",6.5,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",3,1,1,1,1,1,1,0,0,6,24,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",10,"Present","Present","NA","Absent",7.5,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",4,1,1,1,0,1,1,1,0,6,28.5,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",9,"Present","Present","NA","Absent",9.5,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",5,1,1,1,1,0,1,1,0,6,25.5,0,100.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",8,"Present","Present","NA","Absent",5,1
+2000,"Iyerpadi","Iyerpadi Akkamalai",6,1,1,0,1,0,0,0,0,3,15,3,97.00,"NA","NA","NA","NA",1315,"NA","NA","NA","NA",7,"Present","Absent","NA","Absent",4.5,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",7,1,0,0,1,0,1,1,0,4,20,0,100.00,"NA","NA","NA","NA",1310,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",6,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",8,1,0,1,1,1,0,0,0,4,31,0,100.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",13,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",9,0,1,1,1,0,1,1,1,6,31,0,100.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",6,0
+2000,"Iyerpadi","Iyerpadi Akkamalai",10,1,1,1,1,0,0,0,0,4,22,2,98.00,"NA","NA","NA","NA",1310,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",5.5,0
+2000,"Akkamalai","Iyerpadi Akkamalai",1,1,1,1,1,1,1,0,0,6,20,2,98.00,"NA","NA","NA","NA",1600,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",6,1
+2000,"Akkamalai","Iyerpadi Akkamalai",2,0,0,0,1,1,1,0,0,3,17.5,7,93.00,"NA","NA","NA","NA",1600,"NA","NA","NA","NA",12,"Present","Absent","NA","Absent",6.5,0
+2000,"Akkamalai","Iyerpadi Akkamalai",3,1,1,1,1,1,1,0,0,6,17.5,6,94.00,"NA","NA","NA","NA",1620,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",8,1
+2000,"Akkamalai","Iyerpadi Akkamalai",4,1,0,0,0,1,0,0,0,2,15.5,9,91.00,"NA","NA","NA","NA",1640,"NA","NA","NA","NA",12,"Absent","Absent","NA","Absent",5.5,1
+2000,"Akkamalai","Iyerpadi Akkamalai",5,1,1,0,1,1,1,0,0,5,23,9,91.00,"NA","NA","NA","NA",1640,"NA","NA","NA","NA",19,"Present","Absent","NA","Absent",8,1
+2000,"Akkamalai","Iyerpadi Akkamalai",6,1,0,0,1,1,0,0,0,3,11,8,92.00,"NA","NA","NA","NA",1640,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",5.5,1
+2000,"Akkamalai","Iyerpadi Akkamalai",7,1,1,0,1,1,0,0,0,4,15,3,97.00,"NA","NA","NA","NA",1590,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",3.5,0
+2000,"Akkamalai","Iyerpadi Akkamalai",8,1,1,1,1,1,0,0,0,5,12.5,4,96.00,"NA","NA","NA","NA",1580,"NA","NA","NA","NA",5,"Present","Present","NA","Absent",5.5,2
+2000,"Akkamalai","Iyerpadi Akkamalai",9,1,1,0,1,1,0,0,0,4,14,6,94.00,"NA","NA","NA","NA",1560,"NA","NA","NA","NA",8,"Absent","Present","NA","Absent",7,0
+2000,"Akkamalai","Iyerpadi Akkamalai",10,1,1,0,1,1,0,0,0,4,12.5,3,97.00,"NA","NA","NA","NA",1560,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",4.5,1
+2000,"Manamboli","Manamboli",1,1,1,0,0,1,1,0,0,4,20.5,7,93.00,"NA","NA","NA","NA",780,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",4,0
+2000,"Manamboli","Manamboli",2,1,0,0,1,1,1,0,0,4,23,10,90.00,"NA","NA","NA","NA",770,"NA","NA","NA","NA",6,"Absent","Present","NA","Absent",7.5,0
+2000,"Manamboli","Manamboli",3,1,1,0,0,0,1,0,0,3,13.5,38,62.00,"NA","NA","NA","NA",770,"NA","NA","NA","NA",11,"Present","Present","NA","Absent",5.5,3
+2000,"Manamboli","Manamboli",4,1,0,0,1,1,1,1,0,5,28,2,98.00,"NA","NA","NA","NA",760,"NA","NA","NA","NA",14,"Absent","Present","NA","Absent",8.5,0
+2000,"Manamboli","Manamboli",5,1,0,0,0,1,0,1,0,3,26,2,98.00,"NA","NA","NA","NA",780,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",4.5,0
+2000,"Manamboli","Manamboli",6,1,1,1,0,0,1,0,0,4,19,3,97.00,"NA","NA","NA","NA",800,"NA","NA","NA","NA",17,"Absent","Absent","NA","Absent",7,2
+2000,"Manamboli","Manamboli",7,1,1,1,1,1,1,1,0,7,31,2,98.00,"NA","NA","NA","NA",780,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",4,0
+2000,"Manamboli","Manamboli",8,0,0,0,1,1,0,1,1,4,32,1,99.00,"NA","NA","NA","NA",780,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",3.5,0
+2000,"Manamboli","Manamboli",9,0,1,1,0,1,1,0,0,4,20.5,1,99.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",8,"Present","Present","NA","Absent",3.5,0
+2000,"Manamboli","Manamboli",10,1,1,1,1,1,1,0,0,6,20.5,3,97.00,"NA","NA","NA","NA",820,"NA","NA","NA","NA",25,"Present","Absent","NA","Absent",6,0
+2000,"Manamboli","Manamboli",11,1,0,0,1,1,1,0,0,4,22,3,97.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",7.5,0
+2000,"Manamboli","Manamboli",12,1,1,0,0,0,0,1,1,4,23,4,96.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",5,"Present","Absent","NA","Absent",3,0
+2000,"Manamboli","Manamboli",13,1,1,1,1,1,1,1,0,7,28,5,95.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",18,"Present","Absent","NA","Absent",5,0
+2000,"Manamboli","Manamboli",14,1,1,1,1,1,0,0,0,5,15,2,98.00,"NA","NA","NA","NA",815,"NA","NA","NA","NA",20,"Absent","Absent","NA","Absent",15,0
+2000,"Manamboli","Manamboli",15,1,1,0,0,1,0,0,0,3,15,6,94.00,"NA","NA","NA","NA",815,"NA","NA","NA","NA",15,"Present","Absent","NA","Absent",6,0
+2000,"Manamboli","Manamboli",16,1,1,1,1,1,1,0,0,6,23,3,97.00,"NA","NA","NA","NA",815,"NA","NA","NA","NA",13,"Present","Absent","NA","Absent",8.5,0
+2000,"Manamboli","Manamboli",17,1,1,0,0,1,1,0,0,4,24,7,93.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",8,"Present","Absent","NA","Absent",11,1
+2000,"Manamboli","Manamboli",18,1,1,1,0,1,1,1,1,7,32,3,97.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",4.5,1
+2000,"Manamboli","Manamboli",19,1,1,1,1,1,0,1,1,7,31,6,94.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",13,"Present","Absent","NA","Absent",9,1
+2000,"Manamboli","Manamboli",20,1,1,1,0,1,1,1,1,7,32,2,98.00,"NA","NA","NA","NA",800,"NA","NA","NA","NA",20,"Absent","Present","NA","Absent",6.5,0
+2000,"Manamboli","Manamboli",21,1,1,1,1,1,1,1,0,7,25,3,97.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",12,"Absent","Present","NA","Absent",1.5,0
+2000,"Manamboli","Manamboli",22,1,1,0,0,1,1,1,1,6,31,3,97.00,"NA","NA","NA","NA",810,"NA","NA","NA","NA",8,"Absent","Absent","NA","Present",12,0
+2000,"Manamboli","Manamboli",23,1,1,0,1,1,1,1,0,6,28,3,97.00,"NA","NA","NA","NA",910,"NA","NA","NA","NA",7,"Present","Absent","NA","Present",9,1
+2000,"Manamboli","Manamboli",24,1,1,1,1,1,1,0,0,6,23.5,1,99.00,"NA","NA","NA","NA",910,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",7.5,2
+2000,"Manamboli","Manamboli",25,1,1,0,1,0,0,1,0,4,27,6,94.00,"NA","NA","NA","NA",920,"NA","NA","NA","NA",4,"Present","Absent","NA","Absent",6,2
+2000,"Selaliparai-1","Selaliparai 1",1,1,1,0,1,1,1,0,0,5,18.5,37,63.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",11,"Present","Present","NA","Absent",6.5,0
+2000,"Selaliparai-1","Selaliparai 1",2,1,0,0,1,1,0,0,0,3,11.5,42,58.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",7,"Present","Present","NA","Absent",6,0
+2000,"Selaliparai-1","Selaliparai 1",3,1,1,1,1,0,0,0,0,4,13,17,83.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",10,"Present","Present","NA","Absent",3.5,2
+2000,"Selaliparai-1","Selaliparai 1",4,1,0,0,1,1,0,0,0,3,15,21,79.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",5.5,1
+2000,"Selaliparai-1","Selaliparai 1",5,1,1,0,0,0,1,1,0,4,27,11,89.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",5,"Present","Present","NA","Absent",6.5,0
+2000,"Selaliparai-1","Selaliparai 1",6,1,1,0,0,0,1,0,0,3,21.5,12,88.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",8,"Present","Absent","NA","Absent",4.5,1
+2000,"Selaliparai-1","Selaliparai 1",7,1,1,0,0,0,0,0,0,2,20.5,29,71.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",3.5,2
+2000,"Selaliparai-1","Selaliparai 1",8,1,1,1,0,1,1,0,0,5,19,6,94.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",15,"Present","Present","NA","Absent",5,1
+2000,"Selaliparai-1","Selaliparai 1",9,1,1,1,0,0,1,1,0,5,24.5,14,86.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",14,"Present","Present","NA","Absent",5,1
+2000,"Selaliparai-1","Selaliparai 1",10,1,1,0,0,1,0,0,0,3,22.5,15,85.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",7,"Present","Present","NA","Absent",6,1
+2000,"Selaliparai-2","Selaliparai 2",1,1,1,1,0,1,0,0,0,4,16,33,67.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",6.5,0
+2000,"Selaliparai-2","Selaliparai 2",2,1,1,0,0,1,0,0,0,3,11,31,69.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",8.5,0
+2000,"Selaliparai-2","Selaliparai 2",3,1,1,0,0,0,1,0,0,3,19,17,83.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",4,2
+2000,"Selaliparai-2","Selaliparai 2",4,1,0,1,0,0,1,0,0,3,18.5,31,69.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",6,1
+2000,"Selaliparai-2","Selaliparai 2",5,1,1,1,1,1,1,0,0,6,18,2,98.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",4,"Present","Absent","NA","Absent",9.5,1
+2000,"Selaliparai-2","Selaliparai 2",6,1,1,0,0,1,1,0,0,4,17.5,5,95.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",2.5,4
+2000,"Selaliparai-2","Selaliparai 2",7,1,1,0,1,1,1,1,0,6,18,3,97.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",2,1
+2000,"Selaliparai-2","Selaliparai 2",8,1,1,0,1,1,1,0,0,5,19.5,6,94.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",3,0
+2000,"Selaliparai-2","Selaliparai 2",9,1,1,1,1,1,1,0,0,6,23,2,98.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",5.5,0
+2000,"Selaliparai-2","Selaliparai 2",10,1,1,0,0,1,0,0,0,3,17.5,5,95.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",4.5,0
+2000,"Varattuparai-4","Varattuparai 4",1,1,1,0,1,0,0,0,0,3,6,17,83.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",5.5,1
+2000,"Varattuparai-4","Varattuparai 4",2,1,1,0,1,1,1,0,0,5,17,23,77.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",2.5,0
+2000,"Varattuparai-4","Varattuparai 4",3,1,1,1,1,0,1,1,0,6,27,21,79.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",8,"Present","Absent","NA","Absent",3,0
+2000,"Varattuparai-4","Varattuparai 4",4,1,1,0,1,1,0,0,0,4,19.5,14,86.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",2,0
+2000,"Varattuparai-4","Varattuparai 4",5,1,1,1,1,1,0,1,0,6,29.5,15,85.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",4,"Present","Absent","NA","Absent",2,2
+2000,"Varattuparai-4","Varattuparai 4",6,1,1,0,1,1,1,0,0,5,17.5,26,74.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",8,"Present","Absent","NA","Absent",2.5,1
+2000,"Varattuparai-4","Varattuparai 4",7,1,0,1,0,0,0,0,0,2,17,15,85.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",6,"Present","Present","NA","Absent",3,1
+2000,"Varattuparai-4","Varattuparai 4",8,1,1,1,0,0,1,0,0,4,19.5,22,78.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",7,"Present","Absent","NA","Absent",3.5,0
+2000,"Varattuparai-4","Varattuparai 4",9,1,1,1,0,1,0,0,0,4,13.5,42,58.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",2.5,3
+2000,"Varattuparai-4","Varattuparai 4",10,1,1,1,1,0,0,0,0,4,11,24,76.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",4,"Present","Absent","NA","Absent",4,0
+2000,"Pannimedu","Pannimade",1,1,1,1,1,1,1,1,0,7,27,5,95.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",43,"Present","Absent","NA","Absent",2.5,3
+2000,"Pannimedu","Pannimade",2,1,1,1,0,0,1,1,0,5,29,4,96.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",57,"Present","Absent","NA","Absent",3,0
+2000,"Pannimedu","Pannimade",3,1,1,1,0,1,1,1,1,7,32,4,96.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",62,"Present","Absent","NA","Absent",2.5,1
+2000,"Pannimedu","Pannimade",4,1,1,1,0,1,1,0,1,6,38,4,96.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",52,"Present","Absent","NA","Absent",2.5,0
+2000,"Pannimedu","Pannimade",5,1,1,1,0,1,1,1,0,6,27,6,94.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",18,"Present","Absent","NA","Absent",3.5,3
+2000,"Pannimedu","Pannimade",6,1,1,1,0,0,1,1,0,5,26,7,93.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",36,"Present","Absent","NA","Absent",3,4
+2000,"Pannimedu","Pannimade",7,1,1,1,1,0,0,0,0,4,7,11,89.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",55,"Present","Absent","NA","Absent",4,2
+2000,"Pannimedu","Pannimade",8,1,1,0,1,1,0,0,0,4,10,8,92.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",27,"Present","Absent","NA","Absent",2,3
+2000,"Pannimedu","Pannimade",9,1,1,1,1,1,0,0,0,5,13.5,8,92.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",56,"Present","Present","NA","Absent",3,0
+2000,"Pannimedu","Pannimade",10,1,1,1,0,1,1,0,0,5,20,4,96.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",36,"Present","Absent","NA","Absent",2.5,1
+2000,"Pannimedu","Pannimade",11,1,1,1,1,1,0,0,0,5,14,7,93.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",24,"Present","Absent","NA","Absent",2.5,0
+2000,"Pannimedu","Pannimade",12,1,1,1,1,1,0,0,0,5,13.25,8,92.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",36,"Present","Absent","NA","Absent",3,0
+2000,"Pannimedu","Pannimade",13,1,0,1,1,1,0,0,0,4,12,11,89.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",24,"Present","Absent","NA","Absent",3,0
+2000,"Pannimedu","Pannimade",14,1,1,1,1,1,0,0,0,5,11.5,5,95.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",32,"Present","Absent","NA","Absent",3.5,0
+2000,"Pannimedu","Pannimade",15,1,1,1,1,1,1,0,0,6,20,10,90.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",4,0
+2000,"Pannimedu","Pannimade",16,1,1,1,1,1,1,1,0,7,25,8,92.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",13,"Present","Absent","NA","Absent",4.5,0
+2000,"Pannimedu","Pannimade",17,1,1,1,1,1,1,1,1,8,32,5,95.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",33,"Present","Absent","NA","Absent",3.5,0
+2000,"Pannimedu","Pannimade",18,1,1,1,1,1,1,1,0,7,29,6,94.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",21,"Present","Absent","NA","Absent",2.5,1
+2000,"Pannimedu","Pannimade",19,1,1,1,1,0,1,1,0,6,27,5,95.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",15,"Present","Absent","NA","Absent",3.5,1
+2000,"Pannimedu","Pannimade",20,1,1,1,1,1,1,1,0,7,27,3,97.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",33,"Present","Absent","NA","Absent",3,2
+2000,"Pannimedu","Pannimade",21,1,1,1,0,0,1,1,1,6,32,6,94.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",32,"Present","Absent","NA","Absent",4.5,2
+2000,"Pannimedu","Pannimade",22,1,1,0,1,0,0,1,0,4,28,7,93.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",52,"Present","Absent","NA","Absent",3.5,3
+2000,"Pannimedu","Pannimade",23,1,1,1,1,1,0,0,0,5,15,18,82.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",22,"Present","Absent","NA","Absent",1.5,1
+2000,"Pannimedu","Pannimade",24,1,1,1,1,0,0,1,1,6,32,19,81.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",28,"Present","Absent","NA","Absent",2.5,0
+2000,"Pannimedu","Pannimade",25,1,1,1,0,1,0,0,0,4,13.5,9,91.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",38,"Present","Absent","NA","Absent",2.5,3
+2000,"Kurangumudi","Korangumudi",1,1,1,0,0,0,0,1,0,3,28,46,54.00,"NA","NA","NA","NA",1080,"NA","NA","NA","NA",4,"Absent","Absent","NA","Absent",3,0
+2000,"Kurangumudi","Korangumudi",2,1,1,0,0,0,1,1,0,4,29,51,49.00,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",3.5,0
+2000,"Kurangumudi","Korangumudi",3,1,1,1,1,0,0,0,0,4,8,25,75.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",3,0
+2000,"Kurangumudi","Korangumudi",4,1,0,0,0,1,1,1,0,4,25,24,76.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",3,"Absent","Absent","NA","Absent",2,1
+2000,"Kurangumudi","Korangumudi",5,1,0,0,0,1,1,1,0,4,29,10,90.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",3.5,2
+2000,"Kurangumudi","Korangumudi",6,1,0,0,0,0,1,1,0,3,30,41,59.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",4,"Absent","Absent","NA","Absent",1.5,0
+2000,"Kurangumudi","Korangumudi",7,1,1,0,0,1,0,0,0,3,14.5,43,57.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3,3
+2000,"Kurangumudi","Korangumudi",8,1,1,0,1,0,0,0,0,3,12,29,71.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",2.5,2
+2000,"Kurangumudi","Korangumudi",9,1,1,0,1,1,0,0,0,4,10,27,73.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",17,"Absent","Absent","NA","Absent",1.5,0
+2000,"Kurangumudi","Korangumudi",10,1,1,0,1,1,0,0,1,5,33,54,46.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",3,"Absent","Absent","NA","Absent",2,0
+2000,"Kurangumudi","Korangumudi",11,1,1,0,0,0,0,0,0,2,2,59,41.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",2.5,0
+2000,"Kurangumudi","Korangumudi",12,1,0,1,0,0,0,0,1,3,40,26,74.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",3,0
+2000,"Kurangumudi","Korangumudi",13,1,0,0,0,1,0,1,0,3,29,13,87.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",10,"Absent","Absent","NA","Absent",3.5,0
+2000,"Kurangumudi","Korangumudi",14,1,0,0,0,1,1,1,0,4,28,8,92.00,"NA","NA","NA","NA",1030,"NA","NA","NA","NA",1,"Absent","Absent","NA","Absent",6,0
+2000,"Kurangumudi","Korangumudi",15,1,0,0,0,1,0,1,0,3,19,22,78.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",6,"Absent","Absent","NA","Absent",4,0
+2000,"Kurangumudi","Korangumudi",16,1,1,0,1,1,0,1,0,5,31,19,81.00,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",75,"Absent","Absent","NA","Absent",2.5,0
+2000,"Kurangumudi","Korangumudi",17,1,0,0,1,1,0,0,0,3,14,13,87.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",2.5,3
+2000,"Kurangumudi","Korangumudi",18,1,0,0,0,1,1,1,0,4,31,22,78.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",2.5,0
+2000,"Kurangumudi","Korangumudi",19,1,1,0,0,0,0,0,0,2,2,65,35.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",13,"Absent","Absent","NA","Absent",6.5,0
+2000,"Kurangumudi","Korangumudi",20,1,1,1,1,1,0,0,0,5,15,38,62.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",30,"Absent","Absent","NA","Absent",2.5,0
+2000,"Kurangumudi","Korangumudi",21,1,0,1,1,1,0,0,0,4,15,31,69.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",3.5,1
+2000,"Kurangumudi","Korangumudi",22,1,0,0,1,0,0,0,0,2,8,51,49.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",9,"Absent","Absent","NA","Absent",2,1
+2000,"Kurangumudi","Korangumudi",23,1,0,0,0,0,1,1,0,3,30,27,73.00,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",14,"Absent","Absent","NA","Absent",2,0
+2000,"Kurangumudi","Korangumudi",24,1,0,0,0,0,1,0,0,2,19.5,18,82.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",2,"Absent","Absent","NA","Absent",1.5,1
+2000,"Kurangumudi","Korangumudi",25,1,0,0,0,1,0,0,0,2,16.5,32,68.00,"NA","NA","NA","NA",1020,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",2.5,2
+2000,"Andiparai","Andiparai",1,1,1,0,1,0,1,0,0,4,19,9,91.00,"NA","NA","NA","NA",1280,"NA","NA","NA","NA",28,"Present","Absent","NA","Absent",2.5,1
+2000,"Andiparai","Andiparai",2,1,0,0,1,0,1,0,0,3,18.5,6,94.00,"NA","NA","NA","NA",1280,"NA","NA","NA","NA",31,"Absent","Absent","NA","Absent",4,4
+2000,"Andiparai","Andiparai",3,1,1,1,1,1,1,0,0,6,18,9,91.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",47,"Present","Absent","NA","Absent",3.5,2
+2000,"Andiparai","Andiparai",4,1,1,1,1,1,0,0,0,5,9,4,96.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",48,"Absent","Absent","NA","Present",5.5,2
+2000,"Andiparai","Andiparai",5,1,1,1,1,0,0,0,0,4,8,11,89.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",22,"Present","Absent","NA","Absent",2.5,4
+2000,"Andiparai","Andiparai",6,1,1,1,1,1,1,0,0,6,17.5,4,96.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",43,"Present","Present","NA","Absent",5.5,1
+2000,"Andiparai","Andiparai",7,1,1,1,1,1,1,0,0,6,18,4,96.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",58,"Absent","Present","NA","Absent",5.5,2
+2000,"Andiparai","Andiparai",8,1,0,0,1,0,0,0,0,2,6,2,98.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",31,"Present","Absent","NA","Absent",2,1
+2000,"Andiparai","Andiparai",9,1,1,1,1,1,1,0,0,6,21,6,94.00,"NA","NA","NA","NA",1290,"NA","NA","NA","NA",33,"Absent","Absent","NA","Absent",3,0
+2000,"Andiparai","Andiparai",10,1,1,0,0,1,1,1,0,5,27,3,97.00,"NA","NA","NA","NA",1290,"NA","NA","NA","NA",13,"Absent","Absent","NA","Absent",4,2
+2000,"Andiparai","Andiparai",11,1,1,0,1,0,1,0,0,4,22,7,93.00,"NA","NA","NA","NA",1310,"NA","NA","NA","NA",27,"Absent","Present","NA","Absent",4,3
+2000,"Andiparai","Andiparai",12,1,1,1,0,0,0,1,1,5,32,6,94.00,"NA","NA","NA","NA",1320,"NA","NA","NA","NA",43,"Absent","Absent","NA","Absent",4.5,2
+2000,"Andiparai","Andiparai",13,1,1,0,1,1,0,0,0,4,13,7,93.00,"NA","NA","NA","NA",1280,"NA","NA","NA","NA",34,"Present","Present","NA","Absent",3.5,0
+2000,"Andiparai","Andiparai",14,1,1,0,1,1,0,0,0,4,9.5,1,99.00,"NA","NA","NA","NA",1270,"NA","NA","NA","NA",39,"Present","Present","NA","Present",3,0
+2000,"Andiparai","Andiparai",15,1,1,1,1,0,1,1,0,6,27,6,94.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",29,"Present","Present","NA","Absent",3.5,1
+2000,"Andiparai","Andiparai",16,1,1,1,1,1,0,1,1,7,31,3,97.00,"NA","NA","NA","NA",1280,"NA","NA","NA","NA",31,"Present","Present","NA","Absent",4.5,1
+2000,"Andiparai","Andiparai",17,1,1,1,1,1,0,1,0,6,25,2,98.00,"NA","NA","NA","NA",1270,"NA","NA","NA","NA",27,"Present","Present","NA","Absent",4.5,0
+2000,"Andiparai","Andiparai",18,1,1,1,0,0,0,1,1,5,35,0,100.00,"NA","NA","NA","NA",1260,"NA","NA","NA","NA",13,"Present","Absent","NA","Present",7,1
+2000,"Andiparai","Andiparai",19,1,1,0,1,1,1,0,0,5,30,0,100.00,"NA","NA","NA","NA",1260,"NA","NA","NA","NA",8,"Present","Absent","NA","Absent",11.5,0
+2000,"Andiparai","Andiparai",20,1,1,1,0,1,1,1,0,6,29,0,100.00,"NA","NA","NA","NA",1270,"NA","NA","NA","NA",5,"Absent","Absent","NA","Absent",9,2
+2000,"Andiparai","Andiparai",21,1,1,0,0,1,1,1,0,5,25,2,98.00,"NA","NA","NA","NA",1280,"NA","NA","NA","NA",14,"Present","Absent","NA","Absent",7,1
+2000,"Andiparai","Andiparai",22,1,1,0,0,1,1,1,0,5,31,0,100.00,"NA","NA","NA","NA",1290,"NA","NA","NA","NA",8,"Absent","Absent","NA","Absent",11.5,1
+2000,"Andiparai","Andiparai",23,1,1,0,0,1,1,0,0,4,21,0,100.00,"NA","NA","NA","NA",1300,"NA","NA","NA","NA",9,"Present","Absent","NA","Absent",6,4
+2000,"Andiparai","Andiparai",24,1,0,0,0,0,0,1,1,3,41,0,100.00,"NA","NA","NA","NA",1340,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",5,0
+2000,"Andiparai","Andiparai",25,0,0,1,1,1,1,1,0,5,33,2,98.00,"NA","NA","NA","NA",1340,"NA","NA","NA","NA",10,"Absent","Absent","NA","Present",6,2
+2000,"Varagaliar","Varagaliar",1,1,1,0,1,1,1,1,0,6,28,6,94.00,"NA","NA","NA","NA",720,"NA","NA","NA","NA",10,"Present","Absent","NA","Present",2,0
+2000,"Varagaliar","Varagaliar",2,1,1,1,1,1,1,0,0,6,22,4,96.00,"NA","NA","NA","NA",740,"NA","NA","NA","NA",12,"Present","Absent","NA","Absent",2,5
+2000,"Varagaliar","Varagaliar",3,1,0,0,1,1,1,1,0,5,27,7,93.00,"NA","NA","NA","NA",730,"NA","NA","NA","NA",12,"Absent","Absent","NA","Present",2,0
+2000,"Varagaliar","Varagaliar",4,1,0,1,0,1,1,1,1,6,34,4,96.00,"NA","NA","NA","NA",730,"NA","NA","NA","NA",40,"Present","Present","NA","Absent",3,1
+2000,"Varagaliar","Varagaliar",5,0,1,1,0,1,1,0,0,4,18,1,99.00,"NA","NA","NA","NA",740,"NA","NA","NA","NA",11,"Absent","Present","NA","Absent",2,5
+2000,"Varagaliar","Varagaliar",6,0,0,1,1,1,1,0,0,4,24,3.5,96.50,"NA","NA","NA","NA",730,"NA","NA","NA","NA",14,"Absent","Present","NA","Absent",1.5,1
+2000,"Varagaliar","Varagaliar",7,1,0,1,1,1,1,0,0,5,24,2.5,97.50,"NA","NA","NA","NA",740,"NA","NA","NA","NA",16,"Absent","Present","NA","Absent",2.5,0
+2000,"Varagaliar","Varagaliar",8,0,1,1,1,1,1,1,0,6,26,2,98.00,"NA","NA","NA","NA",730,"NA","NA","NA","NA",16,"Present","Present","NA","Present",1.5,1
+2000,"Varagaliar","Varagaliar",9,1,1,0,0,1,1,1,1,6,35,18,82.00,"NA","NA","NA","NA",640,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",5,0
+2000,"Varagaliar","Varagaliar",10,1,1,1,0,0,1,1,0,5,28,13.5,86.50,"NA","NA","NA","NA",645,"NA","NA","NA","NA",11,"Present","Absent","NA","Absent",8,0
+2000,"Varagaliar","Varagaliar",11,1,0,1,1,0,1,1,1,6,38,7.5,92.50,"NA","NA","NA","NA",650,"NA","NA","NA","NA",27,"Present","Absent","NA","Absent",5.5,2
+2000,"Varagaliar","Varagaliar",12,1,1,1,1,1,1,0,1,7,47,4,96.00,"NA","NA","NA","NA",650,"NA","NA","NA","NA",31,"Present","Absent","NA","Absent",3.5,0
+2000,"Varagaliar","Varagaliar",13,1,1,1,0,0,0,1,1,5,37,5.5,94.50,"NA","NA","NA","NA",650,"NA","NA","NA","NA",7,"Absent","Absent","NA","Absent",2.5,0
+2000,"Varagaliar","Varagaliar",14,1,1,1,1,1,1,0,0,6,20,6,94.00,"NA","NA","NA","NA",670,"NA","NA","NA","NA",22,"Absent","Absent","NA","Absent",5,0
+2000,"Varagaliar","Varagaliar",15,1,1,0,1,1,1,1,0,6,31,4,96.00,"NA","NA","NA","NA",670,"NA","NA","NA","NA",23,"Absent","Absent","NA","Absent",4,0
+2000,"Varagaliar","Varagaliar",16,1,0,0,1,1,1,1,0,5,27,6,94.00,"NA","NA","NA","NA",680,"NA","NA","NA","NA",15,"Absent","Present","NA","Absent",4,0
+2000,"Varagaliar","Varagaliar",17,1,1,0,1,1,1,1,1,7,38,2,98.00,"NA","NA","NA","NA",670,"NA","NA","NA","NA",22,"Present","Absent","NA","Absent",4.5,0
+2000,"Varagaliar","Varagaliar",18,1,1,1,1,1,1,0,0,6,22,7.5,92.50,"NA","NA","NA","NA",640,"NA","NA","NA","NA",10,"Absent","Absent","NA","Absent",3.5,1
+2000,"Varagaliar","Varagaliar",19,0,0,0,1,1,1,0,0,3,24,5,95.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",5,0
+2000,"Varagaliar","Varagaliar",20,1,0,0,1,1,1,1,1,6,34,5,95.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",18,"Present","Present","NA","Absent",4,3
+2000,"Varagaliar","Varagaliar",21,1,0,0,0,1,1,0,0,3,20,4,96.00,"NA","NA","NA","NA",650,"NA","NA","NA","NA",12,"Present","Present","NA","Absent",3.5,0
+2000,"Varagaliar","Varagaliar",22,1,0,1,1,1,1,1,0,6,28,4,96.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",14,"Present","Present","NA","Absent",4.5,3
+2000,"Varagaliar","Varagaliar",23,0,0,1,1,1,1,1,1,6,34,4,96.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",4,"Present","Absent","NA","Absent",3,5
+2000,"Varagaliar","Varagaliar",24,0,1,1,1,1,1,1,0,6,24,3,97.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",20,"Present","Absent","NA","Absent",4,3
+2000,"Varagaliar","Varagaliar",25,1,0,1,1,1,1,0,0,5,24,4,96.00,"NA","NA","NA","NA",660,"NA","NA","NA","NA",6,"Present","Absent","NA","Absent",5,0
+2000,"Karian Shola","Karian Shola",1,1,1,1,1,0,1,1,0,6,30,1.5,98.50,"NA","NA","NA","NA",740,"NA","NA","NA","NA",62,"Present","Absent","NA","Absent",3,0
+2000,"Karian Shola","Karian Shola",2,1,1,0,1,1,1,0,0,5,22,3,97.00,"NA","NA","NA","NA",755,"NA","NA","NA","NA",33,"Present","Present","NA","Present",2,0
+2000,"Karian Shola","Karian Shola",3,1,0,0,0,1,1,0,0,3,20,4,96.00,"NA","NA","NA","NA",760,"NA","NA","NA","NA",13,"Present","Absent","NA","Absent",1.5,1
+2000,"Karian Shola","Karian Shola",4,1,1,1,1,1,1,1,0,7,30,2,98.00,"NA","NA","NA","NA",770,"NA","NA","NA","NA",26,"Present","Present","NA","Present",6,3
+2000,"Karian Shola","Karian Shola",5,0,0,1,1,1,1,1,0,5,28,2,98.00,"NA","NA","NA","NA",775,"NA","NA","NA","NA",13,"Absent","Present","NA","Absent",3,0
+2000,"Karian Shola","Karian Shola",6,1,0,1,1,1,1,1,0,6,30,2.5,97.50,"NA","NA","NA","NA",780,"NA","NA","NA","NA",20,"Present","Present","NA","Absent",2.5,2
+2000,"Karian Shola","Karian Shola",7,0,0,1,0,0,1,1,0,3,26,2,98.00,"NA","NA","NA","NA",780,"NA","NA","NA","NA",14,"Present","Absent","NA","Absent",4,1
+2000,"Karian Shola","Karian Shola",8,0,1,0,1,1,1,1,0,5,25,1.5,98.50,"NA","NA","NA","NA",780,"NA","NA","NA","NA",33,"Absent","Absent","NA","Absent",1.5,0
+2000,"Karian Shola","Karian Shola",9,1,0,1,1,0,1,1,0,5,26,1.5,98.50,"NA","NA","NA","NA",780,"NA","NA","NA","NA",26,"Present","Absent","NA","Absent",2.5,0
+2000,"Karian Shola","Karian Shola",10,1,0,1,1,1,1,1,0,6,25,1,99.00,"NA","NA","NA","NA",795,"NA","NA","NA","NA",25,"Absent","Absent","NA","Absent",6,1
+2000,"Karian Shola","Karian Shola",11,1,1,1,1,1,1,1,0,7,26,0.5,99.50,"NA","NA","NA","NA",805,"NA","NA","NA","NA",24,"Absent","Absent","NA","Absent",4,0
+2000,"Karian Shola","Karian Shola",12,1,1,0,1,1,1,1,0,6,28,1.5,98.50,"NA","NA","NA","NA",820,"NA","NA","NA","NA",23,"Present","Absent","NA","Absent",3.5,0
+2000,"Karian Shola","Karian Shola",13,1,0,0,1,1,1,1,0,5,26,1,99.00,"NA","NA","NA","NA",820,"NA","NA","NA","NA",30,"Absent","Absent","NA","Absent",2.5,0
+2000,"Karian Shola","Karian Shola",14,1,1,1,1,1,1,1,0,7,32,1.5,98.50,"NA","NA","NA","NA",835,"NA","NA","NA","NA",36,"Present","Absent","NA","Absent",3.5,0
+2000,"Karian Shola","Karian Shola",15,1,0,1,1,1,1,0,0,5,32,1,99.00,"NA","NA","NA","NA",770,"NA","NA","NA","NA",17,"Present","Absent","NA","Absent",6,0
+2000,"Karian Shola","Karian Shola",16,1,1,1,0,1,1,0,0,5,26,2,98.00,"NA","NA","NA","NA",840,"NA","NA","NA","NA",40,"Absent","Absent","NA","Absent",2.5,0
+2000,"Karian Shola","Karian Shola",17,0,0,1,1,1,1,1,0,5,23,2,98.00,"NA","NA","NA","NA",835,"NA","NA","NA","NA",20,"Absent","Absent","NA","Absent",7,0
+2000,"Karian Shola","Karian Shola",18,0,1,1,1,0,0,1,0,4,24,1,99.00,"NA","NA","NA","NA",840,"NA","NA","NA","NA",26,"Present","Absent","NA","Absent",4,0
+2000,"Karian Shola","Karian Shola",19,0,0,1,1,1,1,1,0,5,30,1,99.00,"NA","NA","NA","NA",835,"NA","NA","NA","NA",5,"Present","Absent","NA","Absent",3,0
+2000,"Karian Shola","Karian Shola",20,1,0,1,0,1,1,1,0,5,28,2,98.00,"NA","NA","NA","NA",840,"NA","NA","NA","NA",10,"Absent","Absent","NA","Absent",5,0
+2000,"Karian Shola","Karian Shola",21,1,1,1,1,1,1,1,0,7,26,2.5,97.50,"NA","NA","NA","NA",840,"NA","NA","NA","NA",36,"Absent","Absent","NA","Absent",2,0
+2000,"Karian Shola","Karian Shola",22,0,0,1,0,1,1,0,0,3,20,1.5,98.50,"NA","NA","NA","NA",840,"NA","NA","NA","NA",15,"Present","Absent","NA","Absent",4,0
+2000,"Karian Shola","Karian Shola",23,1,1,1,0,0,0,1,1,5,34,1,99.00,"NA","NA","NA","NA",850,"NA","NA","NA","NA",23,"Absent","Absent","NA","Absent",5,0
+2000,"Karian Shola","Karian Shola",24,0,0,1,1,1,1,1,0,5,28,2.5,97.50,"NA","NA","NA","NA",845,"NA","NA","NA","NA",11,"Absent","Absent","NA","Absent",3.5,0
+2000,"Karian Shola","Karian Shola",25,0,0,0,0,1,1,1,0,3,30,3,97.00,"NA","NA","NA","NA",850,"NA","NA","NA","NA",15,"Absent","Absent","NA","Absent",5,0
+2005,"Puduthottam","Puthuthottam",1,1,1,1,1,1,1,0,0,6,20,0,100.00,1,1,4,1,1080,21,5,9,0,35,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",2,1,1,1,0,1,1,1,0,6,40,0,100.00,3,1,4,4,1075,11,7,3,0,21,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",3,1,1,1,1,1,1,1,1,8,45,0,100.00,1,4,4,4,1080,22,11,1,0,34,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",4,1,1,1,1,0,1,0,1,6,40,1,99.00,3,1,4,2,1060,15,0,0,0,15,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",5,1,0,1,1,1,1,1,0,6,30,0,100.00,3,1,3,4,1065,22,0,1,0,23,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",6,1,1,0,1,1,1,0,0,5,18,0,100.00,3,1,4,2,1065,26,0,1,0,27,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",7,1,1,1,0,1,1,1,1,7,35,0,100.00,1,3,4,2,1080,34,3,1,0,38,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",8,1,0,0,0,1,1,0,0,3,17,0,100.00,3,1,4,4,1080,7,7,2,0,16,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",9,1,1,0,1,1,0,0,0,4,11.5,0,100.00,1,1,4,1,1100,15,10,0,0,25,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",10,1,0,0,1,1,0,0,0,3,35,0,100.00,1,1,4,1,1080,20,0,0,0,20,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",11,1,1,1,0,0,1,1,0,5,25,3.5,96.50,2,4,1,2,1160,29,3,2,0,34,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",12,1,0,1,1,0,1,0,0,4,20,0,100.00,2,2,4,2,1160,8,1,0,0,9,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",13,1,1,0,1,1,0,0,0,4,10,1,99.00,1,4,4,2,1140,38,0,1,0,39,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",14,1,1,1,1,0,0,0,0,4,7,9,91.00,1,4,3,1,1150,7,18,0,0,25,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",15,1,1,1,1,1,0,0,0,5,36,0,100.00,2,4,4,2,1150,27,4,0,0,31,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",16,1,1,1,0,0,1,0,0,4,22,0,100.00,3,4,1,4,1150,2,51,1,0,54,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",17,1,1,1,1,1,0,0,0,5,22,0,100.00,4,4,2,4,1140,17,31,0,0,48,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",18,1,1,0,0,0,0,1,0,3,25,1.5,98.50,2,3,1,1,1140,22,2,0,0,24,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",19,1,1,1,1,0,0,0,0,4,27,0,100.00,2,4,4,2,1160,18,4,1,0,23,0,0,1,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",20,1,1,0,1,0,0,1,0,4,32,2,98.00,2,3,3,1,1160,19,2,0,0,21,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",21,1,1,0,1,0,0,1,0,4,30,0,100.00,2,1,4,1,1150,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",22,1,1,0,1,1,1,1,1,7,35,0,100.00,2,2,4,3,1180,19,3,0,0,22,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",23,1,1,1,1,1,1,0,0,6,22,0,100.00,2,3,4,2,1160,18,2,1,0,21,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",24,1,0,0,1,1,0,0,0,3,10,0,100.00,1,2,4,1,1120,11,2,0,0,13,0,0,0,"NA","NA","NA"
+2005,"Puduthottam","Puthuthottam",25,1,1,0,1,1,0,0,0,4,12,1.5,98.50,1,2,3,1,1120,7,0,8,0,15,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",1,1,1,1,1,1,1,0,0,6,20,1.5,98.50,1,1,2,1,1215,41,0,0,0,41,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",2,1,1,1,0,1,1,1,0,6,25,0,100.00,4,1,1,4,1215,40,0,0,0,40,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",3,1,1,0,1,1,1,1,1,7,37,0,100.00,4,2,2,4,1215,25,0,0,0,25,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",4,1,1,0,1,1,0,1,0,5,35,0.25,99.75,2,3,1,3,1215,30,0,0,0,30,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",5,1,1,1,0,0,0,0,1,4,48,0,100.00,4,1,1,4,1220,21,0,0,0,21,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",6,1,1,1,1,1,1,1,0,7,"NA",0,100.00,3,4,4,4,1220,14,0,0,0,14,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",7,1,0,0,1,1,0,1,0,4,26,0,100.00,3,1,4,4,1220,0,0,0,0,0,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",8,1,1,1,0,1,1,0,0,5,23,0,100.00,4,4,3,4,1220,15,0,0,0,15,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",9,1,1,0,1,1,1,0,0,5,25,0,100.00,3,1,3,3,1225,13,0,0,0,13,1,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",10,1,1,1,1,1,1,1,0,7,30,0,100.00,3,2,4,4,1220,14,0,0,0,14,1,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",11,1,1,1,1,1,1,1,0,7,30,0,100.00,3,4,4,3,1215,17,0,0,0,17,1,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",12,1,1,1,1,0,0,0,0,4,"NA",0,100.00,1,4,3,1,1220,11,0,0,0,11,1,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",13,1,1,1,1,1,1,1,1,8,35,0,100.00,4,3,4,3,1220,10,0,0,15,25,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",14,1,1,1,1,1,1,1,1,8,35,0,100.00,4,3,4,4,1280,10,0,0,0,10,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",15,1,1,1,1,0,1,0,0,5,21,0,100.00,3,4,3,4,1300,13,0,0,0,13,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",16,1,1,1,1,0,1,1,0,6,25,0,100.00,2,4,2,3,1310,22,0,0,0,22,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",17,1,1,1,1,1,1,0,0,6,24,0,100.00,4,3,4,4,1300,20,0,0,0,20,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",18,1,1,1,1,1,1,0,0,6,21,0,100.00,3,4,4,4,1280,16,0,0,0,16,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",19,1,0,0,1,1,1,1,0,5,"NA",0,100.00,3,2,4,4,1360,9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",20,1,0,1,1,1,1,0,0,5,18,0,100.00,3,3,4,3,1350,4,0,0,10,14,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",21,1,1,0,1,1,1,0,0,5,22,0,100.00,3,2,4,4,1315,9,0,0,0,9,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",22,1,1,0,0,1,1,1,0,5,25,0,100.00,3,3,2,4,1300,19,0,0,9,28,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",23,1,1,1,0,1,1,1,0,6,27,0,100.00,4,3,3,4,1240,19,0,0,0,19,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",24,1,1,1,1,1,1,1,0,7,30,0,100.00,3,3,4,4,1270,21,0,0,0,21,1,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",25,1,1,1,1,0,1,1,0,6,28,0,100.00,3,2,4,3,1220,16,0,0,0,16,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",26,1,1,0,1,1,1,1,1,7,35,0,100.00,4,4,3,4,1220,19,0,0,0,19,0,1,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",27,1,1,1,0,1,1,0,0,5,22,0,100.00,3,4,2,4,1250,45,0,0,0,45,0,0,0,"NA","NA","NA"
+2005,"36th Hairpin Bend","Iyerpadi Akkamalai",28,1,1,0,0,0,1,0,0,3,20,0,100.00,4,4,0,4,1240,26,0,0,0,26,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",1,1,1,1,0,1,1,0,0,5,22,0,100.00,3,3,2,4,1470,24,0,0,2,26,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",2,1,1,1,1,1,0,0,0,5,9,0,100.00,1,2,4,1,1440,11,0,0,3,14,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",3,1,1,1,1,1,0,0,0,5,15,1,99.00,2,3,4,2,1440,23,0,0,30,53,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",4,1,1,1,1,1,1,0,0,6,18,0,100.00,4,3,3,4,1460,17,0,0,3,20,1,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",5,1,0,0,1,0,1,1,0,4,26,0,100.00,4,1,4,4,1480,3,0,0,2,5,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",6,1,1,1,1,1,0,0,0,5,15,0,100.00,4,3,4,4,1520,24,0,0,6,30,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",7,1,1,1,1,1,0,0,0,5,15,0,100.00,4,4,3,4,1510,14,0,0,13,27,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",8,1,1,0,0,1,0,0,0,3,14,0,100.00,2,2,2,2,1500,16,0,0,5,21,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",9,1,1,0,1,1,0,0,0,4,9,0.25,99.75,2,3,3,1,1600,6,0,0,22,28,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",10,1,1,1,1,1,0,0,0,5,15,0,100.00,4,3,4,4,1600,12,0,0,14,26,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",11,1,1,1,0,1,1,0,0,5,17,0,100.00,3,3,3,4,1600,17,0,0,8,25,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",12,1,1,1,1,1,0,0,0,5,15,0,100.00,3,3,4,4,1590,11,0,0,2,13,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",13,1,1,1,1,1,0,0,0,5,15,0,100.00,3,3,3,4,1600,22,0,0,1,23,1,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",14,1,1,1,1,1,1,0,0,6,20,0,100.00,2,3,4,4,1600,17,0,0,15,32,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",15,1,1,1,1,1,0,0,0,5,11,0,100.00,3,2,4,4,1600,0,0,0,14,14,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",16,1,1,1,1,1,0,0,0,5,15,0,100.00,3,2,3,3,1580,2,0,0,19,21,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",17,1,1,1,0,1,1,0,0,5,18,0,100.00,3,4,2,4,1540,5,0,0,25,30,1,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",18,1,1,1,0,1,0,0,0,4,14,0,100.00,3,4,4,3,1550,13,0,0,17,30,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",19,1,1,1,1,1,0,0,0,5,13,0,100.00,2,4,3,4,1520,4,0,0,28,32,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",20,1,1,0,1,1,0,0,0,4,16,0,100.00,3,1,3,4,1620,20,0,0,0,20,0,1,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",21,1,0,0,1,1,0,0,0,3,10,0,100.00,1,1,4,1,1620,3,0,0,1,4,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",22,1,0,0,1,1,0,0,0,3,10,0,100.00,1,1,4,1,1600,2,0,0,0,2,0,0,0,"NA","NA","NA"
+2005,"Akkamalai","Iyerpadi Akkamalai",23,1,1,0,0,1,0,0,0,3,16,0.5,99.50,3,4,1,3,1570,25,0,0,10,35,0,1,0,"NA","NA","NA"
+2005,"Injipara","Injipara",1,1,1,0,1,1,0,0,0,4,13,1,99.00,3,2,4,3,1000,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",2,1,1,0,1,1,0,0,0,4,14,0,100.00,2,1,2,2,1000,13,0,0,0,13,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",3,1,1,0,0,1,0,0,0,3,16,0,100.00,3,3,1,4,990,23,0,0,0,23,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",4,1,1,1,1,1,0,0,0,5,13,0,100.00,2,2,4,3,970,27,0,0,0,27,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",5,1,1,1,0,1,0,0,0,4,16,0,100.00,2,3,1,2,970,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",6,1,1,1,1,1,0,0,0,5,15,0,100.00,2,4,4,3,970,20,0,0,0,20,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",7,1,0,1,0,1,0,0,0,3,15.5,0,100.00,3,3,1,4,"NA",12,0,0,0,12,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",8,1,1,1,1,1,0,0,0,5,15,0,100.00,2,4,4,3,970,18,0,0,0,18,1,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",9,1,1,1,0,1,0,0,0,4,13,0,100.00,1,4,3,1,970,20,0,0,0,20,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",10,1,1,1,1,1,1,0,0,6,20,0,100.00,3,4,1,4,970,30,0,0,0,30,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",11,1,1,0,0,1,1,1,0,5,27,"NA","NA",2,3,4,3,980,10,0,0,0,10,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",12,1,0,0,0,0,1,1,0,3,27,9.25,90.75,3,0,0,3,1020,0,0,0,0,0,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",13,1,0,1,0,1,0,0,0,3,14,0,100.00,4,1,1,4,1010,5,0,0,0,5,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",14,1,1,0,1,1,1,0,0,5,20,0,100.00,3,2,4,4,1000,14,2,0,0,16,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",15,1,0,1,1,1,0,0,0,4,14,1.5,98.50,2,1,3,0,1000,4,0,0,0,4,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",16,0,1,0,1,0,0,0,0,2,7,0,100.00,4,1,4,0,1000,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",17,1,0,0,0,1,1,0,0,3,17,0,100.00,2,0,0,2,1000,1,0,0,0,1,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",18,0,0,0,0,1,1,1,0,3,30,3.25,96.75,2,0,0,3,1000,0,0,0,0,0,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",19,1,0,0,0,0,0,0,1,2,37,2,98.00,2,0,0,3,1000,5,0,0,0,5,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",20,1,1,1,1,1,0,0,0,5,11,0,100.00,1,3,4,1,1000,15,0,0,0,15,0,0,1,"NA","NA","NA"
+2005,"Injipara","Injipara",21,1,0,0,1,0,0,0,0,2,7,0,100.00,1,2,4,1,1000,10,0,0,0,10,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",22,1,1,1,0,1,1,1,0,6,25,0,100.00,4,4,1,4,1000,12,0,15,0,27,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",23,1,1,1,1,1,1,1,1,8,35,0,100.00,2,3,4,4,1000,10,0,0,0,10,0,0,0,"NA","NA","NA"
+2005,"Injipara","Injipara",24,1,1,1,0,1,0,0,0,4,12,0,100.00,1,4,3,1,1000,16,2,0,0,18,0,0,1,"NA","NA","NA"
+2005,"Pannimade","Pannimade",1,1,0,1,1,1,1,1,0,6,"NA",0,100.00,3,2,4,4,1060,5,0,0,0,5,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",2,1,1,1,1,1,1,1,1,8,33,0,100.00,3,3,4,4,1020,13,0,0,0,13,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",3,1,1,1,1,0,0,0,1,5,47,0,100.00,3,3,3,3,1010,9,0,0,0,9,5,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",4,1,1,1,1,1,1,1,0,7,27,0,100.00,1,1,4,4,1010,5,0,0,0,5,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",5,1,1,0,1,1,0,0,0,4,30,0.25,99.75,1,1,3,2,1005,2,0,0,0,2,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",6,1,0,1,0,0,0,0,1,3,35,0,100.00,1,0,2,2,1000,0,0,0,0,0,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",7,1,0,0,0,1,1,0,0,3,25,0,100.00,3,1,1,4,990,5,0,0,0,5,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",8,1,1,1,1,1,1,0,0,6,19,0,100.00,2,1,4,4,990,3,0,0,0,3,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",9,1,1,1,1,1,1,1,1,8,33,0,100.00,2,3,4,4,980,8,0,0,0,8,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",10,1,1,1,1,1,0,0,0,5,19,0.25,99.75,1,4,3,1,1000,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",11,1,1,1,1,0,1,1,0,6,30,0,100.00,3,3,2,4,1030,22,0,0,0,22,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",12,0,1,0,1,1,0,0,0,3,14,0,100.00,1,1,4,1,1000,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",13,1,1,1,1,1,1,0,0,6,18,0,100.00,3,3,4,3,1020,19,0,0,0,19,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",14,1,1,1,1,1,1,1,1,8,35,0,100.00,2,1,3,4,1050,8,0,0,0,8,3,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",15,1,1,1,1,1,1,1,0,7,28,0,100.00,3,2,3,4,1040,10,0,0,0,10,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",16,1,1,1,1,0,1,1,1,7,35,0,100.00,2,4,3,3,1035,9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",17,1,1,1,1,1,0,0,0,5,15,0,100.00,3,1,4,3,1010,11,0,0,0,11,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",18,1,0,1,1,1,1,1,0,6,30,0,100.00,3,1,4,4,1000,11,0,0,0,11,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",19,1,1,1,1,1,1,1,0,7,27,0,100.00,3,3,4,4,1000,7,0,0,2,9,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",20,1,1,0,1,0,1,1,0,5,30,0,100.00,3,4,2,3,1000,10,0,0,0,10,2,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",21,1,0,1,1,1,0,0,0,4,25,0,100.00,2,1,4,3,1130,10,0,0,0,10,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",22,1,1,1,1,1,1,0,0,6,20,0,100.00,2,4,4,4,1120,14,0,0,0,14,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",23,1,1,1,1,1,1,0,0,6,18,0,100.00,2,2,4,2,1100,12,0,0,0,12,0,1,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",24,1,1,1,1,1,1,1,0,7,26,0,100.00,3,1,4,3,1100,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",25,1,1,1,1,1,0,0,0,5,15,0,100.00,3,2,4,3,1110,11,0,0,0,11,1,0,0,"NA","NA","NA"
+2005,"Pannimade","Pannimade",26,0,0,1,1,0,0,0,0,2,8,2,98.00,1,1,2,1,1100,2,0,0,0,2,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",1,1,0,0,1,1,1,1,0,5,32,0,100.00,1,2,4,4,890,3,1,0,0,4,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",2,1,0,0,1,1,0,1,1,5,"NA",0,100.00,2,0,4,2,900,0,0,0,0,0,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",3,1,0,1,0,1,1,1,1,6,32,0,100.00,4,3,4,4,860,8,0,0,0,8,0,1,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",4,1,1,0,1,0,1,1,0,5,26,0.25,99.75,3,2,2,4,870,9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",5,1,1,0,0,1,1,1,1,6,40,0,100.00,3,2,4,4,850,5,0,0,0,5,1,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",6,1,1,1,0,1,0,0,0,4,18,0,100.00,1,2,4,1,850,11,0,0,0,11,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",7,1,1,1,1,0,1,0,0,5,22,0,100.00,2,2,3,3,850,14,0,0,0,14,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",8,1,1,0,0,1,1,1,0,5,30,0,100.00,3,3,4,4,850,9,0,0,0,9,0,1,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",9,1,1,1,1,1,1,0,0,6,22,0,100.00,3,4,4,3,840,17,0,0,0,17,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",10,1,1,0,0,1,1,0,0,4,23,0,100.00,4,1,4,4,720,2,0,0,0,2,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",11,1,0,0,0,1,1,1,1,5,35,0,100.00,3,3,2,4,720,2,0,0,4,6,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",12,1,1,1,0,1,1,1,0,6,25,0,100.00,2,2,3,2,700,2,0,0,4,6,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",13,1,0,0,1,1,0,0,0,3,12,0.75,99.25,1,2,3,1,700,1,0,0,0,1,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",14,1,1,1,1,1,1,1,0,7,26,0,100.00,1,1,4,1,700,11,0,0,0,11,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",15,1,1,1,1,1,0,1,0,6,30,0,100.00,2,4,4,2,720,22,0,0,0,22,1,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",16,1,1,1,1,1,1,1,1,8,38,0,100.00,3,4,3,3,730,21,0,0,0,21,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",17,1,1,1,0,1,1,1,0,6,26,0,100.00,2,4,2,3,740,12,0,0,0,12,0,0,0,"NA","NA","NA"
+2005,"U.Manamboli","Manamboli",18,1,1,1,1,0,1,1,1,7,34,0,100.00,3,2,3,4,840,12,6,0,0,18,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",19,1,1,1,1,1,0,1,0,6,30,0,100.00,3,4,4,3,740,2,23,0,0,25,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",20,1,1,1,1,1,1,0,0,6,28,0,100.00,3,2,4,4,750,15,4,0,0,19,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",21,1,1,1,1,0,1,1,0,6,31,0.25,99.75,3,2,3,3,780,16,2,0,0,18,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",22,1,1,0,1,1,1,0,0,5,22,0,100.00,2,3,3,3,760,18,0,0,4,22,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",23,1,1,1,1,0,0,1,0,5,29,0,100.00,2,1,4,2,780,13,2,0,0,15,0,1,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",24,1,1,0,1,1,1,0,0,5,20,0,100.00,3,2,3,4,740,10,7,0,0,17,0,0,0,"NA","NA","NA"
+2005,"L.Manamboli","Manamboli",25,1,0,0,0,1,1,1,0,4,29,0,100.00,3,2,2,4,720,4,1,0,1,6,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",1,1,1,1,1,1,0,1,0,6,30,0,100.00,2,4,3,2,960,14,0,0,0,14,3,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",2,1,1,1,1,1,0,0,0,5,16,0,100.00,2,4,2,2,970,11,0,0,0,11,5,1,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",3,1,1,1,0,1,1,0,0,5,21,0,100.00,3,3,1,4,980,12,0,0,0,12,0,1,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",4,1,1,1,1,1,1,1,0,7,21,0,100.00,2,4,4,2,970,9,0,0,0,9,3,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",5,1,1,1,1,1,0,0,0,5,9,0,100.00,1,4,3,0,960,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",6,1,1,1,1,0,1,1,1,7,35,0,100.00,4,4,1,1,960,18,0,0,0,18,1,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",7,1,0,0,0,0,1,1,0,3,30,2.5,97.50,2,1,0,4,970,5,0,0,0,5,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",8,1,1,1,1,1,0,0,0,5,10,0.5,99.50,1,4,3,0,"NA",9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",9,1,0,1,1,0,0,1,0,4,31,0,100.00,2,2,4,4,970,3,0,0,0,3,2,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",10,1,1,1,1,0,1,1,1,7,35,0,100.00,2,3,4,4,1000,4,0,0,0,4,1,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",11,1,1,1,1,1,0,0,0,5,18,0,100.00,1,4,4,1,970,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",12,1,1,1,1,1,0,0,0,5,15,0,100.00,1,4,3,1,960,13,0,0,0,13,2,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",13,1,1,1,0,0,1,0,0,4,20,0,100.00,2,3,2,4,940,9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",14,1,1,1,1,1,1,1,0,7,27,0,100.00,2,4,3,3,960,11,0,0,0,11,1,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",15,1,1,1,0,1,1,1,0,6,30,0.75,99.25,2,2,2,3,960,9,0,0,0,9,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",16,1,1,0,0,1,0,0,0,3,15,5.25,94.75,1,4,3,1,960,12,0,0,0,12,3,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",17,1,1,1,1,1,1,1,0,7,30,0,100.00,4,1,4,4,960,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",18,1,0,1,1,1,1,1,0,6,25,3.25,96.75,2,2,1,2,940,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",19,1,1,1,1,0,1,0,0,5,22,4.5,95.50,2,1,4,3,"NA",5,0,0,1,6,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",20,1,1,0,1,1,0,0,0,4,12,2,98.00,2,3,2,2,840,8,0,0,6,14,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",21,1,1,1,1,0,1,0,1,6,24,1,99.00,3,1,3,4,830,9,4,0,0,13,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",22,1,1,1,1,0,0,0,0,4,5,0,100.00,1,1,4,1,850,6,0,0,0,6,0,0,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",23,1,1,0,1,0,1,1,1,6,40,10,90.00,3,3,2,3,880,3,0,0,0,3,2,1,0,"NA","NA","NA"
+2005,"Tata Finlay","Old Valparai",24,1,1,1,1,1,1,0,0,6,17,0,100.00,1,2,4,1,880,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"V3","Varattuparai 1-3",1,1,1,1,0,1,0,0,0,4,16,0,100.00,2,4,4,3,1000,9,0,0,0,9,5,0,0,"NA","NA","NA"
+2005,"V3","Varattuparai 1-3",2,1,1,1,0,0,0,0,0,3,10,0.75,99.25,1,4,1,1,970,26,0,0,0,26,3,0,0,"NA","NA","NA"
+2005,"V3","Varattuparai 1-3",3,1,1,1,1,0,0,0,0,4,8,11.5,88.50,1,3,2,1,970,14,0,0,0,14,0,1,0,"NA","NA","NA"
+2005,"V3","Varattuparai 1-3",4,1,1,1,1,1,0,0,0,5,9,1,99.00,1,4,4,1,970,7,0,0,0,7,6,0,1,"NA","NA","NA"
+2005,"V3","Varattuparai 1-3",5,1,1,1,1,1,0,0,0,5,10,0,100.00,1,3,3,1,970,15,0,0,0,15,5,1,0,"NA","NA","NA"
+2005,"V2","Varattuparai 1-3",6,1,1,1,1,0,0,0,0,4,6,0,100.00,1,4,2,1,"NA",14,0,0,0,14,0,0,1,"NA","NA","NA"
+2005,"V2","Varattuparai 1-3",7,1,1,1,1,0,0,0,0,4,7,0,100.00,1,4,2,1,980,19,0,0,0,19,0,1,0,"NA","NA","NA"
+2005,"V2","Varattuparai 1-3",8,1,1,1,1,1,0,0,0,5,12,0,100.00,2,4,1,4,980,8,0,0,0,8,0,0,0,"NA","NA","NA"
+2005,"V2","Varattuparai 1-3",9,1,1,1,1,0,0,0,0,4,7,0,100.00,1,4,2,1,980,7,0,0,0,7,0,0,0,"NA","NA","NA"
+2005,"V2","Varattuparai 1-3",10,1,1,1,1,0,0,0,0,4,7,0,100.00,1,4,2,1,1000,7,0,0,0,7,1,0,0,"NA","NA","NA"
+2005,"V1","Varattuparai 1-3",11,1,1,1,1,1,1,0,0,6,24,1,99.00,2,2,4,3,980,10,1,0,0,11,0,0,0,"NA","NA","NA"
+2005,"V1","Varattuparai 1-3",12,1,0,1,1,1,0,0,0,4,15,0,100.00,2,2,4,4,960,1,4,0,0,5,1,0,0,"NA","NA","NA"
+2005,"V1","Varattuparai 1-3",13,1,1,0,1,1,1,0,0,5,18,0,100.00,2,2,4,3,960,6,2,0,0,8,0,0,0,"NA","NA","NA"
+2005,"V1","Varattuparai 1-3",14,1,0,1,0,1,0,0,0,3,10,0,100.00,1,2,4,1,960,7,10,0,0,17,1,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",1,1,0,0,1,0,0,0,0,2,8,5,95.00,1,1,3,1,970,1,0,2,0,3,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",2,1,1,1,1,1,1,0,0,6,20,0,100.00,2,2,4,1,970,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",3,1,1,0,1,1,0,0,0,4,11,0.5,99.50,1,1,4,1,950,3,0,1,0,4,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",4,1,1,1,1,1,0,0,0,5,16,0,100.00,1,3,4,1,950,4,1,2,0,7,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",5,1,1,0,1,1,0,0,0,4,10,0,100.00,1,2,4,1,980,5,1,0,0,6,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",6,1,1,0,0,1,0,0,0,3,15,0,100.00,1,3,4,1,"NA",1,7,0,0,8,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",7,1,1,1,1,1,1,0,0,6,17,0.75,99.25,1,2,3,1,980,5,2,0,0,7,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",8,1,1,1,0,0,1,0,0,4,18,2.75,97.25,2,1,2,2,"NA",7,2,1,0,10,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",9,1,1,1,1,1,0,0,0,5,14,0,100.00,1,1,4,1,950,5,1,0,0,6,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",10,1,0,0,0,0,1,1,0,3,30,17.5,82.50,2,1,0,1,940,4,1,0,0,5,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",11,1,1,1,0,1,0,0,0,4,12,0.5,99.50,2,1,3,1,960,14,0,0,0,14,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",12,1,1,0,1,1,0,0,0,4,16,0.5,99.50,1,1,4,1,1000,11,0,0,0,11,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",13,1,1,1,1,1,1,1,0,7,30,1.5,98.50,2,2,4,2,1000,4,2,2,0,8,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",14,1,0,1,1,1,0,0,0,4,10,1.75,98.25,1,1,3,1,1000,5,1,2,0,8,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",15,1,1,1,1,1,0,0,0,5,10,0.25,99.75,1,3,3,1,995,20,1,1,0,22,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",16,1,0,1,1,0,0,0,1,4,40,2.25,97.75,2,1,4,4,"NA",10,1,0,0,11,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",17,1,0,0,0,1,1,1,0,4,27,1.75,98.25,2,1,1,3,980,1,0,0,0,1,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",18,1,0,1,1,1,1,1,0,6,27,0,100.00,2,1,4,4,980,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",19,1,1,0,0,1,1,1,0,5,28,1,99.00,3,2,1,4,990,2,3,0,0,5,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",20,1,1,1,1,1,1,1,0,7,30,0,100.00,2,2,4,3,990,5,1,7,0,13,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",21,1,1,0,1,0,1,0,0,4,18,18.25,81.75,2,1,1,2,980,3,0,0,0,3,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",22,0,1,0,1,0,0,0,0,2,7,1.44,98.56,1,1,2,1,1060,6,3,1,0,10,0,0,0,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",23,1,0,0,1,1,0,1,1,5,36,0,100.00,2,1,3,4,1070,19,0,3,0,22,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",24,0,0,0,0,0,0,0,1,1,40,31.5,68.50,1,1,1,1,1090,0,0,0,0,0,0,0,1,"NA","NA","NA"
+2005,"Korangumudi","Korangumudi",25,1,1,0,1,1,0,0,0,4,15,0,100.00,2,2,4,2,1080,7,4,0,0,11,0,0,1,"NA","NA","NA"
+2005,"Andiparai","Andiparai",1,1,1,1,1,1,0,0,0,5,15,0,100.00,1,3,4,1,1210,14,0,0,2,16,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",2,1,1,1,1,1,1,1,0,7,30,0,100.00,2,3,4,3,1230,8,0,0,2,10,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",3,1,1,1,1,1,1,1,1,8,33,0,100.00,4,2,4,4,1230,4,0,0,1,5,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",4,1,1,1,1,1,1,1,0,7,28,0,100.00,3,3,4,4,1250,10,0,0,12,22,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",5,1,1,1,1,1,1,0,0,6,18,0,100.00,4,2,4,3,1240,13,0,0,3,16,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",6,1,1,1,1,1,0,0,0,5,10,0,100.00,1,2,3,1,1230,15,0,0,0,15,0,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",7,1,1,1,1,1,0,0,0,5,15,0,100.00,2,2,4,2,1270,6,3,0,2,11,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",8,1,1,1,1,1,0,0,0,5,16,0,100.00,3,3,3,3,1280,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",9,1,1,1,0,1,1,0,0,5,20,0,100.00,3,3,1,4,1240,15,0,0,1,16,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",10,1,1,1,1,1,1,1,0,7,25,0,100.00,3,4,4,3,1240,19,0,0,2,21,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",11,1,1,1,1,0,0,0,0,4,7,0,100.00,1,4,3,1,1220,19,3,0,0,22,0,1,1,"NA","NA","NA"
+2005,"Andiparai","Andiparai",12,1,0,1,1,0,0,0,0,3,15,0,100.00,1,1,4,1,1220,5,0,0,0,5,1,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",13,1,0,0,1,1,0,0,0,3,16,0,100.00,4,4,3,4,1380,30,0,0,0,30,0,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",14,1,1,1,1,1,0,0,0,5,15,0,100.00,3,3,4,4,1290,20,0,0,0,20,0,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",15,0,0,1,1,1,0,0,0,3,16,1.5,98.50,2,1,3,2,1300,2,0,0,2,4,0,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",16,1,1,1,1,1,0,0,0,5,15,0,100.00,4,1,4,4,1300,33,0,0,0,33,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",17,1,0,0,1,1,1,0,0,4,20,0,100.00,3,1,4,4,1300,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",18,1,1,1,0,1,1,1,1,7,33,0,100.00,4,2,3,4,1290,20,0,0,0,20,0,1,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",19,1,0,1,1,0,0,0,0,3,8,0,100.00,2,1,4,1,1300,4,0,0,0,4,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",20,1,1,1,0,1,1,1,0,6,27,0,100.00,4,4,4,4,1300,5,0,0,2,7,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",21,1,0,0,1,1,1,1,0,5,27,0.75,99.25,3,1,2,3,1300,6,0,0,2,8,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",22,1,1,1,0,1,1,1,0,6,30,0,100.00,4,1,3,4,1300,6,0,0,4,10,1,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",23,1,1,1,1,1,1,1,0,7,35,0,100.00,4,4,4,4,1300,18,0,0,0,18,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",24,1,1,1,0,1,1,1,1,7,33,0,100.00,4,2,4,4,1300,14,0,0,0,14,0,0,0,"NA","NA","NA"
+2005,"Andiparai","Andiparai",25,1,1,1,0,1,1,1,0,6,25,0,100.00,3,2,2,4,1270,14,0,0,0,14,0,0,0,"NA","NA","NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ01",1,1,1,1,0,1,1,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",7,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ02",1,1,1,0,0,1,1,1,6,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",87,"NA",0,"NA","NA",6.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ03",0,0,1,1,1,1,1,0,5,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",93,"NA",0,"NA","NA",6,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ04",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",4,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ05",1,1,1,0,0,0,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",65,"NA",0,"NA","NA",3.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ06",1,0,1,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",5.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ07",1,1,1,1,1,1,1,1,8,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",5.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ08",1,1,0,1,0,0,0,1,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",64,"NA",0,"NA","NA",8,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ09",1,0,0,1,0,1,1,1,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",88,"NA",0,"NA","NA",9.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ10",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",2,"NA","NA",9.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ11",1,0,0,0,0,1,1,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",110,"NA",0,"NA","NA",11,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ12",1,1,1,0,1,1,1,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",2,"NA","NA",9,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ13",0,1,0,1,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",76,"NA",1,"NA","NA",5.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ01",1,1,0,1,1,1,0,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",39,"NA",0,"NA","NA",2,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ02",0,1,1,1,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",7,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ03",0,1,1,1,1,0,0,0,4,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ04",0,1,0,0,1,1,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",77,"NA",0,"NA","NA",4,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ05",1,1,0,1,1,1,1,1,7,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",5.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ06",0,0,1,1,1,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",37,"NA",0,"NA","NA",3,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ07",0,0,0,1,1,1,1,1,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ08",0,0,1,0,0,0,1,1,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",12,"NA",0,"NA","NA",2.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ09",1,0,0,0,0,1,0,0,2,"NA",64,36,"NA","NA","NA","NA","NA","NA","NA","NA","NA",15,"NA",0,"NA","NA",5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ10",1,1,1,0,0,1,0,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",1.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ11",1,0,0,0,1,0,0,0,2,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",13,"NA",0,"NA","NA",0.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ12",1,0,0,1,1,1,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",3,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ13",1,1,0,0,1,0,1,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",0,"NA","NA",2,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ14",0,0,1,1,1,0,0,0,3,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",60,"NA",0,"NA","NA",1.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ15",1,1,0,0,1,0,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",0.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ16",1,0,1,1,0,1,0,0,4,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",3.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ17",1,0,0,1,1,0,0,0,3,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",29,"NA",0,"NA","NA",1.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ18",1,1,1,0,1,1,0,0,5,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",0.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ19",1,0,1,1,1,1,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"NA",0,"NA","NA",1.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ20",1,1,1,0,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",50,"NA",0,"NA","NA",1,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ21",0,0,0,0,1,1,0,0,2,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",3,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ22",0,0,0,1,1,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",0,"NA","NA",0,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ23",0,0,1,1,0,0,1,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",1.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ24",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",5.5,"NA"
+2019,"Karian-Shola","Karian Shola","KSPCQ25",0,0,1,1,1,1,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",4,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ01",0,1,1,0,1,1,0,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",98,"NA",0,"NA","NA",2.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ02",0,0,0,0,0,1,1,0,2,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",120,"NA",0,"NA","NA",2,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ03",0,1,0,1,0,1,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",0,"NA","NA",4.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ04",1,0,1,1,1,1,1,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",68,"NA",0,"NA","NA",0.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ05",0,0,1,1,1,1,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",71,"NA",0,"NA","NA",1.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ06",0,0,1,0,1,1,0,0,3,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",1.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ07",0,0,0,0,0,0,0,0,0,"NA",22,78,"NA","NA","NA","NA","NA","NA","NA","NA","NA",91,"NA",0,"NA","NA",2,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ08",0,0,1,1,0,0,0,0,2,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",2,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ09",0,0,0,1,1,1,0,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",45,"NA",0,"NA","NA",3,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ10",1,0,0,1,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",45,"NA",0,"NA","NA",3,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ11",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",3.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ12",0,1,1,1,1,0,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",145,"NA",0,"NA","NA",4,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ13",0,1,1,1,1,0,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",160,"NA",0,"NA","NA",1.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ14",0,0,1,1,0,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",106,"NA",0,"NA","NA",1.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ01",1,1,1,1,0,0,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",0.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ02",0,1,0,1,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",0,"NA","NA",5.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ03",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",63,"NA",0,"NA","NA",3,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ01",1,0,0,1,1,0,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",3.5,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ02",0,0,1,1,0,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",76,"NA",0,"NA","NA",4,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ03",0,0,1,1,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",4.5,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ04",0,1,0,1,1,0,0,0,3,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",152,"NA",0,"NA","NA",6,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ05",0,1,1,1,0,0,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",116,"NA",0,"NA","NA",2,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ06",0,1,0,1,0,1,1,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",78,"NA",0,"NA","NA",1.5,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ07",0,1,1,1,1,0,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",47,"NA",0,"NA","NA",6,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ08",1,1,1,1,0,0,0,0,4,"NA",16,84,"NA","NA","NA","NA","NA","NA","NA","NA","NA",88,"NA",0,"NA","NA",4,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ09",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",50,"NA",0,"NA","NA",1.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ01",1,1,1,1,1,1,0,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",103,"NA",0,"NA","NA",5.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ02",0,0,0,1,0,0,0,0,1,"NA",28,72,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",1.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ03",0,1,1,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",3.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ01",0,1,1,1,1,1,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",47,"NA",0,"NA","NA",4,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ02",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",6,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ03",1,1,0,0,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",50,"NA",0,"NA","NA",1.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ04",1,1,1,1,0,1,0,0,5,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",3.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ05",0,1,1,1,1,1,0,0,5,"NA",11,89,"NA","NA","NA","NA","NA","NA","NA","NA","NA",63,"NA",0,"NA","NA",2.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ06",0,1,1,1,0,0,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",21,"NA",0,"NA","NA",4,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ07",1,0,0,1,1,1,0,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",25,"NA",0,"NA","NA",2.2,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ08",0,0,1,1,0,0,0,0,2,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",0,"NA","NA",1.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ09",0,0,1,1,1,0,0,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",1,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ10",0,0,1,1,1,0,0,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",2.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ11",1,1,1,0,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",2.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ12",1,0,1,1,0,0,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",3.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ13",1,1,1,1,0,0,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",4.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ14",1,0,1,1,0,0,1,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",76,"NA",0,"NA","NA",5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ15",1,1,1,1,1,1,1,0,7,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",4,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ16",0,0,1,0,0,0,1,1,3,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",31,"NA",0,"NA","NA",0.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ17",1,1,1,1,0,0,1,1,6,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",0,"NA","NA",5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ18",1,1,1,0,1,1,1,1,7,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",98,"NA",0,"NA","NA",8.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ19",0,1,1,1,1,1,0,0,5,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",4.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ20",1,1,1,1,1,0,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",74,"NA",0,"NA","NA",4,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ21",1,0,0,0,1,0,0,0,2,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",1.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ22",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",55,"NA",0,"NA","NA",4,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ23",0,1,1,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ24",0,0,1,1,0,0,0,0,2,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",0,"NA","NA",1.5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ25",1,0,1,1,1,0,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",69,"NA",0,"NA","NA",5,"NA"
+2019,"OldValparai","Old Valparai","OVPCQ26",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",6.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ01",1,1,0,1,1,1,0,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",3,"NA"
+2019,"Pannimade","Pannimade","PAPCQ02",1,1,1,1,0,0,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",2.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ03",1,1,1,1,0,0,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",41,"NA",0,"NA","NA",4.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ04",1,1,1,0,0,0,1,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",2,"NA"
+2019,"Pannimade","Pannimade","PAPCQ05",1,1,0,0,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",77,"NA",0,"NA","NA",5.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ06",1,0,1,1,1,1,1,0,6,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",0,"NA","NA",8,"NA"
+2019,"Pannimade","Pannimade","PAPCQ07",1,1,1,1,0,1,1,1,7,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",7.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ01",0,0,1,0,0,0,0,0,1,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",120,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ02",1,0,0,1,1,0,0,0,3,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",112,"NA",0,"NA","NA",0.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ03",1,0,0,0,0,1,0,0,2,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",135,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ04",0,1,1,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",130,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ05",0,0,0,1,0,0,0,0,1,"NA",19,81,"NA","NA","NA","NA","NA","NA","NA","NA","NA",125,"NA",0,"NA","NA",2.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ06",0,0,1,1,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",152,"NA",0,"NA","NA",1.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ07",0,0,1,1,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",161,"NA",0,"NA","NA",3.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ08",1,0,0,1,1,1,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",134,"NA",0,"NA","NA",2,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ09",1,0,0,1,1,0,0,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",185,"NA",0,"NA","NA",2.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ10",0,1,1,1,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",172,"NA",0,"NA","NA",0,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ11",1,1,0,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",154,"NA",0,"NA","NA",0,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ12",1,0,1,1,1,1,1,0,6,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",123,"NA",0,"NA","NA",5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ13",1,0,1,1,1,0,0,0,4,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",86,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ14",1,1,0,1,1,1,1,0,6,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",119,"NA",0,"NA","NA",3,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ15",1,1,0,1,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",149,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ16",1,0,0,1,1,0,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",138,"NA",0,"NA","NA",3,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ17",1,1,1,1,1,1,1,0,7,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",149,"NA",0,"NA","NA",5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ18",1,1,0,1,0,0,0,0,3,"NA",18,82,"NA","NA","NA","NA","NA","NA","NA","NA","NA",104,"NA",0,"NA","NA",4,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ19",1,1,0,1,0,1,0,0,4,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",120,"NA",0,"NA","NA",1,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ20",1,1,0,1,0,1,0,0,4,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",143,"NA",0,"NA","NA",5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ21",1,1,1,1,1,1,0,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",165,"NA",0,"NA","NA",5.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ22",1,0,0,1,0,1,1,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",142,"NA",0,"NA","NA",6,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ23",1,1,1,1,1,0,1,0,6,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",84,"NA",0,"NA","NA",4,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ24",1,0,0,1,0,1,0,0,3,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",139,"NA",0,"NA","NA",0.5,"NA"
+2019,"Puduthottam","Puthuthottam","PUPCQ25",1,1,0,0,0,1,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",143,"NA",0,"NA","NA",4.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ01",1,0,1,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",110,"NA",0,"NA","NA",2,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ02",1,1,1,1,0,0,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",0,"NA","NA",0.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ03",0,1,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",45,"NA",1,"NA","NA",0,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ04",1,1,0,0,0,0,1,1,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",29,"NA",0,"NA","NA",1.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ05",1,0,0,0,1,0,0,0,2,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",0,"NA","NA",2.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ01",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",51,"NA",0,"NA","NA",5.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ02",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",6.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ03",0,1,1,0,0,1,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",4.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ04",1,1,1,1,0,1,1,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ05",0,1,1,1,0,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",6,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ06",0,1,1,1,0,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",7,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ07",1,0,1,0,0,0,1,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",69,"NA",0,"NA","NA",4,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ08",0,0,1,1,1,1,1,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",81,"NA",0,"NA","NA",4.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ09",1,0,1,0,1,0,0,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",74,"NA",0,"NA","NA",1,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ10",1,0,0,1,1,1,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",103,"NA",0,"NA","NA",6.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ11",1,0,0,1,0,1,1,0,4,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",97,"NA",0,"NA","NA",4,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ12",1,1,0,0,1,1,0,0,4,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",105,"NA",0,"NA","NA",7,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ13",0,0,1,1,1,1,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",120,"NA",0,"NA","NA",5.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ14",0,1,1,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",2.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ15",1,1,1,1,0,1,0,0,5,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",123,"NA",0,"NA","NA",0.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ16",1,0,1,0,0,1,0,0,3,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",98,"NA",0,"NA","NA",5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ17",1,0,0,0,1,0,1,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",137,"NA",2,"NA","NA",4.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ18",0,0,1,1,0,0,0,1,3,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",63,"NA",0,"NA","NA",6.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ19",0,0,1,1,1,0,1,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",84,"NA",0,"NA","NA",3,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ20",1,1,1,0,0,0,0,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",2.5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ21",1,1,0,1,1,1,1,1,7,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",5,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ22",1,0,0,1,0,0,0,0,2,"NA",35,65,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",6,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ23",0,1,0,1,1,0,1,0,4,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",6,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ24",1,0,1,0,1,1,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",86,"NA",0,"NA","NA",11,"NA"
+2019,"Varagaliar","Varagaliar","VAPCQ25",0,0,1,1,1,0,0,0,3,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",115,"NA",0,"NA","NA",6.5,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ01",1,1,1,1,1,1,0,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",16,"NA",0,"NA","NA",7,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ02",1,0,1,0,1,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",14,"NA",0,"NA","NA",6,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ03",1,1,1,0,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",21,"NA",0,"NA","NA",12,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ04",1,0,0,1,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",13,"NA",0,"NA","NA",11.5,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ05",1,0,1,0,1,0,0,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",28,"NA",0,"NA","NA",4,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ06",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",20,"NA",0,"NA","NA",7,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ07",1,1,1,1,1,1,0,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",41,"NA",0,"NA","NA",4,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ08",0,1,0,1,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",1.5,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ09",1,1,0,0,1,1,0,0,4,"NA",20,80,"NA","NA","NA","NA","NA","NA","NA","NA","NA",27,"NA",0,"NA","NA",1,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ10",1,1,0,0,1,0,0,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",24,"NA",0,"NA","NA",2,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ11",0,0,1,0,1,1,0,0,3,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",11,"NA",0,"NA","NA",7,"NA"
+2019,"Varatuparai123","Varattuparai 1-3","VTPCQ12",0,1,0,0,1,0,0,0,2,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",28,"NA",0,"NA","NA",4.5,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ01",1,1,0,1,0,1,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",7.5,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ02",0,1,1,1,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",4,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ03",0,1,0,1,1,0,1,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",23,"NA",0,"NA","NA",6.5,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ04",1,1,0,1,1,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",24,"NA",0,"NA","NA",7,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ05",0,0,1,1,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",20,"NA",0,"NA","NA",8,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ06",0,0,0,0,1,0,0,0,1,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",15,"NA",0,"NA","NA",7,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ07",0,0,1,1,1,0,0,0,3,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",23,"NA",0,"NA","NA",5.5,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ08",1,0,0,0,1,1,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",0,"NA","NA",6,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ09",1,1,0,1,1,0,0,0,4,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",9.5,"NA"
+2019,"Varatuparai4","Varattuparai 4","V4PCQ10",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",7.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ08",0,1,1,1,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ09",1,1,0,1,1,1,1,0,6,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",18,"NA",0,"NA","NA",13.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ10",1,1,1,1,1,0,0,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",30,"NA",0,"NA","NA",4.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ11",1,0,1,1,0,0,0,0,3,"NA",12,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",3.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ12",1,1,1,1,0,1,1,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",22,"NA",0,"NA","NA",2.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ13",1,1,1,0,1,0,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",16,"NA",0,"NA","NA",4,"NA"
+2019,"Pannimade","Pannimade","PAPCQ14",1,1,0,1,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",3,"NA"
+2019,"Pannimade","Pannimade","PAPCQ15",1,1,1,1,1,0,0,0,5,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",28,"NA",0,"NA","NA",4,"NA"
+2019,"Pannimade","Pannimade","PAPCQ16",1,1,0,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",110,"NA",0,"NA","NA",6,"NA"
+2019,"Pannimade","Pannimade","PAPCQ17",1,1,0,1,0,0,0,1,4,"NA",11,89,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",3,"NA"
+2019,"Pannimade","Pannimade","PAPCQ18",1,1,1,1,1,0,0,0,5,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",1,"NA"
+2019,"Pannimade","Pannimade","PAPCQ19",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",0,"NA","NA",9,"NA"
+2019,"Pannimade","Pannimade","PAPCQ20",1,0,1,1,1,0,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",37,"NA",0,"NA","NA",1.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ21",0,1,1,1,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",42,"NA",0,"NA","NA",13,"NA"
+2019,"Pannimade","Pannimade","PAPCQ22",1,0,0,1,0,1,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",5.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ23",1,1,1,0,1,0,1,0,5,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",67,"NA",0,"NA","NA",9.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ24",0,1,0,1,1,1,1,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",84,"NA",0,"NA","NA",5.5,"NA"
+2019,"Pannimade","Pannimade","PAPCQ25",1,1,1,1,1,1,0,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",77,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ01",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",0,"NA","NA",3.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ02",1,1,0,1,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",42,"NA",0,"NA","NA",4.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ03",0,1,0,1,0,1,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",24,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ04",1,1,1,1,1,1,0,0,6,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ05",0,0,0,1,1,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",24,"NA",0,"NA","NA",2,"NA"
+2019,"Andiparai","Andiparai","ANPCQ06",1,1,1,1,1,0,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",27,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ07",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ08",1,0,1,1,1,1,0,0,5,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",1,"NA","NA",5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ09",1,1,1,0,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",3,"NA"
+2019,"Andiparai","Andiparai","ANPCQ10",1,1,0,0,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",33,"NA",0,"NA","NA",3,"NA"
+2019,"Andiparai","Andiparai","ANPCQ11",1,1,1,0,1,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",8,"NA"
+2019,"Andiparai","Andiparai","ANPCQ12",1,0,0,1,1,0,1,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",33,"NA",0,"NA","NA",6.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ13",1,1,0,1,0,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",30,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ14",1,0,0,0,1,1,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",4.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ15",0,1,1,0,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",2,"NA"
+2019,"Andiparai","Andiparai","ANPCQ16",1,0,0,0,1,1,0,0,3,"NA",16,84,"NA","NA","NA","NA","NA","NA","NA","NA","NA",37,"NA",0,"NA","NA",5.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ17",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",15,"NA"
+2019,"Andiparai","Andiparai","ANPCQ18",1,1,0,0,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",17,"NA",0,"NA","NA",9.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ19",1,0,1,1,0,1,1,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",3.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ20",1,0,0,0,1,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",0,"NA"
+2019,"Andiparai","Andiparai","ANPCQ21",1,1,1,0,0,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",41,"NA",1,"NA","NA",13,"NA"
+2019,"Andiparai","Andiparai","ANPCQ22",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",6.5,"NA"
+2019,"Andiparai","Andiparai","ANPCQ23",1,1,0,1,1,1,1,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",36,"NA",0,"NA","NA",3,"NA"
+2019,"Andiparai","Andiparai","ANPCQ24",0,1,1,1,1,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",103,"NA",0,"NA","NA",6,"NA"
+2019,"Andiparai","Andiparai","ANPCQ25",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",0,"NA","NA",2.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ04",1,0,1,1,0,0,0,0,3,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",26,"NA",0,"NA","NA",4,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ05",1,1,1,0,1,1,0,0,5,"NA",22,78,"NA","NA","NA","NA","NA","NA","NA","NA","NA",20,"NA",0,"NA","NA",0.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ06",1,1,1,1,1,0,0,0,5,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",28,"NA",0,"NA","NA",0,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ07",1,1,0,0,0,1,0,0,3,"NA",18,82,"NA","NA","NA","NA","NA","NA","NA","NA","NA",25,"NA",0,"NA","NA",2.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ08",1,1,1,1,0,1,0,0,5,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",12,"NA",0,"NA","NA",0.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ09",1,1,0,1,1,0,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",33,"NA",0,"NA","NA",1,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ10",1,0,1,0,1,0,0,0,3,"NA",22,78,"NA","NA","NA","NA","NA","NA","NA","NA","NA",39,"NA",0,"NA","NA",1,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ11",1,1,0,0,1,0,0,0,3,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",50,"NA",0,"NA","NA",2,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ12",1,0,0,0,1,1,0,0,3,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",21,"NA",0,"NA","NA",3,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ13",1,1,0,1,1,0,0,0,4,"NA",28,72,"NA","NA","NA","NA","NA","NA","NA","NA","NA",13,"NA",0,"NA","NA",0.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ14",0,0,0,0,1,0,0,0,1,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",1,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ15",1,1,1,0,1,1,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",29,"NA",0,"NA","NA",2.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ06",1,1,0,0,1,1,1,1,6,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",19,"NA",3,"NA","NA",7.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ07",0,1,1,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",29,"NA",0,"NA","NA",4,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ08",1,1,1,1,1,1,1,0,7,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",13,"NA","NA",3,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ09",1,1,1,0,1,0,0,0,4,"NA",12,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA",37,"NA",0,"NA","NA",2.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ10",1,1,1,1,1,0,0,0,5,"NA",12,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA",34,"NA",0,"NA","NA",7.5,"NA"
+2019,"Selaliparai1","Selaliparai 1","S1PCQ11",1,0,0,0,1,1,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",25,"NA",1,"NA","NA",4.5,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ14",1,1,0,0,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",61,"NA",0,"NA","NA",2.5,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ15",1,1,0,0,1,0,0,0,3,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",5,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ16",1,1,0,0,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",4.5,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ17",1,1,0,0,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",42,"NA",0,"NA","NA",6,"NA"
+2019,"Iyerpadi","Iyerpadi Akkamalai","AKPCQ18",1,1,0,0,1,0,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",54,"NA",0,"NA","NA",2.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ01",1,0,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",22,"NA",0,"NA","NA",2,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ02",1,1,1,1,1,0,0,0,5,"NA",15,85,"NA","NA","NA","NA","NA","NA","NA","NA","NA",41,"NA",2,"NA","NA",2.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ03",0,1,0,1,0,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",35,"NA",0,"NA","NA",3.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ04",1,0,0,1,1,0,0,0,3,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",1,"NA","NA",4.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ05",1,1,1,1,1,0,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",0,"NA","NA",5.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ06",1,1,1,0,0,0,0,0,3,"NA",18,82,"NA","NA","NA","NA","NA","NA","NA","NA","NA",23,"NA",0,"NA","NA",0.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ07",1,1,1,1,0,0,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",40,"NA",6,"NA","NA",3.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ08",0,1,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",57,"NA",2,"NA","NA",4.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ09",1,0,1,1,1,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",39,"NA",1,"NA","NA",5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ10",1,1,1,1,1,0,0,0,5,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",1,"NA","NA",4,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ11",1,1,1,0,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",18,"NA","NA",4.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ12",1,1,0,0,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",59,"NA",2,"NA","NA",6,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ13",1,1,0,1,1,0,0,0,4,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",29,"NA",0,"NA","NA",6,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ14",1,0,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",35,"NA",2,"NA","NA",4,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ15",1,0,1,1,1,0,0,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",23,"NA","NA",8,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ16",0,1,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",31,"NA",11,"NA","NA",5.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ15",1,1,1,1,1,0,0,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",63,"NA",0,"NA","NA",7,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ16",1,0,1,1,1,0,0,0,4,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",44,"NA",0,"NA","NA",7,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ17",1,0,1,1,1,0,0,0,4,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",0,"NA","NA",3.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ18",1,0,0,1,1,0,0,0,3,"NA",13,87,"NA","NA","NA","NA","NA","NA","NA","NA","NA",31,"NA",0,"NA","NA",3,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ19",1,1,1,0,0,0,0,0,3,"NA",33,67,"NA","NA","NA","NA","NA","NA","NA","NA","NA",46,"NA",0,"NA","NA",0.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ20",1,1,0,0,1,1,0,0,4,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",2,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ21",1,0,0,0,1,0,0,0,2,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",38,"NA",0,"NA","NA",0.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ22",1,1,1,1,1,0,0,0,5,"NA",15,85,"NA","NA","NA","NA","NA","NA","NA","NA","NA",76,"NA",0,"NA","NA",3.5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ23",1,1,0,0,1,1,1,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",116,"NA",0,"NA","NA",5,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ24",1,1,0,0,0,1,1,0,4,"NA",36,64,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",0,"NA"
+2019,"Korangamudi","Korangumudi","KOPCQ25",1,1,1,1,1,1,0,0,6,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",2,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ16",1,0,1,1,1,0,0,0,4,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",1,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ17",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",0,"NA","NA",4,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ18",1,1,1,1,1,0,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",0,"NA","NA",1.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ19",1,1,1,1,0,0,0,0,4,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",80,"NA",0,"NA","NA",6,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ20",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",0,"NA","NA",5.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ21",0,1,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",0.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ22",1,1,1,0,1,1,1,0,6,"NA",10,90,"NA","NA","NA","NA","NA","NA","NA","NA","NA",78,"NA",0,"NA","NA",0.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ23",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",93,"NA",0,"NA","NA",4.5,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ24",1,1,1,1,0,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",75,"NA",0,"NA","NA",2,"NA"
+2019,"Murugaali-Sholayar","Murugalli Sholayar","MSPCQ25",1,1,1,1,0,0,1,1,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",6,"NA"
+2019,"Murugaali-BlackBridge","Murugalli Black Bridge","BBPCQ10",1,1,1,1,0,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",35,"NA",0,"NA","NA",2.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ04",1,0,0,1,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",0,"NA","NA",4.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ05",1,1,0,0,1,0,0,0,3,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",2.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ06",1,1,1,1,1,1,1,0,7,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",6,"NA"
+2019,"Manamboly","Manamboli","MAPCQ07",1,1,1,0,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",47,"NA",0,"NA","NA",4,"NA"
+2019,"Manamboly","Manamboli","MAPCQ08",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",43,"NA",0,"NA","NA",5.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ09",1,1,1,0,0,0,1,0,4,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",5,"NA","NA",5.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ10",1,0,1,0,0,1,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",0,"NA","NA",4,"NA"
+2019,"Manamboly","Manamboli","MAPCQ11",1,1,0,0,1,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",68,"NA",3,"NA","NA",6,"NA"
+2019,"Manamboly","Manamboli","MAPCQ12",1,1,1,1,1,1,1,1,8,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",10,"NA","NA",7,"NA"
+2019,"Manamboly","Manamboli","MAPCQ13",0,1,1,1,0,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",105,"NA",15,"NA","NA",6.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ14",1,1,1,0,1,0,0,1,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",62,"NA",0,"NA","NA",4,"NA"
+2019,"Manamboly","Manamboli","MAPCQ15",1,1,1,1,1,1,1,0,7,"NA",8,92,"NA","NA","NA","NA","NA","NA","NA","NA","NA",89,"NA",0,"NA","NA",5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ16",1,1,1,1,1,0,1,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",92,"NA",0,"NA","NA",4,"NA"
+2019,"Manamboly","Manamboli","MAPCQ17",1,1,1,0,0,1,1,1,6,"NA",7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",56,"NA",1,"NA","NA",5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ18",1,0,1,1,1,1,1,1,7,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",64,"NA",0,"NA","NA",5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ19",1,1,1,0,1,0,0,0,4,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",132,"NA",0,"NA","NA",0.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ20",1,0,1,1,1,1,0,0,5,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",119,"NA",0,"NA","NA",7,"NA"
+2019,"Manamboly","Manamboli","MAPCQ21",0,1,0,0,0,0,1,0,2,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",93,"NA",0,"NA","NA",4.5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ22",1,1,1,0,0,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",5,"NA"
+2019,"Manamboly","Manamboli","MAPCQ23",1,1,1,1,1,1,1,0,7,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",3,"NA"
+2019,"Manamboly","Manamboli","MAPCQ24",1,1,1,1,1,1,1,1,8,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",122,"NA",0,"NA","NA",9,"NA"
+2019,"Manamboly","Manamboli","MAPCQ25",0,1,1,0,1,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",106,"NA",0,"NA","NA",5.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ17",1,1,0,1,1,0,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",27,"NA",5,"NA","NA",5.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ18",1,1,1,1,1,0,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",65,"NA",1,"NA","NA",1.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ19",1,0,0,1,0,0,0,0,2,"NA",23,77,"NA","NA","NA","NA","NA","NA","NA","NA","NA",32,"NA",0,"NA","NA",1,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ20",1,1,1,1,0,0,0,1,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",104,"NA",0,"NA","NA",3.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ21",1,1,1,1,1,1,0,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",59,"NA",0,"NA","NA",3.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ22",0,0,1,1,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",7,"NA","NA",8.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ23",1,0,0,1,1,0,0,0,3,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",24,"NA",6,"NA","NA",1,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ24",1,0,0,1,0,0,0,0,2,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",72,"NA",0,"NA","NA",7.5,"NA"
+2019,"Iyerpadi-Top","Iyerpadi Top","ITPCQ25",1,0,1,1,1,1,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",53,"NA",0,"NA","NA",7,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ19",1,1,1,1,0,1,1,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",0,"NA","NA",5.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ20",1,0,0,1,1,0,0,0,3,"NA",4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",51,"NA",0,"NA","NA",7,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ21",1,1,0,1,1,1,0,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",73,"NA",0,"NA","NA",6,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ22",1,1,0,1,1,1,0,0,5,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",0,"NA","NA",5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ23",1,1,0,0,1,1,1,0,5,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",142,"NA",0,"NA","NA",2.5,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ24",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",60,"NA",0,"NA","NA",12,"NA"
+2019,"36th Hairpin Bend","Iyerpadi Akkamalai","AKPCQ25",1,1,1,1,1,0,0,0,5,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",81,"NA",0,"NA","NA",3,"NA"
+2019,"Injiparai","Injipara","IJPCQ01",1,1,1,1,1,1,0,0,6,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",85,"NA",0,"NA","NA",0.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ02",1,0,0,1,1,1,0,0,4,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",66,"NA",0,"NA","NA",1,"NA"
+2019,"Injiparai","Injipara","IJPCQ03",0,0,1,0,1,0,0,0,2,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",65,"NA",0,"NA","NA",0.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ04",1,1,1,1,1,0,0,0,5,"NA",5,95,"NA","NA","NA","NA","NA","NA","NA","NA","NA",109,"NA",0,"NA","NA",0.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ05",1,1,1,0,1,1,1,0,6,"NA",2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",128,"NA",0,"NA","NA",3.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ06",0,1,1,0,1,1,0,0,4,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",67,"NA",0,"NA","NA",5.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ07",1,0,0,1,1,0,0,0,3,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",63,"NA",0,"NA","NA",3.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ08",1,1,1,1,1,1,0,0,6,"NA",3,97,"NA","NA","NA","NA","NA","NA","NA","NA","NA",48,"NA",0,"NA","NA",2.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ09",1,1,1,1,1,0,0,0,5,"NA",1,99,"NA","NA","NA","NA","NA","NA","NA","NA","NA",82,"NA",0,"NA","NA",0.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ10",1,1,1,0,0,1,0,0,4,"NA",0,100,"NA","NA","NA","NA","NA","NA","NA","NA","NA",73,"NA",0,"NA","NA",5,"NA"
+2019,"Injiparai","Injipara","IJPCQ11",1,1,0,1,1,0,1,0,5,"NA",9,91,"NA","NA","NA","NA","NA","NA","NA","NA","NA",52,"NA",0,"NA","NA",2.5,"NA"
+2019,"Injiparai","Injipara","IJPCQ12",1,1,1,1,1,1,0,0,6,"NA",6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",58,"NA",0,"NA","NA",4,"NA"
+2002,"Injiparai","Injipara","IJPCQ1",1,0,0,1,0,0,0,0,2,8,27,73,"NA","NA","NA","NA",1110,"NA","NA","NA","NA",5,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ2",1,0,0,0,1,1,0,0,3,22,11,89,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",1,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ3",1,1,0,0,0,0,0,0,2,2,26,74,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",7,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ4",1,1,1,1,1,0,0,0,5,11,12,88,"NA","NA","NA","NA",1070,"NA","NA","NA","NA",10,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ5",1,0,0,0,1,1,0,0,3,20,24,76,"NA","NA","NA","NA",990,"NA","NA","NA","NA",3,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ6",1,1,0,0,1,0,0,0,3,16,16,84,"NA","NA","NA","NA",1040,"NA","NA","NA","NA",4,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ7",1,1,1,1,1,0,0,0,5,21,18,82,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",12,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ8",1,1,0,1,1,1,0,0,5,20,17,83,"NA","NA","NA","NA",950,"NA","NA","NA","NA",10,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ9",1,1,1,0,1,1,0,0,5,30,10,90,"NA","NA","NA","NA",1000,"NA","NA","NA","NA",9,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ10",1,1,1,1,1,1,0,0,6,18,12,88,"NA","NA","NA","NA",1120,"NA","NA","NA","NA",22,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ11",1,1,1,1,1,0,0,0,5,12,5,95,"NA","NA","NA","NA",1200,"NA","NA","NA","NA",27,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ12",1,1,0,0,1,0,0,0,3,19,6,94,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",15,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ13",1,1,1,1,1,0,0,0,5,20,5,95,"NA","NA","NA","NA",1200,"NA","NA","NA","NA",20,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ14",1,1,1,1,0,0,0,0,4,16,7,93,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",17,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ15",1,1,1,1,1,0,0,0,5,14,8,92,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",8,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ16",1,1,1,1,1,1,0,0,6,22,2,98,"NA","NA","NA","NA",1200,"NA","NA","NA","NA",19,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ17",1,1,1,1,1,0,0,0,5,20,1,99,"NA","NA","NA","NA",1150,"NA","NA","NA","NA",12,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ18",1,1,1,0,1,1,0,0,5,26,20,80,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",16,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ19",1,1,1,1,1,0,0,0,5,20,0,100,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",17,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ20",1,1,1,1,1,0,0,0,5,16,1,99,"NA","NA","NA","NA",950,"NA","NA","NA","NA",19,"Absent",0,"NA","Absent","NA",0
+2002,"Injiparai","Injipara","IJPCQ21",1,1,0,0,1,1,1,0,5,22,22,78,"NA","NA","NA","NA",1100,"NA","NA","NA","NA",5,"Absent",0,"NA","Absent",3.5,0
+2002,"Injiparai","Injipara","IJPCQ22",1,1,1,1,1,1,1,0,7,24,15,85,"NA","NA","NA","NA",1090,"NA","NA","NA","NA",10,"Absent",0,"NA","Absent",2.5,0
+2002,"Injiparai","Injipara","IJPCQ23",1,1,1,1,1,0,0,0,5,14,16,84,"NA","NA","NA","NA",1080,"NA","NA","NA","NA",12,"Absent",0,"NA","Absent",3,0
+2002,"Injiparai","Injipara","IJPCQ24",1,1,0,0,1,1,0,0,4,20,20,80,"NA","NA","NA","NA",1080,"NA","NA","NA","NA",14,"Absent",0,"NA","Absent",2,0
+2002,"Injiparai","Injipara","IJPCQ25",1,1,1,1,1,0,0,0,5,10,12,88,"NA","NA","NA","NA",1070,"NA","NA","NA","NA",10,"Absent",0,"NA","Absent",2.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ1",1,1,1,1,0,0,0,0,4,8,9,91,"NA","NA","NA","NA",1065,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ2",1,0,0,1,0,0,0,0,2,8,14,86,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",3,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ3",1,0,0,1,1,1,1,1,6,35,38,62,"NA","NA","NA","NA",1065,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",4.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ4",1,1,0,1,1,1,1,0,6,30,15,85,"NA","NA","NA","NA",1060,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",0.4,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ5",1,1,1,0,0,0,0,0,3,22,5,95,"NA","NA","NA","NA",1070,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",1,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ6",1,1,1,0,0,0,0,0,3,26,18,82,"NA","NA","NA","NA",1070,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",1,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ7",1,1,0,0,0,1,1,0,4,26,22,78,"NA","NA","NA","NA",1075,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",3.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ8",1,1,0,0,0,1,1,0,4,32,12,88,"NA","NA","NA","NA",1080,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ9",0,0,0,1,1,1,1,1,5,34,16,84,"NA","NA","NA","NA",1085,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ10",1,0,0,1,1,1,1,0,5,26,6,94,"NA","NA","NA","NA",1090,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",4,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ11",1,0,0,1,1,1,1,0,5,30,8,92,"NA","NA","NA","NA",1090,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",1.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ12",1,1,0,1,1,1,1,0,6,32,14,86,"NA","NA","NA","NA",1080,"NA","NA","NA","NA",0,"Absent",0,"NA","Absent",4.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ13",1,0,0,1,1,0,0,0,3,24,14,86,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ14",0,1,1,1,1,1,1,1,7,37,7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",4.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ15",1,1,0,0,1,1,1,0,5,30,14,86,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ16",1,1,0,0,1,1,1,0,5,26,7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ17",1,1,1,0,0,1,1,0,5,31,4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",3.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ18",1,1,1,1,1,0,1,1,7,40,2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",3,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ19",1,1,0,0,0,1,1,1,5,36,6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ20",1,1,0,0,0,0,1,1,4,34,45,55,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",1,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ21",1,1,1,0,0,1,1,0,5,32,6,94,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ22",0,0,1,0,0,1,1,0,3,32,12,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",0.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ23",1,1,0,0,1,1,1,0,5,30,2,98,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",1,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ24",1,1,0,1,1,1,0,0,5,22,7,93,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",2.5,0
+2002,"Sankarankudi","Sankarankudi","SKPCQ25",1,1,0,0,1,1,1,0,5,30,4,96,"NA","NA","NA","NA","NA","NA","NA","NA","NA",0,"Absent",0,"NA","Absent",3,0
+2002,"SangliRoad","Sangli Road","SLPCQ1",1,0,0,0,1,1,0,0,3,22,"NA",95,"NA","NA","NA","NA",1060,"NA",0,"NA","NA",22,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ2",1,1,1,0,0,1,0,0,4,20,"NA",97.75,"NA","NA","NA","NA",1065,"NA",0,"NA","NA",36,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ3",1,1,1,1,1,0,1,0,6,14,"NA",96.75,"NA","NA","NA","NA",1085,"NA",0,"NA","NA",28,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ4",1,1,1,1,0,1,0,0,5,17.5,"NA",95.75,"NA","NA","NA","NA",1090,"NA",0,"NA","NA",24,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ5",1,1,1,1,0,0,1,1,6,16,"NA",90.25,"NA","NA","NA","NA",1110,"NA",0,"NA","NA",15,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ6",1,1,1,0,1,0,1,1,6,40,"NA",98.25,"NA","NA","NA","NA",1110,"NA",0,"NA","NA",20,"NA",0,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ7",1,0,1,0,0,1,1,0,4,25,"NA",95.25,"NA","NA","NA","NA",1090,"NA",0,"NA","NA",18,"NA",0,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ8",1,0,0,0,1,0,0,0,2,15,"NA",99,"NA","NA","NA","NA",1090,"NA",0,"NA","NA",13,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ9",1,1,1,1,1,0,1,0,6,30,"NA",93.5,"NA","NA","NA","NA",1060,"NA",0,"NA","NA",21,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ10",1,0,1,1,0,0,0,0,3,15,"NA",94.25,"NA","NA","NA","NA",1120,"NA",0,"NA","NA",14,"NA",0,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ11",1,1,0,0,1,0,0,0,3,15,"NA",98.5,"NA","NA","NA","NA",1150,"NA",0,"NA","NA",18,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ12",1,1,1,1,0,1,1,0,6,25,"NA",98.5,"NA","NA","NA","NA",1160,"NA",0,"NA","NA",36,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ13",1,1,0,0,1,0,0,0,3,24,"NA",98,"NA","NA","NA","NA",1160,"NA",0,"NA","NA",14,"NA",0,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ14",1,1,1,1,1,1,0,0,6,25,"NA",99.5,"NA","NA","NA","NA",1160,"NA",0,"NA","NA",19,"NA",0,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ15",1,1,0,1,1,0,1,1,6,33,"NA",94,"NA","NA","NA","NA",1140,"NA",0,"NA","NA",19,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ16",1,1,1,1,1,1,0,0,6,17,"NA",97.75,"NA","NA","NA","NA",1140,"NA",0,"NA","NA",33,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ17",1,1,0,1,1,1,0,0,5,8,"NA",99.5,"NA","NA","NA","NA",1150,"NA",0,"NA","NA",18,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ18",1,1,1,1,1,1,0,0,6,20,"NA",99.5,"NA","NA","NA","NA",1160,"NA",0,"NA","NA",21,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ19",1,1,1,1,1,1,0,0,6,20,"NA",99.25,"NA","NA","NA","NA",1160,"NA",0,"NA","NA",13,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ20",1,1,0,1,1,0,0,0,4,19,"NA",97.5,"NA","NA","NA","NA",1165,"NA",0,"NA","NA",24,"NA",0,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ21",1,1,1,1,0,1,1,0,6,25,"NA",98.25,"NA","NA","NA","NA",1110,"NA",0,"NA","NA",44,"NA",1,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ22",1,1,1,0,1,1,0,0,5,17,"NA",98,"NA","NA","NA","NA",1120,"NA",0,"NA","NA",32,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ23",1,1,0,0,1,1,1,0,5,27,"NA",99.75,"NA","NA","NA","NA",1130,"NA",0,"NA","NA",31,"NA",1,0,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ24",1,1,0,1,1,1,0,0,5,22,"NA",96.25,"NA","NA","NA","NA",1140,"NA",0,"NA","NA",26,"NA",0,1,0,"NA","NA"
+2002,"SangliRoad","Sangli Road","SLPCQ25",1,1,1,1,1,1,1,0,7,30,"NA",98.5,"NA","NA","NA","NA",1145,"NA",0,"NA","NA",18,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ1",1,0,0,0,1,1,0,0,3,19.5,"NA",92,"NA","NA","NA","NA",940,"NA",0,"NA","NA",9,"NA",1,1,1,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ2",1,1,1,0,0,1,0,0,4,23,"NA",97.5,"NA","NA","NA","NA",940,"NA",0,"NA","NA",7,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ3",1,0,0,0,1,0,0,0,2,14.5,"NA",90.25,"NA","NA","NA","NA",945,"NA",0,"NA","NA",6,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ4",1,1,1,1,0,1,0,0,5,17.5,"NA",99.5,"NA","NA","NA","NA",945,"NA",0,"NA","NA",20,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ5",1,1,0,1,1,1,0,0,5,16.5,"NA",93.5,"NA","NA","NA","NA",950,"NA",0,"NA","NA",49,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ6",1,1,1,0,1,0,0,0,4,13.5,"NA",89.5,"NA","NA","NA","NA",945,"NA",0,"NA","NA",5,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ7",1,0,0,0,1,1,0,0,3,16.5,"NA",95.5,"NA","NA","NA","NA",940,"NA",0,"NA","NA",11,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ8",1,0,1,1,1,0,0,0,4,13,"NA",93,"NA","NA","NA","NA",947,"NA",0,"NA","NA",23,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ9",1,1,0,0,1,1,0,0,4,20,"NA",96.5,"NA","NA","NA","NA",947,"NA",0,"NA","NA",15,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ10",1,1,1,0,0,1,0,0,4,18,"NA",95.75,"NA","NA","NA","NA",940,"NA",0,"NA","NA",11,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ11",1,1,0,0,0,0,0,0,2,8,"NA",59.5,"NA","NA","NA","NA",947,"NA",0,"NA","NA",8,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ12",1,0,0,0,1,1,0,0,3,15.5,"NA",44.5,"NA","NA","NA","NA",920,"NA",0,"NA","NA",14,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ13",1,1,1,1,0,0,0,0,4,8,"NA",98.5,"NA","NA","NA","NA",930,"NA",0,"NA","NA",9,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ14",1,1,1,1,1,0,0,0,5,15,"NA",86,"NA","NA","NA","NA",930,"NA",0,"NA","NA",6,"NA",1,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ15",1,1,0,0,1,1,0,0,4,18,"NA",99,"NA","NA","NA","NA",925,"NA",0,"NA","NA",4,"NA",0,0,1,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ16",1,1,0,0,1,0,0,0,3,12,"NA",90,"NA","NA","NA","NA",930,"NA",0,"NA","NA",8,"NA",1,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ17",1,1,1,1,1,1,0,0,6,17.5,"NA",92,"NA","NA","NA","NA",935,"NA",0,"NA","NA",23,"NA",1,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ18",1,1,1,1,1,1,0,0,6,19,"NA",100,"NA","NA","NA","NA",955,"NA",1,"NA","NA",15,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ19",1,1,1,1,1,1,0,0,6,16,"NA",98.25,"NA","NA","NA","NA",955,"NA",1,"NA","NA",17,"NA",0,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ20",1,1,1,1,1,0,0,0,5,12.5,"NA",93.75,"NA","NA","NA","NA",955,"NA",0,"NA","NA",18,"NA",0,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ21",1,1,0,0,0,1,0,0,3,19,"NA",92,"NA","NA","NA","NA",945,"NA",0,"NA","NA",13,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ22",1,1,1,0,0,1,0,0,4,19,"NA",91,"NA","NA","NA","NA",945,"NA",0,"NA","NA",11,"NA",0,0,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ23",1,1,0,0,1,1,1,1,6,18.5,"NA",92.75,"NA","NA","NA","NA",945,"NA",0,"NA","NA",18,"NA",1,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ24",1,0,0,0,1,0,0,0,2,10,"NA",68.75,"NA","NA","NA","NA",940,"NA",0,"NA","NA",7,"NA",1,1,0,"NA","NA"
+2002,"Kalyanapandal","Kalyanapandal","KPPCQ25",1,1,1,1,0,0,0,0,4,12,"NA",90.5,"NA","NA","NA","NA",930,"NA",0,"NA","NA",8,"NA",0,0,0,"NA","NA"
+2019,"Selaliparai2","Selaliparai 2","SEL2PLOT",1,1,1,0,0,1,0,0,4,22,10,90,"NA","NA","NA","NA",1050,"NA","NA","NA","NA",6.0318578948924,"NA","NA","NA","NA","NA","NA"

@@ -1,0 +1,6 @@
+"eventDate","old_sitename","sitecode","site","decimalLatitude","decimalLongitude","geodeticDatum","coordinateUncertaintyInMeters","type","Area_ha","Altitude_min_m","Altitude_max_m","Ownership","Average_canopy_height_m","Canopy_closure_%","Nearby_plantations"
+"2003-03-01/2003-04-30","Akkamalai","AK","Iyerpadi_Akkamalai",10.369175,76.994109,"WGS84",300,"Continuous rainforest",2600,1260,1360,"Protected area (sanctuary)",27,93.6,"Tea"
+"2003-03-01/2003-04-30","Injipara","IP","Injipara",10.322817,76.928891,"WGS84",300,"Rainforest fragment",18,1000,1100,"Unprotected privately owned",23,89.4,"Tea"
+"2003-03-01/2003-04-30","Tata Finley","TF","Old_Valparai",10.347996,76.931715,"WGS84",300,"Rainforest fragment",32,980,1200,"Unprotected privately owned",20,95.2,"Coffee"
+"2003-03-01/2003-04-30","Manamboli_Upper","UM","Manamboli_Upper",10.347891,76.892543,"WGS84",300,"Continuous rainforest",100,920,1120,"Protected area (sanctuary)",32,95.7,"Tea, coffee"
+"2003-03-01/2003-04-30","Manamboli_Lower","LM","Manamboli_Lower",10.358025,76.890285,"WGS84",300,"Continuous rainforest",100,760,800,"Protected area (sanctuary)",32,95.7,"Coffee"

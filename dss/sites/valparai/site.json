@@ -1,0 +1,43 @@
+{
+  "schema_version": "visual-site-pack/0.1",
+  "site_id": "valparai",
+  "label": "Valparai",
+  "organisation_id": "ncf",
+  "aliases": [
+    "Valparai Plateau",
+    "Valparai"
+  ],
+  "target_aoi": {
+    "geometry_role": "declared_study_envelope",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [76.8666667, 10.25],
+          [76.9833333, 10.25],
+          [76.9833333, 10.3666667],
+          [76.8666667, 10.3666667],
+          [76.8666667, 10.25]
+        ]
+      ]
+    },
+    "limitations": [
+      "This is the published Valparai Plateau study envelope, not an organisation-owned parcel boundary.",
+      "Replace or supplement it with organisation-supplied KML or GeoJSON during onboarding."
+    ]
+  },
+  "context_aoi": {
+    "geometry_role": "analysis_context",
+    "bbox": [76.8, 10.18, 77.08, 10.55]
+  },
+  "named_points": [
+    {
+      "location_id": "iyerpadi-weather-station",
+      "label": "Iyerpadi weather station",
+      "latitude": 10.363725,
+      "longitude": 76.977628,
+      "uncertainty_m": 10,
+      "source_id": "zenodo-18646715"
+    }
+  ]
+}

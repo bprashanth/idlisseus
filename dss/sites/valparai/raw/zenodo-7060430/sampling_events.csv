@@ -1,0 +1,230 @@
+season,transect,tcode,eventDate,tlength
+monsoon,Balaji Temple,b1,2011-06-15,6.7
+monsoon,Balaji Temple,b2,2011-06-22,6.7
+monsoon,Balaji Temple,b3,2011-06-23,6.7
+monsoon,Balaji Temple,b4,2011-08-11,6.7
+monsoon,Balaji Temple,b5,2011-08-23,6.7
+monsoon,Balaji Temple,b6,2011-08-31,6.7
+monsoon,Balaji Temple,b7,2011-09-08,6.7
+monsoon,Balaji Temple,b8,2011-09-16,6.7
+monsoon,Balaji Temple,b9,2011-09-24,6.7
+monsoon,Balaji Temple,b10,2011-10-02,6.7
+monsoon,Balaji Temple,b11,2011-10-13,6.7
+monsoon,Balaji Temple,b12,2011-10-22,6.7
+monsoon,Chinnakallar,c1,2011-08-15,6.8
+monsoon,Chinnakallar,c2,2011-08-25,6.8
+monsoon,Chinnakallar,c3,2011-09-02,6.8
+monsoon,Chinnakallar,c4,2011-09-10,6.8
+monsoon,Chinnakallar,c5,2011-09-18,6.8
+monsoon,Chinnakallar,c6,2011-09-26,6.8
+monsoon,Chinnakallar,c7,2011-10-05,6.8
+monsoon,Chinnakallar,c8,2011-10-15,6.8
+monsoon,Chinnakallar,c9,2011-10-24,6.8
+monsoon,Chinnakallar,c10,2011-11-01,6.8
+monsoon,Old Valparai,t1,2011-08-12,6.1
+monsoon,Old Valparai,t2,2011-08-20,6.1
+monsoon,Old Valparai,t3,2011-08-30,6.1
+monsoon,Old Valparai,t4,2011-09-06,6.1
+monsoon,Old Valparai,t5,2011-09-14,6.1
+monsoon,Old Valparai,t6,2011-09-22,6.1
+monsoon,Old Valparai,t7,2011-09-30,6.1
+monsoon,Old Valparai,t8,2011-10-08,6.1
+monsoon,Old Valparai,t9,2011-10-20,6.1
+monsoon,Old Valparai,t10,2011-10-30,6.1
+monsoon,Neerar Dam,n1,2011-08-17,9.2
+monsoon,Neerar Dam,n2,2011-08-26,9.2
+monsoon,Neerar Dam,n3,2011-09-03,9.2
+monsoon,Neerar Dam,n4,2011-09-12,9.2
+monsoon,Neerar Dam,n5,2011-09-19,9.2
+monsoon,Neerar Dam,n6,2011-09-27,9.2
+monsoon,Neerar Dam,n7,2011-10-06,9.2
+monsoon,Neerar Dam,n8,2011-10-16,9.2
+monsoon,Neerar Dam,n9,2011-09-25,9.2
+monsoon,Puthuthotam,p1,2011-06-13,3.7
+monsoon,Puthuthotam,p2,2011-06-26,3.7
+monsoon,Puthuthotam,p3,2011-08-10,3.7
+monsoon,Puthuthotam,p4,2011-08-18,3.7
+monsoon,Puthuthotam,p5,2011-08-28,3.7
+monsoon,Puthuthotam,p6,2011-09-04,3.7
+monsoon,Puthuthotam,p7,2011-09-11,3.7
+monsoon,Puthuthotam,p8,2011-09-20,3.7
+monsoon,Puthuthotam,p9,2011-09-28,3.7
+monsoon,Puthuthotam,p10,2011-10-04,3.7
+monsoon,Puthuthotam,p11,2011-10-12,3.7
+monsoon,Puthuthotam,p12,2011-06-20,3.7
+monsoon,Puthuthotam,p13,2011-07-01,3.7
+monsoon,Sholayar,sh1,2011-08-19,12.9
+monsoon,Sholayar,sh2,2011-08-27,12.9
+monsoon,Sholayar,sh3,2011-09-05,12.9
+monsoon,Sholayar,sh4,2011-09-05,12.9
+monsoon,Sholayar,sh5,2011-09-13,12.9
+monsoon,Sholayar,sh6,2011-09-21,12.9
+monsoon,Sholayar,sh7,2011-09-29,12.9
+monsoon,Sholayar,sh8,2011-10-07,12.9
+monsoon,Sholayar,sh9,2011-10-18,12.9
+monsoon,Sholayar,sh10,2011-10-29,12.9
+monsoon,Azhiyar,az1,2011-11-04,5.1
+monsoon,Azhiyar,az2,2011-11-07,5.1
+monsoon,Azhiyar,az3,2011-11-10,5.1
+monsoon,Azhiyar,az4,2011-11-15,5.1
+monsoon,Azhiyar,az5,2011-11-18,5.1
+monsoon,Azhiyar,az6,2011-11-22,5.1
+monsoon,Azhiyar,az7,2011-11-25,5.1
+monsoon,Azhiyar,az8,2011-11-29,5.1
+monsoon,Azhiyar,az9,2011-12-12,5.1
+monsoon,Azhiyar,az10,2011-12-15,5.1
+monsoon,Waverly,w1,2011-08-16,8.5
+monsoon,Waverly,w2,2011-08-22,8.5
+monsoon,Waverly,w3,2011-08-29,8.5
+monsoon,Waverly,w4,2011-09-07,8.5
+monsoon,Waverly,w5,2011-09-15,8.5
+monsoon,Waverly,w6,2011-09-23,8.5
+monsoon,Waverly,w7,2011-10-01,8.5
+monsoon,Waverly,w8,2011-10-11,8.5
+monsoon,Waverly,w9,2011-10-21,8.5
+monsoon,Waverly,w10,2011-10-31,8.5
+monsoon,Attakatti - 1 hpb,at1,2011-11-03,6.7
+monsoon,Attakatti - 1 hpb,at2,2011-11-06,6.7
+monsoon,Attakatti - 1 hpb,at3,2011-11-09,6.7
+monsoon,Attakatti - 1 hpb,at4,2011-11-14,6.7
+monsoon,Attakatti - 1 hpb,at5,2011-11-17,6.7
+monsoon,Attakatti - 1 hpb,at6,2011-11-21,6.7
+monsoon,Attakatti - 1 hpb,at7,2011-11-24,6.7
+monsoon,Attakatti - 1 hpb,at8,2011-11-28,6.7
+monsoon,Attakatti - 1 hpb,at9,2011-12-10,6.7
+monsoon,Attakatti - 1 hpb,at10,2011-12-14,6.7
+monsoon,Attakatti - 1 hpb,at11,2011-12-17,6.7
+monsoon,Waterfalls,wf1,2011-11-02,5.2
+monsoon,Waterfalls,wf2,2011-11-05,5.2
+monsoon,Waterfalls,wf3,2011-11-08,5.2
+monsoon,Waterfalls,wf4,2011-11-11,5.2
+monsoon,Waterfalls,wf5,2011-11-16,5.2
+monsoon,Waterfalls,wf6,2011-11-19,5.2
+monsoon,Waterfalls,wf7,2011-11-23,5.2
+monsoon,Waterfalls,wf8,2011-11-26,5.2
+monsoon,Waterfalls,wf9,2011-11-30,5.2
+monsoon,Waterfalls,wf10,2011-12-13,5.2
+monsoon,Waterfalls,wf11,2011-12-16,5.2
+monsoon,Nallamudi,s1,2011-06-16,9.3
+monsoon,Nallamudi,s2,2011-07-05,9.3
+monsoon,Nallamudi,s3,2011-08-13,9.3
+monsoon,Nallamudi,s4,2011-08-24,9.3
+monsoon,Nallamudi,s5,2011-09-01,9.3
+monsoon,Nallamudi,s6,2011-09-09,9.3
+monsoon,Nallamudi,s7,2011-09-17,9.3
+monsoon,Nallamudi,s8,2011-09-25,9.3
+monsoon,Nallamudi,s9,2011-10-03,9.3
+monsoon,Nallamudi,s10,2011-10-14,9.3
+monsoon,Nallamudi,s11,2011-10-23,9.3
+summer,Azhiyar,az11,2012-05-23,5.1
+summer,Azhiyar,az12,2012-05-26,5.1
+summer,Azhiyar,az13,2012-05-28,5.1
+summer,Azhiyar,az14,2012-06-07,5.1
+summer,Azhiyar,az15,2012-06-14,5.1
+summer,Azhiyar,az16,2012-06-17,5.1
+summer,Azhiyar,az17,2012-06-19,5.1
+summer,Azhiyar,az18,2012-06-20,5.1
+summer,Waverly,w11,2012-05-19,8.5
+summer,Waverly,w12,2012-05-24,8.5
+summer,Waverly,w13,2012-05-26,8.5
+summer,Waverly,w14,2012-05-28,8.5
+summer,Waverly,w15,2012-06-04,8.5
+summer,Waverly,w16,2012-06-09,8.5
+summer,Waverly,w17,2012-06-15,8.5
+summer,Waverly,w18,2012-06-30,8.5
+summer,Attakatti - 1 hpb,at12,2012-05-22,6.7
+summer,Attakatti - 1 hpb,at13,2012-05-25,6.7
+summer,Attakatti - 1 hpb,at14,2012-05-27,6.7
+summer,Attakatti - 1 hpb,at15,2012-05-30,6.7
+summer,Attakatti - 1 hpb,at16,2012-06-06,6.7
+summer,Attakatti - 1 hpb,at17,2012-06-07,6.7
+summer,Attakatti - 1 hpb,at18,2012-06-13,6.7
+summer,Balaji Temple,b13,2012-03-20,6.7
+summer,Balaji Temple,b14,2012-03-29,6.7
+summer,Balaji Temple,b15,2012-04-07,6.7
+summer,Balaji Temple,b16,2012-04-19,6.7
+summer,Balaji Temple,b17,2012-04-24,6.7
+summer,Balaji Temple,b18,2012-05-01,6.7
+summer,Balaji Temple,b19,2012-05-10,6.7
+summer,Chinnakallar,c11,2012-03-16,6.8
+summer,Chinnakallar,c12,2012-03-24,6.8
+summer,Chinnakallar,c13,2012-04-04,6.8
+summer,Chinnakallar,c14,2012-04-13,6.8
+summer,Chinnakallar,c15,2012-05-05,6.8
+summer,Chinnakallar,c16,2012-05-09,6.8
+summer,Chinnakallar,c17,2012-05-15,6.8
+summer,Chinnakallar,c18,2012-05-24,6.8
+summer,Old Valparai,t11,2012-03-10,6.1
+summer,Old Valparai,t12,2012-03-22,6.1
+summer,Old Valparai,t13,2012-05-31,6.1
+summer,Old Valparai,t14,2012-04-11,6.1
+summer,Old Valparai,t15,2012-04-20,6.1
+summer,Old Valparai,t16,2012-04-26,6.1
+summer,Old Valparai,t17,2012-05-07,6.1
+summer,Old Valparai,t18,2012-05-14,6.1
+summer,Neerar Dam,n10,2012-03-17,9.2
+summer,Neerar Dam,n11,2012-03-27,9.2
+summer,Neerar Dam,n12,2012-04-05,9.2
+summer,Neerar Dam,n13,2012-04-14,9.2
+summer,Neerar Dam,n14,2012-04-29,9.2
+summer,Neerar Dam,n15,2012-05-09,9.2
+summer,Neerar Dam,n16,2012-05-22,9.2
+summer,Neerar Dam,n17,2012-05-24,9.2
+summer,Puthuthotam,p14,2012-03-06,3.7
+summer,Puthuthotam,p15,2012-03-21,3.7
+summer,Puthuthotam,p16,2012-03-30,3.7
+summer,Puthuthotam,p17,2012-04-09,3.7
+summer,Puthuthotam,p18,2012-04-23,3.7
+summer,Puthuthotam,p19,2012-05-01,3.7
+summer,Puthuthotam,p20,2012-05-10,3.7
+summer,Puthuthotam,p21,2012-05-20,3.7
+summer,Nallamudi,s12,2012-03-18,9.3
+summer,Nallamudi,s13,2012-03-28,9.3
+summer,Nallamudi,s14,2012-04-06,9.3
+summer,Nallamudi,s15,2012-04-18,9.3
+summer,Nallamudi,s16,2012-04-25,9.3
+summer,Nallamudi,s17,2012-04-28,9.3
+summer,Nallamudi,s18,2012-05-08,9.3
+summer,Nallamudi,s19,2012-05-22,9.3
+summer,Sholayar,sh11,2012-03-09,12.9
+summer,Sholayar,sh12,2012-03-23,12.9
+summer,Sholayar,sh13,2012-04-02,12.9
+summer,Sholayar,sh14,2012-04-12,12.9
+summer,Sholayar,sh15,2012-04-21,12.9
+summer,Sholayar,sh16,2012-05-06,12.9
+summer,Sholayar,sh17,2012-05-11,12.9
+summer,Sholayar,sh18,2012-05-23,12.9
+summer,Waterfalls,wf12,2012-05-21,5.2
+summer,Waterfalls,wf13,2012-05-25,5.2
+summer,Waterfalls,wf14,2012-05-27,5.2
+summer,Waterfalls,wf15,2012-05-29,5.2
+summer,Waterfalls,wf16,2012-06-05,5.2
+summer,Waterfalls,wf17,2012-06-12,5.2
+summer,Waterfalls,wf18,2012-06-16,5.2
+summer,Waterfalls,wf19,2012-06-18,5.2
+summer,Attakatti - 1 hpb,at19,2012-06-17,6.7
+NA,Opportunistic,opx1,2012-06-16,0
+NA,Opportunistic,opx2,2011-08-15,0
+NA,Opportunistic,opx3,2012-01-13,0
+NA,Opportunistic,opx4,2012-05-12,0
+NA,Opportunistic,opx5,2011-12-08,0
+NA,Opportunistic,opx6,2011-08-26,0
+NA,Opportunistic,opx7,2011-09-03,0
+NA,Opportunistic,opx8,2011-09-27,0
+NA,Opportunistic,opx9,2011-10-25,0
+NA,Opportunistic,opx10,2011-07-01,0
+NA,Opportunistic,opx11,2012-03-21,0
+NA,Opportunistic,opx12,2012-03-30,0
+NA,Opportunistic,opx13,2011-08-18,0
+NA,Opportunistic,opx14,2012-04-23,0
+NA,Opportunistic,opx15,2011-08-08,0
+NA,Opportunistic,opx16,2011-07-20,0
+NA,Opportunistic,opx17,2011-06-29,0
+NA,Opportunistic,opx18,2011-10-04,0
+NA,Opportunistic,opx19,2011-09-30,0
+NA,Opportunistic,opx20,2012-05-01,0
+NA,Opportunistic,opx21,2012-05-02,0
+NA,Opportunistic,opx22,2012-03-07,0
+NA,Opportunistic,opx23,2012-03-15,0
+NA,Opportunistic,opx24,2012-01/2013-05 ,0
+NA,Opportunistic,opx25,2013-05-01,0

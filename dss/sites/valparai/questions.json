@@ -1,0 +1,65 @@
+{
+  "schema_version": "visual-question-probes/0.1",
+  "questions": [
+    {
+      "id": "site-overview",
+      "question": "Tell me about Valparai.",
+      "first_visual": "site_overview_map",
+      "required_planes": ["aoi", "locations", "event_density", "source_coverage"]
+    },
+    {
+      "id": "named-place",
+      "question": "Tell me about Iyerpadi.",
+      "first_visual": "named_location_map",
+      "required_planes": ["location_aliases", "nearby_events", "nearby_measurements"]
+    },
+    {
+      "id": "entity-presence",
+      "question": "Where have lion-tailed macaques been recorded?",
+      "first_visual": "observed_points_map",
+      "required_planes": ["entity_aliases", "events", "time_coverage"]
+    },
+    {
+      "id": "broad-group",
+      "question": "What trees have been measured here?",
+      "first_visual": "entity_richness_map",
+      "required_planes": ["entity_hierarchy", "events", "locations"]
+    },
+    {
+      "id": "presence-vs-effort",
+      "question": "Where do we have records and where did people actually look?",
+      "first_visual": "coverage_and_effort_map",
+      "required_planes": ["events", "effort", "source_coverage"]
+    },
+    {
+      "id": "time-pattern",
+      "question": "How do road events vary through the year?",
+      "first_visual": "seasonal_effort_normalised_chart",
+      "required_planes": ["events", "effort", "time_buckets"]
+    },
+    {
+      "id": "environment-time-series",
+      "question": "How have rainfall and temperature changed over the available period?",
+      "first_visual": "metric_time_series",
+      "required_planes": ["measurements", "metric_units", "time_buckets"]
+    },
+    {
+      "id": "hierarchy",
+      "question": "How are the measured entities related?",
+      "first_visual": "hierarchy_sunburst",
+      "required_planes": ["entities", "entity_aliases", "entity_hierarchy"]
+    },
+    {
+      "id": "transfer",
+      "question": "Where is there enough data to transfer a model into the target area?",
+      "first_visual": "donor_coverage_and_gate_map",
+      "required_planes": ["events", "cells", "feature_cube", "model_runs", "gate_results"]
+    },
+    {
+      "id": "missing-data",
+      "question": "Where would one more survey reduce uncertainty most?",
+      "first_visual": "value_of_information_map",
+      "required_planes": ["cells", "effort", "model_runs", "data_requests"]
+    }
+  ]
+}
