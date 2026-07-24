@@ -1,0 +1,7960 @@
+{
+ "species": "Lantana camara",
+ "year": 2024,
+ "grid_n": 28,
+ "bbox": [
+  78.17,
+  12.721,
+  78.197,
+  12.747
+ ],
+ "center": {
+  "lat": 12.73394,
+  "lon": 78.18344
+ },
+ "ref_presence": [
+  12.621279,
+  78.031176
+ ],
+ "grid": [
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.273,
+   "ndvi_dry": 0.232,
+   "retain": 0.852,
+   "rf_prob": 0.113,
+   "persist": 0.0,
+   "likelihood": 0.068
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.411,
+   "ndvi_dry": 0.315,
+   "retain": 0.767,
+   "rf_prob": 0.134,
+   "persist": 0.733,
+   "likelihood": 0.374
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.397,
+   "ndvi_dry": 0.34,
+   "retain": 0.858,
+   "rf_prob": 0.165,
+   "persist": 0.915,
+   "likelihood": 0.465
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.645,
+   "ndvi_dry": 0.306,
+   "retain": 0.474,
+   "rf_prob": 0.096,
+   "persist": 0.148,
+   "likelihood": 0.117
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.566,
+   "ndvi_dry": 0.41,
+   "retain": 0.724,
+   "rf_prob": 0.063,
+   "persist": 0.648,
+   "likelihood": 0.297
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.497,
+   "ndvi_dry": 0.575,
+   "retain": 1.158,
+   "rf_prob": 0.105,
+   "persist": 1.0,
+   "likelihood": 0.463
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.304,
+   "ndvi_dry": 0.23,
+   "retain": 0.758,
+   "rf_prob": 0.063,
+   "persist": 0.716,
+   "likelihood": 0.324
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.216,
+   "ndvi_dry": 0.154,
+   "retain": 0.712,
+   "rf_prob": 0.199,
+   "persist": 0.0,
+   "likelihood": 0.119
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.316,
+   "ndvi_dry": 0.251,
+   "retain": 0.795,
+   "rf_prob": 0.11,
+   "persist": 0.791,
+   "likelihood": 0.383
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.31,
+   "retain": 0.732,
+   "rf_prob": 0.076,
+   "persist": 0.664,
+   "likelihood": 0.311
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.180125,
+   "ndvi_wet": 0.41,
+   "ndvi_dry": 0.255,
+   "retain": 0.622,
+   "rf_prob": 0.098,
+   "persist": 0.444,
+   "likelihood": 0.236
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.419,
+   "ndvi_dry": 0.297,
+   "retain": 0.709,
+   "rf_prob": 0.149,
+   "persist": 0.617,
+   "likelihood": 0.336
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.382,
+   "ndvi_dry": 0.272,
+   "retain": 0.713,
+   "rf_prob": 0.116,
+   "persist": 0.627,
+   "likelihood": 0.32
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.301,
+   "ndvi_dry": 0.25,
+   "retain": 0.83,
+   "rf_prob": 0.193,
+   "persist": 0.86,
+   "likelihood": 0.46
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.308,
+   "ndvi_dry": 0.24,
+   "retain": 0.78,
+   "rf_prob": 0.155,
+   "persist": 0.76,
+   "likelihood": 0.397
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.325,
+   "ndvi_dry": 0.244,
+   "retain": 0.752,
+   "rf_prob": 0.115,
+   "persist": 0.703,
+   "likelihood": 0.35
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.292,
+   "retain": 0.822,
+   "rf_prob": 0.128,
+   "persist": 0.844,
+   "likelihood": 0.415
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.186875,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.296,
+   "retain": 0.764,
+   "rf_prob": 0.256,
+   "persist": 0.728,
+   "likelihood": 0.445
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.307,
+   "ndvi_dry": 0.238,
+   "retain": 0.773,
+   "rf_prob": 0.121,
+   "persist": 0.747,
+   "likelihood": 0.371
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.289,
+   "ndvi_dry": 0.271,
+   "retain": 0.939,
+   "rf_prob": 0.289,
+   "persist": 0.0,
+   "likelihood": 0.173
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.35,
+   "ndvi_dry": 0.273,
+   "retain": 0.781,
+   "rf_prob": 0.268,
+   "persist": 0.763,
+   "likelihood": 0.466
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.309,
+   "retain": 0.802,
+   "rf_prob": 0.202,
+   "persist": 0.803,
+   "likelihood": 0.442
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.336,
+   "ndvi_dry": 0.293,
+   "retain": 0.873,
+   "rf_prob": 0.188,
+   "persist": 0.946,
+   "likelihood": 0.492
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.429,
+   "ndvi_dry": 0.35,
+   "retain": 0.817,
+   "rf_prob": 0.193,
+   "persist": 0.834,
+   "likelihood": 0.449
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.193625,
+   "ndvi_wet": 0.308,
+   "ndvi_dry": 0.247,
+   "retain": 0.802,
+   "rf_prob": 0.149,
+   "persist": 0.804,
+   "likelihood": 0.411
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.359,
+   "ndvi_dry": 0.238,
+   "retain": 0.664,
+   "rf_prob": 0.076,
+   "persist": 0.529,
+   "likelihood": 0.257
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.443,
+   "ndvi_dry": 0.287,
+   "retain": 0.648,
+   "rf_prob": 0.144,
+   "persist": 0.496,
+   "likelihood": 0.285
+  },
+  {
+   "lat": 12.721464285714285,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.377,
+   "ndvi_dry": 0.276,
+   "retain": 0.732,
+   "rf_prob": 0.134,
+   "persist": 0.663,
+   "likelihood": 0.345
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.145,
+   "ndvi_dry": 0.108,
+   "retain": 0.747,
+   "rf_prob": 0.201,
+   "persist": 0.0,
+   "likelihood": 0.121
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.396,
+   "ndvi_dry": 0.251,
+   "retain": 0.633,
+   "rf_prob": 0.079,
+   "persist": 0.466,
+   "likelihood": 0.234
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.273,
+   "ndvi_dry": 0.217,
+   "retain": 0.797,
+   "rf_prob": 0.16,
+   "persist": 0.0,
+   "likelihood": 0.096
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.608,
+   "ndvi_dry": 0.64,
+   "retain": 1.052,
+   "rf_prob": 0.088,
+   "persist": 1.0,
+   "likelihood": 0.453
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.494,
+   "ndvi_dry": 0.591,
+   "retain": 1.197,
+   "rf_prob": 0.106,
+   "persist": 1.0,
+   "likelihood": 0.464
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.369,
+   "ndvi_dry": 0.582,
+   "retain": 1.578,
+   "rf_prob": 0.138,
+   "persist": 1.0,
+   "likelihood": 0.483
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.404,
+   "ndvi_dry": 0.333,
+   "retain": 0.822,
+   "rf_prob": 0.21,
+   "persist": 0.844,
+   "likelihood": 0.464
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.307,
+   "ndvi_dry": 0.25,
+   "retain": 0.814,
+   "rf_prob": 0.107,
+   "persist": 0.828,
+   "likelihood": 0.395
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.374,
+   "ndvi_dry": 0.254,
+   "retain": 0.679,
+   "rf_prob": 0.082,
+   "persist": 0.559,
+   "likelihood": 0.273
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.246,
+   "retain": 0.72,
+   "rf_prob": 0.082,
+   "persist": 0.64,
+   "likelihood": 0.305
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.180125,
+   "ndvi_wet": 0.482,
+   "ndvi_dry": 0.368,
+   "retain": 0.764,
+   "rf_prob": 0.142,
+   "persist": 0.729,
+   "likelihood": 0.377
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.286,
+   "retain": 0.716,
+   "rf_prob": 0.209,
+   "persist": 0.632,
+   "likelihood": 0.378
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.435,
+   "ndvi_dry": 0.29,
+   "retain": 0.667,
+   "rf_prob": 0.138,
+   "persist": 0.533,
+   "likelihood": 0.296
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.408,
+   "ndvi_dry": 0.311,
+   "retain": 0.761,
+   "rf_prob": 0.119,
+   "persist": 0.721,
+   "likelihood": 0.36
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.394,
+   "ndvi_dry": 0.327,
+   "retain": 0.83,
+   "rf_prob": 0.165,
+   "persist": 0.859,
+   "likelihood": 0.443
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.315,
+   "ndvi_dry": 0.231,
+   "retain": 0.733,
+   "rf_prob": 0.111,
+   "persist": 0.665,
+   "likelihood": 0.333
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.463,
+   "ndvi_dry": 0.397,
+   "retain": 0.859,
+   "rf_prob": 0.121,
+   "persist": 0.918,
+   "likelihood": 0.44
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.186875,
+   "ndvi_wet": 0.348,
+   "ndvi_dry": 0.275,
+   "retain": 0.791,
+   "rf_prob": 0.181,
+   "persist": 0.782,
+   "likelihood": 0.421
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.328,
+   "ndvi_dry": 0.257,
+   "retain": 0.783,
+   "rf_prob": 0.133,
+   "persist": 0.767,
+   "likelihood": 0.387
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.325,
+   "ndvi_dry": 0.271,
+   "retain": 0.833,
+   "rf_prob": 0.264,
+   "persist": 0.867,
+   "likelihood": 0.505
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.366,
+   "ndvi_dry": 0.278,
+   "retain": 0.758,
+   "rf_prob": 0.308,
+   "persist": 0.716,
+   "likelihood": 0.471
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.266,
+   "retain": 0.749,
+   "rf_prob": 0.231,
+   "persist": 0.698,
+   "likelihood": 0.418
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.376,
+   "ndvi_dry": 0.295,
+   "retain": 0.785,
+   "rf_prob": 0.311,
+   "persist": 0.77,
+   "likelihood": 0.494
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.312,
+   "retain": 0.805,
+   "rf_prob": 0.095,
+   "persist": 0.809,
+   "likelihood": 0.381
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.193625,
+   "ndvi_wet": 0.33,
+   "ndvi_dry": 0.267,
+   "retain": 0.807,
+   "rf_prob": 0.191,
+   "persist": 0.815,
+   "likelihood": 0.441
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.383,
+   "ndvi_dry": 0.296,
+   "retain": 0.772,
+   "rf_prob": 0.158,
+   "persist": 0.744,
+   "likelihood": 0.393
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.438,
+   "ndvi_dry": 0.262,
+   "retain": 0.597,
+   "rf_prob": 0.16,
+   "persist": 0.395,
+   "likelihood": 0.254
+  },
+  {
+   "lat": 12.722392857142857,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.445,
+   "ndvi_dry": 0.293,
+   "retain": 0.66,
+   "rf_prob": 0.099,
+   "persist": 0.519,
+   "likelihood": 0.267
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.255,
+   "ndvi_dry": 0.212,
+   "retain": 0.83,
+   "rf_prob": 0.099,
+   "persist": 0.0,
+   "likelihood": 0.059
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.563,
+   "ndvi_dry": 0.273,
+   "retain": 0.485,
+   "rf_prob": 0.102,
+   "persist": 0.169,
+   "likelihood": 0.129
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.569,
+   "ndvi_dry": 0.7,
+   "retain": 1.231,
+   "rf_prob": 0.141,
+   "persist": 1.0,
+   "likelihood": 0.485
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.264,
+   "ndvi_dry": 0.205,
+   "retain": 0.778,
+   "rf_prob": 0.088,
+   "persist": 0.0,
+   "likelihood": 0.053
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.551,
+   "ndvi_dry": 0.52,
+   "retain": 0.943,
+   "rf_prob": 0.083,
+   "persist": 1.0,
+   "likelihood": 0.45
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.253,
+   "retain": 0.908,
+   "rf_prob": 0.202,
+   "persist": 0.0,
+   "likelihood": 0.121
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.267,
+   "ndvi_dry": 0.234,
+   "retain": 0.878,
+   "rf_prob": 0.208,
+   "persist": 0.0,
+   "likelihood": 0.125
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.331,
+   "retain": 1.08,
+   "rf_prob": 0.087,
+   "persist": 1.0,
+   "likelihood": 0.452
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.317,
+   "ndvi_dry": 0.252,
+   "retain": 0.793,
+   "rf_prob": 0.119,
+   "persist": 0.787,
+   "likelihood": 0.386
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.415,
+   "ndvi_dry": 0.316,
+   "retain": 0.763,
+   "rf_prob": 0.084,
+   "persist": 0.726,
+   "likelihood": 0.34
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.180125,
+   "ndvi_wet": 0.469,
+   "ndvi_dry": 0.312,
+   "retain": 0.666,
+   "rf_prob": 0.055,
+   "persist": 0.532,
+   "likelihood": 0.246
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.327,
+   "retain": 0.818,
+   "rf_prob": 0.098,
+   "persist": 0.836,
+   "likelihood": 0.393
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.388,
+   "ndvi_dry": 0.277,
+   "retain": 0.714,
+   "rf_prob": 0.192,
+   "persist": 0.627,
+   "likelihood": 0.366
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.452,
+   "ndvi_dry": 0.359,
+   "retain": 0.795,
+   "rf_prob": 0.064,
+   "persist": 0.789,
+   "likelihood": 0.354
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.35,
+   "ndvi_dry": 0.286,
+   "retain": 0.816,
+   "rf_prob": 0.138,
+   "persist": 0.833,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.413,
+   "ndvi_dry": 0.349,
+   "retain": 0.846,
+   "rf_prob": 0.081,
+   "persist": 0.892,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.31,
+   "ndvi_dry": 0.23,
+   "retain": 0.742,
+   "rf_prob": 0.111,
+   "persist": 0.684,
+   "likelihood": 0.34
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.186875,
+   "ndvi_wet": 0.307,
+   "ndvi_dry": 0.24,
+   "retain": 0.779,
+   "rf_prob": 0.131,
+   "persist": 0.759,
+   "likelihood": 0.382
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.272,
+   "ndvi_dry": 0.225,
+   "retain": 0.825,
+   "rf_prob": 0.201,
+   "persist": 0.0,
+   "likelihood": 0.121
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.313,
+   "ndvi_dry": 0.23,
+   "retain": 0.736,
+   "rf_prob": 0.195,
+   "persist": 0.672,
+   "likelihood": 0.386
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.344,
+   "ndvi_dry": 0.28,
+   "retain": 0.814,
+   "rf_prob": 0.236,
+   "persist": 0.828,
+   "likelihood": 0.473
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.314,
+   "ndvi_dry": 0.285,
+   "retain": 0.908,
+   "rf_prob": 0.179,
+   "persist": 1.0,
+   "likelihood": 0.508
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.31,
+   "ndvi_dry": 0.28,
+   "retain": 0.904,
+   "rf_prob": 0.157,
+   "persist": 1.0,
+   "likelihood": 0.494
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.378,
+   "ndvi_dry": 0.313,
+   "retain": 0.829,
+   "rf_prob": 0.229,
+   "persist": 0.858,
+   "likelihood": 0.48
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.193625,
+   "ndvi_wet": 0.366,
+   "ndvi_dry": 0.319,
+   "retain": 0.872,
+   "rf_prob": 0.148,
+   "persist": 0.945,
+   "likelihood": 0.467
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.293,
+   "ndvi_dry": 0.269,
+   "retain": 0.916,
+   "rf_prob": 0.245,
+   "persist": 0.0,
+   "likelihood": 0.147
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.233,
+   "ndvi_dry": 0.196,
+   "retain": 0.842,
+   "rf_prob": 0.06,
+   "persist": 0.0,
+   "likelihood": 0.036
+  },
+  {
+   "lat": 12.72332142857143,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.431,
+   "ndvi_dry": 0.355,
+   "retain": 0.825,
+   "rf_prob": 0.067,
+   "persist": 0.849,
+   "likelihood": 0.38
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.705,
+   "ndvi_dry": 0.45,
+   "retain": 0.638,
+   "rf_prob": 0.062,
+   "persist": 0.476,
+   "likelihood": 0.227
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.235,
+   "ndvi_dry": 0.283,
+   "retain": 1.205,
+   "rf_prob": 0.159,
+   "persist": 0.0,
+   "likelihood": 0.096
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.452,
+   "ndvi_dry": 0.358,
+   "retain": 0.791,
+   "rf_prob": 0.047,
+   "persist": 0.47,
+   "likelihood": 0.216
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.52,
+   "ndvi_dry": 0.399,
+   "retain": 0.769,
+   "rf_prob": 0.112,
+   "persist": 0.737,
+   "likelihood": 0.362
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.628,
+   "ndvi_dry": 0.403,
+   "retain": 0.642,
+   "rf_prob": 0.059,
+   "persist": 0.484,
+   "likelihood": 0.229
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.47,
+   "ndvi_dry": 0.439,
+   "retain": 0.935,
+   "rf_prob": 0.117,
+   "persist": 1.0,
+   "likelihood": 0.47
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.267,
+   "ndvi_dry": 0.231,
+   "retain": 0.865,
+   "rf_prob": 0.133,
+   "persist": 0.0,
+   "likelihood": 0.08
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.464,
+   "retain": 1.165,
+   "rf_prob": 0.124,
+   "persist": 1.0,
+   "likelihood": 0.474
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.243,
+   "ndvi_dry": 0.184,
+   "retain": 0.756,
+   "rf_prob": 0.232,
+   "persist": 0.0,
+   "likelihood": 0.139
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.205,
+   "retain": 0.695,
+   "rf_prob": 0.061,
+   "persist": 0.0,
+   "likelihood": 0.036
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.180125,
+   "ndvi_wet": 0.457,
+   "ndvi_dry": 0.337,
+   "retain": 0.737,
+   "rf_prob": 0.059,
+   "persist": 0.674,
+   "likelihood": 0.305
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.476,
+   "ndvi_dry": 0.39,
+   "retain": 0.819,
+   "rf_prob": 0.05,
+   "persist": 0.838,
+   "likelihood": 0.365
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.362,
+   "ndvi_dry": 0.234,
+   "retain": 0.647,
+   "rf_prob": 0.07,
+   "persist": 0.494,
+   "likelihood": 0.24
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.413,
+   "ndvi_dry": 0.314,
+   "retain": 0.761,
+   "rf_prob": 0.08,
+   "persist": 0.722,
+   "likelihood": 0.337
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.37,
+   "ndvi_dry": 0.284,
+   "retain": 0.766,
+   "rf_prob": 0.192,
+   "persist": 0.733,
+   "likelihood": 0.408
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.295,
+   "retain": 0.864,
+   "rf_prob": 0.13,
+   "persist": 0.927,
+   "likelihood": 0.449
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.318,
+   "ndvi_dry": 0.24,
+   "retain": 0.756,
+   "rf_prob": 0.158,
+   "persist": 0.711,
+   "likelihood": 0.379
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.186875,
+   "ndvi_wet": 0.317,
+   "ndvi_dry": 0.246,
+   "retain": 0.778,
+   "rf_prob": 0.136,
+   "persist": 0.756,
+   "likelihood": 0.384
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.315,
+   "ndvi_dry": 0.252,
+   "retain": 0.801,
+   "rf_prob": 0.2,
+   "persist": 0.801,
+   "likelihood": 0.44
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.305,
+   "ndvi_dry": 0.257,
+   "retain": 0.842,
+   "rf_prob": 0.174,
+   "persist": 0.885,
+   "likelihood": 0.458
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.329,
+   "ndvi_dry": 0.276,
+   "retain": 0.838,
+   "rf_prob": 0.177,
+   "persist": 0.877,
+   "likelihood": 0.457
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.315,
+   "ndvi_dry": 0.262,
+   "retain": 0.831,
+   "rf_prob": 0.261,
+   "persist": 0.862,
+   "likelihood": 0.501
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.333,
+   "ndvi_dry": 0.24,
+   "retain": 0.719,
+   "rf_prob": 0.111,
+   "persist": 0.637,
+   "likelihood": 0.321
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.277,
+   "retain": 0.808,
+   "rf_prob": 0.144,
+   "persist": 0.817,
+   "likelihood": 0.413
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.193625,
+   "ndvi_wet": 0.378,
+   "ndvi_dry": 0.295,
+   "retain": 0.78,
+   "rf_prob": 0.164,
+   "persist": 0.76,
+   "likelihood": 0.402
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.422,
+   "ndvi_dry": 0.305,
+   "retain": 0.722,
+   "rf_prob": 0.122,
+   "persist": 0.644,
+   "likelihood": 0.33
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.431,
+   "ndvi_dry": 0.496,
+   "retain": 1.152,
+   "rf_prob": 0.139,
+   "persist": 1.0,
+   "likelihood": 0.484
+  },
+  {
+   "lat": 12.72425,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.305,
+   "ndvi_dry": 0.308,
+   "retain": 1.008,
+   "rf_prob": 0.214,
+   "persist": 1.0,
+   "likelihood": 0.529
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.346,
+   "ndvi_dry": 0.333,
+   "retain": 0.961,
+   "rf_prob": 0.146,
+   "persist": 1.0,
+   "likelihood": 0.488
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.466,
+   "ndvi_dry": 0.394,
+   "retain": 0.846,
+   "rf_prob": 0.06,
+   "persist": 0.893,
+   "likelihood": 0.393
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.665,
+   "ndvi_dry": 0.725,
+   "retain": 1.09,
+   "rf_prob": 0.189,
+   "persist": 1.0,
+   "likelihood": 0.513
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.347,
+   "retain": 0.864,
+   "rf_prob": 0.099,
+   "persist": 0.928,
+   "likelihood": 0.431
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.539,
+   "ndvi_dry": 0.496,
+   "retain": 0.92,
+   "rf_prob": 0.056,
+   "persist": 1.0,
+   "likelihood": 0.434
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.216,
+   "ndvi_dry": 0.171,
+   "retain": 0.795,
+   "rf_prob": 0.288,
+   "persist": 0.0,
+   "likelihood": 0.173
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.391,
+   "ndvi_dry": 0.394,
+   "retain": 1.005,
+   "rf_prob": 0.102,
+   "persist": 1.0,
+   "likelihood": 0.461
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.428,
+   "ndvi_dry": 0.468,
+   "retain": 1.094,
+   "rf_prob": 0.168,
+   "persist": 1.0,
+   "likelihood": 0.501
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.232,
+   "retain": 0.788,
+   "rf_prob": 0.089,
+   "persist": 0.0,
+   "likelihood": 0.054
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.266,
+   "ndvi_dry": 0.13,
+   "retain": 0.488,
+   "rf_prob": 0.285,
+   "persist": 0.0,
+   "likelihood": 0.171
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.180125,
+   "ndvi_wet": 0.266,
+   "ndvi_dry": 0.196,
+   "retain": 0.734,
+   "rf_prob": 0.115,
+   "persist": 0.0,
+   "likelihood": 0.069
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.429,
+   "ndvi_dry": 0.296,
+   "retain": 0.691,
+   "rf_prob": 0.088,
+   "persist": 0.582,
+   "likelihood": 0.286
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.422,
+   "ndvi_dry": 0.312,
+   "retain": 0.738,
+   "rf_prob": 0.115,
+   "persist": 0.676,
+   "likelihood": 0.339
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.41,
+   "ndvi_dry": 0.294,
+   "retain": 0.716,
+   "rf_prob": 0.167,
+   "persist": 0.633,
+   "likelihood": 0.354
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.471,
+   "ndvi_dry": 0.386,
+   "retain": 0.82,
+   "rf_prob": 0.058,
+   "persist": 0.839,
+   "likelihood": 0.37
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.272,
+   "retain": 0.795,
+   "rf_prob": 0.362,
+   "persist": 0.79,
+   "likelihood": 0.533
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.247,
+   "retain": 0.702,
+   "rf_prob": 0.117,
+   "persist": 0.604,
+   "likelihood": 0.312
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.186875,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.272,
+   "retain": 0.775,
+   "rf_prob": 0.219,
+   "persist": 0.749,
+   "likelihood": 0.431
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.228,
+   "retain": 0.747,
+   "rf_prob": 0.182,
+   "persist": 0.693,
+   "likelihood": 0.387
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.369,
+   "ndvi_dry": 0.335,
+   "retain": 0.907,
+   "rf_prob": 0.194,
+   "persist": 1.0,
+   "likelihood": 0.517
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.332,
+   "ndvi_dry": 0.279,
+   "retain": 0.84,
+   "rf_prob": 0.198,
+   "persist": 0.88,
+   "likelihood": 0.471
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.333,
+   "retain": 0.976,
+   "rf_prob": 0.218,
+   "persist": 1.0,
+   "likelihood": 0.531
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.319,
+   "ndvi_dry": 0.279,
+   "retain": 0.876,
+   "rf_prob": 0.166,
+   "persist": 0.953,
+   "likelihood": 0.48
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.34,
+   "ndvi_dry": 0.295,
+   "retain": 0.867,
+   "rf_prob": 0.122,
+   "persist": 0.934,
+   "likelihood": 0.447
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.193625,
+   "ndvi_wet": 0.397,
+   "ndvi_dry": 0.317,
+   "retain": 0.799,
+   "rf_prob": 0.169,
+   "persist": 0.799,
+   "likelihood": 0.421
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.291,
+   "ndvi_dry": 0.209,
+   "retain": 0.72,
+   "rf_prob": 0.12,
+   "persist": 0.0,
+   "likelihood": 0.072
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.319,
+   "retain": 0.933,
+   "rf_prob": 0.214,
+   "persist": 1.0,
+   "likelihood": 0.528
+  },
+  {
+   "lat": 12.725178571428572,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.242,
+   "ndvi_dry": 0.197,
+   "retain": 0.814,
+   "rf_prob": 0.101,
+   "persist": 0.0,
+   "likelihood": 0.06
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.637,
+   "ndvi_dry": 0.535,
+   "retain": 0.841,
+   "rf_prob": 0.062,
+   "persist": 0.882,
+   "likelihood": 0.39
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.681,
+   "ndvi_dry": 0.497,
+   "retain": 0.73,
+   "rf_prob": 0.139,
+   "persist": 0.66,
+   "likelihood": 0.347
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.678,
+   "ndvi_dry": 0.6,
+   "retain": 0.885,
+   "rf_prob": 0.065,
+   "persist": 0.969,
+   "likelihood": 0.427
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.513,
+   "ndvi_dry": 0.48,
+   "retain": 0.935,
+   "rf_prob": 0.08,
+   "persist": 1.0,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.628,
+   "ndvi_dry": 0.602,
+   "retain": 0.959,
+   "rf_prob": 0.123,
+   "persist": 1.0,
+   "likelihood": 0.474
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.443,
+   "ndvi_dry": 0.36,
+   "retain": 0.813,
+   "rf_prob": 0.098,
+   "persist": 0.826,
+   "likelihood": 0.389
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.559,
+   "ndvi_dry": 0.371,
+   "retain": 0.664,
+   "rf_prob": 0.053,
+   "persist": 0.528,
+   "likelihood": 0.243
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.646,
+   "ndvi_dry": 0.616,
+   "retain": 0.953,
+   "rf_prob": 0.1,
+   "persist": 1.0,
+   "likelihood": 0.46
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.475,
+   "ndvi_dry": 0.431,
+   "retain": 0.907,
+   "rf_prob": 0.087,
+   "persist": 1.0,
+   "likelihood": 0.452
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.256,
+   "ndvi_dry": 0.18,
+   "retain": 0.701,
+   "rf_prob": 0.126,
+   "persist": 0.0,
+   "likelihood": 0.075
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.180125,
+   "ndvi_wet": 0.44,
+   "ndvi_dry": 0.36,
+   "retain": 0.818,
+   "rf_prob": 0.148,
+   "persist": 0.837,
+   "likelihood": 0.423
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.45,
+   "ndvi_dry": 0.336,
+   "retain": 0.747,
+   "rf_prob": 0.066,
+   "persist": 0.694,
+   "likelihood": 0.317
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.404,
+   "ndvi_dry": 0.28,
+   "retain": 0.695,
+   "rf_prob": 0.083,
+   "persist": 0.59,
+   "likelihood": 0.286
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.271,
+   "retain": 0.675,
+   "rf_prob": 0.182,
+   "persist": 0.549,
+   "likelihood": 0.329
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.346,
+   "retain": 0.861,
+   "rf_prob": 0.132,
+   "persist": 0.923,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.312,
+   "retain": 0.792,
+   "rf_prob": 0.223,
+   "persist": 0.784,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.329,
+   "ndvi_dry": 0.254,
+   "retain": 0.771,
+   "rf_prob": 0.191,
+   "persist": 0.742,
+   "likelihood": 0.412
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.186875,
+   "ndvi_wet": 0.34,
+   "ndvi_dry": 0.278,
+   "retain": 0.819,
+   "rf_prob": 0.188,
+   "persist": 0.838,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.313,
+   "ndvi_dry": 0.259,
+   "retain": 0.83,
+   "rf_prob": 0.229,
+   "persist": 0.859,
+   "likelihood": 0.481
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.328,
+   "ndvi_dry": 0.269,
+   "retain": 0.82,
+   "rf_prob": 0.207,
+   "persist": 0.84,
+   "likelihood": 0.46
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.352,
+   "ndvi_dry": 0.271,
+   "retain": 0.77,
+   "rf_prob": 0.142,
+   "persist": 0.74,
+   "likelihood": 0.381
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.292,
+   "retain": 0.818,
+   "rf_prob": 0.19,
+   "persist": 0.835,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.312,
+   "ndvi_dry": 0.251,
+   "retain": 0.807,
+   "rf_prob": 0.154,
+   "persist": 0.814,
+   "likelihood": 0.418
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.283,
+   "retain": 0.796,
+   "rf_prob": 0.095,
+   "persist": 0.793,
+   "likelihood": 0.374
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.193625,
+   "ndvi_wet": 0.336,
+   "ndvi_dry": 0.285,
+   "retain": 0.847,
+   "rf_prob": 0.24,
+   "persist": 0.893,
+   "likelihood": 0.501
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.284,
+   "ndvi_dry": 0.248,
+   "retain": 0.875,
+   "rf_prob": 0.16,
+   "persist": 0.0,
+   "likelihood": 0.096
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.333,
+   "ndvi_dry": 0.285,
+   "retain": 0.856,
+   "rf_prob": 0.141,
+   "persist": 0.911,
+   "likelihood": 0.449
+  },
+  {
+   "lat": 12.726107142857144,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.302,
+   "ndvi_dry": 0.238,
+   "retain": 0.79,
+   "rf_prob": 0.151,
+   "persist": 0.78,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.65,
+   "ndvi_dry": 0.607,
+   "retain": 0.933,
+   "rf_prob": 0.071,
+   "persist": 1.0,
+   "likelihood": 0.443
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.664,
+   "ndvi_dry": 0.729,
+   "retain": 1.098,
+   "rf_prob": 0.225,
+   "persist": 1.0,
+   "likelihood": 0.535
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.437,
+   "ndvi_dry": 0.273,
+   "retain": 0.625,
+   "rf_prob": 0.073,
+   "persist": 0.45,
+   "likelihood": 0.224
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.473,
+   "ndvi_dry": 0.464,
+   "retain": 0.982,
+   "rf_prob": 0.136,
+   "persist": 1.0,
+   "likelihood": 0.482
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.549,
+   "ndvi_dry": 0.575,
+   "retain": 1.048,
+   "rf_prob": 0.123,
+   "persist": 1.0,
+   "likelihood": 0.474
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.324,
+   "retain": 0.922,
+   "rf_prob": 0.199,
+   "persist": 1.0,
+   "likelihood": 0.519
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.591,
+   "ndvi_dry": 0.699,
+   "retain": 1.183,
+   "rf_prob": 0.101,
+   "persist": 1.0,
+   "likelihood": 0.46
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.415,
+   "ndvi_dry": 0.311,
+   "retain": 0.75,
+   "rf_prob": 0.092,
+   "persist": 0.7,
+   "likelihood": 0.335
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.354,
+   "retain": 0.889,
+   "rf_prob": 0.081,
+   "persist": 0.977,
+   "likelihood": 0.44
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.438,
+   "ndvi_dry": 0.324,
+   "retain": 0.739,
+   "rf_prob": 0.139,
+   "persist": 0.678,
+   "likelihood": 0.355
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.180125,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.184,
+   "retain": 0.66,
+   "rf_prob": 0.262,
+   "persist": 0.0,
+   "likelihood": 0.157
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.316,
+   "retain": 1.134,
+   "rf_prob": 0.11,
+   "persist": 0.0,
+   "likelihood": 0.066
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.453,
+   "ndvi_dry": 0.347,
+   "retain": 0.764,
+   "rf_prob": 0.055,
+   "persist": 0.729,
+   "likelihood": 0.325
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.408,
+   "ndvi_dry": 0.26,
+   "retain": 0.637,
+   "rf_prob": 0.111,
+   "persist": 0.474,
+   "likelihood": 0.256
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.409,
+   "ndvi_dry": 0.275,
+   "retain": 0.672,
+   "rf_prob": 0.159,
+   "persist": 0.545,
+   "likelihood": 0.313
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.438,
+   "ndvi_dry": 0.303,
+   "retain": 0.691,
+   "rf_prob": 0.057,
+   "persist": 0.582,
+   "likelihood": 0.267
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.368,
+   "ndvi_dry": 0.289,
+   "retain": 0.787,
+   "rf_prob": 0.279,
+   "persist": 0.774,
+   "likelihood": 0.477
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.186875,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.261,
+   "retain": 0.731,
+   "rf_prob": 0.193,
+   "persist": 0.662,
+   "likelihood": 0.381
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.261,
+   "retain": 0.736,
+   "rf_prob": 0.193,
+   "persist": 0.673,
+   "likelihood": 0.385
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.339,
+   "ndvi_dry": 0.271,
+   "retain": 0.8,
+   "rf_prob": 0.16,
+   "persist": 0.801,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.383,
+   "ndvi_dry": 0.302,
+   "retain": 0.79,
+   "rf_prob": 0.295,
+   "persist": 0.781,
+   "likelihood": 0.489
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.361,
+   "ndvi_dry": 0.295,
+   "retain": 0.818,
+   "rf_prob": 0.115,
+   "persist": 0.835,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.206,
+   "ndvi_dry": 0.182,
+   "retain": 0.887,
+   "rf_prob": 0.127,
+   "persist": 0.0,
+   "likelihood": 0.076
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.315,
+   "ndvi_dry": 0.28,
+   "retain": 0.887,
+   "rf_prob": 0.131,
+   "persist": 0.973,
+   "likelihood": 0.468
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.193625,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.281,
+   "retain": 0.814,
+   "rf_prob": 0.181,
+   "persist": 0.829,
+   "likelihood": 0.44
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.328,
+   "ndvi_dry": 0.238,
+   "retain": 0.724,
+   "rf_prob": 0.082,
+   "persist": 0.649,
+   "likelihood": 0.309
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.25,
+   "retain": 0.78,
+   "rf_prob": 0.163,
+   "persist": 0.761,
+   "likelihood": 0.402
+  },
+  {
+   "lat": 12.727035714285714,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.304,
+   "ndvi_dry": 0.24,
+   "retain": 0.79,
+   "rf_prob": 0.148,
+   "persist": 0.78,
+   "likelihood": 0.401
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.294,
+   "ndvi_dry": 0.23,
+   "retain": 0.784,
+   "rf_prob": 0.096,
+   "persist": 0.0,
+   "likelihood": 0.058
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.626,
+   "ndvi_dry": 0.601,
+   "retain": 0.96,
+   "rf_prob": 0.227,
+   "persist": 1.0,
+   "likelihood": 0.536
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.238,
+   "retain": 0.813,
+   "rf_prob": 0.085,
+   "persist": 0.0,
+   "likelihood": 0.051
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.256,
+   "ndvi_dry": 0.18,
+   "retain": 0.703,
+   "rf_prob": 0.083,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.25,
+   "ndvi_dry": 0.181,
+   "retain": 0.723,
+   "rf_prob": 0.075,
+   "persist": 0.0,
+   "likelihood": 0.045
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.322,
+   "ndvi_dry": 0.263,
+   "retain": 0.817,
+   "rf_prob": 0.109,
+   "persist": 0.835,
+   "likelihood": 0.399
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.64,
+   "ndvi_dry": 0.522,
+   "retain": 0.815,
+   "rf_prob": 0.076,
+   "persist": 0.831,
+   "likelihood": 0.378
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.5,
+   "ndvi_dry": 0.479,
+   "retain": 0.957,
+   "rf_prob": 0.141,
+   "persist": 1.0,
+   "likelihood": 0.484
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.234,
+   "ndvi_dry": 0.216,
+   "retain": 0.92,
+   "rf_prob": 0.164,
+   "persist": 0.0,
+   "likelihood": 0.099
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.493,
+   "ndvi_dry": 0.404,
+   "retain": 0.819,
+   "rf_prob": 0.079,
+   "persist": 0.838,
+   "likelihood": 0.382
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.180125,
+   "ndvi_wet": 0.362,
+   "ndvi_dry": 0.335,
+   "retain": 0.926,
+   "rf_prob": 0.223,
+   "persist": 1.0,
+   "likelihood": 0.534
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.461,
+   "ndvi_dry": 0.45,
+   "retain": 0.977,
+   "rf_prob": 0.191,
+   "persist": 1.0,
+   "likelihood": 0.515
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.364,
+   "ndvi_dry": 0.305,
+   "retain": 0.837,
+   "rf_prob": 0.086,
+   "persist": 0.874,
+   "likelihood": 0.401
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.421,
+   "ndvi_dry": 0.293,
+   "retain": 0.696,
+   "rf_prob": 0.087,
+   "persist": 0.592,
+   "likelihood": 0.289
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.404,
+   "ndvi_dry": 0.265,
+   "retain": 0.657,
+   "rf_prob": 0.157,
+   "persist": 0.513,
+   "likelihood": 0.3
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.291,
+   "retain": 0.729,
+   "rf_prob": 0.149,
+   "persist": 0.657,
+   "likelihood": 0.352
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.46,
+   "ndvi_dry": 0.338,
+   "retain": 0.734,
+   "rf_prob": 0.14,
+   "persist": 0.668,
+   "likelihood": 0.351
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.186875,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.251,
+   "retain": 0.821,
+   "rf_prob": 0.184,
+   "persist": 0.843,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.335,
+   "ndvi_dry": 0.261,
+   "retain": 0.777,
+   "rf_prob": 0.232,
+   "persist": 0.755,
+   "likelihood": 0.441
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.293,
+   "ndvi_dry": 0.25,
+   "retain": 0.852,
+   "rf_prob": 0.224,
+   "persist": 0.0,
+   "likelihood": 0.134
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.291,
+   "ndvi_dry": 0.223,
+   "retain": 0.768,
+   "rf_prob": 0.119,
+   "persist": 0.0,
+   "likelihood": 0.071
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.3,
+   "ndvi_dry": 0.259,
+   "retain": 0.863,
+   "rf_prob": 0.154,
+   "persist": 0.926,
+   "likelihood": 0.463
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.253,
+   "ndvi_dry": 0.204,
+   "retain": 0.808,
+   "rf_prob": 0.115,
+   "persist": 0.0,
+   "likelihood": 0.069
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.31,
+   "ndvi_dry": 0.277,
+   "retain": 0.896,
+   "rf_prob": 0.161,
+   "persist": 0.991,
+   "likelihood": 0.493
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.193625,
+   "ndvi_wet": 0.299,
+   "ndvi_dry": 0.241,
+   "retain": 0.804,
+   "rf_prob": 0.112,
+   "persist": 0.0,
+   "likelihood": 0.067
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.336,
+   "ndvi_dry": 0.273,
+   "retain": 0.814,
+   "rf_prob": 0.188,
+   "persist": 0.828,
+   "likelihood": 0.444
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.361,
+   "ndvi_dry": 0.28,
+   "retain": 0.775,
+   "rf_prob": 0.224,
+   "persist": 0.749,
+   "likelihood": 0.434
+  },
+  {
+   "lat": 12.727964285714286,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.303,
+   "ndvi_dry": 0.259,
+   "retain": 0.854,
+   "rf_prob": 0.342,
+   "persist": 0.908,
+   "likelihood": 0.569
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.444,
+   "ndvi_dry": 0.406,
+   "retain": 0.916,
+   "rf_prob": 0.066,
+   "persist": 1.0,
+   "likelihood": 0.44
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.379,
+   "ndvi_dry": 0.267,
+   "retain": 0.705,
+   "rf_prob": 0.117,
+   "persist": 0.61,
+   "likelihood": 0.314
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.567,
+   "ndvi_dry": 0.314,
+   "retain": 0.555,
+   "rf_prob": 0.117,
+   "persist": 0.31,
+   "likelihood": 0.194
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.442,
+   "ndvi_dry": 0.364,
+   "retain": 0.823,
+   "rf_prob": 0.083,
+   "persist": 0.847,
+   "likelihood": 0.388
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.538,
+   "ndvi_dry": 0.21,
+   "retain": 0.391,
+   "rf_prob": 0.122,
+   "persist": 0.0,
+   "likelihood": 0.073
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.689,
+   "ndvi_dry": 0.65,
+   "retain": 0.945,
+   "rf_prob": 0.172,
+   "persist": 1.0,
+   "likelihood": 0.503
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.308,
+   "ndvi_dry": 0.328,
+   "retain": 1.064,
+   "rf_prob": 0.108,
+   "persist": 1.0,
+   "likelihood": 0.465
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.435,
+   "ndvi_dry": 0.35,
+   "retain": 0.804,
+   "rf_prob": 0.059,
+   "persist": 0.809,
+   "likelihood": 0.359
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.451,
+   "ndvi_dry": 0.434,
+   "retain": 0.963,
+   "rf_prob": 0.17,
+   "persist": 1.0,
+   "likelihood": 0.502
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.225,
+   "ndvi_dry": 0.163,
+   "retain": 0.723,
+   "rf_prob": 0.076,
+   "persist": 0.0,
+   "likelihood": 0.046
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.180125,
+   "ndvi_wet": 0.487,
+   "ndvi_dry": 0.443,
+   "retain": 0.909,
+   "rf_prob": 0.061,
+   "persist": 1.0,
+   "likelihood": 0.437
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.297,
+   "ndvi_dry": 0.292,
+   "retain": 0.983,
+   "rf_prob": 0.154,
+   "persist": 0.0,
+   "likelihood": 0.092
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.307,
+   "ndvi_dry": 0.261,
+   "retain": 0.848,
+   "rf_prob": 0.111,
+   "persist": 0.897,
+   "likelihood": 0.425
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.426,
+   "ndvi_dry": 0.278,
+   "retain": 0.652,
+   "rf_prob": 0.093,
+   "persist": 0.503,
+   "likelihood": 0.257
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.376,
+   "ndvi_dry": 0.259,
+   "retain": 0.69,
+   "rf_prob": 0.131,
+   "persist": 0.58,
+   "likelihood": 0.311
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.452,
+   "ndvi_dry": 0.284,
+   "retain": 0.629,
+   "rf_prob": 0.159,
+   "persist": 0.459,
+   "likelihood": 0.279
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.465,
+   "ndvi_dry": 0.343,
+   "retain": 0.737,
+   "rf_prob": 0.077,
+   "persist": 0.675,
+   "likelihood": 0.316
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.186875,
+   "ndvi_wet": 0.469,
+   "ndvi_dry": 0.309,
+   "retain": 0.659,
+   "rf_prob": 0.149,
+   "persist": 0.517,
+   "likelihood": 0.296
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.334,
+   "ndvi_dry": 0.29,
+   "retain": 0.869,
+   "rf_prob": 0.173,
+   "persist": 0.938,
+   "likelihood": 0.479
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.246,
+   "retain": 0.795,
+   "rf_prob": 0.149,
+   "persist": 0.791,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.29,
+   "ndvi_dry": 0.247,
+   "retain": 0.853,
+   "rf_prob": 0.221,
+   "persist": 0.0,
+   "likelihood": 0.132
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.318,
+   "ndvi_dry": 0.25,
+   "retain": 0.786,
+   "rf_prob": 0.16,
+   "persist": 0.463,
+   "likelihood": 0.281
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.381,
+   "ndvi_dry": 0.255,
+   "retain": 0.669,
+   "rf_prob": 0.136,
+   "persist": 0.323,
+   "likelihood": 0.211
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.228,
+   "retain": 0.82,
+   "rf_prob": 0.159,
+   "persist": 0.0,
+   "likelihood": 0.095
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.193625,
+   "ndvi_wet": 0.298,
+   "ndvi_dry": 0.219,
+   "retain": 0.735,
+   "rf_prob": 0.129,
+   "persist": 0.0,
+   "likelihood": 0.077
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.278,
+   "ndvi_dry": 0.214,
+   "retain": 0.771,
+   "rf_prob": 0.094,
+   "persist": 0.0,
+   "likelihood": 0.056
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.352,
+   "ndvi_dry": 0.283,
+   "retain": 0.804,
+   "rf_prob": 0.152,
+   "persist": 0.809,
+   "likelihood": 0.415
+  },
+  {
+   "lat": 12.728892857142856,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.297,
+   "ndvi_dry": 0.251,
+   "retain": 0.845,
+   "rf_prob": 0.126,
+   "persist": 0.0,
+   "likelihood": 0.076
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.275,
+   "ndvi_dry": 0.23,
+   "retain": 0.836,
+   "rf_prob": 0.094,
+   "persist": 0.0,
+   "likelihood": 0.056
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.224,
+   "retain": 0.699,
+   "rf_prob": 0.043,
+   "persist": 0.598,
+   "likelihood": 0.265
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.328,
+   "ndvi_dry": 0.34,
+   "retain": 1.038,
+   "rf_prob": 0.24,
+   "persist": 1.0,
+   "likelihood": 0.544
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.371,
+   "ndvi_dry": 0.306,
+   "retain": 0.824,
+   "rf_prob": 0.18,
+   "persist": 0.848,
+   "likelihood": 0.447
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.36,
+   "retain": 0.89,
+   "rf_prob": 0.098,
+   "persist": 0.98,
+   "likelihood": 0.451
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.229,
+   "ndvi_dry": 0.207,
+   "retain": 0.902,
+   "rf_prob": 0.172,
+   "persist": 0.0,
+   "likelihood": 0.103
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.604,
+   "ndvi_dry": 0.684,
+   "retain": 1.133,
+   "rf_prob": 0.104,
+   "persist": 1.0,
+   "likelihood": 0.463
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.225,
+   "retain": 0.762,
+   "rf_prob": 0.088,
+   "persist": 0.0,
+   "likelihood": 0.053
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.557,
+   "ndvi_dry": 0.578,
+   "retain": 1.038,
+   "rf_prob": 0.117,
+   "persist": 1.0,
+   "likelihood": 0.47
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.241,
+   "ndvi_dry": 0.201,
+   "retain": 0.833,
+   "rf_prob": 0.052,
+   "persist": 0.0,
+   "likelihood": 0.031
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.180125,
+   "ndvi_wet": 0.239,
+   "ndvi_dry": 0.192,
+   "retain": 0.802,
+   "rf_prob": 0.063,
+   "persist": 0.0,
+   "likelihood": 0.038
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.418,
+   "retain": 1.173,
+   "rf_prob": 0.186,
+   "persist": 1.0,
+   "likelihood": 0.511
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.342,
+   "retain": 0.916,
+   "rf_prob": 0.157,
+   "persist": 1.0,
+   "likelihood": 0.494
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.447,
+   "ndvi_dry": 0.319,
+   "retain": 0.714,
+   "rf_prob": 0.074,
+   "persist": 0.628,
+   "likelihood": 0.296
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.427,
+   "ndvi_dry": 0.31,
+   "retain": 0.727,
+   "rf_prob": 0.099,
+   "persist": 0.653,
+   "likelihood": 0.321
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.465,
+   "ndvi_dry": 0.303,
+   "retain": 0.652,
+   "rf_prob": 0.165,
+   "persist": 0.505,
+   "likelihood": 0.301
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.556,
+   "ndvi_dry": 0.346,
+   "retain": 0.623,
+   "rf_prob": 0.11,
+   "persist": 0.446,
+   "likelihood": 0.245
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.186875,
+   "ndvi_wet": 0.451,
+   "ndvi_dry": 0.336,
+   "retain": 0.746,
+   "rf_prob": 0.067,
+   "persist": 0.693,
+   "likelihood": 0.317
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.422,
+   "ndvi_dry": 0.306,
+   "retain": 0.727,
+   "rf_prob": 0.078,
+   "persist": 0.653,
+   "likelihood": 0.308
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.302,
+   "ndvi_dry": 0.229,
+   "retain": 0.76,
+   "rf_prob": 0.122,
+   "persist": 0.719,
+   "likelihood": 0.361
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.272,
+   "ndvi_dry": 0.253,
+   "retain": 0.932,
+   "rf_prob": 0.275,
+   "persist": 0.0,
+   "likelihood": 0.165
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.227,
+   "retain": 0.777,
+   "rf_prob": 0.116,
+   "persist": 0.0,
+   "likelihood": 0.07
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.266,
+   "retain": 0.747,
+   "rf_prob": 0.251,
+   "persist": 0.694,
+   "likelihood": 0.428
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.259,
+   "retain": 0.847,
+   "rf_prob": 0.208,
+   "persist": 0.536,
+   "likelihood": 0.34
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.193625,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.274,
+   "retain": 0.897,
+   "rf_prob": 0.135,
+   "persist": 0.596,
+   "likelihood": 0.32
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.341,
+   "ndvi_dry": 0.242,
+   "retain": 0.711,
+   "rf_prob": 0.151,
+   "persist": 0.373,
+   "likelihood": 0.239
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.335,
+   "ndvi_dry": 0.249,
+   "retain": 0.744,
+   "rf_prob": 0.342,
+   "persist": 0.689,
+   "likelihood": 0.481
+  },
+  {
+   "lat": 12.729821428571428,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.333,
+   "ndvi_dry": 0.267,
+   "retain": 0.803,
+   "rf_prob": 0.111,
+   "persist": 0.806,
+   "likelihood": 0.389
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.209,
+   "ndvi_dry": 0.197,
+   "retain": 0.943,
+   "rf_prob": 0.271,
+   "persist": 0.0,
+   "likelihood": 0.162
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.277,
+   "retain": 0.791,
+   "rf_prob": 0.106,
+   "persist": 0.782,
+   "likelihood": 0.376
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.59,
+   "ndvi_dry": 0.437,
+   "retain": 0.741,
+   "rf_prob": 0.123,
+   "persist": 0.682,
+   "likelihood": 0.347
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.649,
+   "ndvi_dry": 0.435,
+   "retain": 0.67,
+   "rf_prob": 0.072,
+   "persist": 0.54,
+   "likelihood": 0.259
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.334,
+   "ndvi_dry": 0.28,
+   "retain": 0.839,
+   "rf_prob": 0.098,
+   "persist": 0.879,
+   "likelihood": 0.41
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.264,
+   "ndvi_dry": 0.23,
+   "retain": 0.871,
+   "rf_prob": 0.066,
+   "persist": 0.0,
+   "likelihood": 0.039
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.479,
+   "retain": 1.182,
+   "rf_prob": 0.126,
+   "persist": 1.0,
+   "likelihood": 0.476
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.237,
+   "ndvi_dry": 0.241,
+   "retain": 1.018,
+   "rf_prob": 0.12,
+   "persist": 0.0,
+   "likelihood": 0.072
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.205,
+   "ndvi_dry": 0.166,
+   "retain": 0.809,
+   "rf_prob": 0.073,
+   "persist": 0.0,
+   "likelihood": 0.044
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.411,
+   "ndvi_dry": 0.351,
+   "retain": 0.853,
+   "rf_prob": 0.084,
+   "persist": 0.906,
+   "likelihood": 0.413
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.180125,
+   "ndvi_wet": 0.211,
+   "ndvi_dry": 0.201,
+   "retain": 0.95,
+   "rf_prob": 0.111,
+   "persist": 0.0,
+   "likelihood": 0.066
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.323,
+   "retain": 0.807,
+   "rf_prob": 0.134,
+   "persist": 0.814,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.507,
+   "ndvi_dry": 0.48,
+   "retain": 0.946,
+   "rf_prob": 0.135,
+   "persist": 1.0,
+   "likelihood": 0.481
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.313,
+   "ndvi_dry": 0.286,
+   "retain": 0.914,
+   "rf_prob": 0.165,
+   "persist": 1.0,
+   "likelihood": 0.499
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.431,
+   "ndvi_dry": 0.317,
+   "retain": 0.737,
+   "rf_prob": 0.122,
+   "persist": 0.673,
+   "likelihood": 0.343
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.447,
+   "ndvi_dry": 0.324,
+   "retain": 0.724,
+   "rf_prob": 0.072,
+   "persist": 0.647,
+   "likelihood": 0.302
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.452,
+   "ndvi_dry": 0.308,
+   "retain": 0.68,
+   "rf_prob": 0.083,
+   "persist": 0.56,
+   "likelihood": 0.274
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.186875,
+   "ndvi_wet": 0.539,
+   "ndvi_dry": 0.345,
+   "retain": 0.641,
+   "rf_prob": 0.122,
+   "persist": 0.482,
+   "likelihood": 0.266
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.397,
+   "ndvi_dry": 0.242,
+   "retain": 0.609,
+   "rf_prob": 0.054,
+   "persist": 0.418,
+   "likelihood": 0.2
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.327,
+   "ndvi_dry": 0.243,
+   "retain": 0.744,
+   "rf_prob": 0.171,
+   "persist": 0.687,
+   "likelihood": 0.378
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.337,
+   "ndvi_dry": 0.243,
+   "retain": 0.722,
+   "rf_prob": 0.105,
+   "persist": 0.387,
+   "likelihood": 0.218
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.303,
+   "ndvi_dry": 0.235,
+   "retain": 0.773,
+   "rf_prob": 0.124,
+   "persist": 0.448,
+   "likelihood": 0.253
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.308,
+   "ndvi_dry": 0.259,
+   "retain": 0.839,
+   "rf_prob": 0.171,
+   "persist": 0.878,
+   "likelihood": 0.454
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.253,
+   "retain": 0.72,
+   "rf_prob": 0.148,
+   "persist": 0.64,
+   "likelihood": 0.345
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.193625,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.276,
+   "retain": 0.801,
+   "rf_prob": 0.141,
+   "persist": 0.802,
+   "likelihood": 0.405
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.286,
+   "retain": 0.74,
+   "rf_prob": 0.383,
+   "persist": 0.679,
+   "likelihood": 0.501
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.381,
+   "ndvi_dry": 0.278,
+   "retain": 0.73,
+   "rf_prob": 0.179,
+   "persist": 0.66,
+   "likelihood": 0.371
+  },
+  {
+   "lat": 12.73075,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.394,
+   "ndvi_dry": 0.254,
+   "retain": 0.646,
+   "rf_prob": 0.127,
+   "persist": 0.492,
+   "likelihood": 0.273
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.353,
+   "ndvi_dry": 0.357,
+   "retain": 1.013,
+   "rf_prob": 0.298,
+   "persist": 1.0,
+   "likelihood": 0.579
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.383,
+   "ndvi_dry": 0.431,
+   "retain": 1.125,
+   "rf_prob": 0.237,
+   "persist": 1.0,
+   "likelihood": 0.542
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.297,
+   "ndvi_dry": 0.297,
+   "retain": 1.0,
+   "rf_prob": 0.339,
+   "persist": 0.0,
+   "likelihood": 0.204
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.3,
+   "ndvi_dry": 0.232,
+   "retain": 0.775,
+   "rf_prob": 0.057,
+   "persist": 0.0,
+   "likelihood": 0.034
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.263,
+   "retain": 0.822,
+   "rf_prob": 0.101,
+   "persist": 0.845,
+   "likelihood": 0.398
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.376,
+   "ndvi_dry": 0.258,
+   "retain": 0.685,
+   "rf_prob": 0.157,
+   "persist": 0.57,
+   "likelihood": 0.322
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.17,
+   "ndvi_dry": 0.15,
+   "retain": 0.883,
+   "rf_prob": 0.223,
+   "persist": 0.0,
+   "likelihood": 0.134
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.458,
+   "ndvi_dry": 0.35,
+   "retain": 0.765,
+   "rf_prob": 0.048,
+   "persist": 0.729,
+   "likelihood": 0.321
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.283,
+   "ndvi_dry": 0.235,
+   "retain": 0.833,
+   "rf_prob": 0.079,
+   "persist": 0.0,
+   "likelihood": 0.048
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.247,
+   "ndvi_dry": 0.188,
+   "retain": 0.763,
+   "rf_prob": 0.2,
+   "persist": 0.0,
+   "likelihood": 0.12
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.180125,
+   "ndvi_wet": 0.237,
+   "ndvi_dry": 0.236,
+   "retain": 0.995,
+   "rf_prob": 0.122,
+   "persist": 0.0,
+   "likelihood": 0.073
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.456,
+   "ndvi_dry": 0.387,
+   "retain": 0.849,
+   "rf_prob": 0.072,
+   "persist": 0.899,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.386,
+   "retain": 1.081,
+   "rf_prob": 0.115,
+   "persist": 1.0,
+   "likelihood": 0.469
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.38,
+   "retain": 0.896,
+   "rf_prob": 0.065,
+   "persist": 0.992,
+   "likelihood": 0.436
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.446,
+   "ndvi_dry": 0.33,
+   "retain": 0.741,
+   "rf_prob": 0.158,
+   "persist": 0.682,
+   "likelihood": 0.367
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.518,
+   "ndvi_dry": 0.456,
+   "retain": 0.881,
+   "rf_prob": 0.113,
+   "persist": 0.963,
+   "likelihood": 0.453
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.481,
+   "ndvi_dry": 0.375,
+   "retain": 0.78,
+   "rf_prob": 0.083,
+   "persist": 0.76,
+   "likelihood": 0.354
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.186875,
+   "ndvi_wet": 0.441,
+   "ndvi_dry": 0.297,
+   "retain": 0.673,
+   "rf_prob": 0.092,
+   "persist": 0.546,
+   "likelihood": 0.273
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.39,
+   "ndvi_dry": 0.293,
+   "retain": 0.75,
+   "rf_prob": 0.117,
+   "persist": 0.699,
+   "likelihood": 0.35
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.407,
+   "ndvi_dry": 0.297,
+   "retain": 0.73,
+   "rf_prob": 0.119,
+   "persist": 0.661,
+   "likelihood": 0.336
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.322,
+   "ndvi_dry": 0.266,
+   "retain": 0.825,
+   "rf_prob": 0.216,
+   "persist": 0.851,
+   "likelihood": 0.47
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.226,
+   "retain": 0.732,
+   "rf_prob": 0.152,
+   "persist": 0.664,
+   "likelihood": 0.357
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.341,
+   "ndvi_dry": 0.269,
+   "retain": 0.79,
+   "rf_prob": 0.165,
+   "persist": 0.78,
+   "likelihood": 0.411
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.377,
+   "ndvi_dry": 0.285,
+   "retain": 0.755,
+   "rf_prob": 0.141,
+   "persist": 0.711,
+   "likelihood": 0.369
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.193625,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.275,
+   "retain": 0.778,
+   "rf_prob": 0.167,
+   "persist": 0.757,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.432,
+   "ndvi_dry": 0.367,
+   "retain": 0.849,
+   "rf_prob": 0.137,
+   "persist": 0.898,
+   "likelihood": 0.441
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.308,
+   "retain": 0.762,
+   "rf_prob": 0.108,
+   "persist": 0.723,
+   "likelihood": 0.354
+  },
+  {
+   "lat": 12.73167857142857,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.419,
+   "ndvi_dry": 0.308,
+   "retain": 0.735,
+   "rf_prob": 0.132,
+   "persist": 0.67,
+   "likelihood": 0.347
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.205,
+   "ndvi_dry": 0.183,
+   "retain": 0.892,
+   "rf_prob": 0.171,
+   "persist": 0.0,
+   "likelihood": 0.102
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.241,
+   "retain": 0.606,
+   "rf_prob": 0.072,
+   "persist": 0.411,
+   "likelihood": 0.208
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.205,
+   "ndvi_dry": 0.202,
+   "retain": 0.988,
+   "rf_prob": 0.11,
+   "persist": 0.0,
+   "likelihood": 0.066
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.278,
+   "ndvi_dry": 0.152,
+   "retain": 0.548,
+   "rf_prob": 0.102,
+   "persist": 0.0,
+   "likelihood": 0.061
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.218,
+   "ndvi_dry": 0.167,
+   "retain": 0.766,
+   "rf_prob": 0.097,
+   "persist": 0.0,
+   "likelihood": 0.058
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.272,
+   "ndvi_dry": 0.189,
+   "retain": 0.695,
+   "rf_prob": 0.227,
+   "persist": 0.0,
+   "likelihood": 0.136
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.276,
+   "ndvi_dry": 0.202,
+   "retain": 0.733,
+   "rf_prob": 0.13,
+   "persist": 0.0,
+   "likelihood": 0.078
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.255,
+   "ndvi_dry": 0.264,
+   "retain": 1.035,
+   "rf_prob": 0.191,
+   "persist": 0.0,
+   "likelihood": 0.114
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.23,
+   "ndvi_dry": 0.211,
+   "retain": 0.916,
+   "rf_prob": 0.13,
+   "persist": 0.0,
+   "likelihood": 0.078
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.22,
+   "ndvi_dry": 0.181,
+   "retain": 0.819,
+   "rf_prob": 0.065,
+   "persist": 0.0,
+   "likelihood": 0.039
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.180125,
+   "ndvi_wet": 0.216,
+   "ndvi_dry": 0.185,
+   "retain": 0.86,
+   "rf_prob": 0.115,
+   "persist": 0.0,
+   "likelihood": 0.069
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.325,
+   "ndvi_dry": 0.382,
+   "retain": 1.175,
+   "rf_prob": 0.255,
+   "persist": 1.0,
+   "likelihood": 0.553
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.368,
+   "ndvi_dry": 0.313,
+   "retain": 0.852,
+   "rf_prob": 0.09,
+   "persist": 0.905,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.492,
+   "ndvi_dry": 0.575,
+   "retain": 1.168,
+   "rf_prob": 0.099,
+   "persist": 1.0,
+   "likelihood": 0.459
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.344,
+   "ndvi_dry": 0.312,
+   "retain": 0.905,
+   "rf_prob": 0.127,
+   "persist": 1.0,
+   "likelihood": 0.476
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.37,
+   "ndvi_dry": 0.262,
+   "retain": 0.708,
+   "rf_prob": 0.158,
+   "persist": 0.616,
+   "likelihood": 0.341
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.48,
+   "ndvi_dry": 0.317,
+   "retain": 0.66,
+   "rf_prob": 0.149,
+   "persist": 0.521,
+   "likelihood": 0.298
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.186875,
+   "ndvi_wet": 0.502,
+   "ndvi_dry": 0.328,
+   "retain": 0.654,
+   "rf_prob": 0.072,
+   "persist": 0.508,
+   "likelihood": 0.246
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.517,
+   "ndvi_dry": 0.314,
+   "retain": 0.608,
+   "rf_prob": 0.113,
+   "persist": 0.416,
+   "likelihood": 0.234
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.412,
+   "ndvi_dry": 0.294,
+   "retain": 0.713,
+   "rf_prob": 0.131,
+   "persist": 0.627,
+   "likelihood": 0.33
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.302,
+   "retain": 0.753,
+   "rf_prob": 0.23,
+   "persist": 0.707,
+   "likelihood": 0.421
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.37,
+   "ndvi_dry": 0.278,
+   "retain": 0.752,
+   "rf_prob": 0.183,
+   "persist": 0.704,
+   "likelihood": 0.392
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.24,
+   "retain": 0.785,
+   "rf_prob": 0.102,
+   "persist": 0.771,
+   "likelihood": 0.369
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.329,
+   "retain": 0.925,
+   "rf_prob": 0.317,
+   "persist": 1.0,
+   "likelihood": 0.59
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.193625,
+   "ndvi_wet": 0.377,
+   "ndvi_dry": 0.344,
+   "retain": 0.914,
+   "rf_prob": 0.185,
+   "persist": 1.0,
+   "likelihood": 0.511
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.277,
+   "retain": 0.895,
+   "rf_prob": 0.11,
+   "persist": 0.99,
+   "likelihood": 0.462
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.372,
+   "ndvi_dry": 0.258,
+   "retain": 0.693,
+   "rf_prob": 0.21,
+   "persist": 0.587,
+   "likelihood": 0.361
+  },
+  {
+   "lat": 12.732607142857143,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.384,
+   "ndvi_dry": 0.285,
+   "retain": 0.743,
+   "rf_prob": 0.154,
+   "persist": 0.685,
+   "likelihood": 0.366
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.25,
+   "ndvi_dry": 0.182,
+   "retain": 0.73,
+   "rf_prob": 0.07,
+   "persist": 0.0,
+   "likelihood": 0.042
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.261,
+   "ndvi_dry": 0.216,
+   "retain": 0.827,
+   "rf_prob": 0.079,
+   "persist": 0.0,
+   "likelihood": 0.047
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.245,
+   "ndvi_dry": 0.166,
+   "retain": 0.678,
+   "rf_prob": 0.073,
+   "persist": 0.0,
+   "likelihood": 0.044
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.275,
+   "ndvi_dry": 0.218,
+   "retain": 0.792,
+   "rf_prob": 0.113,
+   "persist": 0.0,
+   "likelihood": 0.068
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.238,
+   "ndvi_dry": 0.198,
+   "retain": 0.832,
+   "rf_prob": 0.072,
+   "persist": 0.0,
+   "likelihood": 0.043
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.322,
+   "ndvi_dry": 0.248,
+   "retain": 0.77,
+   "rf_prob": 0.086,
+   "persist": 0.74,
+   "likelihood": 0.348
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.267,
+   "ndvi_dry": 0.2,
+   "retain": 0.751,
+   "rf_prob": 0.095,
+   "persist": 0.0,
+   "likelihood": 0.057
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.257,
+   "ndvi_dry": 0.192,
+   "retain": 0.746,
+   "rf_prob": 0.093,
+   "persist": 0.0,
+   "likelihood": 0.056
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.335,
+   "ndvi_dry": 0.278,
+   "retain": 0.83,
+   "rf_prob": 0.086,
+   "persist": 0.859,
+   "likelihood": 0.395
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.238,
+   "retain": 0.678,
+   "rf_prob": 0.057,
+   "persist": 0.557,
+   "likelihood": 0.257
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.180125,
+   "ndvi_wet": 0.143,
+   "ndvi_dry": 0.104,
+   "retain": 0.729,
+   "rf_prob": 0.306,
+   "persist": 0.0,
+   "likelihood": 0.184
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.27,
+   "ndvi_dry": 0.217,
+   "retain": 0.804,
+   "rf_prob": 0.121,
+   "persist": 0.0,
+   "likelihood": 0.072
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.25,
+   "ndvi_dry": 0.214,
+   "retain": 0.857,
+   "rf_prob": 0.085,
+   "persist": 0.0,
+   "likelihood": 0.051
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.006,
+   "ndvi_dry": 0.115,
+   "retain": null,
+   "rf_prob": 0.282,
+   "persist": 0.0,
+   "likelihood": 0.169
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.424,
+   "retain": 1.046,
+   "rf_prob": 0.13,
+   "persist": 1.0,
+   "likelihood": 0.478
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.341,
+   "ndvi_dry": 0.289,
+   "retain": 0.846,
+   "rf_prob": 0.088,
+   "persist": 0.891,
+   "likelihood": 0.409
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.404,
+   "ndvi_dry": 0.32,
+   "retain": 0.792,
+   "rf_prob": 0.105,
+   "persist": 0.783,
+   "likelihood": 0.376
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.186875,
+   "ndvi_wet": 0.474,
+   "ndvi_dry": 0.347,
+   "retain": 0.731,
+   "rf_prob": 0.147,
+   "persist": 0.662,
+   "likelihood": 0.353
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.483,
+   "ndvi_dry": 0.33,
+   "retain": 0.683,
+   "rf_prob": 0.061,
+   "persist": 0.566,
+   "likelihood": 0.263
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.462,
+   "ndvi_dry": 0.303,
+   "retain": 0.656,
+   "rf_prob": 0.236,
+   "persist": 0.511,
+   "likelihood": 0.346
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.285,
+   "retain": 0.737,
+   "rf_prob": 0.179,
+   "persist": 0.673,
+   "likelihood": 0.376
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.411,
+   "ndvi_dry": 0.302,
+   "retain": 0.735,
+   "rf_prob": 0.107,
+   "persist": 0.671,
+   "likelihood": 0.332
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.45,
+   "ndvi_dry": 0.341,
+   "retain": 0.757,
+   "rf_prob": 0.156,
+   "persist": 0.714,
+   "likelihood": 0.379
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.421,
+   "ndvi_dry": 0.367,
+   "retain": 0.872,
+   "rf_prob": 0.147,
+   "persist": 0.945,
+   "likelihood": 0.466
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.193625,
+   "ndvi_wet": 0.312,
+   "ndvi_dry": 0.269,
+   "retain": 0.861,
+   "rf_prob": 0.197,
+   "persist": 0.922,
+   "likelihood": 0.487
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.31,
+   "ndvi_dry": 0.231,
+   "retain": 0.744,
+   "rf_prob": 0.103,
+   "persist": 0.689,
+   "likelihood": 0.338
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.428,
+   "ndvi_dry": 0.391,
+   "retain": 0.913,
+   "rf_prob": 0.117,
+   "persist": 1.0,
+   "likelihood": 0.47
+  },
+  {
+   "lat": 12.733535714285715,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.382,
+   "ndvi_dry": 0.282,
+   "retain": 0.739,
+   "rf_prob": 0.209,
+   "persist": 0.678,
+   "likelihood": 0.396
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.247,
+   "retain": 0.693,
+   "rf_prob": 0.067,
+   "persist": 0.586,
+   "likelihood": 0.275
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.216,
+   "ndvi_dry": 0.182,
+   "retain": 0.843,
+   "rf_prob": 0.064,
+   "persist": 0.0,
+   "likelihood": 0.038
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.195,
+   "retain": 0.669,
+   "rf_prob": 0.269,
+   "persist": 0.0,
+   "likelihood": 0.162
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.247,
+   "retain": 0.773,
+   "rf_prob": 0.094,
+   "persist": 0.745,
+   "likelihood": 0.355
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.244,
+   "ndvi_dry": 0.219,
+   "retain": 0.899,
+   "rf_prob": 0.179,
+   "persist": 0.0,
+   "likelihood": 0.107
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.307,
+   "retain": 0.865,
+   "rf_prob": 0.098,
+   "persist": 0.93,
+   "likelihood": 0.431
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.294,
+   "ndvi_dry": 0.211,
+   "retain": 0.717,
+   "rf_prob": 0.116,
+   "persist": 0.0,
+   "likelihood": 0.07
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.311,
+   "ndvi_dry": 0.214,
+   "retain": 0.688,
+   "rf_prob": 0.044,
+   "persist": 0.575,
+   "likelihood": 0.256
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.312,
+   "ndvi_dry": 0.224,
+   "retain": 0.719,
+   "rf_prob": 0.146,
+   "persist": 0.638,
+   "likelihood": 0.343
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.221,
+   "retain": 0.757,
+   "rf_prob": 0.095,
+   "persist": 0.0,
+   "likelihood": 0.057
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.180125,
+   "ndvi_wet": 0.236,
+   "ndvi_dry": 0.163,
+   "retain": 0.691,
+   "rf_prob": 0.089,
+   "persist": 0.0,
+   "likelihood": 0.053
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.28,
+   "ndvi_dry": 0.21,
+   "retain": 0.75,
+   "rf_prob": 0.11,
+   "persist": 0.0,
+   "likelihood": 0.066
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.218,
+   "ndvi_dry": 0.153,
+   "retain": 0.702,
+   "rf_prob": 0.073,
+   "persist": 0.0,
+   "likelihood": 0.044
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.306,
+   "ndvi_dry": 0.277,
+   "retain": 0.905,
+   "rf_prob": 0.152,
+   "persist": 1.0,
+   "likelihood": 0.491
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.299,
+   "ndvi_dry": 0.292,
+   "retain": 0.977,
+   "rf_prob": 0.154,
+   "persist": 0.0,
+   "likelihood": 0.092
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.397,
+   "ndvi_dry": 0.31,
+   "retain": 0.78,
+   "rf_prob": 0.148,
+   "persist": 0.76,
+   "likelihood": 0.393
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.25,
+   "ndvi_dry": 0.327,
+   "retain": 1.306,
+   "rf_prob": 0.209,
+   "persist": 0.0,
+   "likelihood": 0.125
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.186875,
+   "ndvi_wet": 0.426,
+   "ndvi_dry": 0.332,
+   "retain": 0.78,
+   "rf_prob": 0.056,
+   "persist": 0.76,
+   "likelihood": 0.337
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.254,
+   "retain": 0.655,
+   "rf_prob": 0.096,
+   "persist": 0.51,
+   "likelihood": 0.261
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.445,
+   "ndvi_dry": 0.294,
+   "retain": 0.661,
+   "rf_prob": 0.202,
+   "persist": 0.522,
+   "likelihood": 0.33
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.389,
+   "ndvi_dry": 0.246,
+   "retain": 0.633,
+   "rf_prob": 0.127,
+   "persist": 0.466,
+   "likelihood": 0.262
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.448,
+   "ndvi_dry": 0.342,
+   "retain": 0.763,
+   "rf_prob": 0.123,
+   "persist": 0.727,
+   "likelihood": 0.365
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.391,
+   "ndvi_dry": 0.321,
+   "retain": 0.823,
+   "rf_prob": 0.215,
+   "persist": 0.845,
+   "likelihood": 0.467
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.349,
+   "retain": 0.873,
+   "rf_prob": 0.114,
+   "persist": 0.945,
+   "likelihood": 0.446
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.193625,
+   "ndvi_wet": 0.352,
+   "ndvi_dry": 0.318,
+   "retain": 0.902,
+   "rf_prob": 0.069,
+   "persist": 1.0,
+   "likelihood": 0.441
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.267,
+   "retain": 0.755,
+   "rf_prob": 0.203,
+   "persist": 0.711,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.284,
+   "retain": 0.801,
+   "rf_prob": 0.138,
+   "persist": 0.803,
+   "likelihood": 0.404
+  },
+  {
+   "lat": 12.734464285714285,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.441,
+   "ndvi_dry": 0.411,
+   "retain": 0.932,
+   "rf_prob": 0.115,
+   "persist": 1.0,
+   "likelihood": 0.469
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.318,
+   "ndvi_dry": 0.228,
+   "retain": 0.715,
+   "rf_prob": 0.084,
+   "persist": 0.378,
+   "likelihood": 0.202
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.265,
+   "ndvi_dry": 0.223,
+   "retain": 0.84,
+   "rf_prob": 0.101,
+   "persist": 0.0,
+   "likelihood": 0.06
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.247,
+   "ndvi_dry": 0.2,
+   "retain": 0.809,
+   "rf_prob": 0.078,
+   "persist": 0.0,
+   "likelihood": 0.047
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.347,
+   "ndvi_dry": 0.27,
+   "retain": 0.779,
+   "rf_prob": 0.327,
+   "persist": 0.757,
+   "likelihood": 0.499
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.369,
+   "ndvi_dry": 0.325,
+   "retain": 0.881,
+   "rf_prob": 0.224,
+   "persist": 0.961,
+   "likelihood": 0.519
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.289,
+   "ndvi_dry": 0.21,
+   "retain": 0.727,
+   "rf_prob": 0.081,
+   "persist": 0.0,
+   "likelihood": 0.049
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.239,
+   "ndvi_dry": 0.183,
+   "retain": 0.766,
+   "rf_prob": 0.102,
+   "persist": 0.0,
+   "likelihood": 0.061
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.268,
+   "ndvi_dry": 0.263,
+   "retain": 0.981,
+   "rf_prob": 0.186,
+   "persist": 0.0,
+   "likelihood": 0.111
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.234,
+   "retain": 0.793,
+   "rf_prob": 0.087,
+   "persist": 0.0,
+   "likelihood": 0.052
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.285,
+   "ndvi_dry": 0.23,
+   "retain": 0.806,
+   "rf_prob": 0.388,
+   "persist": 0.0,
+   "likelihood": 0.233
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.180125,
+   "ndvi_wet": 0.301,
+   "ndvi_dry": 0.195,
+   "retain": 0.646,
+   "rf_prob": 0.103,
+   "persist": 0.492,
+   "likelihood": 0.259
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.237,
+   "retain": 0.804,
+   "rf_prob": 0.094,
+   "persist": 0.0,
+   "likelihood": 0.056
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.247,
+   "ndvi_dry": 0.183,
+   "retain": 0.741,
+   "rf_prob": 0.084,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.253,
+   "retain": 0.858,
+   "rf_prob": 0.148,
+   "persist": 0.0,
+   "likelihood": 0.089
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.484,
+   "ndvi_dry": 0.397,
+   "retain": 0.821,
+   "rf_prob": 0.073,
+   "persist": 0.841,
+   "likelihood": 0.38
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.549,
+   "ndvi_dry": 0.475,
+   "retain": 0.865,
+   "rf_prob": 0.054,
+   "persist": 0.93,
+   "likelihood": 0.404
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.378,
+   "ndvi_dry": 0.335,
+   "retain": 0.885,
+   "rf_prob": 0.174,
+   "persist": 0.971,
+   "likelihood": 0.493
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.186875,
+   "ndvi_wet": 0.407,
+   "ndvi_dry": 0.397,
+   "retain": 0.975,
+   "rf_prob": 0.109,
+   "persist": 1.0,
+   "likelihood": 0.466
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.428,
+   "ndvi_dry": 0.288,
+   "retain": 0.673,
+   "rf_prob": 0.139,
+   "persist": 0.546,
+   "likelihood": 0.302
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.481,
+   "ndvi_dry": 0.324,
+   "retain": 0.673,
+   "rf_prob": 0.09,
+   "persist": 0.547,
+   "likelihood": 0.273
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.418,
+   "ndvi_dry": 0.278,
+   "retain": 0.666,
+   "rf_prob": 0.222,
+   "persist": 0.532,
+   "likelihood": 0.346
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.33,
+   "ndvi_dry": 0.237,
+   "retain": 0.717,
+   "rf_prob": 0.247,
+   "persist": 0.635,
+   "likelihood": 0.402
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.315,
+   "retain": 0.8,
+   "rf_prob": 0.22,
+   "persist": 0.801,
+   "likelihood": 0.452
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.353,
+   "ndvi_dry": 0.31,
+   "retain": 0.878,
+   "rf_prob": 0.24,
+   "persist": 0.956,
+   "likelihood": 0.527
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.193625,
+   "ndvi_wet": 0.414,
+   "ndvi_dry": 0.328,
+   "retain": 0.791,
+   "rf_prob": 0.125,
+   "persist": 0.782,
+   "likelihood": 0.388
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.236,
+   "retain": 0.767,
+   "rf_prob": 0.108,
+   "persist": 0.733,
+   "likelihood": 0.358
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.305,
+   "ndvi_dry": 0.208,
+   "retain": 0.682,
+   "rf_prob": 0.09,
+   "persist": 0.563,
+   "likelihood": 0.279
+  },
+  {
+   "lat": 12.735392857142857,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.383,
+   "ndvi_dry": 0.395,
+   "retain": 1.031,
+   "rf_prob": 0.17,
+   "persist": 1.0,
+   "likelihood": 0.502
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.251,
+   "retain": 0.706,
+   "rf_prob": 0.089,
+   "persist": 0.613,
+   "likelihood": 0.299
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.326,
+   "ndvi_dry": 0.263,
+   "retain": 0.807,
+   "rf_prob": 0.128,
+   "persist": 0.814,
+   "likelihood": 0.402
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.327,
+   "ndvi_dry": 0.281,
+   "retain": 0.859,
+   "rf_prob": 0.095,
+   "persist": 0.917,
+   "likelihood": 0.424
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.325,
+   "ndvi_dry": 0.232,
+   "retain": 0.713,
+   "rf_prob": 0.059,
+   "persist": 0.625,
+   "likelihood": 0.286
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.421,
+   "ndvi_dry": 0.332,
+   "retain": 0.788,
+   "rf_prob": 0.068,
+   "persist": 0.776,
+   "likelihood": 0.351
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.321,
+   "ndvi_dry": 0.251,
+   "retain": 0.782,
+   "rf_prob": 0.112,
+   "persist": 0.764,
+   "likelihood": 0.373
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.251,
+   "ndvi_dry": 0.226,
+   "retain": 0.899,
+   "rf_prob": 0.145,
+   "persist": 0.0,
+   "likelihood": 0.087
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.392,
+   "ndvi_dry": 0.337,
+   "retain": 0.859,
+   "rf_prob": 0.156,
+   "persist": 0.918,
+   "likelihood": 0.461
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.323,
+   "ndvi_dry": 0.223,
+   "retain": 0.689,
+   "rf_prob": 0.084,
+   "persist": 0.577,
+   "likelihood": 0.281
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.299,
+   "ndvi_dry": 0.23,
+   "retain": 0.767,
+   "rf_prob": 0.124,
+   "persist": 0.0,
+   "likelihood": 0.074
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.180125,
+   "ndvi_wet": 0.274,
+   "ndvi_dry": 0.202,
+   "retain": 0.738,
+   "rf_prob": 0.14,
+   "persist": 0.0,
+   "likelihood": 0.084
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.271,
+   "ndvi_dry": 0.185,
+   "retain": 0.685,
+   "rf_prob": 0.096,
+   "persist": 0.0,
+   "likelihood": 0.057
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.289,
+   "ndvi_dry": 0.227,
+   "retain": 0.784,
+   "rf_prob": 0.098,
+   "persist": 0.0,
+   "likelihood": 0.059
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.285,
+   "ndvi_dry": 0.215,
+   "retain": 0.756,
+   "rf_prob": 0.117,
+   "persist": 0.0,
+   "likelihood": 0.07
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.403,
+   "ndvi_dry": 0.348,
+   "retain": 0.865,
+   "rf_prob": 0.117,
+   "persist": 0.929,
+   "likelihood": 0.442
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.527,
+   "ndvi_dry": 0.509,
+   "retain": 0.964,
+   "rf_prob": 0.152,
+   "persist": 1.0,
+   "likelihood": 0.491
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.262,
+   "ndvi_dry": 0.248,
+   "retain": 0.945,
+   "rf_prob": 0.212,
+   "persist": 0.0,
+   "likelihood": 0.127
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.186875,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.279,
+   "retain": 0.808,
+   "rf_prob": 0.26,
+   "persist": 0.815,
+   "likelihood": 0.482
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.446,
+   "ndvi_dry": 0.285,
+   "retain": 0.638,
+   "rf_prob": 0.081,
+   "persist": 0.476,
+   "likelihood": 0.239
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.433,
+   "ndvi_dry": 0.301,
+   "retain": 0.695,
+   "rf_prob": 0.154,
+   "persist": 0.59,
+   "likelihood": 0.329
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.406,
+   "ndvi_dry": 0.272,
+   "retain": 0.669,
+   "rf_prob": 0.112,
+   "persist": 0.538,
+   "likelihood": 0.282
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.458,
+   "ndvi_dry": 0.275,
+   "retain": 0.6,
+   "rf_prob": 0.244,
+   "persist": 0.399,
+   "likelihood": 0.306
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.463,
+   "ndvi_dry": 0.341,
+   "retain": 0.736,
+   "rf_prob": 0.166,
+   "persist": 0.672,
+   "likelihood": 0.369
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.415,
+   "ndvi_dry": 0.302,
+   "retain": 0.727,
+   "rf_prob": 0.175,
+   "persist": 0.654,
+   "likelihood": 0.367
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.193625,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.303,
+   "retain": 0.784,
+   "rf_prob": 0.243,
+   "persist": 0.768,
+   "likelihood": 0.453
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.412,
+   "ndvi_dry": 0.342,
+   "retain": 0.832,
+   "rf_prob": 0.108,
+   "persist": 0.864,
+   "likelihood": 0.41
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.304,
+   "retain": 0.762,
+   "rf_prob": 0.083,
+   "persist": 0.724,
+   "likelihood": 0.34
+  },
+  {
+   "lat": 12.73632142857143,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.47,
+   "ndvi_dry": 0.394,
+   "retain": 0.839,
+   "rf_prob": 0.06,
+   "persist": 0.878,
+   "likelihood": 0.387
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.259,
+   "ndvi_dry": 0.197,
+   "retain": 0.762,
+   "rf_prob": 0.11,
+   "persist": 0.0,
+   "likelihood": 0.066
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.372,
+   "ndvi_dry": 0.279,
+   "retain": 0.75,
+   "rf_prob": 0.187,
+   "persist": 0.7,
+   "likelihood": 0.392
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.272,
+   "ndvi_dry": 0.196,
+   "retain": 0.72,
+   "rf_prob": 0.166,
+   "persist": 0.0,
+   "likelihood": 0.099
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.286,
+   "ndvi_dry": 0.217,
+   "retain": 0.76,
+   "rf_prob": 0.118,
+   "persist": 0.0,
+   "likelihood": 0.071
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.217,
+   "retain": 0.701,
+   "rf_prob": 0.079,
+   "persist": 0.602,
+   "likelihood": 0.288
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.326,
+   "ndvi_dry": 0.284,
+   "retain": 0.87,
+   "rf_prob": 0.102,
+   "persist": 0.939,
+   "likelihood": 0.437
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.296,
+   "ndvi_dry": 0.238,
+   "retain": 0.803,
+   "rf_prob": 0.091,
+   "persist": 0.0,
+   "likelihood": 0.055
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.35,
+   "retain": 0.825,
+   "rf_prob": 0.109,
+   "persist": 0.85,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.383,
+   "ndvi_dry": 0.312,
+   "retain": 0.814,
+   "rf_prob": 0.151,
+   "persist": 0.827,
+   "likelihood": 0.421
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.332,
+   "ndvi_dry": 0.26,
+   "retain": 0.783,
+   "rf_prob": 0.257,
+   "persist": 0.767,
+   "likelihood": 0.461
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.180125,
+   "ndvi_wet": 0.29,
+   "ndvi_dry": 0.249,
+   "retain": 0.86,
+   "rf_prob": 0.14,
+   "persist": 0.0,
+   "likelihood": 0.084
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.29,
+   "ndvi_dry": 0.21,
+   "retain": 0.723,
+   "rf_prob": 0.234,
+   "persist": 0.0,
+   "likelihood": 0.14
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.303,
+   "ndvi_dry": 0.262,
+   "retain": 0.864,
+   "rf_prob": 0.098,
+   "persist": 0.927,
+   "likelihood": 0.43
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.317,
+   "ndvi_dry": 0.207,
+   "retain": 0.654,
+   "rf_prob": 0.049,
+   "persist": 0.305,
+   "likelihood": 0.152
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.286,
+   "ndvi_dry": 0.246,
+   "retain": 0.86,
+   "rf_prob": 0.101,
+   "persist": 0.0,
+   "likelihood": 0.061
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.172,
+   "ndvi_dry": 0.144,
+   "retain": 0.842,
+   "rf_prob": 0.192,
+   "persist": 0.0,
+   "likelihood": 0.115
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.392,
+   "ndvi_dry": 0.418,
+   "retain": 1.065,
+   "rf_prob": 0.198,
+   "persist": 1.0,
+   "likelihood": 0.519
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.186875,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.298,
+   "retain": 0.749,
+   "rf_prob": 0.123,
+   "persist": 0.698,
+   "likelihood": 0.353
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.419,
+   "ndvi_dry": 0.279,
+   "retain": 0.665,
+   "rf_prob": 0.109,
+   "persist": 0.531,
+   "likelihood": 0.278
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.394,
+   "ndvi_dry": 0.247,
+   "retain": 0.628,
+   "rf_prob": 0.164,
+   "persist": 0.455,
+   "likelihood": 0.28
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.288,
+   "retain": 0.773,
+   "rf_prob": 0.182,
+   "persist": 0.746,
+   "likelihood": 0.408
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.455,
+   "ndvi_dry": 0.308,
+   "retain": 0.678,
+   "rf_prob": 0.054,
+   "persist": 0.556,
+   "likelihood": 0.255
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.411,
+   "ndvi_dry": 0.307,
+   "retain": 0.747,
+   "rf_prob": 0.219,
+   "persist": 0.694,
+   "likelihood": 0.409
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.434,
+   "ndvi_dry": 0.336,
+   "retain": 0.775,
+   "rf_prob": 0.143,
+   "persist": 0.749,
+   "likelihood": 0.386
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.193625,
+   "ndvi_wet": 0.348,
+   "ndvi_dry": 0.291,
+   "retain": 0.837,
+   "rf_prob": 0.281,
+   "persist": 0.873,
+   "likelihood": 0.518
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.346,
+   "ndvi_dry": 0.309,
+   "retain": 0.893,
+   "rf_prob": 0.303,
+   "persist": 0.987,
+   "likelihood": 0.576
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.404,
+   "ndvi_dry": 0.324,
+   "retain": 0.801,
+   "rf_prob": 0.162,
+   "persist": 0.803,
+   "likelihood": 0.418
+  },
+  {
+   "lat": 12.73725,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.249,
+   "retain": 0.855,
+   "rf_prob": 0.118,
+   "persist": 0.0,
+   "likelihood": 0.071
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.321,
+   "ndvi_dry": 0.209,
+   "retain": 0.65,
+   "rf_prob": 0.072,
+   "persist": 0.499,
+   "likelihood": 0.243
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.311,
+   "ndvi_dry": 0.247,
+   "retain": 0.794,
+   "rf_prob": 0.095,
+   "persist": 0.788,
+   "likelihood": 0.372
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.305,
+   "ndvi_dry": 0.217,
+   "retain": 0.709,
+   "rf_prob": 0.053,
+   "persist": 0.618,
+   "likelihood": 0.279
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.362,
+   "ndvi_dry": 0.293,
+   "retain": 0.81,
+   "rf_prob": 0.141,
+   "persist": 0.819,
+   "likelihood": 0.412
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.281,
+   "retain": 0.824,
+   "rf_prob": 0.096,
+   "persist": 0.848,
+   "likelihood": 0.397
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.322,
+   "ndvi_dry": 0.212,
+   "retain": 0.657,
+   "rf_prob": 0.082,
+   "persist": 0.514,
+   "likelihood": 0.255
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.253,
+   "retain": 0.731,
+   "rf_prob": 0.069,
+   "persist": 0.662,
+   "likelihood": 0.306
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.317,
+   "ndvi_dry": 0.252,
+   "retain": 0.796,
+   "rf_prob": 0.117,
+   "persist": 0.791,
+   "likelihood": 0.387
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.402,
+   "ndvi_dry": 0.305,
+   "retain": 0.759,
+   "rf_prob": 0.125,
+   "persist": 0.719,
+   "likelihood": 0.362
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.323,
+   "ndvi_dry": 0.235,
+   "retain": 0.725,
+   "rf_prob": 0.069,
+   "persist": 0.651,
+   "likelihood": 0.302
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.180125,
+   "ndvi_wet": 0.315,
+   "ndvi_dry": 0.249,
+   "retain": 0.79,
+   "rf_prob": 0.095,
+   "persist": 0.781,
+   "likelihood": 0.369
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.271,
+   "ndvi_dry": 0.178,
+   "retain": 0.657,
+   "rf_prob": 0.123,
+   "persist": 0.0,
+   "likelihood": 0.074
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.293,
+   "ndvi_dry": 0.251,
+   "retain": 0.857,
+   "rf_prob": 0.133,
+   "persist": 0.0,
+   "likelihood": 0.08
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.219,
+   "retain": 0.784,
+   "rf_prob": 0.078,
+   "persist": 0.0,
+   "likelihood": 0.047
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.291,
+   "ndvi_dry": 0.23,
+   "retain": 0.792,
+   "rf_prob": 0.056,
+   "persist": 0.0,
+   "likelihood": 0.034
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.308,
+   "ndvi_dry": 0.212,
+   "retain": 0.688,
+   "rf_prob": 0.049,
+   "persist": 0.575,
+   "likelihood": 0.259
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.296,
+   "retain": 0.793,
+   "rf_prob": 0.169,
+   "persist": 0.786,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.186875,
+   "ndvi_wet": 0.436,
+   "ndvi_dry": 0.355,
+   "retain": 0.814,
+   "rf_prob": 0.12,
+   "persist": 0.828,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.386,
+   "ndvi_dry": 0.271,
+   "retain": 0.7,
+   "rf_prob": 0.09,
+   "persist": 0.601,
+   "likelihood": 0.294
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.421,
+   "ndvi_dry": 0.297,
+   "retain": 0.707,
+   "rf_prob": 0.065,
+   "persist": 0.613,
+   "likelihood": 0.284
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.438,
+   "ndvi_dry": 0.289,
+   "retain": 0.66,
+   "rf_prob": 0.125,
+   "persist": 0.521,
+   "likelihood": 0.283
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.309,
+   "ndvi_dry": 0.181,
+   "retain": 0.586,
+   "rf_prob": 0.055,
+   "persist": 0.373,
+   "likelihood": 0.182
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.318,
+   "ndvi_dry": 0.247,
+   "retain": 0.777,
+   "rf_prob": 0.065,
+   "persist": 0.754,
+   "likelihood": 0.341
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.327,
+   "retain": 0.772,
+   "rf_prob": 0.088,
+   "persist": 0.744,
+   "likelihood": 0.35
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.193625,
+   "ndvi_wet": 0.372,
+   "ndvi_dry": 0.297,
+   "retain": 0.798,
+   "rf_prob": 0.255,
+   "persist": 0.796,
+   "likelihood": 0.471
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.286,
+   "ndvi_dry": 0.268,
+   "retain": 0.939,
+   "rf_prob": 0.24,
+   "persist": 0.0,
+   "likelihood": 0.144
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.292,
+   "ndvi_dry": 0.244,
+   "retain": 0.837,
+   "rf_prob": 0.086,
+   "persist": 0.0,
+   "likelihood": 0.051
+  },
+  {
+   "lat": 12.738178571428572,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.319,
+   "ndvi_dry": 0.255,
+   "retain": 0.798,
+   "rf_prob": 0.226,
+   "persist": 0.797,
+   "likelihood": 0.454
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.266,
+   "ndvi_dry": 0.196,
+   "retain": 0.736,
+   "rf_prob": 0.105,
+   "persist": 0.0,
+   "likelihood": 0.063
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.278,
+   "retain": 0.709,
+   "rf_prob": 0.107,
+   "persist": 0.619,
+   "likelihood": 0.312
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.352,
+   "ndvi_dry": 0.263,
+   "retain": 0.747,
+   "rf_prob": 0.125,
+   "persist": 0.693,
+   "likelihood": 0.352
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.232,
+   "retain": 0.65,
+   "rf_prob": 0.08,
+   "persist": 0.5,
+   "likelihood": 0.248
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.261,
+   "ndvi_dry": 0.172,
+   "retain": 0.66,
+   "rf_prob": 0.094,
+   "persist": 0.0,
+   "likelihood": 0.056
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.338,
+   "ndvi_dry": 0.282,
+   "retain": 0.835,
+   "rf_prob": 0.232,
+   "persist": 0.869,
+   "likelihood": 0.487
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.314,
+   "ndvi_dry": 0.226,
+   "retain": 0.72,
+   "rf_prob": 0.044,
+   "persist": 0.64,
+   "likelihood": 0.282
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.241,
+   "retain": 0.752,
+   "rf_prob": 0.109,
+   "persist": 0.704,
+   "likelihood": 0.347
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.368,
+   "ndvi_dry": 0.28,
+   "retain": 0.76,
+   "rf_prob": 0.115,
+   "persist": 0.72,
+   "likelihood": 0.357
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.396,
+   "ndvi_dry": 0.264,
+   "retain": 0.668,
+   "rf_prob": 0.133,
+   "persist": 0.535,
+   "likelihood": 0.294
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.180125,
+   "ndvi_wet": 0.32,
+   "ndvi_dry": 0.25,
+   "retain": 0.781,
+   "rf_prob": 0.093,
+   "persist": 0.763,
+   "likelihood": 0.361
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.219,
+   "ndvi_dry": 0.221,
+   "retain": 1.007,
+   "rf_prob": 0.125,
+   "persist": 0.0,
+   "likelihood": 0.075
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.268,
+   "ndvi_dry": 0.233,
+   "retain": 0.87,
+   "rf_prob": 0.08,
+   "persist": 0.0,
+   "likelihood": 0.048
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.333,
+   "ndvi_dry": 0.276,
+   "retain": 0.828,
+   "rf_prob": 0.123,
+   "persist": 0.855,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.312,
+   "ndvi_dry": 0.264,
+   "retain": 0.845,
+   "rf_prob": 0.17,
+   "persist": 0.891,
+   "likelihood": 0.459
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.261,
+   "ndvi_dry": 0.238,
+   "retain": 0.913,
+   "rf_prob": 0.169,
+   "persist": 0.0,
+   "likelihood": 0.102
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.278,
+   "ndvi_dry": 0.23,
+   "retain": 0.826,
+   "rf_prob": 0.18,
+   "persist": 0.0,
+   "likelihood": 0.108
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.186875,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.394,
+   "retain": 0.99,
+   "rf_prob": 0.103,
+   "persist": 1.0,
+   "likelihood": 0.462
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.437,
+   "ndvi_dry": 0.319,
+   "retain": 0.73,
+   "rf_prob": 0.079,
+   "persist": 0.661,
+   "likelihood": 0.312
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.254,
+   "retain": 0.66,
+   "rf_prob": 0.116,
+   "persist": 0.52,
+   "likelihood": 0.277
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.433,
+   "ndvi_dry": 0.309,
+   "retain": 0.713,
+   "rf_prob": 0.093,
+   "persist": 0.626,
+   "likelihood": 0.306
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.38,
+   "ndvi_dry": 0.25,
+   "retain": 0.658,
+   "rf_prob": 0.096,
+   "persist": 0.517,
+   "likelihood": 0.264
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.277,
+   "ndvi_dry": 0.181,
+   "retain": 0.653,
+   "rf_prob": 0.089,
+   "persist": 0.0,
+   "likelihood": 0.054
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.366,
+   "ndvi_dry": 0.22,
+   "retain": 0.601,
+   "rf_prob": 0.056,
+   "persist": 0.402,
+   "likelihood": 0.195
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.193625,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.301,
+   "retain": 0.751,
+   "rf_prob": 0.218,
+   "persist": 0.702,
+   "likelihood": 0.412
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.283,
+   "retain": 0.795,
+   "rf_prob": 0.152,
+   "persist": 0.79,
+   "likelihood": 0.407
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.36,
+   "ndvi_dry": 0.287,
+   "retain": 0.798,
+   "rf_prob": 0.13,
+   "persist": 0.796,
+   "likelihood": 0.396
+  },
+  {
+   "lat": 12.739107142857144,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.337,
+   "ndvi_dry": 0.294,
+   "retain": 0.874,
+   "rf_prob": 0.176,
+   "persist": 0.948,
+   "likelihood": 0.485
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.349,
+   "ndvi_dry": 0.253,
+   "retain": 0.726,
+   "rf_prob": 0.07,
+   "persist": 0.391,
+   "likelihood": 0.199
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.416,
+   "ndvi_dry": 0.307,
+   "retain": 0.739,
+   "rf_prob": 0.198,
+   "persist": 0.678,
+   "likelihood": 0.39
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.325,
+   "ndvi_dry": 0.216,
+   "retain": 0.665,
+   "rf_prob": 0.043,
+   "persist": 0.53,
+   "likelihood": 0.238
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.263,
+   "ndvi_dry": 0.198,
+   "retain": 0.753,
+   "rf_prob": 0.134,
+   "persist": 0.0,
+   "likelihood": 0.08
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.343,
+   "ndvi_dry": 0.21,
+   "retain": 0.611,
+   "rf_prob": 0.083,
+   "persist": 0.422,
+   "likelihood": 0.218
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.327,
+   "ndvi_dry": 0.252,
+   "retain": 0.771,
+   "rf_prob": 0.099,
+   "persist": 0.742,
+   "likelihood": 0.356
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.281,
+   "ndvi_dry": 0.237,
+   "retain": 0.843,
+   "rf_prob": 0.065,
+   "persist": 0.0,
+   "likelihood": 0.039
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.371,
+   "ndvi_dry": 0.284,
+   "retain": 0.765,
+   "rf_prob": 0.191,
+   "persist": 0.729,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.302,
+   "ndvi_dry": 0.222,
+   "retain": 0.733,
+   "rf_prob": 0.098,
+   "persist": 0.665,
+   "likelihood": 0.325
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.481,
+   "ndvi_dry": 0.391,
+   "retain": 0.811,
+   "rf_prob": 0.082,
+   "persist": 0.823,
+   "likelihood": 0.378
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.180125,
+   "ndvi_wet": 0.241,
+   "ndvi_dry": 0.207,
+   "retain": 0.859,
+   "rf_prob": 0.066,
+   "persist": 0.0,
+   "likelihood": 0.04
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.284,
+   "ndvi_dry": 0.214,
+   "retain": 0.754,
+   "rf_prob": 0.083,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.303,
+   "ndvi_dry": 0.262,
+   "retain": 0.865,
+   "rf_prob": 0.262,
+   "persist": 0.93,
+   "likelihood": 0.529
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.292,
+   "retain": 0.845,
+   "rf_prob": 0.226,
+   "persist": 0.89,
+   "likelihood": 0.492
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.313,
+   "ndvi_dry": 0.266,
+   "retain": 0.847,
+   "rf_prob": 0.138,
+   "persist": 0.895,
+   "likelihood": 0.441
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.433,
+   "ndvi_dry": 0.358,
+   "retain": 0.828,
+   "rf_prob": 0.143,
+   "persist": 0.855,
+   "likelihood": 0.428
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.273,
+   "ndvi_dry": 0.19,
+   "retain": 0.695,
+   "rf_prob": 0.156,
+   "persist": 0.0,
+   "likelihood": 0.094
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.186875,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.314,
+   "retain": 0.842,
+   "rf_prob": 0.205,
+   "persist": 0.884,
+   "likelihood": 0.476
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.483,
+   "ndvi_dry": 0.384,
+   "retain": 0.795,
+   "rf_prob": 0.123,
+   "persist": 0.79,
+   "likelihood": 0.39
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.43,
+   "ndvi_dry": 0.306,
+   "retain": 0.712,
+   "rf_prob": 0.115,
+   "persist": 0.623,
+   "likelihood": 0.318
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.475,
+   "ndvi_dry": 0.366,
+   "retain": 0.771,
+   "rf_prob": 0.055,
+   "persist": 0.741,
+   "likelihood": 0.33
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.453,
+   "ndvi_dry": 0.33,
+   "retain": 0.729,
+   "rf_prob": 0.134,
+   "persist": 0.657,
+   "likelihood": 0.343
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.296,
+   "ndvi_dry": 0.185,
+   "retain": 0.626,
+   "rf_prob": 0.054,
+   "persist": 0.0,
+   "likelihood": 0.032
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.234,
+   "retain": 0.626,
+   "rf_prob": 0.088,
+   "persist": 0.452,
+   "likelihood": 0.234
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.193625,
+   "ndvi_wet": 0.484,
+   "ndvi_dry": 0.375,
+   "retain": 0.773,
+   "rf_prob": 0.127,
+   "persist": 0.747,
+   "likelihood": 0.375
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.459,
+   "ndvi_dry": 0.377,
+   "retain": 0.821,
+   "rf_prob": 0.147,
+   "persist": 0.842,
+   "likelihood": 0.425
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.333,
+   "retain": 0.836,
+   "rf_prob": 0.106,
+   "persist": 0.873,
+   "likelihood": 0.413
+  },
+  {
+   "lat": 12.740035714285714,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.371,
+   "ndvi_dry": 0.302,
+   "retain": 0.813,
+   "rf_prob": 0.145,
+   "persist": 0.825,
+   "likelihood": 0.417
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.249,
+   "ndvi_dry": 0.173,
+   "retain": 0.694,
+   "rf_prob": 0.092,
+   "persist": 0.0,
+   "likelihood": 0.055
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.389,
+   "ndvi_dry": 0.211,
+   "retain": 0.543,
+   "rf_prob": 0.078,
+   "persist": 0.285,
+   "likelihood": 0.161
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.324,
+   "ndvi_dry": 0.236,
+   "retain": 0.729,
+   "rf_prob": 0.06,
+   "persist": 0.659,
+   "likelihood": 0.299
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.227,
+   "ndvi_dry": 0.169,
+   "retain": 0.743,
+   "rf_prob": 0.106,
+   "persist": 0.0,
+   "likelihood": 0.063
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.316,
+   "ndvi_dry": 0.211,
+   "retain": 0.667,
+   "rf_prob": 0.076,
+   "persist": 0.534,
+   "likelihood": 0.26
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.361,
+   "ndvi_dry": 0.253,
+   "retain": 0.703,
+   "rf_prob": 0.204,
+   "persist": 0.605,
+   "likelihood": 0.364
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.329,
+   "ndvi_dry": 0.287,
+   "retain": 0.87,
+   "rf_prob": 0.111,
+   "persist": 0.941,
+   "likelihood": 0.443
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.344,
+   "ndvi_dry": 0.267,
+   "retain": 0.776,
+   "rf_prob": 0.223,
+   "persist": 0.752,
+   "likelihood": 0.434
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.324,
+   "ndvi_dry": 0.232,
+   "retain": 0.716,
+   "rf_prob": 0.073,
+   "persist": 0.631,
+   "likelihood": 0.296
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.429,
+   "ndvi_dry": 0.304,
+   "retain": 0.71,
+   "rf_prob": 0.09,
+   "persist": 0.619,
+   "likelihood": 0.302
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.180125,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.264,
+   "retain": 0.747,
+   "rf_prob": 0.079,
+   "persist": 0.693,
+   "likelihood": 0.325
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.294,
+   "ndvi_dry": 0.222,
+   "retain": 0.756,
+   "rf_prob": 0.083,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.294,
+   "retain": 0.763,
+   "rf_prob": 0.219,
+   "persist": 0.726,
+   "likelihood": 0.422
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.363,
+   "ndvi_dry": 0.298,
+   "retain": 0.821,
+   "rf_prob": 0.104,
+   "persist": 0.842,
+   "likelihood": 0.4
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.304,
+   "ndvi_dry": 0.255,
+   "retain": 0.84,
+   "rf_prob": 0.137,
+   "persist": 0.88,
+   "likelihood": 0.434
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.61,
+   "ndvi_dry": 0.464,
+   "retain": 0.761,
+   "rf_prob": 0.059,
+   "persist": 0.721,
+   "likelihood": 0.324
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.352,
+   "ndvi_dry": 0.254,
+   "retain": 0.72,
+   "rf_prob": 0.16,
+   "persist": 0.639,
+   "likelihood": 0.351
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.186875,
+   "ndvi_wet": 0.228,
+   "ndvi_dry": 0.208,
+   "retain": 0.912,
+   "rf_prob": 0.176,
+   "persist": 0.0,
+   "likelihood": 0.105
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.358,
+   "ndvi_dry": 0.29,
+   "retain": 0.808,
+   "rf_prob": 0.152,
+   "persist": 0.816,
+   "likelihood": 0.418
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.47,
+   "ndvi_dry": 0.413,
+   "retain": 0.879,
+   "rf_prob": 0.129,
+   "persist": 0.958,
+   "likelihood": 0.46
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.375,
+   "ndvi_dry": 0.259,
+   "retain": 0.691,
+   "rf_prob": 0.168,
+   "persist": 0.582,
+   "likelihood": 0.334
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.447,
+   "ndvi_dry": 0.279,
+   "retain": 0.624,
+   "rf_prob": 0.177,
+   "persist": 0.449,
+   "likelihood": 0.286
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.276,
+   "ndvi_dry": 0.172,
+   "retain": 0.625,
+   "rf_prob": 0.18,
+   "persist": 0.0,
+   "likelihood": 0.108
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.297,
+   "ndvi_dry": 0.21,
+   "retain": 0.706,
+   "rf_prob": 0.056,
+   "persist": 0.0,
+   "likelihood": 0.034
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.193625,
+   "ndvi_wet": 0.371,
+   "ndvi_dry": 0.318,
+   "retain": 0.857,
+   "rf_prob": 0.178,
+   "persist": 0.914,
+   "likelihood": 0.472
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.436,
+   "ndvi_dry": 0.317,
+   "retain": 0.728,
+   "rf_prob": 0.133,
+   "persist": 0.657,
+   "likelihood": 0.342
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.296,
+   "retain": 0.832,
+   "rf_prob": 0.101,
+   "persist": 0.864,
+   "likelihood": 0.406
+  },
+  {
+   "lat": 12.740964285714286,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.359,
+   "ndvi_dry": 0.317,
+   "retain": 0.883,
+   "rf_prob": 0.081,
+   "persist": 0.966,
+   "likelihood": 0.435
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.434,
+   "ndvi_dry": 0.26,
+   "retain": 0.598,
+   "rf_prob": 0.116,
+   "persist": 0.397,
+   "likelihood": 0.229
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.328,
+   "ndvi_dry": 0.214,
+   "retain": 0.652,
+   "rf_prob": 0.088,
+   "persist": 0.504,
+   "likelihood": 0.254
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.323,
+   "ndvi_dry": 0.184,
+   "retain": 0.57,
+   "rf_prob": 0.065,
+   "persist": 0.34,
+   "likelihood": 0.175
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.443,
+   "ndvi_dry": 0.267,
+   "retain": 0.602,
+   "rf_prob": 0.155,
+   "persist": 0.403,
+   "likelihood": 0.254
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.261,
+   "ndvi_dry": 0.172,
+   "retain": 0.659,
+   "rf_prob": 0.083,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.44,
+   "ndvi_dry": 0.291,
+   "retain": 0.662,
+   "rf_prob": 0.089,
+   "persist": 0.524,
+   "likelihood": 0.263
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.245,
+   "retain": 0.688,
+   "rf_prob": 0.077,
+   "persist": 0.576,
+   "likelihood": 0.277
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.392,
+   "ndvi_dry": 0.305,
+   "retain": 0.779,
+   "rf_prob": 0.093,
+   "persist": 0.758,
+   "likelihood": 0.359
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.455,
+   "ndvi_dry": 0.354,
+   "retain": 0.78,
+   "rf_prob": 0.05,
+   "persist": 0.759,
+   "likelihood": 0.334
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.253,
+   "ndvi_dry": 0.196,
+   "retain": 0.774,
+   "rf_prob": 0.149,
+   "persist": 0.0,
+   "likelihood": 0.089
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.180125,
+   "ndvi_wet": 0.358,
+   "ndvi_dry": 0.273,
+   "retain": 0.763,
+   "rf_prob": 0.075,
+   "persist": 0.725,
+   "likelihood": 0.335
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.365,
+   "ndvi_dry": 0.257,
+   "retain": 0.705,
+   "rf_prob": 0.121,
+   "persist": 0.609,
+   "likelihood": 0.316
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.281,
+   "retain": 0.726,
+   "rf_prob": 0.284,
+   "persist": 0.651,
+   "likelihood": 0.431
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.312,
+   "ndvi_dry": 0.271,
+   "retain": 0.869,
+   "rf_prob": 0.22,
+   "persist": 0.938,
+   "likelihood": 0.507
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.331,
+   "ndvi_dry": 0.281,
+   "retain": 0.85,
+   "rf_prob": 0.124,
+   "persist": 0.9,
+   "likelihood": 0.434
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.442,
+   "ndvi_dry": 0.439,
+   "retain": 0.992,
+   "rf_prob": 0.161,
+   "persist": 1.0,
+   "likelihood": 0.497
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.429,
+   "ndvi_dry": 0.275,
+   "retain": 0.641,
+   "rf_prob": 0.19,
+   "persist": 0.482,
+   "likelihood": 0.307
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.186875,
+   "ndvi_wet": 0.285,
+   "ndvi_dry": 0.237,
+   "retain": 0.831,
+   "rf_prob": 0.118,
+   "persist": 0.0,
+   "likelihood": 0.071
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.314,
+   "retain": 0.787,
+   "rf_prob": 0.157,
+   "persist": 0.774,
+   "likelihood": 0.404
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.389,
+   "ndvi_dry": 0.34,
+   "retain": 0.874,
+   "rf_prob": 0.18,
+   "persist": 0.949,
+   "likelihood": 0.488
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.426,
+   "ndvi_dry": 0.333,
+   "retain": 0.783,
+   "rf_prob": 0.11,
+   "persist": 0.765,
+   "likelihood": 0.372
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.374,
+   "ndvi_dry": 0.26,
+   "retain": 0.696,
+   "rf_prob": 0.173,
+   "persist": 0.593,
+   "likelihood": 0.341
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.449,
+   "ndvi_dry": 0.271,
+   "retain": 0.603,
+   "rf_prob": 0.172,
+   "persist": 0.406,
+   "likelihood": 0.266
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.345,
+   "ndvi_dry": 0.231,
+   "retain": 0.671,
+   "rf_prob": 0.066,
+   "persist": 0.541,
+   "likelihood": 0.256
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.193625,
+   "ndvi_wet": 0.275,
+   "ndvi_dry": 0.205,
+   "retain": 0.746,
+   "rf_prob": 0.187,
+   "persist": 0.0,
+   "likelihood": 0.112
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.425,
+   "ndvi_dry": 0.293,
+   "retain": 0.689,
+   "rf_prob": 0.218,
+   "persist": 0.578,
+   "likelihood": 0.362
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.299,
+   "retain": 0.777,
+   "rf_prob": 0.158,
+   "persist": 0.754,
+   "likelihood": 0.396
+  },
+  {
+   "lat": 12.741892857142856,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.316,
+   "retain": 0.791,
+   "rf_prob": 0.16,
+   "persist": 0.782,
+   "likelihood": 0.409
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.349,
+   "ndvi_dry": 0.212,
+   "retain": 0.608,
+   "rf_prob": 0.099,
+   "persist": 0.415,
+   "likelihood": 0.225
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.374,
+   "ndvi_dry": 0.223,
+   "retain": 0.595,
+   "rf_prob": 0.11,
+   "persist": 0.39,
+   "likelihood": 0.222
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.38,
+   "ndvi_dry": 0.244,
+   "retain": 0.642,
+   "rf_prob": 0.053,
+   "persist": 0.484,
+   "likelihood": 0.225
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.251,
+   "retain": 0.709,
+   "rf_prob": 0.121,
+   "persist": 0.617,
+   "likelihood": 0.32
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.454,
+   "ndvi_dry": 0.307,
+   "retain": 0.675,
+   "rf_prob": 0.053,
+   "persist": 0.55,
+   "likelihood": 0.252
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.436,
+   "ndvi_dry": 0.275,
+   "retain": 0.63,
+   "rf_prob": 0.143,
+   "persist": 0.46,
+   "likelihood": 0.27
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.432,
+   "ndvi_dry": 0.302,
+   "retain": 0.699,
+   "rf_prob": 0.094,
+   "persist": 0.599,
+   "likelihood": 0.296
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.269,
+   "retain": 0.686,
+   "rf_prob": 0.104,
+   "persist": 0.572,
+   "likelihood": 0.291
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.407,
+   "ndvi_dry": 0.285,
+   "retain": 0.699,
+   "rf_prob": 0.102,
+   "persist": 0.598,
+   "likelihood": 0.3
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.375,
+   "ndvi_dry": 0.276,
+   "retain": 0.737,
+   "rf_prob": 0.183,
+   "persist": 0.673,
+   "likelihood": 0.379
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.180125,
+   "ndvi_wet": 0.301,
+   "ndvi_dry": 0.221,
+   "retain": 0.732,
+   "rf_prob": 0.063,
+   "persist": 0.664,
+   "likelihood": 0.303
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.313,
+   "ndvi_dry": 0.246,
+   "retain": 0.786,
+   "rf_prob": 0.167,
+   "persist": 0.772,
+   "likelihood": 0.409
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.348,
+   "ndvi_dry": 0.253,
+   "retain": 0.725,
+   "rf_prob": 0.16,
+   "persist": 0.65,
+   "likelihood": 0.356
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.373,
+   "ndvi_dry": 0.284,
+   "retain": 0.761,
+   "rf_prob": 0.29,
+   "persist": 0.722,
+   "likelihood": 0.463
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.27,
+   "retain": 0.762,
+   "rf_prob": 0.155,
+   "persist": 0.724,
+   "likelihood": 0.383
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.317,
+   "ndvi_dry": 0.239,
+   "retain": 0.752,
+   "rf_prob": 0.103,
+   "persist": 0.704,
+   "likelihood": 0.344
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.38,
+   "ndvi_dry": 0.256,
+   "retain": 0.674,
+   "rf_prob": 0.127,
+   "persist": 0.547,
+   "likelihood": 0.295
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.186875,
+   "ndvi_wet": 0.406,
+   "ndvi_dry": 0.237,
+   "retain": 0.584,
+   "rf_prob": 0.183,
+   "persist": 0.369,
+   "likelihood": 0.257
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.303,
+   "ndvi_dry": 0.243,
+   "retain": 0.804,
+   "rf_prob": 0.06,
+   "persist": 0.808,
+   "likelihood": 0.359
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.34,
+   "ndvi_dry": 0.267,
+   "retain": 0.784,
+   "rf_prob": 0.189,
+   "persist": 0.767,
+   "likelihood": 0.42
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.348,
+   "ndvi_dry": 0.273,
+   "retain": 0.786,
+   "rf_prob": 0.099,
+   "persist": 0.772,
+   "likelihood": 0.368
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.423,
+   "ndvi_dry": 0.324,
+   "retain": 0.766,
+   "rf_prob": 0.082,
+   "persist": 0.732,
+   "likelihood": 0.342
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.409,
+   "ndvi_dry": 0.308,
+   "retain": 0.753,
+   "rf_prob": 0.191,
+   "persist": 0.706,
+   "likelihood": 0.397
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.486,
+   "ndvi_dry": 0.296,
+   "retain": 0.609,
+   "rf_prob": 0.136,
+   "persist": 0.419,
+   "likelihood": 0.249
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.193625,
+   "ndvi_wet": 0.432,
+   "ndvi_dry": 0.258,
+   "retain": 0.597,
+   "rf_prob": 0.095,
+   "persist": 0.394,
+   "likelihood": 0.214
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.47,
+   "ndvi_dry": 0.311,
+   "retain": 0.661,
+   "rf_prob": 0.05,
+   "persist": 0.523,
+   "likelihood": 0.239
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.41,
+   "ndvi_dry": 0.298,
+   "retain": 0.727,
+   "rf_prob": 0.215,
+   "persist": 0.655,
+   "likelihood": 0.391
+  },
+  {
+   "lat": 12.742821428571428,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.288,
+   "retain": 0.807,
+   "rf_prob": 0.151,
+   "persist": 0.813,
+   "likelihood": 0.416
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.35,
+   "ndvi_dry": 0.231,
+   "retain": 0.66,
+   "rf_prob": 0.065,
+   "persist": 0.521,
+   "likelihood": 0.247
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.223,
+   "retain": 0.628,
+   "rf_prob": 0.089,
+   "persist": 0.456,
+   "likelihood": 0.236
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.502,
+   "ndvi_dry": 0.371,
+   "retain": 0.738,
+   "rf_prob": 0.125,
+   "persist": 0.677,
+   "likelihood": 0.346
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.241,
+   "retain": 0.625,
+   "rf_prob": 0.086,
+   "persist": 0.449,
+   "likelihood": 0.231
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.248,
+   "retain": 0.641,
+   "rf_prob": 0.148,
+   "persist": 0.482,
+   "likelihood": 0.281
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.367,
+   "ndvi_dry": 0.266,
+   "retain": 0.725,
+   "rf_prob": 0.106,
+   "persist": 0.65,
+   "likelihood": 0.323
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.413,
+   "ndvi_dry": 0.295,
+   "retain": 0.714,
+   "rf_prob": 0.1,
+   "persist": 0.627,
+   "likelihood": 0.311
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.316,
+   "retain": 0.746,
+   "rf_prob": 0.1,
+   "persist": 0.691,
+   "likelihood": 0.337
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.37,
+   "ndvi_dry": 0.29,
+   "retain": 0.784,
+   "rf_prob": 0.204,
+   "persist": 0.768,
+   "likelihood": 0.43
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.23,
+   "retain": 0.671,
+   "rf_prob": 0.057,
+   "persist": 0.543,
+   "likelihood": 0.251
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.180125,
+   "ndvi_wet": 0.283,
+   "ndvi_dry": 0.222,
+   "retain": 0.783,
+   "rf_prob": 0.099,
+   "persist": 0.0,
+   "likelihood": 0.059
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.279,
+   "ndvi_dry": 0.232,
+   "retain": 0.833,
+   "rf_prob": 0.085,
+   "persist": 0.0,
+   "likelihood": 0.051
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.394,
+   "ndvi_dry": 0.327,
+   "retain": 0.829,
+   "rf_prob": 0.168,
+   "persist": 0.858,
+   "likelihood": 0.444
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.304,
+   "retain": 0.76,
+   "rf_prob": 0.212,
+   "persist": 0.72,
+   "likelihood": 0.415
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.377,
+   "ndvi_dry": 0.294,
+   "retain": 0.779,
+   "rf_prob": 0.183,
+   "persist": 0.758,
+   "likelihood": 0.413
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.3,
+   "retain": 0.877,
+   "rf_prob": 0.114,
+   "persist": 0.953,
+   "likelihood": 0.45
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.341,
+   "ndvi_dry": 0.226,
+   "retain": 0.664,
+   "rf_prob": 0.052,
+   "persist": 0.529,
+   "likelihood": 0.242
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.186875,
+   "ndvi_wet": 0.368,
+   "ndvi_dry": 0.254,
+   "retain": 0.691,
+   "rf_prob": 0.131,
+   "persist": 0.582,
+   "likelihood": 0.312
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.357,
+   "ndvi_dry": 0.244,
+   "retain": 0.683,
+   "rf_prob": 0.059,
+   "persist": 0.566,
+   "likelihood": 0.262
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.299,
+   "ndvi_dry": 0.23,
+   "retain": 0.769,
+   "rf_prob": 0.1,
+   "persist": 0.0,
+   "likelihood": 0.06
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.305,
+   "retain": 0.754,
+   "rf_prob": 0.109,
+   "persist": 0.709,
+   "likelihood": 0.349
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.372,
+   "ndvi_dry": 0.285,
+   "retain": 0.766,
+   "rf_prob": 0.146,
+   "persist": 0.731,
+   "likelihood": 0.38
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.41,
+   "ndvi_dry": 0.319,
+   "retain": 0.778,
+   "rf_prob": 0.21,
+   "persist": 0.756,
+   "likelihood": 0.428
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.389,
+   "ndvi_dry": 0.28,
+   "retain": 0.72,
+   "rf_prob": 0.225,
+   "persist": 0.641,
+   "likelihood": 0.391
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.193625,
+   "ndvi_wet": 0.424,
+   "ndvi_dry": 0.294,
+   "retain": 0.692,
+   "rf_prob": 0.059,
+   "persist": 0.585,
+   "likelihood": 0.269
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.527,
+   "ndvi_dry": 0.342,
+   "retain": 0.649,
+   "rf_prob": 0.063,
+   "persist": 0.497,
+   "likelihood": 0.237
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.555,
+   "ndvi_dry": 0.363,
+   "retain": 0.653,
+   "rf_prob": 0.116,
+   "persist": 0.506,
+   "likelihood": 0.272
+  },
+  {
+   "lat": 12.74375,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.362,
+   "ndvi_dry": 0.274,
+   "retain": 0.757,
+   "rf_prob": 0.093,
+   "persist": 0.714,
+   "likelihood": 0.342
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.431,
+   "ndvi_dry": 0.287,
+   "retain": 0.667,
+   "rf_prob": 0.083,
+   "persist": 0.534,
+   "likelihood": 0.263
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.215,
+   "retain": 0.556,
+   "rf_prob": 0.081,
+   "persist": 0.311,
+   "likelihood": 0.173
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.442,
+   "ndvi_dry": 0.254,
+   "retain": 0.574,
+   "rf_prob": 0.1,
+   "persist": 0.348,
+   "likelihood": 0.199
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.307,
+   "retain": 0.783,
+   "rf_prob": 0.16,
+   "persist": 0.765,
+   "likelihood": 0.402
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.429,
+   "ndvi_dry": 0.282,
+   "retain": 0.656,
+   "rf_prob": 0.25,
+   "persist": 0.512,
+   "likelihood": 0.355
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.413,
+   "ndvi_dry": 0.264,
+   "retain": 0.639,
+   "rf_prob": 0.152,
+   "persist": 0.477,
+   "likelihood": 0.282
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.381,
+   "ndvi_dry": 0.263,
+   "retain": 0.692,
+   "rf_prob": 0.223,
+   "persist": 0.584,
+   "likelihood": 0.367
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.419,
+   "ndvi_dry": 0.31,
+   "retain": 0.739,
+   "rf_prob": 0.156,
+   "persist": 0.679,
+   "likelihood": 0.365
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.426,
+   "ndvi_dry": 0.271,
+   "retain": 0.636,
+   "rf_prob": 0.161,
+   "persist": 0.473,
+   "likelihood": 0.286
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.449,
+   "ndvi_dry": 0.319,
+   "retain": 0.711,
+   "rf_prob": 0.092,
+   "persist": 0.621,
+   "likelihood": 0.304
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.180125,
+   "ndvi_wet": 0.375,
+   "ndvi_dry": 0.249,
+   "retain": 0.666,
+   "rf_prob": 0.084,
+   "persist": 0.532,
+   "likelihood": 0.263
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.45,
+   "ndvi_dry": 0.312,
+   "retain": 0.693,
+   "rf_prob": 0.073,
+   "persist": 0.586,
+   "likelihood": 0.279
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.4,
+   "ndvi_dry": 0.297,
+   "retain": 0.744,
+   "rf_prob": 0.114,
+   "persist": 0.688,
+   "likelihood": 0.343
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.402,
+   "ndvi_dry": 0.319,
+   "retain": 0.794,
+   "rf_prob": 0.232,
+   "persist": 0.789,
+   "likelihood": 0.454
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.384,
+   "ndvi_dry": 0.318,
+   "retain": 0.827,
+   "rf_prob": 0.177,
+   "persist": 0.854,
+   "likelihood": 0.448
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.369,
+   "ndvi_dry": 0.285,
+   "retain": 0.772,
+   "rf_prob": 0.176,
+   "persist": 0.745,
+   "likelihood": 0.404
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.342,
+   "ndvi_dry": 0.249,
+   "retain": 0.728,
+   "rf_prob": 0.105,
+   "persist": 0.656,
+   "likelihood": 0.326
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.186875,
+   "ndvi_wet": 0.394,
+   "ndvi_dry": 0.285,
+   "retain": 0.722,
+   "rf_prob": 0.163,
+   "persist": 0.644,
+   "likelihood": 0.356
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.382,
+   "ndvi_dry": 0.267,
+   "retain": 0.697,
+   "rf_prob": 0.152,
+   "persist": 0.594,
+   "likelihood": 0.329
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.35,
+   "ndvi_dry": 0.258,
+   "retain": 0.736,
+   "rf_prob": 0.155,
+   "persist": 0.671,
+   "likelihood": 0.362
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.364,
+   "ndvi_dry": 0.276,
+   "retain": 0.759,
+   "rf_prob": 0.107,
+   "persist": 0.718,
+   "likelihood": 0.351
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.302,
+   "ndvi_dry": 0.245,
+   "retain": 0.813,
+   "rf_prob": 0.114,
+   "persist": 0.825,
+   "likelihood": 0.398
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.473,
+   "ndvi_dry": 0.35,
+   "retain": 0.74,
+   "rf_prob": 0.103,
+   "persist": 0.68,
+   "likelihood": 0.334
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.482,
+   "ndvi_dry": 0.363,
+   "retain": 0.753,
+   "rf_prob": 0.111,
+   "persist": 0.706,
+   "likelihood": 0.349
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.193625,
+   "ndvi_wet": 0.416,
+   "ndvi_dry": 0.313,
+   "retain": 0.751,
+   "rf_prob": 0.191,
+   "persist": 0.702,
+   "likelihood": 0.395
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.479,
+   "ndvi_dry": 0.372,
+   "retain": 0.777,
+   "rf_prob": 0.074,
+   "persist": 0.754,
+   "likelihood": 0.346
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.548,
+   "ndvi_dry": 0.404,
+   "retain": 0.737,
+   "rf_prob": 0.108,
+   "persist": 0.673,
+   "likelihood": 0.334
+  },
+  {
+   "lat": 12.74467857142857,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.531,
+   "ndvi_dry": 0.353,
+   "retain": 0.665,
+   "rf_prob": 0.071,
+   "persist": 0.53,
+   "likelihood": 0.254
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.29,
+   "ndvi_dry": 0.272,
+   "retain": 0.938,
+   "rf_prob": 0.291,
+   "persist": 0.0,
+   "likelihood": 0.174
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.431,
+   "ndvi_dry": 0.25,
+   "retain": 0.581,
+   "rf_prob": 0.143,
+   "persist": 0.362,
+   "likelihood": 0.23
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.378,
+   "ndvi_dry": 0.233,
+   "retain": 0.618,
+   "rf_prob": 0.102,
+   "persist": 0.436,
+   "likelihood": 0.236
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.43,
+   "ndvi_dry": 0.248,
+   "retain": 0.577,
+   "rf_prob": 0.114,
+   "persist": 0.355,
+   "likelihood": 0.21
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.503,
+   "ndvi_dry": 0.315,
+   "retain": 0.626,
+   "rf_prob": 0.065,
+   "persist": 0.453,
+   "likelihood": 0.22
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.42,
+   "ndvi_dry": 0.328,
+   "retain": 0.78,
+   "rf_prob": 0.077,
+   "persist": 0.761,
+   "likelihood": 0.351
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.409,
+   "ndvi_dry": 0.294,
+   "retain": 0.719,
+   "rf_prob": 0.116,
+   "persist": 0.639,
+   "likelihood": 0.325
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.427,
+   "ndvi_dry": 0.3,
+   "retain": 0.703,
+   "rf_prob": 0.085,
+   "persist": 0.607,
+   "likelihood": 0.294
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.398,
+   "ndvi_dry": 0.279,
+   "retain": 0.7,
+   "rf_prob": 0.176,
+   "persist": 0.599,
+   "likelihood": 0.345
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.407,
+   "ndvi_dry": 0.29,
+   "retain": 0.715,
+   "rf_prob": 0.253,
+   "persist": 0.629,
+   "likelihood": 0.403
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.180125,
+   "ndvi_wet": 0.43,
+   "ndvi_dry": 0.277,
+   "retain": 0.644,
+   "rf_prob": 0.203,
+   "persist": 0.488,
+   "likelihood": 0.317
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.453,
+   "ndvi_dry": 0.296,
+   "retain": 0.653,
+   "rf_prob": 0.2,
+   "persist": 0.506,
+   "likelihood": 0.323
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.336,
+   "ndvi_dry": 0.294,
+   "retain": 0.874,
+   "rf_prob": 0.108,
+   "persist": 0.948,
+   "likelihood": 0.444
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.415,
+   "ndvi_dry": 0.359,
+   "retain": 0.865,
+   "rf_prob": 0.065,
+   "persist": 0.929,
+   "likelihood": 0.411
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.399,
+   "ndvi_dry": 0.301,
+   "retain": 0.753,
+   "rf_prob": 0.101,
+   "persist": 0.706,
+   "likelihood": 0.343
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.351,
+   "ndvi_dry": 0.277,
+   "retain": 0.788,
+   "rf_prob": 0.114,
+   "persist": 0.776,
+   "likelihood": 0.379
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.382,
+   "ndvi_dry": 0.291,
+   "retain": 0.762,
+   "rf_prob": 0.145,
+   "persist": 0.723,
+   "likelihood": 0.376
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.186875,
+   "ndvi_wet": 0.393,
+   "ndvi_dry": 0.291,
+   "retain": 0.741,
+   "rf_prob": 0.121,
+   "persist": 0.683,
+   "likelihood": 0.346
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.371,
+   "ndvi_dry": 0.27,
+   "retain": 0.729,
+   "rf_prob": 0.205,
+   "persist": 0.659,
+   "likelihood": 0.386
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.268,
+   "retain": 0.753,
+   "rf_prob": 0.086,
+   "persist": 0.705,
+   "likelihood": 0.333
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.355,
+   "ndvi_dry": 0.244,
+   "retain": 0.688,
+   "rf_prob": 0.068,
+   "persist": 0.576,
+   "likelihood": 0.271
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.302,
+   "ndvi_dry": 0.206,
+   "retain": 0.683,
+   "rf_prob": 0.073,
+   "persist": 0.567,
+   "likelihood": 0.27
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.287,
+   "ndvi_dry": 0.228,
+   "retain": 0.794,
+   "rf_prob": 0.116,
+   "persist": 0.0,
+   "likelihood": 0.07
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.609,
+   "ndvi_dry": 0.429,
+   "retain": 0.705,
+   "rf_prob": 0.139,
+   "persist": 0.61,
+   "likelihood": 0.328
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.193625,
+   "ndvi_wet": 0.452,
+   "ndvi_dry": 0.339,
+   "retain": 0.75,
+   "rf_prob": 0.147,
+   "persist": 0.7,
+   "likelihood": 0.368
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.443,
+   "ndvi_dry": 0.305,
+   "retain": 0.688,
+   "rf_prob": 0.064,
+   "persist": 0.575,
+   "likelihood": 0.269
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.613,
+   "ndvi_dry": 0.435,
+   "retain": 0.709,
+   "rf_prob": 0.126,
+   "persist": 0.618,
+   "likelihood": 0.323
+  },
+  {
+   "lat": 12.745607142857143,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.493,
+   "ndvi_dry": 0.33,
+   "retain": 0.67,
+   "rf_prob": 0.114,
+   "persist": 0.54,
+   "likelihood": 0.285
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17048214285714,
+   "ndvi_wet": 0.284,
+   "ndvi_dry": 0.201,
+   "retain": 0.708,
+   "rf_prob": 0.097,
+   "persist": 0.0,
+   "likelihood": 0.058
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17144642857143,
+   "ndvi_wet": 0.425,
+   "ndvi_dry": 0.415,
+   "retain": 0.976,
+   "rf_prob": 0.185,
+   "persist": 1.0,
+   "likelihood": 0.511
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17241071428572,
+   "ndvi_wet": 0.405,
+   "ndvi_dry": 0.288,
+   "retain": 0.71,
+   "rf_prob": 0.074,
+   "persist": 0.621,
+   "likelihood": 0.293
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17337500000001,
+   "ndvi_wet": 0.281,
+   "ndvi_dry": 0.186,
+   "retain": 0.662,
+   "rf_prob": 0.118,
+   "persist": 0.0,
+   "likelihood": 0.071
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17433928571428,
+   "ndvi_wet": 0.36,
+   "ndvi_dry": 0.221,
+   "retain": 0.614,
+   "rf_prob": 0.064,
+   "persist": 0.427,
+   "likelihood": 0.209
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17530357142857,
+   "ndvi_wet": 0.392,
+   "ndvi_dry": 0.291,
+   "retain": 0.741,
+   "rf_prob": 0.132,
+   "persist": 0.683,
+   "likelihood": 0.352
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17626785714286,
+   "ndvi_wet": 0.401,
+   "ndvi_dry": 0.284,
+   "retain": 0.708,
+   "rf_prob": 0.093,
+   "persist": 0.616,
+   "likelihood": 0.302
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17723214285715,
+   "ndvi_wet": 0.365,
+   "ndvi_dry": 0.333,
+   "retain": 0.911,
+   "rf_prob": 0.108,
+   "persist": 1.0,
+   "likelihood": 0.465
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17819642857143,
+   "ndvi_wet": 0.359,
+   "ndvi_dry": 0.272,
+   "retain": 0.759,
+   "rf_prob": 0.276,
+   "persist": 0.719,
+   "likelihood": 0.453
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.17916071428571,
+   "ndvi_wet": 0.348,
+   "ndvi_dry": 0.288,
+   "retain": 0.828,
+   "rf_prob": 0.211,
+   "persist": 0.855,
+   "likelihood": 0.469
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.180125,
+   "ndvi_wet": 0.409,
+   "ndvi_dry": 0.369,
+   "retain": 0.902,
+   "rf_prob": 0.104,
+   "persist": 1.0,
+   "likelihood": 0.462
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.1810892857143,
+   "ndvi_wet": 0.356,
+   "ndvi_dry": 0.284,
+   "retain": 0.798,
+   "rf_prob": 0.231,
+   "persist": 0.796,
+   "likelihood": 0.457
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18205357142857,
+   "ndvi_wet": 0.385,
+   "ndvi_dry": 0.286,
+   "retain": 0.744,
+   "rf_prob": 0.156,
+   "persist": 0.688,
+   "likelihood": 0.369
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18301785714286,
+   "ndvi_wet": 0.386,
+   "ndvi_dry": 0.308,
+   "retain": 0.797,
+   "rf_prob": 0.199,
+   "persist": 0.794,
+   "likelihood": 0.437
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18398214285715,
+   "ndvi_wet": 0.295,
+   "ndvi_dry": 0.256,
+   "retain": 0.87,
+   "rf_prob": 0.112,
+   "persist": 0.0,
+   "likelihood": 0.067
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18494642857144,
+   "ndvi_wet": 0.354,
+   "ndvi_dry": 0.28,
+   "retain": 0.792,
+   "rf_prob": 0.195,
+   "persist": 0.785,
+   "likelihood": 0.431
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18591071428571,
+   "ndvi_wet": 0.318,
+   "ndvi_dry": 0.294,
+   "retain": 0.923,
+   "rf_prob": 0.218,
+   "persist": 1.0,
+   "likelihood": 0.531
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.186875,
+   "ndvi_wet": 0.364,
+   "ndvi_dry": 0.268,
+   "retain": 0.737,
+   "rf_prob": 0.078,
+   "persist": 0.675,
+   "likelihood": 0.317
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18783928571429,
+   "ndvi_wet": 0.346,
+   "ndvi_dry": 0.282,
+   "retain": 0.815,
+   "rf_prob": 0.094,
+   "persist": 0.83,
+   "likelihood": 0.388
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18880357142858,
+   "ndvi_wet": 0.387,
+   "ndvi_dry": 0.269,
+   "retain": 0.696,
+   "rf_prob": 0.09,
+   "persist": 0.591,
+   "likelihood": 0.291
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.18976785714285,
+   "ndvi_wet": 0.543,
+   "ndvi_dry": 0.328,
+   "retain": 0.605,
+   "rf_prob": 0.088,
+   "persist": 0.41,
+   "likelihood": 0.217
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19073214285714,
+   "ndvi_wet": 0.276,
+   "ndvi_dry": 0.187,
+   "retain": 0.677,
+   "rf_prob": 0.084,
+   "persist": 0.0,
+   "likelihood": 0.05
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19169642857143,
+   "ndvi_wet": 0.27,
+   "ndvi_dry": 0.194,
+   "retain": 0.718,
+   "rf_prob": 0.134,
+   "persist": 0.0,
+   "likelihood": 0.081
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19266071428572,
+   "ndvi_wet": 0.314,
+   "ndvi_dry": 0.199,
+   "retain": 0.632,
+   "rf_prob": 0.112,
+   "persist": 0.464,
+   "likelihood": 0.253
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.193625,
+   "ndvi_wet": 0.323,
+   "ndvi_dry": 0.223,
+   "retain": 0.69,
+   "rf_prob": 0.075,
+   "persist": 0.58,
+   "likelihood": 0.277
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19458928571429,
+   "ndvi_wet": 0.372,
+   "ndvi_dry": 0.264,
+   "retain": 0.711,
+   "rf_prob": 0.149,
+   "persist": 0.622,
+   "likelihood": 0.338
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19555357142858,
+   "ndvi_wet": 0.37,
+   "ndvi_dry": 0.279,
+   "retain": 0.753,
+   "rf_prob": 0.162,
+   "persist": 0.705,
+   "likelihood": 0.379
+  },
+  {
+   "lat": 12.746535714285715,
+   "lon": 78.19651785714287,
+   "ndvi_wet": 0.545,
+   "ndvi_dry": 0.373,
+   "retain": 0.685,
+   "rf_prob": 0.125,
+   "persist": 0.569,
+   "likelihood": 0.303
+  }
+ ],
+ "presence_corridor": [
+  {
+   "lat": 12.820713,
+   "lon": 77.826347,
+   "year": 2026
+  },
+  {
+   "lat": 12.819242,
+   "lon": 77.82547,
+   "year": 2026
+  },
+  {
+   "lat": 12.721861,
+   "lon": 77.848319,
+   "year": 2026
+  },
+  {
+   "lat": 12.621279,
+   "lon": 78.031176,
+   "year": 2025
+  },
+  {
+   "lat": 12.693783,
+   "lon": 77.811702,
+   "year": 2025
+  },
+  {
+   "lat": 13.054977,
+   "lon": 78.04385,
+   "year": 2023
+  },
+  {
+   "lat": 12.494193,
+   "lon": 77.807447,
+   "year": 2022
+  },
+  {
+   "lat": 12.494193,
+   "lon": 77.807447,
+   "year": 2022
+  },
+  {
+   "lat": 12.537037,
+   "lon": 78.279688,
+   "year": 2021
+  },
+  {
+   "lat": 12.971738,
+   "lon": 77.866127,
+   "year": 2021
+  },
+  {
+   "lat": 12.712758,
+   "lon": 77.87876,
+   "year": 2021
+  },
+  {
+   "lat": 12.47933,
+   "lon": 77.902723,
+   "year": 2021
+  }
+ ],
+ "presence_in_site": [],
+ "validation": {
+  "n_presence_corridor": 12,
+  "n_presence_in_site": 0,
+  "presence_years": [
+   2021,
+   2022,
+   2023,
+   2025,
+   2026
+  ],
+  "mean_likelihood_all": 0.313,
+  "max_likelihood": 0.59,
+  "n_high": 37,
+  "used_rf": true,
+  "rf_features": [
+   "ndvi_wet",
+   "ndvi_dry",
+   "ndvi_delta",
+   "ndre_dry",
+   "ndwi_dry",
+   "swir_dry"
+  ],
+  "rf_train_pos": 12,
+  "rf_train_bg": 120
+ },
+ "windows": {
+  "wet": [
+   "-12-15",
+   "-03-01"
+  ],
+  "dry": [
+   "-03-15",
+   "-06-15"
+  ]
+ },
+ "method": "EE RandomForest (recent presence vs background, multi-index S2) + multi-year phenology persistence; likelihood = 0.6*RF + 0.4*persistence."
+}

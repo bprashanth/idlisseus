@@ -1,0 +1,60 @@
+{
+ "name": "aravalli_fes",
+ "label": "Aravalli commons (Rajasthan, FES)",
+ "description": "Semi-arid Aravalli thorn/scrub commons restoration (FES-type community forestry).",
+ "center": [
+  27.0,
+  75.8
+ ],
+ "bbox": [
+  75.2,
+  26.5,
+  76.6,
+  27.6
+ ],
+ "ecoregion": "Northwestern thorn scrub forests",
+ "biome": "Deserts & Xeric Shrublands",
+ "landscape": "Degraded Aravalli hills; thorn/scrub; grazing and water-scarcity driven; community commons.",
+ "buckets": {
+  "restoration": 3,
+  "water": 3,
+  "livelihoods": 3,
+  "invasives": 2,
+  "biodiversity": 2,
+  "landuse": 2,
+  "fire": 1,
+  "governance": 2
+ },
+ "seed_species": [
+  "Prosopis juliflora",
+  "Anogeissus pendula",
+  "Boswellia serrata"
+ ],
+ "native_trees": [
+  "Anogeissus pendula",
+  "Boswellia serrata",
+  "Acacia senegal"
+ ],
+ "reference_forest": [
+  27.05,
+  75.9
+ ],
+ "analog_sites": [
+  {
+   "name": "Sariska",
+   "bbox": [
+    76.3,
+    27.1,
+    76.6,
+    27.4
+   ]
+  }
+ ],
+ "catalogs": [
+  {
+   "type": "ckan",
+   "base": "https://data.gov.in",
+   "note": "India catalog"
+  }
+ ]
+}

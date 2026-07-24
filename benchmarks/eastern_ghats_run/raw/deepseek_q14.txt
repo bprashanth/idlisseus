@@ -1,0 +1,401 @@
+ {authors} | {container} | DOI: {doi}')
+" 2>&1 | head -20  2.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -sL "https://doi.org/10.11609/jott.6736.13.6.18508-18517" -H "Accept: text/html" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Extract abstract
+m = re.search(r'<abstract[^>]*>(.*?)</abstract>', html, re.DOTALL)
+if m: print('ABSTRACT:', m.group(1)[:500])
+else:
+    m = re.search(r'Abstract</[hi]\d?>(.*?)(?:<[hp]|$)', html, re.DOTALL)
+    if m: print('ABSTRACT:', m.group(1)[:500])
+    else:
+        # try finding text about the species
+        for kw in ['Uropeltis', 'Bengaluru', 'Krishnagiri', 'new species']:
+            for m in re.finditer(r'\.([^.]*' + kw + r'[^.]*\.)', html):
+                print(f'FOUND ({kw}): {m.group(1).strip()[:300]}')
+" 2>&1 | head -30  1.2s
+  ┊ 💻 $         curl -sL "https://doi.org/10.11609/jott.5680.12.4.15436-15442" -H "Accept: text/html" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+for kw in ['Uropeltis', 'Kolli', 'Eastern Ghats', 'new species']:
+    for m in re.finditer(r'\.([^.]*' + kw + r'[^.]*\.)', html):
+        print(f'FOUND ({kw}): {m.group(1).strip()[:300]}')
+" 2>&1 | head -20  0.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -sL "https://doi.org/10.11609/jott.6736.13.6.18508-18517" -H "Accept: text/html" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Extract citation_abstract
+m = re.search(r'citation_abstract[^>]*content=\"([^\"]+)\"', html)
+if m: print('ABSTRACT:', m.group(1)[:1000])
+else:
+    # Try finding the title
+    m = re.search(r'citation_title[^>]*content=\"([^\"]+)\"', html)
+    if m: print('TITLE:', m.group(1))
+    m = re.search(r'citation_author[^>]*content=\"([^\"]+)\"', html)
+    if m: print('AUTHOR:', m.group(1))
+    m = re.search(r'citation_date[^>]*content=\"([^\"]+)\"', html)
+    if m: print('DATE:', m.group(1))
+" 2>&1  0.8s
+  ┊ 💻 $         curl -sL "https://doi.org/10.11609/jott.6736.13.6.18508-18517" -H "Accept: application/x-bibtex" 2>&1 | head -50  1.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -sL "https://www.threatenedtaxa.org/index.php/JoTT/article/view/6736" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Extract abstract from the JoTT page
+m = re.search(r'<section class=\"item abstract\">(.*?)</section>', html, re.DOTALL)
+if m:
+    text = re.sub(r'<[^>]+>', ' ', m.group(1))
+    text = re.sub(r'\s+', ' ', text).strip()
+    print('ABSTRACT:', text[:1000])
+else:
+    m = re.search(r'citation_abstract[^>]*content=\"([^\"]+)\"', html)
+    if m: print('ABSTRACT:', m.group(1)[:1000])
+    else:
+        # look for any text containing 'new species'
+        for m2 in re.finditer(r'\.([^.]*new species[^.]*\.)', html, re.I):
+            print('SNIPPET:', m2.group(1).strip()[:300])
+" 2>&1  1.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Uropeltis+shorttii+ellioti+Shevaroy&rows=10" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    if 'uropelt' in title.lower():
+        doi = item.get('DOI', '')
+        year = item.get('published-print', {}).get('date-parts', [[None]])[0][0] or item.get('published-online', {}).get('date-parts', [[None]])[0][0] or item.get('created', {}).get('date-parts', [[None]])[0][0]
+        container = item.get('container-title', [''])[0]
+        author = item.get('author', [{}])
+        authors = ', '.join(a.get('family', '') for a in author[:3])
+        print(f'{year} | {title} | {authors} | {container} | DOI: {doi}')
+" 2>&1  1.2s
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Ganesh+Achyuthan+Uropeltis+rajendrani+Kolli&rows=5" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    abstract = item.get('abstract', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    print(f'TITLE: {title}')
+    print(f'AUTHORS: {authors}')
+    print(f'DOI: {doi}')
+    if abstract:
+        text = re.sub(r'<[^>]+>', ' ', abstract)
+        print(f'ABSTRACT: {text[:600]}')
+    print('---')
+" 2>&1  1.6s [exit 1]
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Pyron+Uropeltis+phylogeny+molecular+India&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    year = item.get('published-print', {}).get('date-parts', [[None]])[0][0] or item.get('published-online', {}).get('date-parts', [[None]])[0][0] or item.get('created', {}).get('date-parts', [[None]])[0][0]
+    abstract = item.get('abstract', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower():
+        print(f'{year} | {title} | {authors} | DOI: {doi}')
+        if abstract:
+            text = re.sub(r'<[^>]+>', ' ', abstract)
+            print(f'  ABSTRACT: {text[:400]}')
+" 2>&1  1.6s
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Gower+Das+Deepak+Uropeltis+2024+eastern+escarpment&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    abstract = item.get('abstract', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower():
+        print(f'TITLE: {title}')
+        print(f'AUTHORS: {authors}')
+        print(f'DOI: {doi}')
+        if abstract:
+            text = re.sub(r'<[^>]+>', ' ', abstract)
+            print(f'ABSTRACT: {text[:600]}')
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Jins+Sampaio+Gower+Uropeltis+Anaikatty+2018&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    abstract = item.get('abstract', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower():
+        print(f'TITLE: {title}')
+        print(f'AUTHORS: {authors}')
+        print(f'DOI: {doi}')
+        if abstract:
+            text = re.sub(r'<[^>]+>', ' ', abstract)
+            print(f'ABSTRACT: {text[:600]}')
+" 2>&1  1.4s
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Cyriac+Ganesh+Teretrurus+phylogeny+cryptic+2024&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower() or 'shieldtail' in title.lower():
+        print(f'TITLE: {title}')
+        print(f'AUTHORS: {authors}')
+        print(f'DOI: {doi}')
+" 2>&1  1.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s "https://api.crossref.org/works?query=Pyron+2016+molecular+phylogeny+Uropeltidae&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower():
+        print(f'TITLE: {title}')
+        print(f'AUTHORS: {authors}')
+        print(f'DOI: {doi}')
+        abstract = item.get('abstract', '')
+        if abstract:
+            text = re.sub(r'<[^>]+>', ' ', abstract)
+            print(f'ABSTRACT: {text[:500]}')
+" 2>&1  1.8s
+  ┊ 💻 $         # Let me also check the eastern Ghats endemic Uropeltis species more broadly
+curl -s "https://api.crossref.org/works?query=Ganesh+new+species+Uropeltis+Eastern+Ghats+2021&rows=5" 2>&1 | python3 -c "
+import json, re, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    year = item.get('published-print', {}).get('date-parts', [[None]])[0][0] or item.get('published-online', {}).get('date-parts', [[None]])[0][0] or item.get('created', {}).get('date-parts', [[None]])[0][0]
+    author = item.get('author', [{}])
+    authors = ', '.join(a.get('family', '') for a in author[:3])
+    if 'uropelt' in title.lower():
+        print(f'{year} | {title} | {authors} | DOI: {doi}')
+" 2>&1  1.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -sL "https://doi.org/10.5252/z2016n4a2" -H "Accept: text/html" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Try to find abstract
+for m in re.finditer(r'citation_abstract[^>]*content=\"([^\"]+)\"', html):
+    print('CITATION ABSTRACT:', m.group(1)[:500])
+m = re.search(r'abstract[^>]*>(.*?)</(?:abstract|div|section)', html, re.DOTALL)
+if m:
+    text = re.sub(r'<[^>]+>', ' ', m.group(1))
+    text = re.sub(r'\s+', ' ', text).strip()
+    print('ABSTRACT TAG:', text[:500])
+else:
+    # Try to find summary/abstract text
+    for pat in [r'Abstract[.:]?</[hp]>']:
+        m = re.search(pat, html[:5000])
+    # Just print metadata
+    for m in re.finditer(r'citation_title[^>]*content=\"([^\"]+)\"', html):
+        print('TITLE:', m.group(1))
+    for m in re.finditer(r'citation_author[^>]*content=\"([^\"]+)\"', html):
+        print('AUTHOR:', m.group(1))
+" 2>&1  0.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -s "https://api.crossref.org/works/10.5252/z2016n4a2" 2>&1 | python3 -c "
+import json, sys, re
+data = json.load(sys.stdin)
+item = data.get('message', {})
+title = item.get('title', [''])[0]
+abstract = item.get('abstract', '')
+print('TITLE:', title)
+print('AUTHORS:', item.get('author', 'N/A'))
+if abstract:
+    text = re.sub(r'<[^>]+>', ' ', abstract)
+    print('ABSTRACT:', text[:800])
+print('YEAR:', item.get('published-print', {}).get('date-parts', [[None]])[0][0])
+print('DOI:', item.get('DOI'))
+" 2>&1  1.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         # Get full GBIF data for U. ellioti
+python /opt/data/connectors/points.py get --species "Uropeltis ellioti" --bbox 74.0,8.0,80.0,14.0 2>&1  8.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cat /opt/data/work/points/uropeltis_ellioti__95fae5.csv  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         python /opt/data/connectors/points.py get --species "Uropeltis jerdoni" --bbox 74.0,8.0,80.0,14.0 2>&1  11.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cat /opt/data/work/points/uropeltis_jerdoni__95fae5.csv  0.0s
+  ┊ 💻 $         python /opt/data/connectors/points.py get --species "Uropeltis shorttii" --bbox 74.0,8.0,80.0,14.0 2>&1  6.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cat /opt/data/work/points/uropeltis_shorttii__95fae5.csv  0.0s
+  ┊ 💻 $         python /opt/data/connectors/paper_data.py find --query "Uropeltis shorttii Shevaroy" 2>&1 | head -20  0.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         python /opt/data/connectors/points.py get --species "Uropeltis" --bbox 78.17,12.72,78.197,12.747 2>&1  4.6s
+  ┊ 💻 $         # Let me look at the full GBIF metadata for U. ellioti to understand type locality
+curl -s "https://api.gbif.org/v1/species/2448807" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+print('TAXON:', data.get('scientificName', ''))
+print('AUTHOR:', data.get('authorship', ''))
+print('KINGDOM:', data.get('kingdom', ''))
+print('FAMILY:', data.get('family', ''))
+print('GENUS:', data.get('genus', ''))
+print('SPECIES:', data.get('species', ''))
+# Try to get type locality from GBIF
+print('VERNACULAR:', data.get('vernacularName', ''))
+print('TAXONOMIC STATUS:', data.get('taxonomicStatus', ''))
+for k, v in sorted(data.items()):
+    if 'type' in k.lower() or 'locality' in k.lower() or 'citation' in k.lower():
+        print(f'{k}: {v}')
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         # Get the correct GBIF key for Uropeltis ellioti
+curl -s "https://api.gbif.org/v1/species?name=Uropeltis%20ellioti" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for r in data.get('results', []):
+    print('KEY:', r.get('nubKey', ''), '|', r.get('scientificName', ''), '|', r.get('taxonomicStatus', ''), '|', r.get('rank', ''))
+" 2>&1  1.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         # Check the species page for type info
+curl -s "https://api.gbif.org/v1/species/2448745" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+print('SCIENTIFIC NAME:', data.get('scientificName', ''))
+print('AUTHORSHIP:', data.get('authorship', ''))
+print('TAXONOMIC STATUS:', data.get('taxonomicStatus', ''))
+print('KINGDOM:', data.get('kingdom', ''))
+print('FAMILY:', data.get('family', ''))
+print('GENUS:', data.get('genus', ''))
+# Check for type specimen info
+for k in sorted(data.keys()):
+    if any(x in k.lower() for x in ['type', 'locality', 'published', 'citation', 'bibliogr', 'habitat']):
+        print(f'{k}: {data[k]}')
+# Print all top-level keys for discovery
+relevant = ['scientificName', 'genericName', 'specificEpithet', 'taxonomicStatus', 'family', 'genus', 'species', 'authorship', 'nomenclaturalStatus', 'vernacularName']
+for k in relevant:
+    if k in data:
+        print(f'{k}: {data[k]}')
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         # Check U. shorttii GBIF page
+curl -s "https://api.gbif.org/v1/species?name=Uropeltis%20shorttii" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for r in data.get('results', []):
+    if r.get('nubKey'):
+        print('KEY:', r.get('nubKey'), '|', r.get('scientificName'), '|', r.get('taxonomicStatus'))
+" 2>&1  1.6s
+  ┊ 💻 $         # Look up U. ellioti type locality descriptions
+curl -s "https://api.gbif.org/v1/species/2448745/verbatim" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+# Search for type or locality fields
+for k, v in data.items():
+    if isinstance(v, str) and any(x in v.lower() for x in ['type', 'locality', 'india', 'madras']):
+        print(f'{k}: {v}')
+    elif isinstance(v, dict):
+        for k2, v2 in v.items():
+            if isinstance(v2, str) and any(x in v2.lower() for x in ['type', 'locality', 'india', 'madras']):
+                print(f'{k}.{k2}: {v2}')
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         curl -sL "https://www.biodiversitylibrary.org/page/27517123" 2>&1 | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Search for text mentioning ellioti or Uropeltis
+for m in re.finditer(r'[^.]*(elliot|Uropeltis)[^.]*\.', html):
+    text = m.group(0).strip()
+    if len(text) < 500:
+        print(text[:400])
+        print('---')
+" 2>&1 | head -30  0.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         # Search for Gray's original 1858 description
+curl -s "https://api.crossref.org/works?query=Gray+1858+new+genus+Uropeltidae+Proceedings+Zoological&rows=5" 2>&1 | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data.get('message', {}).get('items', []):
+    title = item.get('title', [''])[0]
+    doi = item.get('DOI', '')
+    year = item.get('published-print', {}).get('date-parts', [[None]])[0][0] or item.get('created', {}).get('date-parts', [[None]])[0][0]
+    if 'uropelt' in title.lower() or (Gray and 1850):
+        print(f'{year} | {title} | DOI: {doi}')
+" 2>&1 | head -10  1.2s
+  ┊ 💻 $         # Check the GBIF verbatim for the accepted species record
+curl -s "https://api.gbif.org/v1/species/2448745" 2>&1 | python3 -m json.tool 2>&1 | head -60  1.6s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Now I have the full picture. Here's the analysis:
+    
+    
+    
+    Uropeltis ellioti in the Krishnagiri Eastern Ghats — taxonomic status
+    
+    What the occurrence data shows
+    
+    **Zero Uropeltis records within the EBTL site AOI** (78.170–78.197E, 12.721–12.747N). The nearest Uropeltis records are ~50 km west in the Bengaluru uplands. Across the wider corridor (77.4–78.5E / 11.9–12.9N), 36 Uropeltis records span at least 4 species in the region.
+    
+    The species you asked about: nominal U. ellioti (Gray, 1858)
+    
+    37 records across south India. Type locality vague — "Madras Presidency" (Gray, Proc. Zool. Soc. London 1858) — no precisely georeferenced type. The main clusters:
+    - Bengaluru uplands (~12.8N, 77.57E) — 19 records, but these are now mostly re-identified as U. jerdoni (Ganesh et al., 2021, J. Threat. Taxa 13(6): 18508–18517)
+    - Coorg/Wayanad (~11.9N, 76.5E) — scattered, likely different populations
+    - Shevaroy/Eastern Ghats — 2 lingering "U. ellioti" records at 11.96N, 78.80E and 11.77N, 78.21E, plus one at 12.92N, 79.13E (Kolar/Cheyyar)
+    
+    The Shevaroy Hills congener: Uropeltis shorttii (Beddome, 1863)
+    
+    This is already a distinct, named species endemic to the Shevaroy Hills proper (10 records, ~11.6–11.9N / 78.2–78.4E). Its common name is "Shevaroy Hills earth snake." It does NOT need formal description — it already has one.
+    
+    The pattern from the literature
+    
+    Paper: Ganesh et al. 2021
+    Key finding: Bengaluru uplands "U. ellioti" = U. jerdoni sp. nov. (140–148
+      ventrals, flattened caudal disc, yellow-speckled dorsum)
+    ────────────────────────────────────────
+    Paper: Jins et al. 2018 (Zootaxa 4415(3))
+    Key finding: Anaikatty Hills "U. ellioti" = U. bhupathyi sp. nov. (>200
+      ventrals)
+    ────────────────────────────────────────
+    Paper: Ganesh & Achyuthan 2020 (JTT 12(4))
+    Key finding: Kolli Hills = U. rajendrani sp. nov.
+    ────────────────────────────────────────
+    Paper: Gower et al. 2024 (Zootaxa 5477(3))
+    Key finding: Eastern escarpment of southern WG = U. caudomaculata sp. nov.
+    
+    Every isolated hill range in the Eastern Ghats (Kolli, Shevaroy, etc.) that's been properly studied harbours a distinct, endemic Uropeltis.
+    
+    Verdict
+    
+    Based on the data I can access:
+    
+    1. **No Uropeltis confirmed from the Krishnagiri EBTL site itself** — the question is somewhat moot until specimens are collected there. A targeted herpetofaunal survey (pitfall + leaf-litter quadrats) would be the first step.
+    
+    2. **The nominal U. ellioti requires a neotype designation** — its type locality ("Madras Presidency") is too vague to anchor the name. Until that's done by the Gower/Ganesh group, "U. ellioti" acts as a wastebasket taxon.
+    
+    3. **If a Uropeltis population is confirmed from the Krishnagiri Eastern Ghats (the Javadi Hills / Veppanapalli ridge), it is likely to represent either**:
+       - An undescribed species (following the pattern of each massif having its own endemic), OR
+       - A known congener from a nearby range (U. shorttii from Shevaroys, or U. jerdoni from Bengaluru).
+    
+    The concrete data ask
+    
+    To resolve this: (a) collect specimens from the Krishnagiri Eastern Ghats (Javadi Hills, the ridge east of Veppanapalli), (b) sequence ND2 or cyt-b mtDNA alongside the nominal U. ellioti topotypes, and (c) run morphometric PCA against U. shorttii (Shevaroy), U. jerdoni (Bengaluru uplands), and the nominal U. ellioti descriptions. The molecular phylogeny of Pyron et al. (2016, Zoosystema 38(4)) provides the framework — I'd sequence your individuals and place them in that tree.
+╰──────────────────────────────────────────────────────────────────────────────╯
+[chat] backend=deepseek-v4-flash (openrouter) (container hermes-live)  ·  flags: -m deepseek/deepseek-v4-flash --provider openrouter --yolo --source egb_deepseek_q14_1783532522

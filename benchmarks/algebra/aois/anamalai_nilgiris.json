@@ -1,0 +1,20 @@
+{
+  "name": "anamalai_nilgiris",
+  "label": "Anamalai-Nilgiris (Valparai)",
+  "description": "Wet-forest restoration landscape (NCF Western Ghats); the original semantic_broker AOI. Contrast to the dry EBTL site.",
+  "center": [10.35, 76.93],
+  "bbox": [76.30, 10.20, 77.20, 11.70],
+  "ecoregion": "South Western Ghats montane rain forests",
+  "biome": "Tropical & Subtropical Moist Broadleaf Forests",
+  "landscape": "Wet tropical rainforest fragments in a tea/coffee matrix; dense tree cover; the well-studied NCF restoration landscape.",
+  "themes": ["restoration recovery", "invasives", "fragmentation", "biodiversity", "hydrology"],
+  "buckets": {"restoration": 3, "biodiversity": 3, "invasives": 2, "landuse": 2, "water": 2, "fire": 1, "governance": 1},
+  "seed_species": ["Lantana camara", "Elephas maximus", "Gallus sonneratii"],
+  "flagship_birds": ["Gallus sonneratii", "Ictinaetus malaiensis"],
+  "reference_forest": [10.358, 76.890],
+  "analog_sites": [
+    {"name": "Silent Valley", "bbox": [76.4, 11.0, 76.6, 11.2]},
+    {"name": "KMTR-Agasthyamalai", "bbox": [77.1, 8.5, 77.6, 8.9]}
+  ],
+  "catalogs": [{"type": "ckan", "base": "https://data.gov.in", "note": "India catalog"}]
+}

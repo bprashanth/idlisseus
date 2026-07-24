@@ -1,0 +1,100 @@
+{
+ "clarify_gate": [
+  {
+   "s": 0,
+   "open": "tell me about the invasives here",
+   "gate": "Which invasives—plants like Lantana, or others—and what's your goal, mapping spread or impact on elephant habitat?",
+   "asked": true,
+   "tok": 142
+  },
+  {
+   "s": 1,
+   "open": "what snakes are around?",
+   "gate": "Which species are you after, and what are you trying to understand — distribution, venom risk, or prey ecology?",
+   "asked": true,
+   "tok": 135
+  },
+  {
+   "s": 2,
+   "open": "is the forest actually coming back?",
+   "gate": "Which species and area are you asking about, and what are you trying to understand — regeneration rates, canopy cover, or something else?",
+   "asked": true,
+   "tok": 141
+  },
+  {
+   "s": 3,
+   "open": "tell me about the spiders here",
+   "gate": "Which spiders—specific species or group, and what are you trying to understand about them?",
+   "asked": true,
+   "tok": 131
+  }
+ ],
+ "synth": [
+  {
+   "s": 0,
+   "short": true,
+   "has_followup": false,
+   "flagged": true,
+   "len": 727,
+   "text": "Modelled result (Random Forest + phenology persistence, trained on 12 corridor records, not site-specific ground truth): 37 of 784 grid cells at ≥0.5 likelihood, max 0.59. Zero confirmed records inside the 70-acre site itself — this is a transferred signal at 10m resolution, so small patches may be missed. Top waypoint is 12.73847, 78.18152 (likelihood 0.59, RF prob 0.68); full list at `/opt/data/work/invasive/lantana_camara/waypoints.csv` and map at `/opt/data/work/invasive/lantana_camara/map.html`. Follow-ups: (1) walk the top 5 waypoints to confirm presence, (2) GPS a few Lantana and non-Lantana patches to retrain a calibrated model, (3) buy one SkyFi scene over the top cells to verify before committing to removal.",
+   "tok": 888
+  },
+  {
+   "s": 1,
+   "short": true,
+   "has_followup": false,
+   "flagged": false,
+   "len": 651,
+   "text": "GBIF/iNaturalist (citizen-science, presence-only) records for the Elephants by the Lake corridor show 100+ Indian Cobra (2023–2026), 30+ Common Krait (2013–2026), and 100+ Russell's Viper (2015–2026), all medically significant. Records cluster near roads/settlements (sampling bias), with hotspots at 12.88°N, 77.46°E and 12.62°N, 78.03°E. Follow-ups: (1) brief field staff on the Big Four venomous species, especially in dry-deciduous patches and warmer months; (2) run targeted pitfall/visual encounter surveys to capture non-venomous species missing from this dataset; (3) set up an iNaturalist project for the restoration area to improve coverage.",
+   "tok": 772
+  },
+  {
+   "s": 2,
+   "short": true,
+   "has_followup": false,
+   "flagged": true,
+   "len": 549,
+   "text": "All 5 sample points across the ~70-acre EBTL site show greening (modelled NDVI +0.013–0.020/year, 2019–2024), rising from 0.46–0.56 to 0.54–0.58—consistent recovery but not yet mature canopy. This is modelled from 250m MODIS pixels, so it's coarse for your actual planting plots. Pick any of these: (1) send plot boundary coordinates and I'll pull finer Sentinel-2 10m data, (2) share ground-truth sapling counts/survival for cross-checking, or (3) I can compare EBTL greening against the wider corridor to see if it's outperforming regional trends.",
+   "tok": 562
+  },
+  {
+   "s": 3,
+   "short": true,
+   "has_followup": false,
+   "flagged": false,
+   "len": 530,
+   "text": "EBTL has just 1 observed spider record — *Thelacantha brevispina* (a spiny orb-weaver) via iNaturalist in 2026 at 12.7287°N, 78.1887°E. A broader literature search found 162 papers on spiders in Indian dry deciduous forests, but none from your site or the Krishnagiri region. Pick from: (1) run field surveys with pitfall traps, sweep nets, or beat sheets across microhabitats, (2) get field staff uploading spider photos to iNaturalist, or (3) I can pull occurrence data for specific families or functional groups you care about.",
+   "tok": 588
+  }
+ ],
+ "verify": [
+  {
+   "s": 0,
+   "verdict": "FIX",
+   "caught": true,
+   "tok": 908,
+   "text": "FIX:\n\n**Lantana camara** — \"Elephants by the Lake\" site (modelled)\n\n- **Modelled likelihood**: 0.59 max; 37/784 cells ≥0.5\n- **Observed records**: 12 in corridor (2021–2026); 0 confirmed inside the 70-acre site\n- **Method**: Earth Engine Random Forest (12 corridor records) + phenology persistence (2023–2024)\n- **Top waypoint**: 12.73847, 78.18152 (modelled 0.59)\n- **Limits**: Transferred signal (n"
+  },
+  {
+   "s": 1,
+   "verdict": "FIX",
+   "caught": true,
+   "tok": 826,
+   "text": "FIX:\n\n## Modelled vs Observed Snake Species — Elephants by the Lake corridor\n\n**Observed (GBIF/iNaturalist research-grade, presence-only):**\n\n| Species | Common Name | Records | Notes |\n|---------|-------------|---------|-------|\n| *Naja naja* | Indian Cobra | 100+ | Widely distributed |\n| *Bungarus caeruleus* | Common Krait | 30+ | Western/central clusters |\n| *Daboia russelii* | Russell's Viper "
+  },
+  {
+   "s": 2,
+   "verdict": "FIX",
+   "caught": true,
+   "tok": 566,
+   "text": "FIX:\n\n**Observed (satellite NDVI, 2019–2024):** All 5 sample points show greening (+0.013–0.020 NDVI/year), rising from moderate (0.46–0.56) to denser canopy (0.54–0.58).\n\n**Modelled/interpreted:** This suggests vegetation recovery across the ~70-acre site—canopy closure and biomass accumulation, not yet mature-forest saturation.\n\n**Limits:** 250m MODIS pixels are coarse for small plots; NDVI conf"
+  },
+  {
+   "s": 3,
+   "verdict": "FIX",
+   "caught": true,
+   "tok": 665,
+   "text": "FIX: Here's the spider data for **Elephants by the Lake (EBTL)**:\n\n**Observed (1 record):**\n- *Thelacantha brevispina* (iNaturalist, 2026, 12.7287°N, 78.1887°E)\n\n**Modelled/Literature Context:**\n- 162 papers on dry-deciduous forest spiders in India exist, but none specific to EBTL or the immediate Krishnagiri region.\n- Regional studies are from Goa, Uttar Pradesh, Gujarat, and NE India.\n\n**Assessm"
+  }
+ ]
+}

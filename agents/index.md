@@ -106,3 +106,51 @@ non-obvious requirements — each cost a debugging cycle:
 
 The canonical invocation + full preconditions live in
 `benchmarks/semantic_broker/run_v-1.sh` and `CONNECTORS.md`.
+
+## Swapping the LLM — one runner, any backend (`agents/hermes/chat.sh`)
+
+`chat.sh` talks to a **persistent container** (`hermes-live`) so startup is fast; `--model` selects the
+backend so we can benchmark the SAME connector stack + skills across models.
+
+**Deterministic model selection (2026-07-08 rework).** The model is now set **explicitly on every call**
+(`-m … --provider …`) and each call is a **fresh session** — it does NOT depend on `config.yaml`'s
+`default:` or on a prior in-session `/model` switch. So `chat.sh` = local qwen and `chat.sh --model
+deepseekv4` = DeepSeek, every time; **no container restart is needed to switch models** (the persistent
+container only saves process/venv startup; the first call on a cold model is just slower).
+- no `--model` (`qwen`/`122b`/`local`) → `-m qwen --provider custom` (local 122B vLLM at `172.17.0.1:8001`).
+- `deepseekv4` / `glm5.2` / `<provider/slug>` → `-m <slug> --provider openrouter` (key from
+  `~/.config/idlisseus/openrouter.json`, passed as `OPENROUTER_API_KEY` at container start).
+- A stray leading flag (e.g. `--agent`) now **errors** instead of being sent as the query.
+- `CONTINUE=1` resumes the latest session; `AUTO_APPROVE=1` adds `--yolo`.
+
+**Root cause of the old flakiness:** the local qwen was never registered as a provider, and
+`config.yaml` `default:` had drifted to `deepseek/deepseek-v4-flash`, so a no-`--model` call silently ran
+DeepSeek while the wrapper printed "qwen". Fix = register the vLLM in `config.yaml` and always pass `-m`:
+```yaml
+# ~/.hermes/config.yaml  (container /opt/data/config.yaml, uid 10000; edit via `docker exec -i`)
+model:   { default: qwen, provider: custom, base_url: http://172.17.0.1:8001/v1 }
+providers:
+  local: { base_url: http://172.17.0.1:8001/v1, api_key: local, model: qwen, models: { qwen: {} }, context_length: 262144 }
+```
+Gotcha: a **bare** `--provider custom` with NO matching `providers` entry routes to OpenRouter (HTTP 400
+"not a valid model ID") — the vLLM must be registered. Verify routing via `docker logs vllm-qwen35` (a
+qwen call shows a `POST /v1/chat/completions`; a DeepSeek call does not).
+
+## Which model to run the agent on
+`chat.sh -m deepseekv4` (batches tool calls → parallel, capable) vs default qwen (free/local, **serial** —
+the vLLM `qwen3_xml` parser emits a phantom empty-name call on batches) vs glm. The `discipline` plugin
+adapts parallelism per-model automatically. Tradeoffs + the parser fix: [`hermes/MODEL_OPTIONS.md`](hermes/MODEL_OPTIONS.md).
+
+## Studying / improving the agent from its own traces
+
+Every session is recorded in the persistent container (`state.db` = full transcript, `agent.log` = per-call
+metadata, tirith `log.jsonl` = commands run). Reading these back is how we find behavioural failures and
+turn them into PLAYBOOK/connector fixes — the practical engine behind the Miner. Full schema + query
+recipes + the self-improvement loop: [`hermes/TRACE_INTROSPECTION.md`](hermes/TRACE_INTROSPECTION.md).
+Observed behavioural limitations live in
+[`../benchmarks/semantic_broker/LIMITATIONS.md`](../benchmarks/semantic_broker/LIMITATIONS.md).
+
+Other gotchas: **GLM-5.2 is a reasoning model** — needs `max_tokens` headroom or tool-calls truncate.
+Run only ONE *local* agent-loop at a time (shared 122B pool); OpenRouter loops parallelise.
+`PLAYBOOK_OVERRIDE=<file>` overlays a stripped PLAYBOOK (skill ablation); model×skill harness + cost cap:
+`benchmarks/algebra/bench/model_skill_bench.py`.

@@ -9001,6 +9001,213 @@ body.fullwidth-chat .chat-history {
   margin-top: 2px;
 }
 
+/* ===== IDLI INSIGHT AUDIT SUMMARY =====
+   Idli Insight keeps the conversational answer clean. Invoked skill names and
+   compact result summaries are exposed here; commands, paths, raw outputs and
+   model routing remain in the server audit logs. */
+.insight-why {
+  width: min(100%, 620px);
+  margin: 3px 0 9px;
+  border: 1px solid color-mix(in srgb, var(--accent, var(--red)) 22%, var(--border));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent, var(--red)) 4%, transparent);
+  overflow: hidden;
+}
+
+.insight-why-highlight {
+  animation: insight-why-pulse 800ms ease-out 2;
+}
+
+@keyframes insight-why-pulse {
+  50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+}
+
+.insight-audit-id { cursor: copy; }
+
+.insight-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: min(100%, 620px);
+  margin: -2px 0 9px;
+}
+.insight-evidence-badge {
+  --evidence-color: color-mix(in srgb, var(--fg) 60%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 25px;
+  padding: 3px 8px;
+  border: 1px solid color-mix(in srgb, var(--evidence-color) 40%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--evidence-color) 9%, transparent);
+  color: color-mix(in srgb, var(--evidence-color) 78%, var(--fg));
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: help;
+}
+.insight-evidence-icon {
+  width: 12px;
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+.insight-evidence-badge[data-kind="local_asset"] { --evidence-color: #2f9e74; }
+.insight-evidence-badge[data-kind="public_connector"] { --evidence-color: #3784d6; }
+.insight-evidence-badge[data-kind="modelled"] { --evidence-color: #8b65d6; }
+.insight-evidence-badge[data-kind="proxy"] { --evidence-color: #c47b27; }
+.insight-evidence-badge[data-kind="designed"] { --evidence-color: #a45cbe; }
+.insight-evidence-badge[data-kind="data_gap"] { --evidence-color: #d25b55; }
+.insight-evidence-badge[data-kind="model_background"] { --evidence-color: #6f7782; }
+
+.insight-live-activity {
+  width: min(100%, 520px);
+  margin-top: 8px;
+  color: color-mix(in srgb, var(--fg) 70%, transparent);
+  font-size: 0.76rem;
+}
+.insight-live-activity > summary {
+  width: fit-content;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.72;
+}
+.insight-live-activity-log {
+  max-height: 92px;
+  margin-top: 5px;
+  padding-left: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  border-left: 1px solid color-mix(in srgb, var(--fg) 16%, transparent);
+}
+.insight-live-activity-row {
+  padding: 2px 0;
+  overflow-wrap: anywhere;
+}
+.insight-live-activity-row::before { content: '· '; opacity: 0.6; }
+.insight-live-activity-row[data-state='done']::before { content: '✓ '; }
+.insight-why > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 10px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--fg);
+  user-select: none;
+}
+.insight-why > summary::-webkit-details-marker { display: none; }
+.insight-why > summary::before {
+  content: '\25B6';
+  font-size: 9px;
+  opacity: 0.5;
+  transition: transform 0.18s ease;
+}
+.insight-why[open] > summary::before { transform: rotate(90deg); }
+.insight-why-label {
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+.insight-why-count {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent, var(--red)) 12%, transparent);
+  color: color-mix(in srgb, var(--fg) 72%, transparent);
+  font-size: 0.72rem;
+}
+.insight-skill-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 5px;
+  margin: 0;
+  padding: 1px 10px 9px;
+  list-style: none;
+}
+.insight-skill {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  gap: 7px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+.insight-skill code {
+  overflow: hidden;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.insight-skill-mark {
+  width: 16px;
+  color: var(--accent, var(--red));
+  text-align: center;
+  font-weight: 700;
+}
+.insight-skill-result {
+  grid-column: 2;
+  max-height: 72px;
+  padding-top: 1px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: color-mix(in srgb, var(--fg) 64%, transparent);
+  font-size: 0.7rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+}
+.insight-skill[data-status="running"] .insight-skill-mark {
+  animation: insight-skill-pulse 1s ease-in-out infinite;
+}
+.insight-skill[data-status="failed"] .insight-skill-mark { color: var(--color-error); }
+@keyframes insight-skill-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.insight-audit-id {
+  padding: 0 12px 9px 33px;
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+  font-family: var(--mono, monospace);
+  font-size: 0.66rem;
+  overflow-wrap: anywhere;
+}
+.insight-model-request {
+  margin: -1px 0 10px;
+}
+.insight-model-request-btn {
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid color-mix(in srgb, var(--accent, var(--red)) 35%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent, var(--red)) 8%, transparent);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.insight-model-request-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent, var(--red)) 15%, transparent);
+}
+.insight-model-request-btn:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+@media (max-width: 600px) {
+  .insight-why { width: 100%; margin-top: 1px; }
+  .insight-evidence { width: 100%; }
+  .insight-why > summary { min-height: 34px; padding-inline: 8px; }
+  .insight-skill-list { grid-template-columns: 1fr; padding-inline: 8px; }
+  .insight-skill code { white-space: normal; overflow-wrap: anywhere; }
+  .insight-model-request-btn { width: 100%; }
+}
+
 /* ===== AGENT THREAD TIMELINE ===== */
 .agent-thread {
   position: relative;
@@ -38143,6 +38350,7 @@ body.theme-frosted .modal {
   gap: 8px;
   width: 100%;
   /* Match the height of the free-text input below (.styled-prompt-input). */
+  height: auto;
   min-height: 39px;
   text-align: left;
   padding: 9px 12px;

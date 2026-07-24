@@ -1,0 +1,124 @@
+{
+ "rainmatter_fundees": [
+  "Elephants by the Lake",
+  "Ashoka Trust for Research in Ecology and the Environment (ATREE)",
+  "Keystone Foundation",
+  "Nature Conservation Foundation (NCF)",
+  "Foundation for Ecological Security (FES)",
+  "Dakshin Foundation",
+  "Living Farms",
+  "Wildlife Conservation Trust (WCT)",
+  "Centre for Environment Education (CEE)",
+  "Kalpavriksh"
+ ],
+ "era_india_members": [
+  "Ashoka Trust for Research in Ecology and the Environment (ATREE)",
+  "Foundation for Ecological Security (FES)",
+  "Keystone Foundation",
+  "BAIF Development Research Foundation",
+  "Samrakshan Trust",
+  "Development Alternatives",
+  "Eco Needs Foundation",
+  "G.B. Pant National Institute of Himalayan Environment (NIHE)",
+  "Himalayan Environmental Studies and Conservation Organization (HESCO)"
+ ],
+ "key_orgs": [
+  {
+   "name": "Nature Conservation Foundation (NCF)",
+   "data": "Wildlife research reports (elephant, hornbill, snow leopard, human-wildlife conflict); species occurrence via GBIF publishing partners; https://www.ncf-india.org/"
+  },
+  {
+   "name": "Ashoka Trust for Research in Ecology and the Environment (ATREE)",
+   "data": "Watershed/biodiversity/community-forestry research; India Biodiversity Portal co-founder; species & landscape datasets via IBP/GBIF; https://www.atree.org/"
+  },
+  {
+   "name": "Keystone Foundation",
+   "data": "Nilgiri biosphere ecology-livelihood studies, honey-trail/ethnobotany reports; limited open GIS; https://keystone-foundation.org/"
+  },
+  {
+   "name": "Foundation for Ecological Security (FES)",
+   "data": "Community forest commons maps, restoration monitoring, village forest governance data; https://fes.org.in/"
+  },
+  {
+   "name": "India Biodiversity Portal (IBP)",
+   "data": "Open species occurrence API + citizen-science observations; GBIF publisher 62431bdf-fa0c-452b-afce-be14884a47ff; https://indiabiodiversity.org/"
+  },
+  {
+   "name": "Bird Count India / SoIB",
+   "data": "State of India's Birds 2023 trend CSVs on Zenodo (CC-BY); https://zenodo.org/records/11124590 ; https://stateofindiasbirds.in/"
+  },
+  {
+   "name": "Wildlife Institute of India (WII) + Wildlife Trust of India (WTI)",
+   "data": "Elephant Corridors of India 2023 atlas (Project Elephant/MoEFCC) \u2014 PDF atlas, not open GIS; https://www.wii.gov.in/"
+  },
+  {
+   "name": "Forest Survey of India (FSI)",
+   "data": "India State of Forest Report LULC/forest-cover maps & reports; https://fsi.nic.in/"
+  },
+  {
+   "name": "Dakshin Foundation",
+   "data": "Coastal/marine biodiversity & fisheries livelihood research; https://dakshin.org/"
+  }
+ ],
+ "indian_data_portals": [
+  "https://bhuvan.nrsc.gov.in/",
+  "https://bhuvan-app1.nrsc.gov.in/",
+  "https://www.nrsc.gov.in/",
+  "https://indiabiodiversity.org/",
+  "https://fsi.nic.in/",
+  "https://data.gov.in/",
+  "https://www.wii.gov.in/",
+  "https://stateofindiasbirds.in/",
+  "https://api.gbif.org/v1/occurrence/search",
+  "https://developers.google.com/earth-engine/datasets/catalog/NASA_LULC",
+  "https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200"
+ ],
+ "hyperspectral": [
+  {
+   "name": "EMIT",
+   "access": "NASA Earthdata + Google Earth Engine NASA/EMIT/L2_* collections",
+   "openly_queryable": true,
+   "note": "Global ISS hyperspectral; GEE & Earthdata API queryable; useful for dry-season vegetation stress/spectra"
+  },
+  {
+   "name": "PRISMA",
+   "access": "https://prismaservices.asi.it/",
+   "openly_queryable": false,
+   "note": "ASI 30 m hyperspectral; registration/approval required; not API-open"
+  },
+  {
+   "name": "ISRO HySIS",
+   "access": "Bhuvan/NRSA ISRO data portal (login)",
+   "openly_queryable": false,
+   "note": "30 m VNIR 55-band; India-focused; registration required via ISRO/NRSC"
+  },
+  {
+   "name": "DESIS",
+   "access": "DLR Earth Observation Portal https://eoportal.dlr.de/ ; GEE DLR/EMF/DESIS_HSI",
+   "openly_queryable": true,
+   "note": "ISS 235-band; free research access with registration; GEE queryable for archived scenes"
+  }
+ ],
+ "search_terms": [
+  "ATREE Krishnagiri dry deciduous",
+  "Keystone Foundation Nilgiri restoration",
+  "NCF elephant corridor Tamil Nadu",
+  "FES community forest commons Karnataka Tamil Nadu",
+  "Soubadra Devy ATREE",
+  "R Ganesan ATREE dry forest",
+  "Vidya Athreya NCF human elephant conflict",
+  "Ajith Kumar NCF",
+  "Raman Sukumar elephant India",
+  "Vivek Menon WTI elephant corridor",
+  "Melagiri Hosur elephant landscape",
+  "Sathyamangalam Krishnagiri elephant",
+  "South Deccan Plateau dry deciduous forests",
+  "Lantana camara invasion India dry forest",
+  "Prosopis juliflora Tamil Nadu",
+  "WII WTI Elephant Corridors India 2023",
+  "SoIB 2023 Tamil Nadu",
+  "India Biodiversity Portal Krishnagiri",
+  "Bhuvan LULC Tamil Nadu",
+  "Veppanapalli restoration"
+ ]
+}

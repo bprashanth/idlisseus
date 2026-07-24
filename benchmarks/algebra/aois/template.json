@@ -1,0 +1,19 @@
+{
+  "name": "<short_snake_case_id>",
+  "label": "<human name>",
+  "description": "<what/where this AOI is>",
+  "center": ["<lat>", "<lon>"],
+  "bbox": ["<west>", "<south>", "<east>", "<north>"],
+  "ecoregion": "<fill from: ecoregion.py covering --bbox w,s,e,n>",
+  "biome": "<fill from the same call>",
+  "landscape": "<fill from: landcover.py area_by_class --bbox w,s,e,n — one sentence on the mosaic>",
+  "buckets": {
+    "invasives": 2, "fire": 2, "water": 2, "connectivity": 2,
+    "landuse": 2, "biodiversity": 2, "restoration": 2, "governance": 1
+  },
+  "seed_species": ["<the invasive(s) / flagship taxa that matter here>"],
+  "catalogs": [
+    {"type": "ckan", "base": "https://catalog.data.gov", "note": "mechanism/real rows"}
+  ],
+  "notes": "<why these bucket weights — what makes this AOI's questions different>"
+}

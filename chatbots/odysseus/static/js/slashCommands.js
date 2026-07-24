@@ -5739,12 +5739,38 @@ async function _cmdHelp(args, ctx) {
   return true;
 }
 
+async function _cmdWhy(args, ctx) {
+  const panels = Array.from(document.querySelectorAll('.msg-assistant .insight-why'));
+  const panel = panels[panels.length - 1];
+  if (!panel) {
+    slashReply('No skill audit is available in this chat yet.');
+    return true;
+  }
+  panel.open = true;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  panel.classList.remove('insight-why-highlight');
+  // Restart the short highlight even when /why is invoked repeatedly.
+  void panel.offsetWidth;
+  panel.classList.add('insight-why-highlight');
+  setTimeout(() => panel.classList.remove('insight-why-highlight'), 1600);
+  if (uiModule.showToast) uiModule.showToast('Opened the latest skill audit');
+  return true;
+}
+
 // ── Command registry ──────────────────────────────────────────────
 // Each top-level key is a command group.  Flat commands have a handler
 // directly; grouped commands use `subs`.  `default` is the sub run
 // when the command is invoked bare (e.g. `/chats` -> info).
 
 const COMMANDS = {
+  why: {
+    alias: ['audit'],
+    category: 'Chats',
+    help: 'Open the latest answer\'s skill audit',
+    handler: _cmdWhy,
+    noUserBubble: true,
+    usage: '/why',
+  },
   chats: {
     alias: ['chat', 'session', 'sessions', 's'],
     category: 'Chats',

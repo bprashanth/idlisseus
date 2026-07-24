@@ -1,0 +1,191 @@
+Query: What stable-isotope ratios (δ13C, δ15N) in shed skins and road-killed 
+specimens indicate about trophic level and prey base (rodents vs. frogs vs. 
+invertebrates) for Indian cobra (Naja naja) and rat snakes (Ptyas mucosa) at 
+Elephants by the Lake versus intensively farmed landscapes outside the site?
+Initializing agent...
+────────────────────────────────────────
+
+  ┊ 📚 preparing skill_view…
+  ┊ 📚 skill     conservation-data-analysis  0.0s
+  ┊ 📖 preparing read_file…
+  ┊ 📖 read      /opt/data/connectors/PLAYBOOK.md  0.1s
+  ┊ 📖 preparing read_file…
+  ┊ 📖 read      /opt/data/connectors/recipes/papers-first.md  0.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    This is a literature-shaped question — stable isotopes in snake trophic ecology. Let me search the paper corpus and resolve the species names.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "stable isotope snake diet India" 2>&1 | head -60  3.2s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    These are off-topic (mammals/birds/trees, not snake isotope ecology). Let me search with more specific angles.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Naja naja Ptyas mucosa trophic isotope" 2>&1 | head -80  1.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Naja cobra diet India" 2>&1 | head -80  4.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "delta 13 carbon 15 nitrogen reptile trophic" 2>&1 | head -40  2.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Ptyas mucosa rat snake diet" 2>&1 | head -40; echo "---"; python paper_data.py find --query "snake feeding ecology agricultural landscape India" 2>&1 | head -40  4.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The corpus search returns nothing on snake isotope ecology. Let me resolve the species names and check occurrence records, and try a Dryad search.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "isotope trophic level snake" 2>&1 | head -30; echo "==="; python paper_data.py find --query "rodent frog prey snake India" 2>&1 | head -30  4.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py dryad_find --query "snake isotope trophic" 2>&1 | head -40  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py resolve --species "Naja naja" 2>&1 | head -30; echo "==="; python points.py resolve --species "Ptyas mucosa" 2>&1 | head -30  7.2s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Names resolve cleanly. Now let me read the site AOI and pull occurrence points to confirm both species are present at/around EBTL.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && cat SITE_EBTL.json 2>&1 | head -40  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && mkdir -p /opt/data/work && python points.py get --species "Naja naja" --bbox 76.0,11.0,79.5,13.6 2>&1 | tail -20  37.5s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python points.py get --species "Ptyas mucosa" --bbox 76.0,11.0,79.5,13.6 2>&1 | tail -20  35.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "Naja naja" 2>&1 | head -40  0.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Let me check the Anamalai roadkill dataset — it may contain snake records relevant to the road-killed specimen angle.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py inspect --url "https://zenodo.org/records/7060430" 2>&1 | head -60  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py --describe 2>&1 | head -60  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py ingest --url "https://zenodo.org/api/records/7060430/files/03_roadkill_data_final.csv/content" 2>&1 | head -80  2.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "stable isotope" 2>&1 | head -60  1.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "isotope" 2>&1 | head -40; echo "==="; python paper_data.py find --query "trophic" 2>&1 | head -40  3.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "snake" 2>&1 | head -60  0.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "serpent ophidia" 2>&1 | head -40; echo "==="; python paper_data.py find --query "reptile diet scat" 2>&1 | head -40  1.6s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Let me check whether the roadkill dataset contains any snake records relevant to the "road-killed specimens" angle.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data && python3 -c "
+import csv, io, urllib.request
+url='https://zenodo.org/api/records/7060430/files/03_roadkill_data_final.csv/content'
+data=urllib.request.urlopen(url,timeout=60).read().decode('utf-8',errors='replace')
+r=csv.DictReader(io.StringIO(data))
+snakes={}
+total=0
+for row in r:
+    total+=1
+    sn=row.get('scientificName','')
+    vk=row.get('verbatimIdentification','')
+    vn=row.get('vernacularName','')
+    if any(k in (sn+' '+vk+' '+vn).lower() for k in ['naja','ptyas','snake','serpent','cobra','rat snake','colubrid','elapidae']):
+        key=sn or vk or vn
+        snakes[key]=snakes.get(key,0)+1
+print('total rows:',total)
+print('snake-related hits:')
+for k,v in sorted(snakes.items(),key=lambda x:-x[1]):
+    print(f'  {k}: {v}')
+" 2>&1 | head -40  1.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    The roadkill dataset has Ptyas mucosa records but no Naja naja. Now let me verify whether the species occur in the EBTL AOI itself and check landcover for the intensively-farmed vs restoration contrast.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data && python3 -c "
+import csv
+# Check Naja and Ptyas points within the EBTL AOI bbox
+aoi=[78.170,12.721,78.197,12.747]
+for sp,path in [('Naja naja','/opt/data/work/points/naja_naja__850a50.csv'),('Ptyas mucosa','/opt/data/work/points/ptyas_mucosa__850a50.csv')]:
+    hits=[]
+    with open(path) as f:
+        for row in csv.DictReader(f):
+            try:
+                lon=float(row.get('decimalLongitude') or row.get('longitude') or row.get('lon'))
+                lat=float(row.get('decimalLatitude') or row.get('latitude') or row.get('lat'))
+            except: continue
+            if aoi[0]<=lon<=aoi[2] and aoi[1]<=lat<=aoi[3]:
+                hits.append((lat,lon,row.get('source',''),row.get('year','')))
+    print(f'{sp}: {len(hits)} points in EBTL AOI')
+    for h in hits[:10]: print('  ',h)
+" 2>&1 | head -40  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data && python3 -c "
+import csv
+# Check columns and nearest points to site center
+center=(12.73394,78.18344)
+for sp,path in [('Naja naja','/opt/data/work/points/naja_naja__850a50.csv'),('Ptyas mucosa','/opt/data/work/points/ptyas_mucosa__850a50.csv')]:
+    with open(path) as f:
+        r=csv.DictReader(f)
+        cols=r.fieldnames
+        print(sp,'columns:',cols[:12])
+    break
+" 2>&1  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data && python3 -c "
+import csv, math
+center=(12.73394,78.18344)
+for sp,path in [('Naja naja','/opt/data/work/points/naja_naja__850a50.csv'),('Ptyas mucosa','/opt/data/work/points/ptyas_mucosa__850a50.csv')]:
+    nearest=[]
+    with open(path) as f:
+        for row in csv.DictReader(f):
+            try:
+                lon=float(row['lon']); lat=float(row['lat'])
+            except: continue
+            d=math.sqrt((lat-center[0])**2+(lon-center[1])**2)*111
+            nearest.append((d,lat,lon,row.get('year',''),row.get('dataset','')))
+    nearest.sort()
+    print(f'{sp}: {len(nearest)} total in donor belt; nearest 5 to EBTL center:')
+    for n in nearest[:5]: print(f'  {n[0]:.1f} km  lat={n[1]} lon={n[2]} yr={n[3]} src={n[4]}')
+" 2>&1  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python paper_data.py find --query "carbon nitrogen isotope" 2>&1 | head -20; echo "==="; python paper_data.py find --query "delta 13C delta 15N" 2>&1 | head -20; echo "==="; python paper_data.py find --query "food web India agricultural" 2>&1 | head -40  7.4s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Let me check the landcover contrast — restoration site vs intensively farmed surroundings — since that's the landscape driver behind the isotope question.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py --describe 2>&1 | head -40  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python landcover.py area_by_class --bbox 78.170,12.721,78.197,12.747 2>&1 | head -20; echo "=== surrounding farmland belt (5km ring) ==="; python landcover.py area_by_class --bbox 78.13,12.68,78.23,12.78 2>&1 | head -20  8.8s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    I have the data I need. Let me verify the picture and write the answer. Here's what I found:
+    
+    Species confirmed, but no isotope data exists in the corpus. Both Naja naja and Ptyas mucosa resolve cleanly (exact GBIF matches) and are confirmed present near EBTL — the nearest Indian cobra iNaturalist record is just 3.9 km from the site centre (2025), and the nearest rat snake is ~14.8 km. The landcover contrast the question hinges on is real and measurable: the EBTL AOI (8.0 km²) is 55% shrubland + 45% tree cover with only 0.5 km² cropland, whereas the surrounding 10×10 km belt is cropland-dominant (47.4 km² cropland vs 28.2 km² tree cover + 43.2 km² shrubland). That is exactly the "restoration site vs intensively farmed landscape" split.
+    
+    But — and this is the honest core — I searched the paper_data corpus from every angle (stable isotope, delta 13C, delta 15N, trophic, Naja naja, Ptyas mucosa, snake, serpent, food web, reptile diet, isotope trophic level snake) and there are zero datasets with δ13C or δ15N measurements for any snake in India, let alone these two species at a site comparable to EBTL. The only snake-relevant dataset I found is the Anamalai roadkill dataset (Zenodo 7060430, Western Ghats), which contains 9 Ptyas mucosa road-killed specimens and 134 Squamata records — but it carries no isotope measurements, and no Naja naja records at all. So I cannot give you real δ13C/δ15N numbers; they don't exist in the available data.
+    
+    Here's what I can tell you with the data I do have, then the prediction you'd test.
+    
+    WHAT THE ISOTOPES WOULD INDICATE (ecological framework, not measured values)
+    
+    δ13C (carbon) tracks the plant-base of the food web. In your landscape:
+    - EBTL restoration site: dry-deciduous trees and shrubs are C3 plants (δ13C ≈ -27‰). A snake food web rooted in C3 plants — forest rodents, forest frogs, forest invertebrates — carries that depleted C3 signal up the chain. So shed skins / muscle from cobras and rat snakes foraging inside the restoration site should show δ13C values in the C3-terrestrial range (roughly -25 to -20‰ after trophic fractionation, which is small for carbon, ~+1‰ per level).
+    - Intensively farmed landscape outside: the cropland belt (47.4 km², ESA WorldCover class 40) is dominated by C4 crops in this dry-deccan zone — maize, sorghum, pearl millet, finger millet (C4, δ13C ≈ -13‰) — plus some C3 paddy in the wetter pockets. Rodents feeding on C4 grain (Bandicota, Rattus in fields) carry a enriched δ13C signal. A snake eating those rodents would show δ13C shifted several per mil more positive (enriched) compared to a snake foraging inside EBTL. So the prediction: farmed-landscape snakes should be isotopically heavier (less negative δ13C) than restoration-site snakes, and the magnitude of that shift tells you how much of the prey base is C4-crop-derived vs C3-forest-derived.
+    
+    δ15N (nitrogen) tracks trophic level — it enriches by ~+3 to +5‰ per trophic step.
+    - Both species are mid-predators. The Indian cobra (Naja naja) is a rodent-and-frog specialist that also takes other snakes, lizards, and occasionally invertebrates; the rat snake (Ptyas mucosa) is primarily a rodent specialist but also takes frogs, lizards, birds, and eggs. If cobras are feeding one trophic step above the rat snake (e.g., taking other snake or lizard predators that themselves feed on rodents), you'd expect cobra δ15N to run ~3-5‰ higher than rat snake δ15N at the same site. If they're at the same trophic level (both eating rodents directly), their δ15N should be similar.
+    - Prey-base discrimination within a species: a cobra or rat snake whose δ15N is low relative to its peers, with a C3 δ13C, is likely drawing prey from the forest-floor invertebrate → frog/ lizard chain (shorter chain, lower baseline δ15N in a dry forest). One whose δ15N is high with a C4 δ13C is likely drawing prey from the crop-rodent chain (agricultural rodents often sit on a higher δ15N baseline because of synthetic fertiliser — urea/ammonium nitrate — which elevates soil and plant δ15N, though synthetic fertiliser can actually depress δ15N toward 0‰ compared to manure-amended fields). This is where it gets interesting and site-specific: the fertiliser regime of the surrounding cropland will set the δ15N baseline of the rodent prey, and the snake tissue will record it.
+    - Rodents vs frogs vs invertebrates as prey: you can't fully separate these three from snake tissue alone with just δ13C and δ15N — you need the prey isotope baseline (rodent muscle, frog muscle, invertebrate samples from the same plots) to build a mixing model (SIAR/SIMMR). Without prey baselines, δ13C/δ15N in the snake tells you "terrestrial C3 vs agricultural C4" and "relative trophic level" but not which of the three prey categories dominates. Frogs and invertebrates from a C3 forest floor will look similar in δ13C to forest rodents; the δ15N step between invertebrate → frog → snake vs rodent → snake is what separates them, and that requires the baseline.
+    
+    ROAD-KILLED vs SHED SKIN — a methodological note from the data I have
+    The Anamalai roadkill dataset confirms Ptyas mucosa turns up as roadkill in plantation/agricultural landscapes (9 records), so the road-killed-specimen approach is viable for the farmed-landscape side of your comparison. Shed skins are the non-lethal equivalent for the restoration site. But they differ in tissue type: road-killed muscle/liver is a longer-term integrator; shed skin (keratin) reflects the most recent feeding bout(s) prior to sloughing. So a direct comparison must account for tissue-specific fractionation — skin δ13C is typically ~+1-2‰ enriched vs diet, and δ15N in keratin can be ~+2-3‰ vs diet, different from muscle. Don't compare raw shed-skin values against raw muscle values without a tissue-discrimination factor.
+    
+    HONEST LIMIT AND THE ONE DATA ASK
+    I have no δ13C or δ15N measurements for Naja naja or Ptyas mucosa anywhere — not at EBTL, not in the farmed belt, not in the broader Indian literature corpus I can reach. Everything above is an ecological prediction from the landcover contrast (C3 restoration vs C4-crop farmland, confirmed by ESA WorldCover) and trophic-isotope principles, not measured values. To turn this into a real answer:
+    - Collect shed skins from cobras and rat snakes inside the EBTL AOI (8.0 km² shrubland + tree cover) and road-killed specimens from the surrounding cropland belt (47.4 km² cropland within 10×10 km).
+    - Simultaneously collect prey baselines: rodents (Bandicota/Rattus/Mus), frogs (Duttaphrynus/Hoplobatrachus), and ground invertebrates from BOTH landscapes.
+    - Run δ13C + δ15N on all samples (snake tissue + prey muscle) and build a Bayesian mixing model (SIAR/SIMMR) to quantify the rodents-vs-frogs-vs-invertebrates prey-base split per species per landscape.
+    - If you can send me even 10-15 shed skins + 10-15 road-killed specimens with their GPS and the prey baselines, I can run the mixing model and give you real per-species, per-landscape prey-fraction numbers instead of the directional prediction above.
+    
+    Would you like me to set up the sampling design (which prey taxa to collect, how many per landscape, which tissue to sample) as a field-ready protocol?
+╰──────────────────────────────────────────────────────────────────────────────╯
+[chat] backend=glm-5.2 (openrouter) (container hermes-live)  ·  flags: -m z-ai/glm-5.2 --provider openrouter --yolo --source egb_glm_q7_1783530836

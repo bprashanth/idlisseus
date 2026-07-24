@@ -1,0 +1,442 @@
+ "
+import urllib.request, json
+
+# Try to access the paper via its DOI URL
+url = 'https://doi.org/10.11646/zootaxa.4874.1.1'
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+try:
+    r = urllib.request.urlopen(req, timeout=30)
+    # Check where it redirects
+    print('Final URL:', r.url)
+    content = r.read().decode()[:2000]
+    print(content[:2000])
+except Exception as e:
+    print(f'Error: {e}')
+    # Try mapress directly
+    try:
+        url2 = 'https://mapress.com/zt/article/view/zootaxa.4874.1.1'
+        req2 = urllib.request.Request(url2, headers={'User-Agent': 'Mozilla/5.0'})
+        r2 = urllib.request.urlopen(req2, timeout=30)
+        print('mapress URL:', r2.url)
+        content2 = r2.read().decode()[:3000]
+        print(content2[:3000])
+    except Exception as e2:
+        print(f'Error2: {e2}')
+" 2>&1  2.2s
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json, time
+
+base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+
+# Get GenBank details for Coelognathus helena COI to find locality
+# AY122657 (SH1180) and AY122656 (SH1179)
+for gid in ['28624781', '28624779']:
+    url = base + f'efetch.fcgi?db=nucleotide&id={gid}&rettype=gb&retmode=text'
+    r = urllib.request.urlopen(url, timeout=30)
+    gb = r.read().decode()
+    for line in gb.split('\n'):
+        if any(x in line for x in ['/country', '/lat_lon', '/isolation_source', '/note', 'AUTHORS', 'TITLE', '/specimen_voucher', '/db_xref']):
+            print(f'{gid}: {line.strip()}')
+    time.sleep(0.35)
+    print()
+" 2>&1  3.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json, urllib.parse, time
+
+base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+
+# Try to get locality from the NCBI biosample database
+# The Mallik 2020 sequences are Sanger sequences submitted individually, 
+# let me check if any biosample records exist
+url = base + 'esearch.fcgi?db=biosample&term=%22Mallik%22+Ahaetulla&retmax=20&retmode=json'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+ids = d.get('esearchresult',{}).get('idlist',[])
+print(f'BioSample: {ids}')
+
+# Check the Utiger et al. 2005 paper for the Coelognathus sequences
+url = base + 'esearch.fcgi?db=pubmed&term=Utiger+Coelognathus&retmax=10&retmode=json'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+ids = d.get('esearchresult',{}).get('idlist',[])
+print(f'Utiger Coelognathus pubmed: {ids}')
+if ids:
+    url2 = base + f'esummary.fcgi?db=pubmed&id={chr(44).join(ids)}&retmode=json'
+    r2 = urllib.request.urlopen(url2, timeout=30)
+    d2 = json.loads(r2.read())
+    for uid, rec in d2.get('result',{}).items():
+        if uid == 'uids': continue
+        print(f\"  PMID:{uid} | {rec.get('source','')} | {rec.get('title','')} | {rec.get('pubdate','')}\")
+" 2>&1  1.0s
+  ┊ 🌐 preparing browser_navigate…
+  ┊ 🌐 navigate  www.mapress.com  0.2s [Chrome not found. Checked:
+  - agent-browser ...]
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Try to access the PDF directly via mapress
+url = 'https://www.mapress.com/zt/article/view/zootaxa.4874.1.1/39014'
+# Or try the galley
+for suffix in ['/39014', '/39014/pdf', '/39014/html', '?format=pdf']:
+    try:
+        full_url = f'https://www.mapress.com/zt/article/view/zootaxa.4874.1.1{suffix}'
+        req = urllib.request.Request(full_url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'})
+        r = urllib.request.urlopen(req, timeout=20)
+        ct = r.headers.get('Content-Type', '')
+        print(f'{suffix}: {r.status} {ct} (size={len(r.read())})')
+    except Exception as e:
+        print(f'{suffix}: {e}')
+" 2>&1  4.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Try to find the supplementary table from Google Scholar via scraping
+# Use the Google Scholar API or scrape
+scholar_url = 'https://scholar.google.com/scholar?q=Disentangling+vines+Ahaetulla+Mallik+2020&hl=en&as_sdt=0%2C5'
+req = urllib.request.Request(scholar_url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'})
+try:
+    r = urllib.request.urlopen(req, timeout=30)
+    content = r.read().decode()
+    # Find links
+    import re
+    # Extract PDF links and supplementary links
+    for href in re.findall(r'href=\"([^\"]+)\"', content):
+        if any(x in href.lower() for x in ['pdf', 'suppl', 'table', 'supplementary', 'fulltext']):
+            print(href)
+    # Check content size
+    print(f'Page size: {len(content)} chars')
+    # Find the title
+    for line in content.split('\n'):
+        if 'Disentangling' in line:
+            print(line[:200])
+except Exception as e:
+    print(f'Error: {e}')
+" 2>&1  2.2s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         wget --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" -O /opt/data/work/mallik2020_disentangling_vines.pdf "https://www.researchgate.net/profile/Ashok-Mallik/publication/345358620_Disentangling_vines_a_study_of_morphological_crypsis_and_genetic_divergence_in_vine_snakes_Squamata_Colubridae_Ahaetulla_with_the_description_of_five_new_species_from_Peninsular_India/links/5fa4e0d3299bf10f7328a22e/Disentangling-vines-a-study-of-morphological-crypsis-and-genetic-divergence-in-vine-snakes-Squamata-Colubridae-Ahaetulla-with-the-description-of-five-new-species-from-Peninsular-India.pdf" 2>&1 | tail -5  0.3s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request
+
+url = 'https://www.researchgate.net/profile/Ashok-Mallik/publication/345358620_Disentangling_vines_a_study_of_morphological_crypsis_and_genetic_divergence_in_vine_snakes_Squamata_Colubridae_Ahaetulla_with_the_description_of_five_new_species_from_Peninsular_India/links/5fa4e0d3299bf10f7328a22e/Disentangling-vines-a-study-of-morphological-crypsis-and-genetic-divergence-in-vine-snakes-Squamata-Colubridae-Ahaetulla-with-the-description-of-five-new-species-from-Peninsular-India.pdf'
+req = urllib.request.Request(url, headers={
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/pdf,*/*',
+    'Accept-Language': 'en-US,en;q=0.9',
+})
+try:
+    r = urllib.request.urlopen(req, timeout=60)
+    data = r.read()
+    print(f'Downloaded {len(data)} bytes')
+    with open('/opt/data/work/mallik2020.pdf', 'wb') as f:
+        f.write(data)
+    print('Saved to /opt/data/work/mallik2020.pdf')
+except Exception as e:
+    print(f'Error: {e}')
+    print(f'Status: {getattr(e, \"code\", \"N/A\")}')
+    
+    # Try alternative - Google cache or text version
+    alt_url = 'https://webcache.googleusercontent.com/search?q=cache:https://doi.org/10.11646/zootaxa.4874.1.1'
+    req2 = urllib.request.Request(alt_url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        r2 = urllib.request.urlopen(req2, timeout=30)
+        content = r2.read().decode()
+        with open('/opt/data/work/mallik2020_cached.html', 'w') as f:
+            f.write(content)
+        print(f'Cache saved: {len(content)} chars')
+    except Exception as e2:
+        print(f'Cache error: {e2}')
+" 2>&1  0.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import re
+
+with open('/opt/data/work/mallik2020_cached.html', 'r') as f:
+    content = f.read()
+
+# Extract text from the cached page
+# Remove HTML tags
+text = re.sub(r'<[^>]+>', ' ', content)
+text = re.sub(r'\s+', ' ', text)
+
+# Look for table content and locality data
+for line in text.split('.'):
+    l = line.strip()
+    if any(kw in l.lower() for kw in ['eastern ghats', 'locality', 'voucher', 'type locality', 'india:', 'tamil nadu', 'andhra', 'kerala', 'karnataka', 'specimen examined', 'coden', 'cess', 'material']):
+        if len(l) > 20 and len(l) < 500:
+            print(l[:300])
+" 2>&1  0.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Try to access the paper directly from ResearchGate page to see if there's a preview
+url = 'https://www.researchgate.net/publication/345358620_Disentangling_vines_a_study_of_morphological_crypsis_and_genetic_divergence_in_vine_snakes_Squamata_Colubridae_Ahaetulla_with_the_description_of_five_new_species_from_Peninsular_India'
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'})
+try:
+    r = urllib.request.urlopen(req, timeout=30)
+    content = r.read().decode()
+    # Look for supplementary/table links  
+    import re
+    links = re.findall(r'href=\"([^\"]+)\"', content)
+    pdf_links = [l for l in links if any(x in l.lower() for x in ['\.pdf', 'supplement', 'table', 'download'])]
+    for link in pdf_links[:10]:
+        print(link)
+except Exception as e:
+    print(f'Error: {e}')
+" 2>&1  0.1s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Search Google Scholar for Coelognathus helena phylogeny
+url = 'https://scholar.google.com/scholar?q=Coelognathus+helena+phylogeny&hl=en&as_sdt=0%2C5'
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'})
+try:
+    r = urllib.request.urlopen(req, timeout=30)
+    content = r.read().decode()
+    import re
+    # Find paper titles
+    titles = re.findall(r'<h3[^>]*class=\"gs_rt\"[^>]*>(.*?)</h3>', content, re.DOTALL)
+    for t in titles:
+        t_clean = re.sub(r'<[^>]+>', '', t)
+        print(t_clean[:150])
+        print()
+except Exception as e:
+    print(f'Error: {e}')
+" 2>&1  1.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json, urllib.parse, time
+
+# Get details on the Coelognathus papers
+# Utiger et al. 2005 - The Oriental Colubrine Genus Coelognathus
+crossref_url = 'https://api.crossref.org/works?query=Oriental+Colubrine+genus+Coelognathus&rows=5'
+r = urllib.request.urlopen(crossref_url, timeout=30)
+d = json.loads(r.read())
+for item in d.get('message',{}).get('items',[]):
+    t = item.get('title',[''])[0]
+    doi = item.get('DOI','')
+    y = item.get('published-print',{}).get('date-parts',[[None]])[0][0]
+    if 'coelognathus' in t.lower():
+        print(f'{y} | {t} | doi:{doi}')
+
+print()
+# Search for the Coelognathus helena subspecies paper
+url2 = 'https://api.crossref.org/works?query=CONTRIBUTION+INDIAN+TRINKET+SNAKE+Coelognathus+helena+subspecies&rows=5'
+r2 = urllib.request.urlopen(url2, timeout=30)
+d2 = json.loads(r2.read())
+for item in d2.get('message',{}).get('items',[]):
+    t = item.get('title',[''])[0]
+    doi = item.get('DOI','')
+    y = item.get('published-print',{}).get('date-parts',[[None]])[0][0]
+    print(f'{y} | {t} | doi:{doi}')
+" 2>&1  1.8s
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+# Check NCBI taxonomy for Coelognathus helena nigriangularis
+import urllib.request, json
+
+base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+url = base + 'esearch.fcgi?db=taxonomy&term=%22Coelognathus+helena+nigriangularis%22&retmode=json'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+ids = d.get('esearchresult',{}).get('idlist',[])
+print(f'C. h. nigriangularis TaxIDs: {ids}')
+
+# Also check the broader Coelognathus genus
+url2 = base + 'esearch.fcgi?db=taxonomy&term=Coelognathus[genus]&retmode=json'
+r2 = urllib.request.urlopen(url2, timeout=30)
+d2 = json.loads(r2.read())
+ids2 = d2.get('esearchresult',{}).get('idlist',[])
+print(f'Coelognathus genus TaxIDs: {ids2}')
+print(f'Count: {d2.get(\"esearchresult\",{}).get(\"count\",\"0\")}')
+" 2>&1  1.0s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+
+# Search for the main Coelognathus phylogenetic papers
+url = base + 'esearch.fcgi?db=pubmed&term=Utiger+Coelognathus+2005&retmax=10&retmode=json'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+ids = d.get('esearchresult',{}).get('idlist',[])
+print(f'Utiger pubmed: {ids}')
+
+# Search for 'Coelognathus' in the NCBI Protein or Nucleotide databases  
+# to find which paper generated the sequences
+url2 = base + 'esearch.fcgi?db=pubmed&term=%22Coelognathus+helena%22+AND+%22COI%22&retmax=10&retmode=json'
+r2 = urllib.request.urlopen(url2, timeout=30)
+d2 = json.loads(r2.read())
+ids2 = d2.get('esearchresult',{}).get('idlist',[])
+print(f'Coelognathus helena COI pubmed: {ids2}')
+if ids2:
+    url3 = base + f'esummary.fcgi?db=pubmed&id={chr(44).join(ids2)}&retmode=json'
+    r3 = urllib.request.urlopen(url3, timeout=30)
+    d3 = json.loads(r3.read())
+    for uid, rec in d3.get('result',{}).items():
+        if uid == 'uids': continue
+        print(f\"  {rec.get('pubdate','')} | {rec.get('source','')} | {rec.get('title','')[:120]}\")
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json, time
+
+base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+
+# Get full GenBank records for Coelognathus helena to find locality
+for gid in ['28624781', '28624779', '118738051', '118133236', '117557030', '113171233', '117556630']:
+    url = base + f'efetch.fcgi?db=nucleotide&id={gid}&rettype=gb&retmode=text'
+    r = urllib.request.urlopen(url, timeout=30)
+    gb = r.read().decode()
+    # Extract source information
+    in_feature = False
+    for line in gb.split('\n'):
+        if '/country=' in line or '/lat_lon=' in line or '/isolation_source=' in line or '/note=' in line or '/specimen_voucher=' in line or '/db_xref' in line or 'AUTHORS' in line or 'TITLE' in line:
+            print(f'{gid}: {line.strip()}')
+    time.sleep(0.35)
+    print()
+" 2>&1  6.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 paper_data.py find --query "Coelognathus" 2>&1  0.8s
+  ┊ 💻 $         cd /opt/data/connectors && python3 paper_data.py find --query "viper snake phylogeography India" 2>&1 | head -30  3.4s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Let me now look at the key data from the Mallik et al. 2020 paper more carefully — specifically the supplementary tables that list specimen vouchers, localities, and which genes each voucher was sequenced for.
+    
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 💻 preparing terminal…
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Check if there's supplementary data at zenodo
+url = 'https://zenodo.org/api/records?q=Mallik+Ahaetulla+supplementary&size=5'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for h in d.get('hits',{}).get('hits',[]):
+    meta = h.get('metadata',{})
+    title = meta.get('title','')
+    doi = h.get('doi','')
+    print(f'{title} | {doi}')
+    for f in h.get('files',[]):
+        print(f'  File: {f.get(\"key\",\"\")} ({f.get(\"size\",0)} bytes)')
+    print()
+" 2>&1  1.6s
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Directly search Zenodo for the Mallik paper's supplementary data
+url = 'https://zenodo.org/api/records?q=title:%22Disentangling+vines%22&size=10'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for h in d.get('hits',{}).get('hits',[]):
+    meta = h.get('metadata',{})
+    title = meta.get('title','')
+    doi = h.get('doi','')
+    rtype = meta.get('resource_type',{}).get('type','')
+    print(f'Type: {rtype}')
+    print(f'{title} | {doi}')
+    for f in h.get('files',[]):
+        print(f'  File: {f.get(\"key\",\"\")} ({f.get(\"size\",0)} bytes)')
+        if '.csv' in f.get('key','').lower() or '.tsv' in f.get('key','').lower() or '.txt' in f.get('key','').lower():
+            f_url = f.get('links',{}).get('self','')
+            print(f'  URL: {f_url}')
+    print()
+" 2>&1  2.4s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Check the treatment page for Ahaetulla oxyrhyncha (the plains/EG population from the nasuta complex)
+url = 'https://zenodo.org/api/records/4564527'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for f in d.get('files',[]):
+    f_url = f.get('links',{}).get('self','')
+    if 'treatment.html' in f.get('key',''):
+        r2 = urllib.request.urlopen(f_url, timeout=30)
+        content = r2.read().decode()
+        print(content[:5000])
+        break
+" 2>&1  1.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Check the Ahaetulla sahyadrensis treatment (the WG replacement for nasuta)
+url = 'https://zenodo.org/api/records/4567189'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for f in d.get('files',[]):
+    if 'treatment.html' in f.get('key',''):
+        f_url = f.get('links',{}).get('self','')
+        r2 = urllib.request.urlopen(f_url, timeout=30)
+        content = r2.read().decode()
+        # Find referred material and comments about distribution
+        import re
+        # Extract referred material section
+        ref_material = re.search(r'Referred Material.*?(?=<b>Diagnosis|$)', content, re.DOTALL)
+        if ref_material:
+            print('=== Referred Material ===')
+            print(ref_material.group(0)[:2000])
+        # Find distribution comments
+        comments = re.search(r'Geographically.*?(?=<b>|$)', content, re.DOTALL)
+        if comments:
+            print('=== Distribution Comments ===')
+            print(comments.group(0)[:2000])
+        break
+" 2>&1  1.6s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Check the Ahaetulla sahyadrensis treatment
+url = 'https://zenodo.org/api/records/4567189'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for f in d.get('files',[]):
+    if 'treatment.html' in f.get('key',''):
+        f_url = f.get('links',{}).get('self','')
+        r2 = urllib.request.urlopen(f_url, timeout=30)
+        content = r2.read().decode()
+        print(content[:6000])
+        break
+" 2>&1  1.8s
+  ┊ 💻 preparing terminal…
+  ┊ 💻 $         cd /opt/data/connectors && python3 -c "
+import urllib.request, json
+
+# Check the treatment for Ahaetulla isabellina (the Eastern Ghats / plains taxon)
+url = 'https://zenodo.org/api/records?q=isabellina+Mallik&size=5'
+r = urllib.request.urlopen(url, timeout=30)
+d = json.loads(r.read())
+for h in d.get('hits',{}).get('hits',[]):
+    meta = h.get('metadata',{})
+    title = meta.get('title','')
+    doi = h.get('doi','')
+    print(f'{title} | {doi}')
+    for f in h.get('files',[]):
+        if 'treatment.html' in f.get('key',''):
+            f_url = f.get('links',{}).get('self','')
+            r2 = urllib.request.urlopen(f_url, timeout=30)
+            content = r2.read().decode()
+            # Extract referred material 
+            import re
+            ref_sec = re.search(r'Referred Material.*?(?=<b>|$)', content, re.DOTALL)
+            if ref_sec:
+                print('=== Referred Material ===')
+                print(ref_sec.group(0)[:3000])
+            break
+    print()
+" 2>&1  4.0s
+  ┊ 💻 preparing terminal…
+[chat] backend=deepseek-v4-flash (openrouter) (container hermes-live)  ·  flags: -m deepseek/deepseek-v4-flash --provider openrouter --yolo --source egb_hybrid_q4_1783530677
+
+[TIMEOUT]

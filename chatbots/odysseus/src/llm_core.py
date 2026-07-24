@@ -729,6 +729,24 @@ def _apply_local_cache_affinity(payload: Dict, url: str, session_id: Optional[st
     payload.setdefault("cache_prompt", True)
 
 
+def _apply_idli_bridge_context(
+    payload: Dict,
+    model: str,
+    session_id: Optional[str],
+    attachments: Optional[List[Dict]],
+    idlisseus_context: Optional[Dict],
+) -> None:
+    """Attach private Idlisseus request metadata only to the internal Idli bridge."""
+    if str(model or "").lower() not in {"idli-insight", "gpt-5.4-codex-native-skills"}:
+        return
+    if session_id:
+        payload["session_id"] = str(session_id)
+    if attachments:
+        payload["attachments"] = attachments
+    if idlisseus_context:
+        payload["idlisseus_context"] = idlisseus_context
+
+
 def _provider_headers(provider: str, headers: Optional[Dict] = None) -> Dict[str, str]:
     h = {"Content-Type": "application/json"}
     if isinstance(headers, dict):
@@ -1816,7 +1834,9 @@ async def llm_call_async(
 async def stream_llm(url: str, model: str, messages: List[Dict], temperature: float = LLMConfig.DEFAULT_TEMPERATURE,
                      max_tokens: int = LLMConfig.DEFAULT_MAX_TOKENS, headers: Optional[Dict] = None,
                      timeout: int = LLMConfig.STREAM_TIMEOUT, prompt_type: Optional[str] = None,
-                     tools: Optional[List[Dict]] = None, session_id: Optional[str] = None):
+                     tools: Optional[List[Dict]] = None, session_id: Optional[str] = None,
+                     attachments: Optional[List[Dict]] = None,
+                     idlisseus_context: Optional[Dict] = None):
     """Stream LLM responses with improved error handling.
 
     Yields SSE chunks:
@@ -1888,6 +1908,13 @@ async def stream_llm(url: str, model: str, messages: List[Dict], temperature: fl
         if _is_ollama_openai_compat_url(url) and _supports_thinking(model):
             payload["think"] = False
         _apply_local_cache_affinity(payload, url, session_id)
+        # Idli Insight is an internal agent bridge rather than an arbitrary cloud
+        # OpenAI-compatible provider. It accepts owner-validated attachment metadata and the
+        # stable browser session id, then confines the actual files to its own sandbox. Never
+        # send these non-standard fields to other providers or fallback models.
+        _apply_idli_bridge_context(
+            payload, model, session_id, attachments, idlisseus_context,
+        )
         h = _provider_headers(provider, headers)
         if provider == "copilot":
             from src.copilot import apply_request_headers
@@ -2207,6 +2234,10 @@ async def stream_llm(url: str, model: str, messages: List[Dict], temperature: fl
                         if data.strip():
                             if data.startswith("{"):
                                 j = json.loads(data)
+                                bridge_event = j.get("idlisseus_event")
+                                if isinstance(bridge_event, dict):
+                                    yield f'data: {json.dumps(bridge_event)}\n\n'
+                                    continue
                                 chunk_model = j.get("model")
                                 if isinstance(chunk_model, str) and chunk_model.strip():
                                     _actual_model = chunk_model.strip()

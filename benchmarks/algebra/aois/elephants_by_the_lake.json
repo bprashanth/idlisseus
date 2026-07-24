@@ -1,0 +1,47 @@
+{
+  "name": "elephants_by_the_lake",
+  "label": "Elephants by the Lake (Krishnagiri)",
+  "description": "Zerodha/Rainmatter 70-acre dry-deciduous forest restoration near Veppanapalli, Krishnagiri, TN. Ponds at ~12.735N 78.184E (from the 2024 faunal survey).",
+  "center": [12.735, 78.184],
+  "bbox": [77.90, 12.50, 78.50, 13.00],
+  "corridor_bbox": [77.40, 11.90, 78.50, 12.90],
+  "ecoregion": "South Deccan Plateau dry deciduous forests",
+  "biome": "Tropical & Subtropical Dry Broadleaf Forests",
+  "landscape": "70-acre degraded parcel under active native-forest restoration; site NDVI is greening (0.49->0.61, 2019-2025, faster than the Melagiri forest reference), currently classes as Shrubland (regenerating). Reservoir/pond-fed; on the Hosur-Dharmapuri elephant landscape. Corridor bbox widens to reach occurrence density (37k -> 1.7M GBIF records).",
+  "themes": ["restoration recovery", "indicator fauna (birds/butterflies/odonates/herps)", "native-tree sourcing", "water/ponds", "elephants & corridors", "reference-forest proximity"],
+  "buckets": {
+    "restoration": 3,
+    "biodiversity": 3,
+    "connectivity": 3,
+    "water": 2,
+    "invasives": 2,
+    "landuse": 2,
+    "fire": 1,
+    "governance": 1
+  },
+  "seed_species": ["Elephas maximus", "Circaetus gallicus", "Gallus sonneratii", "Chloroxylon swietenia", "Wrightia tinctoria", "Lantana camara"],
+  "reference_forest": [12.60, 78.05],
+  "flagship_birds": ["Circaetus gallicus", "Clanga hastata", "Chrysocolaptes festivus", "Gallus sonneratii"],
+  "native_trees": ["Chloroxylon swietenia", "Diospyros montana", "Wrightia tinctoria", "Ficus"],
+  "ibp_org": "62431bdf-fa0c-452b-afce-be14884a47ff",
+  "known_sources": {
+    "soib": {"kind": "bird trends/status", "ref": "SoIB 2023 (Zenodo 11124590)", "state_csv": "SoIB 2023 Tamil Nadu.csv", "verified": true, "note": "63/67 EBTL birds matched; gives priority/trend/IUCN"},
+    "wii_corridors": {"kind": "elephant corridors", "ref": "WII/WTI Elephant Corridors of India 2023", "verified_queryable": false, "note": "published PDF atlas covers Hosur/Dharmapuri; NO open shapefile — request from WII / digitize"}
+  },
+  "analog_sites": [
+    {"name": "Bandipur-Mudumalai-Nagarhole", "bbox": [76.0, 11.5, 76.8, 12.1]},
+    {"name": "Sathyamangalam-BRT", "bbox": [76.8, 11.3, 77.7, 12.1]},
+    {"name": "Cauvery WLS / MM Hills", "bbox": [77.0, 11.9, 77.8, 12.5]}
+  ],
+  "analog_note": "Same ecoregion, among the most-studied elephant landscapes in Asia. Use for paper/occurrence-thin questions, tagged aoi_status=analog_ecoregion.",
+  "catalogs": [
+    {"type": "ckan", "base": "https://open.canada.ca/data", "note": "reachable populated CKAN — mechanism demo only (out-of-region)"},
+    {"type": "ckan", "base": "https://data.gov.in", "note": "India national catalog — production target; data API key-gated"}
+  ],
+  "data_gaps_to_collect": [
+    "elephant movement / corridor GIS (request from WII or camera-trap it)",
+    "mammal camera-trap grid (sloth bear etc. — GBIF sparse)",
+    "repeat annual biodiversity survey on fixed transects (own time-series)",
+    "plot-level sapling survival/growth CSV (own restoration data)"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+ "name": "kanha_central_india",
+ "label": "Kanha-Pench (Central India)",
+ "description": "Central Indian teak dry-deciduous; tiger/gaur/elephant landscape (contrast to S. Deccan).",
+ "center": [
+  22.3,
+  80.6
+ ],
+ "bbox": [
+  80.0,
+  21.9,
+  81.3,
+  22.8
+ ],
+ "corridor_bbox": [
+  79.5,
+  21.5,
+  81.5,
+  23.0
+ ],
+ "ecoregion": "Central Deccan Plateau dry deciduous forests",
+ "biome": "Tropical & Subtropical Dry Broadleaf Forests",
+ "landscape": "Teak-dominated dry deciduous with sal patches; tiger reserve matrix.",
+ "buckets": {
+  "restoration": 2,
+  "biodiversity": 3,
+  "invasives": 2,
+  "water": 2,
+  "elephants": 2,
+  "landuse": 2,
+  "fire": 2,
+  "governance": 1
+ },
+ "seed_species": [
+  "Lantana camara",
+  "Tectona grandis",
+  "Elephas maximus"
+ ],
+ "flagship_birds": [
+  "Gallus sonneratii"
+ ],
+ "native_trees": [
+  "Tectona grandis",
+  "Terminalia tomentosa",
+  "Madhuca longifolia"
+ ],
+ "reference_forest": [
+  22.35,
+  80.65
+ ],
+ "analog_sites": [
+  {
+   "name": "Satpura Tiger Reserve",
+   "bbox": [
+    78.2,
+    22.3,
+    78.7,
+    22.7
+   ]
+  }
+ ],
+ "catalogs": [
+  {
+   "type": "ckan",
+   "base": "https://data.gov.in",
+   "note": "India catalog"
+  }
+ ]
+}

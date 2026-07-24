@@ -1,0 +1,27 @@
+[
+ {
+  "q": "do cobras live around lantana?",
+  "glm": "1. **Clarify** — which cobra species + what's your goal (safety planning, a survey, or habitat study)?",
+  "qwen": "1. `points.py resolve --species \"cobra\"` — Confirm scientific name (e.g., *Naja naja*) to avoid ambiguity.\n2. `points.py get --species \"Naja naja\" --bbox 2.9km` — Retrieve verified cobra occurrence points near the lake.\n3. `points.py get --species \"Lantana camara\" --bbox 2.9km` — Retrieve verified Lantana occurrence points for overlap analysis.\n4. `predict.route --model co-occurrence --points cobra lantana` — Model spatial overlap probability if direct records are sparse.\n5. `paper_data --query \"cobra lantana habitat Eastern Ghats\"` — Check literature for specific behavioral or habitat associations."
+ },
+ {
+  "q": "where can I find the green cat snake at ebtl?",
+  "glm": "1. `points.py resolve --species \"green cat snake\"` — resolve scientific name\n2. `points.py get --species \"<resolved>\" --bbox <site_wsen>` — fetch occurrence points near EBTL\n3. `predict.route --species \"<resolved>\" --bbox <wider_region>` — SDM for likely habitat at EBTL\n4. `landcover --describe` — check EBTL land-cover classes for habitat match\n5. Answer with modelled habitat map + nearest records",
+  "qwen": "1. `points.py get --species \"Green Cat Snake\" --bbox 77.9,11.3,78.1,11.5` (Resolve scientific name & get raw records)\n2. `predict.route --input <points_path> --method sdm --bbox 77.9,11.3,78.1,11.5` (Model habitat suitability for Eastern Ghats)\n3. `landcover --bbox 77.9,11.3,78.1,11.5 --describe` (Check if predicted zones match forest cover)"
+ },
+ {
+  "q": "is the forest coming back?",
+  "glm": "1. Clarify: which forest patch & what timeframe?",
+  "qwen": "1. `greenness --describe` — Check available satellite indices for EBTL.\n2. `greenness --bbox site --time 2015-2024 --metric ndvi` — Quantify vegetation trend over 9 years.\n3. `landcover --bbox site --year 2024` — Compare current cover to historical baselines.\n4. `invasive --bbox site` — Check if regrowth is dominated by invasives.\n5. `groundtruth_lens --bbox site` — Verify satellite signals with recent field observations."
+ },
+ {
+  "q": "which venomous snakes are here?",
+  "glm": "1. **Clarify scope & goal** — \"here\" = EBTL site (~2.9km) vs wider Eastern Ghats? And are you planning field surveys, safety protocols, or biodiversity documentation?",
+  "qwen": "1. `points.py get --species \"venomous snakes\" --bbox 77.8,11.2,78.2,11.6` (Resolve scientific names & local records)\n2. `litscout --query \"venomous snake distribution Eastern Ghats\" --limit 5` (Verify literature presence vs. gaps)\n3. `points.py get --species \"Russell's viper\" --bbox 77.8,11.2,78.2,11.6` (Check specific high-risk species if names ambiguous)\n4. `predict.route --input <points_path> --method RF --label \"modeled_habitat\"` (Model presence if local data is sparse)"
+ },
+ {
+  "q": "map lantana near my nursery plots",
+  "glm": "1. **points.py resolve --species \"Lantana camara\"** — confirm scientific name\n2. **points.py get --species \"Lantana camara\" --bbox <EBTL site_bbox>** — fetch local occurrence points\n3. **invasive --describe** — check invasive connector legend/capabilities\n4. **predict.route --species \"Lantana camara\" --aoi <EBTL bbox> --model sdm** — model Lantana suitability near nursery\n5. **greenness --aoi <EBTL bbox> --out /opt/data/work/lantana_greenness.tif** — check NDVI/cover context\n6. **groundtruth_lens --aoi <EBTL bbox>** — flag nursery plots for field verification",
+  "qwen": "1. `points.py get --species \"Lantana camara\" --bbox <site_bbox>` — Resolve exact species and gather occurrence points.\n2. `predict.route --input <points_path> --method rf --bbox <site_bbox>` — Model Lantana distribution near nursery plots.\n3. `landcover --bbox <site_bbox> --out /opt/data/work/lantana_mask.tif` — Cross-reference with land cover for validation."
+ }
+]

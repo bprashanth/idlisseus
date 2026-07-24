@@ -574,6 +574,13 @@ export function shortModel(name) {
   return short;
 }
 
+const INSIGHT_MODEL = 'idli-insight';
+
+export function isInsightModel(name) {
+  const value = modelValue(name).toLowerCase();
+  return value === INSIGHT_MODEL || value === 'gpt-5.4-codex-native-skills';
+}
+
 function modelValue(name) {
   if (name == null) return '';
   return String(name).trim();
@@ -590,6 +597,7 @@ export function sameModelName(left, right) {
 export function modelRouteLabel(requestedModel, actualModel) {
   const requested = modelValue(requestedModel);
   const actual = modelValue(actualModel) || requested;
+  if (isInsightModel(requested) || isInsightModel(actual)) return INSIGHT_MODEL;
   if (!requested || sameModelName(requested, actual)) return shortModel(actual || requested);
   return shortModel(requested) + ' -> ' + shortModel(actual);
 }
@@ -598,6 +606,9 @@ export function replyModelPair(modelName, metadata) {
   const meta = metadata || {};
   const actualFromMeta = modelValue(meta.model || meta.actual_model);
   const requestedFromMeta = modelValue(meta.requested_model || meta.selected_model);
+  if (isInsightModel(modelName) || isInsightModel(actualFromMeta) || isInsightModel(requestedFromMeta)) {
+    return { requestedModel: INSIGHT_MODEL, actualModel: INSIGHT_MODEL };
+  }
   if (actualFromMeta || requestedFromMeta) {
     const actual = actualFromMeta || requestedFromMeta || modelValue(modelName);
     const requested = requestedFromMeta || actual;
@@ -605,6 +616,356 @@ export function replyModelPair(modelName, metadata) {
   }
   const fallback = modelValue(modelName);
   return { requestedModel: fallback, actualModel: fallback };
+}
+
+function _normaliseInsightTrace(trace) {
+  const rawSkills = Array.isArray(trace?.skills) ? trace.skills : [];
+  const seen = new Set();
+  const skills = [];
+  for (const raw of rawSkills) {
+    const name = String(typeof raw === 'string' ? raw : raw?.name || raw?.skill || '').trim();
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    skills.push({
+      name,
+      status: String(typeof raw === 'object' && raw?.status ? raw.status : 'done'),
+      summary: String(typeof raw === 'object' && raw?.summary ? raw.summary : '').trim(),
+    });
+  }
+  return { skills, audit_id: String(trace?.audit_id || '').trim() };
+}
+
+function _normaliseInsightActions(actions) {
+  const rawOptions = Array.isArray(actions?.options) ? actions.options : [];
+  const options = rawOptions.slice(0, 3).map((raw) => ({
+    label: String(typeof raw === 'string' ? raw : raw?.label || '').trim().slice(0, 60),
+    description: String(typeof raw === 'object' ? raw?.description || '' : '').trim().slice(0, 180),
+  })).filter((option) => option.label);
+  if (!options.length) return null;
+  return {
+    question: String(actions?.question || 'What should I do next?').trim().slice(0, 180),
+    options,
+    multi: false,
+    state_id: String(actions?.state_id || '').trim(),
+    audit_id: String(actions?.audit_id || '').trim(),
+  };
+}
+
+const INSIGHT_EVIDENCE_KINDS = new Set([
+  'local_asset', 'public_connector', 'modelled', 'proxy',
+  'designed', 'data_gap', 'model_background',
+]);
+
+function _normaliseInsightEvidence(evidence) {
+  const seen = new Set();
+  const items = [];
+  for (const raw of (Array.isArray(evidence?.items) ? evidence.items : []).slice(0, 8)) {
+    const kind = String(raw?.kind || '').trim();
+    if (!INSIGHT_EVIDENCE_KINDS.has(kind) || seen.has(kind)) continue;
+    const label = String(raw?.label || '').trim().slice(0, 40);
+    if (!label) continue;
+    seen.add(kind);
+    items.push({
+      kind,
+      label,
+      summary: String(raw?.summary || '').trim().slice(0, 240),
+    });
+  }
+  return {
+    items,
+    audit_id: String(evidence?.audit_id || '').trim(),
+  };
+}
+
+/**
+ * Convert the original markdown-in-a-message bridge format into a clean answer
+ * and a small structured audit summary. This makes existing Idli Insight chats
+ * readable without rewriting their stored history.
+ */
+export function parseInsightResponse(content, modelName, metadata) {
+  const source = String(content || '');
+  const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
+  const skillEnvelopes = Array.from(source.matchAll(/<!--\s*idli-skill:([\s\S]*?)-->/gi));
+  const progressEnvelopes = Array.from(source.matchAll(/<!--\s*idli-progress:([\s\S]*?)-->/gi));
+  const actionEnvelopes = Array.from(source.matchAll(/<!--\s*idli-actions:([\s\S]*?)-->/gi));
+  const evidenceEnvelopes = Array.from(source.matchAll(/<!--\s*idli-evidence:([\s\S]*?)-->/gi));
+  const legacy = source.match(/<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>([\s\S]*?)<\/details>\s*/i);
+  const legacyStart = legacy ? null : source.match(
+    /<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>/i,
+  );
+  const insight = isInsightModel(modelName)
+    || isInsightModel(metadata?.model)
+    || isInsightModel(metadata?.requested_model)
+    || !!legacy
+    || !!envelope
+    || skillEnvelopes.length > 0
+    || progressEnvelopes.length > 0
+    || actionEnvelopes.length > 0
+    || evidenceEnvelopes.length > 0
+    || !!metadata?.insight_trace
+    || !!metadata?.insight_actions
+    || !!metadata?.insight_evidence;
+  if (!insight) {
+    return { content: source, trace: null, actions: null, evidence: null, isInsight: false };
+  }
+
+  let clean = source;
+  if (progressEnvelopes.length) {
+    clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
+  }
+  let trace = _normaliseInsightTrace(metadata?.insight_trace || {});
+  let actions = _normaliseInsightActions(metadata?.insight_actions);
+  let evidence = _normaliseInsightEvidence(metadata?.insight_evidence || {});
+  if (evidenceEnvelopes.length) {
+    for (const match of evidenceEnvelopes) {
+      try {
+        const parsed = _normaliseInsightEvidence(JSON.parse(match[1]));
+        if (parsed.items.length) evidence = parsed;
+      } catch (_) { /* malformed compatibility metadata is simply hidden */ }
+    }
+    clean = clean.replace(/<!--\s*idli-evidence:[\s\S]*?-->/gi, '').trim();
+  }
+  if (actionEnvelopes.length) {
+    for (const match of actionEnvelopes) {
+      try {
+        actions = _normaliseInsightActions(JSON.parse(match[1])) || actions;
+      } catch (_) { /* malformed compatibility metadata is simply hidden */ }
+    }
+    clean = clean.replace(/<!--\s*idli-actions:[\s\S]*?-->/gi, '').trim();
+  }
+  if (skillEnvelopes.length) {
+    const byName = new Map(trace.skills.map((skill) => [skill.name, skill]));
+    for (const match of skillEnvelopes) {
+      try {
+        const payload = JSON.parse(match[1]);
+        const name = String(payload?.skill || '').trim();
+        if (!name) continue;
+        const skill = byName.get(name) || { name, status: 'done' };
+        skill.status = String(payload?.status || skill.status || 'done');
+        if (payload?.summary) skill.summary = String(payload.summary).trim();
+        byName.set(name, skill);
+        if (payload?.audit_id) trace.audit_id = String(payload.audit_id);
+      } catch (_) { /* malformed compatibility metadata is simply hidden */ }
+    }
+    trace.skills = Array.from(byName.values());
+    clean = clean.replace(/<!--\s*idli-skill:[\s\S]*?-->/gi, '').trim();
+  }
+  if (envelope) {
+    try {
+      const payload = JSON.parse(envelope[1]);
+      const parsed = _normaliseInsightTrace(payload || {});
+      if (parsed.skills.length) {
+        const byName = new Map(trace.skills.map((skill) => [skill.name, skill]));
+        for (const parsedSkill of parsed.skills) {
+          const existingSkill = byName.get(parsedSkill.name);
+          byName.set(parsedSkill.name, {
+            ...existingSkill,
+            ...parsedSkill,
+            summary: existingSkill?.summary || parsedSkill.summary || '',
+          });
+        }
+        trace.skills = Array.from(byName.values());
+      }
+      if (parsed.audit_id) trace.audit_id = parsed.audit_id;
+    } catch (_) { /* malformed compatibility metadata is simply hidden */ }
+    clean = clean.replace(/<!--\s*idli-insight:[\s\S]*?-->/i, '').trim();
+  }
+  if (legacy || legacyStart) {
+    const body = legacy
+      ? legacy[1] || ''
+      : source.slice((legacyStart?.index || 0) + (legacyStart?.[0]?.length || 0));
+    const skills = [];
+    const skillPattern = /\*\*Invoke skill:\*\*\s*`([^`]+)`/g;
+    let match;
+    while ((match = skillPattern.exec(body))) skills.push({ name: match[1], status: 'done' });
+    const compactSkillPattern = /^\s*-\s*`([^`]+)`\s*$/gm;
+    while ((match = compactSkillPattern.exec(body))) skills.push({ name: match[1], status: 'done' });
+    const audit = body.match(/Audit id:\s*`([^`]+)`/i);
+    const parsed = _normaliseInsightTrace({
+      skills,
+      audit_id: audit ? audit[1] : trace.audit_id,
+    });
+    if (parsed.skills.length) trace.skills = parsed.skills;
+    if (parsed.audit_id) trace.audit_id = parsed.audit_id;
+    clean = legacy
+      ? (source.slice(0, legacy.index) + source.slice(legacy.index + legacy[0].length)).trim()
+      : source.slice(0, legacyStart.index).trim();
+  }
+  return { content: clean, trace, actions, evidence, isInsight: true };
+}
+
+/** Render controller-verified evidence classes without adding tags to answer prose. */
+export function renderInsightEvidence(messageElement, evidence) {
+  if (!messageElement) return null;
+  const normal = _normaliseInsightEvidence(evidence || {});
+  let row = messageElement.querySelector(':scope > .insight-evidence');
+  if (!normal.items.length) {
+    if (row) row.remove();
+    return null;
+  }
+  if (!row) {
+    row = document.createElement('div');
+    row.className = 'insight-evidence';
+    row.setAttribute('aria-label', 'Evidence used in this answer');
+    const body = messageElement.querySelector(':scope > .body');
+    if (body) messageElement.insertBefore(row, body);
+    else messageElement.appendChild(row);
+  }
+  row.textContent = '';
+  const icons = {
+    local_asset: '⌂',
+    public_connector: '↗',
+    modelled: '≈',
+    proxy: '◇',
+    designed: '✦',
+    data_gap: '!',
+    model_background: '◌',
+  };
+  for (const item of normal.items) {
+    const badge = document.createElement('span');
+    badge.className = 'insight-evidence-badge';
+    badge.dataset.kind = item.kind;
+    badge.title = item.summary || item.label;
+    const icon = document.createElement('span');
+    icon.className = 'insight-evidence-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = icons[item.kind] || '·';
+    const label = document.createElement('span');
+    label.textContent = item.label;
+    badge.append(icon, label);
+    row.appendChild(badge);
+  }
+  return row;
+}
+
+/** Render or update the compact, responsive audit panel above an answer. */
+export function renderInsightTrace(messageElement, trace) {
+  if (!messageElement) return null;
+  const normal = _normaliseInsightTrace(trace || {});
+  if (!normal.skills.length) return null;
+
+  let panel = messageElement.querySelector(':scope > .insight-why');
+  const existed = !!panel;
+  const wasOpen = !!panel?.open;
+  if (!panel) {
+    panel = document.createElement('details');
+    panel.className = 'insight-why';
+    const body = messageElement.querySelector(':scope > .body');
+    if (body) messageElement.insertBefore(panel, body);
+    else messageElement.appendChild(panel);
+  }
+  panel.textContent = '';
+  panel.open = existed ? wasOpen : true;
+
+  const summary = document.createElement('summary');
+  const label = document.createElement('span');
+  label.className = 'insight-why-label';
+  label.textContent = 'Why';
+  const count = document.createElement('span');
+  count.className = 'insight-why-count';
+  count.textContent = `${normal.skills.length} ${normal.skills.length === 1 ? 'skill' : 'skills'}`;
+  summary.append(label, count);
+  panel.appendChild(summary);
+
+  const list = document.createElement('ul');
+  list.className = 'insight-skill-list';
+  for (const skill of normal.skills) {
+    const item = document.createElement('li');
+    item.className = 'insight-skill';
+    item.dataset.status = skill.status;
+    const mark = document.createElement('span');
+    mark.className = 'insight-skill-mark';
+    mark.setAttribute('aria-hidden', 'true');
+    mark.textContent = skill.status === 'failed' ? '!' : skill.status === 'running' ? '·' : '✓';
+    const name = document.createElement('code');
+    name.textContent = skill.name;
+    item.append(mark, name);
+    if (skill.summary) {
+      const result = document.createElement('div');
+      result.className = 'insight-skill-result';
+      result.textContent = skill.summary;
+      item.appendChild(result);
+    }
+    list.appendChild(item);
+  }
+  panel.appendChild(list);
+  if (normal.audit_id) {
+    const audit = document.createElement('div');
+    audit.className = 'insight-audit-id';
+    audit.textContent = `Audit ${normal.audit_id}`;
+    audit.title = 'Copy audit id';
+    audit.tabIndex = 0;
+    audit.setAttribute('role', 'button');
+    const copyAudit = async () => {
+      try {
+        await navigator.clipboard.writeText(normal.audit_id);
+        audit.textContent = 'Audit id copied';
+        setTimeout(() => { audit.textContent = `Audit ${normal.audit_id}`; }, 1200);
+      } catch (_) { /* clipboard can be unavailable in an insecure context */ }
+    };
+    audit.addEventListener('click', copyAudit);
+    audit.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        copyAudit();
+      }
+    });
+    panel.appendChild(audit);
+  }
+  return panel;
+}
+
+function _suggestedModelRequest(content) {
+  const source = String(content || '')
+    .replace(/<!--\s*idli-(?:insight|skill|progress|actions|evidence):[\s\S]*?-->/gi, ' ')
+    .replace(/[`*_>#]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!source || /(?:recorded|submitted)\s+(?:the\s+)?model request|\bt4gc-[a-f0-9]+\b/i.test(source)) {
+    return '';
+  }
+  const statesGap = /\b(?:missing|do not have|don't have|cannot (?:estimate|predict|model)|need(?:ed|s)?|require[sd]?)\b/i.test(source);
+  const namesCapability = /\b(?:model|predictor|prediction|risk estimate|current predictors?)\b/i.test(source);
+  return statesGap && namesCapability ? source.slice(0, 1200) : '';
+}
+
+/** Add an explicit, user-triggered handoff when an Insight answer identifies a missing model. */
+export function renderT4GCModelRequest(messageElement, content, trace) {
+  if (!messageElement) return null;
+  const context = _suggestedModelRequest(content);
+  const existing = messageElement.querySelector(':scope > .insight-model-request');
+  if (!context) {
+    if (existing) existing.remove();
+    return null;
+  }
+  if (existing) return existing;
+
+  const action = document.createElement('div');
+  action.className = 'insight-model-request';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'insight-model-request-btn';
+  button.textContent = 'Request this model from T4GC';
+  button.addEventListener('click', () => {
+    const input = document.getElementById('message');
+    const send = document.querySelector('.send-btn');
+    if (!input || !send || button.disabled) return;
+    const auditId = String(trace?.audit_id || '').trim();
+    input.value = [
+      'Use the request-model-from-t4gc skill to record this model request.',
+      'Include the missing response variable, candidate predictors, required labels or ground truth, spatial extent, and a measurable validation target. Mark unknown fields explicitly.',
+      auditId ? `The evidence gap was identified in audit ${auditId}.` : '',
+      `Unsupported capability and context: ${context}`,
+    ].filter(Boolean).join('\n\n');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    button.disabled = true;
+    button.textContent = 'Submitting request…';
+    input.focus();
+    send.click();
+  });
+  action.appendChild(button);
+  messageElement.appendChild(action);
+  return action;
 }
 
 /**
@@ -1123,17 +1484,20 @@ document.addEventListener('click', function(e) {
   if (!a) return;
   const href = a.getAttribute('href') || '';
   if (!href.startsWith('#')) return;
-  const m = href.match(/^#(session|document|note|image|email|event|task|skill|research)-(.+)$/);
+  const m = href.match(/^#(session|document|map|note|image|email|event|task|skill|research)-(.+)$/);
   if (!m) return;
   e.preventDefault();
-  e.stopPropagation();
+  // Capture this before generic chat/session link handlers. If a semantic map link is allowed to
+  // perform its native hash navigation, a later session-list refresh can treat the non-session
+  // hash as "no selected chat" and tear down both the answer and the just-mounted document pane.
+  e.stopImmediatePropagation();
   const [, kind, id] = m;
   if (kind === 'session') {
     import('./sessions.js').then(mod => {
       const fn = mod.selectSession || (mod.default && mod.default.selectSession);
       if (fn) fn(id);
     });
-  } else if (kind === 'document') {
+  } else if (kind === 'document' || kind === 'map') {
     import('./document.js').then(mod => {
       const open = mod.loadDocument
         || mod.openDocument
@@ -1177,7 +1541,7 @@ document.addEventListener('click', function(e) {
       if (open) open(id);
     }).catch(() => {});
   }
-});
+}, true);
 
 /**
  * Build a generated-image bubble element.
@@ -1738,7 +2102,10 @@ export function displayMetrics(messageElement, metrics) {
   const tps = metrics.tokens_per_second;
   const isReal = metrics.usage_source === 'real';
   const ctxPct = metrics.context_percent;
-  const model = metrics.model || 'Unknown';
+  const metricModel = metrics.model || 'Unknown';
+  const model = isInsightModel(metricModel) || isInsightModel(metrics.requested_model)
+    ? INSIGHT_MODEL
+    : metricModel;
   const cost = _billableCost(model, inputTokens, outputTokens);
 
   // Nothing useful to show — bail out (only if ALL metrics are missing)
@@ -2028,7 +2395,7 @@ export function renderAskUserCard(payload, options) {
   const aq = payload || {};
   const opts = Array.isArray(aq.options) ? aq.options : [];
   const chatBox = document.getElementById('chat-history');
-  if (!chatBox || !aq.question || opts.length < 2) return null;
+  if (!chatBox || !aq.question || opts.length < 1) return null;
 
   const renderOptions = options || {};
   removeAskUserCards(chatBox);
@@ -2162,10 +2529,22 @@ export function addMessage(role, content, modelName, metadata) {
     if (role === 'user') removeAskUserCards(box);
 
     var esc = uiModule.esc;
-    const textRaw = Array.isArray(content) ? markdownModule.renderContent(content) : content;
+    const renderedContent = Array.isArray(content) ? markdownModule.renderContent(content) : content;
+    const insightResponse = role === 'assistant'
+      ? parseInsightResponse(renderedContent, modelName, metadata)
+      : { content: renderedContent, trace: null, actions: null, evidence: null, isInsight: false };
+    const textRaw = insightResponse.content;
+    if (insightResponse.isInsight) {
+      metadata = {
+        ...(metadata || {}),
+        insight_trace: insightResponse.trace,
+        insight_actions: insightResponse.actions || metadata?.insight_actions,
+        insight_evidence: insightResponse.evidence || metadata?.insight_evidence,
+      };
+    }
 
     // --- Agent multi-bubble reconstruction from saved metadata ---
-    if (role === 'assistant' && metadata && metadata.tool_events && metadata.tool_events.length > 0) {
+    if (role === 'assistant' && !insightResponse.isInsight && metadata && metadata.tool_events && metadata.tool_events.length > 0) {
       const roundTexts = metadata.round_texts || [];
       const toolEvents = metadata.tool_events;
       let pendingAskUser = null;
@@ -2464,6 +2843,11 @@ export function addMessage(role, content, modelName, metadata) {
 
     wrap.appendChild(r);
     wrap.appendChild(b);
+    if (role === 'assistant' && insightResponse.isInsight) {
+      renderInsightTrace(wrap, metadata?.insight_trace);
+      renderInsightEvidence(wrap, metadata?.insight_evidence);
+      renderT4GCModelRequest(wrap, textRaw, metadata?.insight_trace);
+    }
 
     // Add stopped indicator + continue button for messages that were stopped by user
     if (role === 'assistant' && metadata?.stopped) {
@@ -2616,6 +3000,9 @@ export function addMessage(role, content, modelName, metadata) {
     }
 
     box.appendChild(wrap);
+    if (role === 'assistant' && insightResponse.isInsight && metadata?.insight_actions) {
+      renderAskUserCard(metadata.insight_actions, { focus: false, scroll: false });
+    }
 
     // TTS is now part of the msg-actions system
     if (role === 'assistant' && markdownModule.renderMermaid) {
@@ -2630,9 +3017,14 @@ export function addMessage(role, content, modelName, metadata) {
 
 const chatRenderer = {
   shortModel,
+  isInsightModel,
   sameModelName,
   modelRouteLabel,
   replyModelPair,
+  parseInsightResponse,
+  renderInsightEvidence,
+  renderInsightTrace,
+  renderT4GCModelRequest,
   modelColor,
   applyModelColor,
   getModelCost,
