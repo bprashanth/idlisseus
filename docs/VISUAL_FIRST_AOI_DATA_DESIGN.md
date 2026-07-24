@@ -392,7 +392,11 @@ products that cover recurring visual grammar.
 
 ## Visual response contract
 
-The data service should return a typed visual bundle, not arbitrary HTML:
+The data service should return a typed visual result, not arbitrary HTML. The normative
+browser-facing schema, evidence classes, progressive-delivery semantics and compatibility rules
+are in [`../dss/VISUAL_RESULT_CONTRACT.md`](../dss/VISUAL_RESULT_CONTRACT.md).
+
+The compact object below illustrates one visual within that result:
 
 ```json
 {
@@ -414,6 +418,11 @@ The data service should return a typed visual bundle, not arbitrary HTML:
 
 The UI can render this contract as a main canvas, side panel, report figure, dashboard card, or
 download without changing the underlying analysis.
+
+Do not confuse this browser-facing contract with a benchmark builder's `visual-bundle/0.1`.
+That bundle is a build-time snapshot and may contain storage-shaped or benchmark-specific
+material. A benchmark query service binds a question and translates the relevant products into
+`idli-result/1`.
 
 ## Query path
 

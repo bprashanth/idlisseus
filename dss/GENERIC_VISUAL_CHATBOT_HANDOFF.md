@@ -30,11 +30,18 @@ social-sector work. The platform and benchmark workstreams are intentionally ind
    Future acquisition, bronze/silver/gold/serving pipeline, logical data model, visual-ready
    products, response contract, latency targets, governance and acceptance benchmark.
 
-4. [`../chatbots/index.md`](../chatbots/index.md)
+4. [`VISUAL_RESULT_CONTRACT.md`](VISUAL_RESULT_CONTRACT.md)
+
+   Normative `idli-result/1` boundary between benchmark query services and Idlisseus: progressive
+   results, visual objects, evidence classes, data references, actions, failures, capability
+   descriptors and compatibility fixtures. Fable should implement against this contract rather
+   than the current benchmark builder's storage-shaped `visual-bundle/0.1`.
+
+5. [`../chatbots/index.md`](../chatbots/index.md)
 
    Existing Idlisseus chat, streaming, document panel, HTML iframe and dashboard capabilities.
 
-5. [`../README.md`](../README.md)
+6. [`../README.md`](../README.md)
 
    Current host services, UI path, model inventory and health checks.
 
@@ -105,6 +112,11 @@ Do not describe the future visual data plane as already wired into live chat.
 - audit and failure envelopes; and
 - version/digest invalidation.
 
+The normative browser-facing result contract is
+[`VISUAL_RESULT_CONTRACT.md`](VISUAL_RESULT_CONTRACT.md). The current benchmark
+`visual-bundle/0.1` is a build-time site-index snapshot, not that wire contract. Do not make UI
+components depend directly on its top-level tables or benchmark-specific keys.
+
 ## Parallel-development rule
 
 The platform agent should be able to test with synthetic or fixture result contracts. It should
@@ -116,6 +128,20 @@ rendered by generic components.
 
 The only coordinated change should be an explicit, versioned contract change with compatibility
 tests on both sides.
+
+### Freeze before parallel implementation
+
+Before Fable and a benchmark agent build concurrently, agree on:
+
+1. the `idli-result/1` required envelope and evidence classes;
+2. the initial renderer grammars and generic fallback;
+3. immutable `data_ref` dereferencing and access behaviour;
+4. progressive revision and activity-event semantics;
+5. stable limitation/error codes used in visible partial states; and
+6. a fixture corpus rendered by Idlisseus and emitted by a real benchmark.
+
+Question wording, source inventory, database layout, capability implementation and page layout
+do not need to be frozen.
 
 ## Initial UX implementation target
 
