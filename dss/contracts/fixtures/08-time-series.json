@@ -7,7 +7,8 @@
   "site": {
     "site_id": "synthetic-fixture-site",
     "label": "Synthetic fixture site",
-    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37"
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37",
+    "synthetic": true
   },
   "question": {
     "original": "How has this metric changed through time?",
@@ -104,7 +105,17 @@
       "limitations": []
     }
   ],
-  "limitations": [],
+  "limitations": [
+    {
+      "code": "synthetic-data",
+      "severity": "info",
+      "message": "This result uses synthetic test data and is not evidence about a real place.",
+      "affects": [
+        "answer"
+      ],
+      "details_ref": null
+    }
+  ],
   "actions": [],
   "audit": {
     "audit_id": "fixture-audit-time-series",
@@ -112,7 +123,8 @@
       {
         "source_id": "synthetic-fixture-source",
         "version": "1",
-        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb"
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb",
+        "synthetic": true
       }
     ],
     "capability_runs": [

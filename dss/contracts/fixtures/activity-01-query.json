@@ -3,7 +3,7 @@
   "request_id": "fixture-request-observed-points",
   "phase": "query",
   "label": "Finding admitted records",
-  "capability_id": "observed-presence-map",
+  "capability_id": "entity-record-map",
   "state": "running",
   "sequence": 1
 }

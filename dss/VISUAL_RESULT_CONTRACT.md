@@ -76,6 +76,11 @@ fields. Consumers must ignore unknown fields within a major contract version.
 `request_id` connects it to the conversation turn. `revision` increases monotonically. A
 completed result is immutable; a later changed answer receives a new `result_id`.
 
+Synthetic/demo site packs set `site.synthetic: true`, mark synthetic source versions, and include
+the stable informational limitation `synthetic-data`. Idlisseus must show a persistent test-data
+notice for that result. The notice is driven only by these fields; swapping to a real pack removes
+it without a renderer or layout change.
+
 ## Status and progressive delivery
 
 `status` is one of:
@@ -98,7 +103,7 @@ Runtime activity is a separate event stream:
   "request_id": "request-or-turn-id",
   "phase": "query",
   "label": "Finding records in the surrounding region",
-  "capability_id": "observed-presence-map",
+  "capability_id": "entity-record-map",
   "state": "running"
 }
 ```
@@ -223,7 +228,7 @@ Actions are suggestions, not automatically executed commands:
   "action_id": "expand-search",
   "kind": "follow_up",
   "label": "Search a wider region",
-  "capability_id": "observed-presence-map",
+  "capability_id": "entity-record-map",
   "arguments": {"scope_role": "context"},
   "requires_confirmation": true
 }
@@ -317,7 +322,7 @@ Site packs register capabilities independently from individual sources:
 
 ```jsonc
 {
-  "capability_id": "observed-presence-map",
+  "capability_id": "entity-record-map",
   "version": "1.0.0",
   "label": "Map where records are available",
   "input_schema": {},
@@ -333,6 +338,11 @@ A capability is a site-agnostic analytical operation. Sources and adapters provi
 The site pack declares whether it is ready, partial or unavailable for that site's current
 version. Fable uses descriptors for discoverability and loading states, not to reproduce the
 calculation.
+
+Capability ids must describe analytical grammar rather than one sector's vocabulary. For
+example, `entity-record-map` can map records for a facility, programme, occupation, organism or
+other resolved entity. The pack supplies entity meaning and arguments; the renderer receives the
+same map contract.
 
 ## Compatibility and validation
 

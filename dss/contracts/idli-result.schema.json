@@ -66,7 +66,8 @@
         "pack_digest": {
           "type": "string",
           "pattern": "^sha256:[a-f0-9]{64}$"
-        }
+        },
+        "synthetic": {"type": "boolean"}
       },
       "additionalProperties": true
     },
@@ -130,7 +131,8 @@
         "digest": {
           "type": "string",
           "pattern": "^sha256:[a-f0-9]{64}$"
-        }
+        },
+        "synthetic": {"type": "boolean"}
       },
       "anyOf": [
         {"required": ["handle"]},
