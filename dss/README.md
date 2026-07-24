@@ -1,5 +1,17 @@
 # DSS — the decision-support / data layer (meta layer above the agent)
 
+For sector-neutral platform work, start with:
+
+- [`GENERIC_VISUAL_CHATBOT_HANDOFF.md`](GENERIC_VISUAL_CHATBOT_HANDOFF.md) — reading order,
+  ownership and the platform/benchmark integration boundary;
+- [`SITE_PACK_DEPLOYMENT.md`](SITE_PACK_DEPLOYMENT.md) — generic site-pack and launcher contract,
+  operations and isolation; and
+- [`../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md) — future
+  acquisition, indexing and visual-response design.
+
+The remaining material in this directory records an earlier benchmark-specific decision-support
+programme. It is useful implementation history, not the generic Idlisseus platform contract.
+
 Future visual-ready AOI data work starts at
 [`../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](../docs/VISUAL_FIRST_AOI_DATA_DESIGN.md).
 

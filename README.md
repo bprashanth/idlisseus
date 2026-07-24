@@ -50,6 +50,8 @@ see [`REPLICATION.md`](REPLICATION.md) for what to download to reproduce this.
 |-----|-------------|
 | [`docs/IDLI_INSIGHT_MODEL_COMPOSITION.md`](docs/IDLI_INSIGHT_MODEL_COMPOSITION.md) | **Start here for Idli Insight** — live Codex CLI + 9B composition, request path, model responsibilities, isolation, and invariants |
 | [`docs/VISUAL_FIRST_AOI_DATA_DESIGN.md`](docs/VISUAL_FIRST_AOI_DATA_DESIGN.md) | **Future design** — acquisition, indexing, visual-ready data products, model surfaces, governance, and acceptance tests |
+| [`dss/GENERIC_VISUAL_CHATBOT_HANDOFF.md`](dss/GENERIC_VISUAL_CHATBOT_HANDOFF.md) | **Generic visual-chat handoff** — current/future boundary, ownership, reading order, shared contracts, and parallel work |
+| [`dss/SITE_PACK_DEPLOYMENT.md`](dss/SITE_PACK_DEPLOYMENT.md) | **Cross-benchmark site deployment** — pack/launcher contracts and start, stop, restart, isolation, and validation |
 | [`docs/access.md`](docs/access.md) | **Team access** — invite users, network flow, cloudflared |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System architecture, model inventory, next steps |
 | [`models/index.md`](models/index.md) | All models — specs, memory, start/stop |

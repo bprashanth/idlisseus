@@ -239,6 +239,12 @@ input contracts can be satisfied.
 
 ## Where to look next
 
+- [`../dss/GENERIC_VISUAL_CHATBOT_HANDOFF.md`](../dss/GENERIC_VISUAL_CHATBOT_HANDOFF.md) — generic
+  platform/benchmark ownership, shared contracts and recommended reading order.
+- [`../dss/SITE_PACK_DEPLOYMENT.md`](../dss/SITE_PACK_DEPLOYMENT.md) — cross-benchmark pack,
+  endpoint and start/stop/restart contract.
+- [`VISUAL_FIRST_AOI_DATA_DESIGN.md`](VISUAL_FIRST_AOI_DATA_DESIGN.md) — future acquisition,
+  indexing, visual products and response contract.
 - [`../README.md`](../README.md) — repository entry point and live service summary.
 - [`odysseus.md`](odysseus.md) — Idlisseus/Odysseus application path.
 - [`agents.md`](agents.md) — agent runtime and container operations.
