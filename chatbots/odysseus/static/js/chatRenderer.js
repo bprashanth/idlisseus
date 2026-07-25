@@ -707,6 +707,24 @@ const MACHINE_FAILURE_PATTERNS = [
   /\bsite pack capability not parameterised\b[^\n]*/gi,
 ];
 
+// Last-resort presentation safety net: machine phrases that occasionally slip
+// into prose get said the way a person would. The producers are being fixed;
+// this stops the leak reaching a reader in the meantime.
+const MACHINE_PHRASES = [
+  [/\btarget cells\b/gi, "squares inside this site's boundary"],
+  [/\btarget map squares\b/gi, "squares inside this site's boundary"],
+  [/\btarget squares\b/gi, "squares inside this site's boundary"],
+  [/\bthe target cell\b/gi, 'that square'],
+  [/\bthe onboarded site records\b/gi, 'the records this site holds'],
+  [/\bonboarded site records\b/gi, 'records this site holds'],
+];
+
+export function humaniseMachinePhrases(text) {
+  let out = String(text || '');
+  for (const [re, plain] of MACHINE_PHRASES) out = out.replace(re, plain);
+  return out;
+}
+
 export function stripMachineFailureText(text) {
   let out = String(text || '');
   let hit = false;
@@ -749,7 +767,7 @@ export function parseInsightResponse(content, modelName, metadata) {
     return { content: source, trace: null, actions: null, evidence: null, isInsight: false };
   }
 
-  let clean = stripMachineFailureText(source);
+  let clean = humaniseMachinePhrases(stripMachineFailureText(source));
   if (progressEnvelopes.length) {
     clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
   }
