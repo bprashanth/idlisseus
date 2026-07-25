@@ -205,65 +205,45 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     { collapsed: true, position: 'topright' }
   ).addTo(map);
 
-  // ---- ground truth: swipe the data away to see the bare imagery underneath.
-  // The single most-asked field question is "is that square really forest?" —
-  // this answers it without leaving the map.
-  const swipe = document.createElement('div');
-  swipe.className = 'viz-swipe';
-  const swipeBtn = document.createElement('button');
-  swipeBtn.className = 'viz-swipe-toggle';
-  swipeBtn.type = 'button';
-  swipeBtn.textContent = 'Compare with imagery';
-  swipe.appendChild(swipeBtn);
-  const handle = document.createElement('div');
-  handle.className = 'viz-swipe-handle';
-  handle.hidden = true;
-  const grip = document.createElement('span');
-  grip.className = 'viz-swipe-grip';
-  handle.appendChild(grip);
-  const leftTag = document.createElement('span');
-  leftTag.className = 'viz-swipe-tag viz-swipe-tag-left';
-  leftTag.textContent = 'imagery only';
-  handle.appendChild(leftTag);
-  const rightTag = document.createElement('span');
-  rightTag.className = 'viz-swipe-tag viz-swipe-tag-right';
-  rightTag.textContent = 'with records';
-  handle.appendChild(rightTag);
-  swipe.appendChild(handle);
-  root.appendChild(swipe);
+  // ---- ground truth: peek at the bare imagery.
+  // Hold the button (or toggle it) to fade every data layer away, so the field
+  // question "is that square really forest?" is answered without leaving the map.
+  const peekWrap = document.createElement('div');
+  peekWrap.className = 'viz-peek';
+  const peekBtn = document.createElement('button');
+  peekBtn.className = 'viz-peek-btn';
+  peekBtn.type = 'button';
+  peekBtn.textContent = 'Hold to see imagery';
+  peekBtn.title = 'Hold to hide the records; click to keep them hidden';
+  peekWrap.appendChild(peekBtn);
+  const peekTag = document.createElement('span');
+  peekTag.className = 'viz-peek-tag';
+  peekTag.textContent = 'imagery only';
+  peekTag.hidden = true;
+  peekWrap.appendChild(peekTag);
+  root.appendChild(peekWrap);
 
-  let swiping = false;
-  const panes = () => [
+  const dataPanes = () => [
     root.querySelector('.leaflet-overlay-pane'),
     root.querySelector('.leaflet-marker-pane'),
     root.querySelector('.leaflet-shadow-pane'),
   ].filter(Boolean);
-  const applyClip = (pct) => {
-    for (const pane of panes()) {
-      pane.style.clipPath = swiping ? `inset(0 0 0 ${pct}%)` : '';
+  let peeking = false;
+  const setPeek = (on) => {
+    peeking = on;
+    for (const pane of dataPanes()) {
+      pane.style.transition = 'opacity 0.18s';
+      pane.style.opacity = on ? '0' : '';
     }
-    handle.style.left = `${pct}%`;
+    peekTag.hidden = !on;
+    peekBtn.classList.toggle('on', on);
   };
-  let pct = 38;  // leave most of the data visible so the split reads instantly
-  swipeBtn.addEventListener('click', () => {
-    swiping = !swiping;
-    handle.hidden = !swiping;
-    swipeBtn.textContent = swiping ? 'Show all data' : 'Compare with imagery';
-    swipeBtn.classList.toggle('on', swiping);
-    applyClip(pct);
+  peekBtn.addEventListener('pointerdown', (ev) => { ev.preventDefault(); setPeek(true); });
+  peekBtn.addEventListener('pointerup', () => setPeek(false));
+  peekBtn.addEventListener('pointerleave', () => { if (peeking) setPeek(false); });
+  peekBtn.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); setPeek(!peeking); }
   });
-  let dragging = false;
-  const moveTo = (clientX) => {
-    const r = root.getBoundingClientRect();
-    pct = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
-    applyClip(pct);
-  };
-  handle.addEventListener('pointerdown', (ev) => {
-    dragging = true; handle.setPointerCapture(ev.pointerId); ev.preventDefault();
-  });
-  handle.addEventListener('pointermove', (ev) => { if (dragging) moveTo(ev.clientX); });
-  handle.addEventListener('pointerup', () => { dragging = false; });
-  handle.addEventListener('pointercancel', () => { dragging = false; });
 
   const fit = () => {
     map.invalidateSize();
@@ -273,8 +253,19 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     else map.setView([0, 0], 2);
   };
   fit();
-  // The panel mounts and transitions in; refit once layout has real dimensions.
+  // The panel mounts, animates in, and tiles arrive asynchronously; refit until
+  // the container has settled at its real size.
   requestAnimationFrame(fit);
   setTimeout(fit, 380);
+  setTimeout(fit, 1200);
+  if (typeof ResizeObserver === 'function') {
+    let settled = 0;
+    const ro = new ResizeObserver(() => {
+      fit();
+      if (++settled > 6) ro.disconnect();
+    });
+    ro.observe(root);
+    setTimeout(() => ro.disconnect(), 4000);
+  }
   return root;
 }
