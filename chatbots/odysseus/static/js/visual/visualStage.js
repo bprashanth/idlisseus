@@ -365,20 +365,33 @@ class Chapter {
     try {
       const lineage = await explainFn(this.resultId, layer.layer_id, markId, this.envelope);
       host.replaceChildren();
+      // idli-explain/1: computation.statement is the plain-language aggregation;
+      // source_rows are the exact contributing rows.
+      const comp = lineage.computation || {};
+      const capId = (lineage.capability && (lineage.capability.capability_id || lineage.capability.id))
+        || lineage.capability_id;
       const capLine = document.createElement('p');
       capLine.className = 'viz-lineage-head';
-      capLine.textContent = lineage.summary
-        || `Computed by ${lineage.capability_id || 'a registered capability'} over ${
+      capLine.textContent = comp.statement || lineage.summary
+        || `Computed by ${capId || 'a registered capability'} over ${
           (lineage.source_versions || []).length} source version(s).`;
       host.appendChild(capLine);
-      if (lineage.aggregation) {
-        const agg = document.createElement('p');
-        agg.className = 'viz-lineage-agg';
-        agg.textContent = lineage.aggregation;
-        host.appendChild(agg);
+      const mark = lineage.mark || {};
+      if (mark.auto_selected) {
+        const auto = document.createElement('p');
+        auto.className = 'viz-lineage-agg';
+        auto.textContent = 'Showing the layer’s largest mark (none was selected).';
+        host.appendChild(auto);
       }
-      if (Array.isArray(lineage.rows) && lineage.rows.length) {
-        renderTable(host, lineage.rows, { limit: 25 });
+      const rows = lineage.source_rows || lineage.rows;
+      if (Array.isArray(rows) && rows.length) {
+        renderTable(host, rows, { limit: 25 });
+        if (comp.truncated) {
+          const t = document.createElement('p');
+          t.className = 'viz-lineage-lim';
+          t.textContent = `Showing ${comp.rows_returned} of ${comp.contributing_rows} contributing rows.`;
+          host.appendChild(t);
+        }
       }
       for (const lim of lineage.limitations || []) {
         const l = document.createElement('p');
