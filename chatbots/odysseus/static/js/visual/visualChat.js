@@ -63,7 +63,118 @@ function ensureStage() {
     },
   });
   ensureToggle();
+  ensureFloatingComposer();
+  ensureHistoryButton();
   return stage;
+}
+
+// ---- floating, draggable, corner-snapping composer -------------------------
+const CORNERS = ['br', 'bl', 'tr', 'tl'];
+
+function ensureFloatingComposer() {
+  const bar = document.querySelector('.chat-input-bar');
+  if (!bar || bar.dataset.vizFloating) return;
+  bar.dataset.vizFloating = '1';
+  bar.classList.add('viz-float-composer');
+  const saved = localStorage.getItem('viz-chatbox-corner');
+  bar.dataset.corner = CORNERS.includes(saved) ? saved : 'br';
+
+  const handle = document.createElement('div');
+  handle.className = 'viz-float-handle';
+  handle.title = 'Drag to move — snaps to a corner';
+  handle.setAttribute('aria-label', 'Move chat box');
+  handle.innerHTML = '<span></span><span></span><span></span>';
+  bar.prepend(handle);
+
+  let drag = null;
+  handle.addEventListener('pointerdown', (ev) => {
+    const r = bar.getBoundingClientRect();
+    drag = { dx: ev.clientX - r.left, dy: ev.clientY - r.top };
+    bar.classList.add('viz-float-dragging');
+    handle.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+  });
+  handle.addEventListener('pointermove', (ev) => {
+    if (!drag) return;
+    bar.style.left = `${ev.clientX - drag.dx}px`;
+    bar.style.top = `${ev.clientY - drag.dy}px`;
+    bar.style.right = 'auto';
+    bar.style.bottom = 'auto';
+  });
+  const drop = (ev) => {
+    if (!drag) return;
+    drag = null;
+    bar.classList.remove('viz-float-dragging');
+    const r = bar.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const corner = `${cy < window.innerHeight / 2 ? 't' : 'b'}${cx < window.innerWidth / 2 ? 'l' : 'r'}`;
+    bar.style.left = bar.style.top = bar.style.right = bar.style.bottom = '';
+    bar.dataset.corner = corner;
+    localStorage.setItem('viz-chatbox-corner', corner);
+  };
+  handle.addEventListener('pointerup', drop);
+  handle.addEventListener('pointercancel', drop);
+}
+
+// ---- landing history overlay ----------------------------------------------
+let historyPanel = null;
+
+async function buildHistoryPanel() {
+  if (historyPanel) { historyPanel.remove(); historyPanel = null; }
+  const sessions = await getSessions();
+  const list = (sessions.getSessions && sessions.getSessions()) || [];
+  historyPanel = document.createElement('div');
+  historyPanel.className = 'viz-history-panel';
+  const head = document.createElement('div');
+  head.className = 'viz-history-head';
+  const title = document.createElement('span');
+  title.textContent = 'Recent chats';
+  head.appendChild(title);
+  const close = document.createElement('button');
+  close.className = 'viz-panel-close';
+  close.textContent = '×';
+  close.setAttribute('aria-label', 'Close history');
+  close.addEventListener('click', () => historyPanel.classList.remove('on'));
+  head.appendChild(close);
+  historyPanel.appendChild(head);
+  const body = document.createElement('div');
+  body.className = 'viz-history-body';
+  for (const s of list.slice(0, 24)) {
+    const card = document.createElement('button');
+    card.className = 'viz-history-card';
+    const name = document.createElement('span');
+    name.className = 'viz-history-name';
+    name.textContent = s.name || s.id;
+    card.appendChild(name);
+    const meta = document.createElement('span');
+    meta.className = 'viz-history-meta';
+    meta.textContent = s.model || '';
+    card.appendChild(meta);
+    card.addEventListener('click', () => {
+      // Delegate to the app's own session handler (hidden sidebar item).
+      const item = document.querySelector(`.list-item[data-session-id="${s.id}"]`);
+      if (item) item.click();
+      historyPanel.classList.remove('on');
+    });
+    body.appendChild(card);
+  }
+  historyPanel.appendChild(body);
+  document.body.appendChild(historyPanel);
+  return historyPanel;
+}
+
+function ensureHistoryButton() {
+  if (document.getElementById('viz-history-btn')) return;
+  const btn = document.createElement('button');
+  btn.id = 'viz-history-btn';
+  btn.className = 'viz-mode-toggle viz-history-btn';
+  btn.type = 'button';
+  btn.textContent = 'Chats';
+  btn.addEventListener('click', async () => {
+    const panel = await buildHistoryPanel();
+    panel.classList.add('on');
+  });
+  document.body.appendChild(btn);
 }
 
 function ensureToggle() {

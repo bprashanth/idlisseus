@@ -241,14 +241,14 @@ class Chapter {
       }
       const layerData = await this._loadLayers(primary, fetchData);
       const frame = renderVisual(this.canvas, primary, layerData, {
-        onDrill: (feature, layer) => this._openDrill(primary, feature, layer),
+        onDrill: (feature, layer, centroid) => this._openDrill(primary, feature, layer, centroid),
       });
       frame.classList.add('viz-enter');
       if (alt) {
         this.node.classList.add('viz-chapter-split');
         const altData = await this._loadLayers(alt, fetchData);
         const altFrame = renderVisual(this.canvas, alt, altData, {
-          onDrill: (feature, layer) => this._openDrill(alt, feature, layer),
+          onDrill: (feature, layer, centroid) => this._openDrill(alt, feature, layer, centroid),
         });
         altFrame.classList.add('viz-enter');
         supporting = supporting.filter((v) => v !== alt);
@@ -272,7 +272,7 @@ class Chapter {
         this.canvas.replaceChildren();
         const data = await this._loadLayers(v, fetchData);
         const frame = renderVisual(this.canvas, v, data, {
-          onDrill: (feature, layer) => this._openDrill(v, feature, layer),
+          onDrill: (feature, layer, centroid) => this._openDrill(v, feature, layer, centroid),
         });
         frame.classList.add('viz-enter');
       });
@@ -294,14 +294,18 @@ class Chapter {
     return layerData;
   }
 
-  async _openDrill(visual, feature, layer) {
+  async _openDrill(visual, feature, layer, centroid) {
     const drills = (visual.drilldowns || []);
     const props = (feature && feature.properties) || {};
     const panel = this._panel();
     panel.title.textContent = layer.legend?.label || evidenceLabel(layer.evidence_class);
     panel.body.replaceChildren();
     // "Why this?" — instant deterministic lineage plus a narrated chat explanation.
-    const markId = props.event_id || props.source_row || props.cell_id || props.location_id || '';
+    // Identity: explicit ids first; otherwise the clicked location names the mark
+    // (at:<lat>:<lon>) so the explain service resolves the SAME cell the user
+    // clicked — never a silent fallback to a different mark.
+    const markId = props.event_id || props.source_row || props.cell_id || props.location_id
+      || (centroid ? `at:${centroid.lat.toFixed(5)}:${centroid.lon.toFixed(5)}` : '');
     const whyRow = document.createElement('div');
     whyRow.className = 'viz-why-row';
     const whyBtn = document.createElement('button');
@@ -314,8 +318,8 @@ class Chapter {
     askBtn.textContent = 'Explain in chat';
     askBtn.addEventListener('click', () => {
       const what = layer.legend?.label || layer.layer_id;
-      const where = props.label || props.event_date || markId || 'this mark';
-      const q = `Explain how the ${what} value at ${where} in result ${this.resultId} was computed — which source rows and what aggregation.`;
+      const where = markId || props.label || props.event_date || 'the largest mark in the layer';
+      const q = `Explain how the ${what} value at mark ${where} in result ${this.resultId} was computed — which source rows and what aggregation.`;
       if (this.stage.opts.onAction) {
         this.stage.opts.onAction({ action_id: 'explain', kind: 'follow_up', label: q }, this.envelope);
       }

@@ -607,3 +607,119 @@ body.visual-mode #chat-container > :not(.viz-stage):not(.chat-input-bar) { displ
 /* ---------- annotations ---------- */
 .viz-ann-label { font: 12px system-ui, sans-serif; fill: currentColor; opacity: 0.85; }
 .viz-ann-primary { font-weight: 650; font-size: 13px; opacity: 1; }
+
+/* ---------- dynamic chrome: no sidebar, floating composer, history ---------- */
+body.visual-mode #sidebar { display: none !important; }
+body.visual-mode #chat-container { width: 100%; }
+
+body.visual-mode .viz-float-composer {
+  position: fixed !important;
+  z-index: 70;
+  width: min(560px, calc(100vw - 48px));
+  order: initial !important;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 62%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--border);
+  transition: left 0.28s cubic-bezier(0.16, 1, 0.3, 1), top 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              right 0.28s cubic-bezier(0.16, 1, 0.3, 1), bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.2s;
+  opacity: 0.92;
+}
+body.visual-mode .viz-float-composer:focus-within,
+body.visual-mode .viz-float-composer:hover { opacity: 1; }
+body.visual-mode .viz-float-composer.viz-float-dragging { transition: none; opacity: 0.85; }
+body.visual-mode .viz-float-composer[data-corner="br"] { right: 22px; bottom: 20px; }
+body.visual-mode .viz-float-composer[data-corner="bl"] { left: 22px; bottom: 20px; }
+body.visual-mode .viz-float-composer[data-corner="tr"] { right: 22px; top: 16px; }
+body.visual-mode .viz-float-composer[data-corner="tl"] { left: 22px; top: 16px; }
+
+.viz-float-handle {
+  position: absolute;
+  z-index: 6;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  padding: 4px 14px;
+  cursor: grab;
+  touch-action: none;
+}
+.viz-float-handle:active { cursor: grabbing; }
+.viz-float-handle span {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--fg); opacity: 0.35;
+}
+
+.viz-history-btn { right: 118px; }
+
+.viz-history-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(8px);
+}
+.viz-history-panel.on { display: flex; }
+.viz-history-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 17px;
+  font-weight: 650;
+  margin-bottom: 14px;
+}
+.viz-history-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  gap: 12px;
+  max-width: 860px;
+  max-height: 62vh;
+  overflow-y: auto;
+  justify-content: center;
+  padding: 4px;
+}
+.viz-history-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.viz-history-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.14); }
+.viz-history-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.viz-history-meta { font-size: 11px; opacity: 0.55; }
+
+@media (max-width: 760px) {
+  body.visual-mode .viz-float-composer { width: calc(100vw - 20px); }
+  body.visual-mode .viz-float-composer[data-corner="br"],
+  body.visual-mode .viz-float-composer[data-corner="bl"] { left: 10px; right: 10px; bottom: 10px; }
+  .viz-history-btn { right: 104px; }
+}
+
+body:not(.visual-mode) .viz-float-handle { display: none; }
+
+/* compact floating composer: collapse app rows that don't matter on the stage */
+body.visual-mode .viz-float-composer { width: min(560px, calc(100vw - 48px)) !important; }
+body.visual-mode .viz-float-composer #pinned-tools-bar { display: none !important; }
+body.visual-mode .viz-float-composer #message { max-height: 120px; }
+body.visual-mode .viz-float-composer .chat-input-top { padding-top: 12px; }

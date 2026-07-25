@@ -485,12 +485,27 @@ function attachHover(node, hooks, rowsFn, liftTarget) {
   node.addEventListener('blur', leave);
 }
 
+function centroidOf(geometry) {
+  // Mean of the outer ring / the point itself — enough to name a mark by location.
+  if (!geometry) return null;
+  if (geometry.type === 'Point') {
+    return { lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
+  }
+  const ring = geometry.type === 'Polygon' ? geometry.coordinates[0]
+    : geometry.type === 'MultiPolygon' ? geometry.coordinates[0][0] : null;
+  if (!ring || !ring.length) return null;
+  let lon = 0, lat = 0;
+  for (const [x, y] of ring) { lon += x; lat += y; }
+  return { lon: lon / ring.length, lat: lat / ring.length };
+}
+
 function attachDrill(node, hooks, feature, layer) {
   if (!hooks.onDrill) return;
   node.classList.add('viz-drillable');
-  node.addEventListener('click', () => hooks.onDrill(feature, layer));
+  const fire = () => hooks.onDrill(feature, layer, centroidOf(feature.geometry));
+  node.addEventListener('click', fire);
   node.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); hooks.onDrill(feature, layer); }
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); fire(); }
   });
 }
 
