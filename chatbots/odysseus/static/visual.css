@@ -976,3 +976,15 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
   color: #fff; background: rgba(20, 24, 22, 0.66);
   padding: 4px 10px; border-radius: 6px;
 }
+
+/* caveats on the card, beside the claim they qualify */
+.viz-inline-limits { display: flex; flex-direction: column; gap: 6px; padding: 8px 16px 0; }
+.viz-inline-limit {
+  display: flex; gap: 8px; align-items: baseline;
+  font-size: 12px; line-height: 1.45;
+  padding: 7px 10px; border-radius: 9px;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+.viz-inline-limit.viz-sev-warning { background: rgba(250, 178, 25, 0.13); }
+.viz-inline-limit.viz-sev-error { background: rgba(208, 59, 59, 0.12); }
+.viz-inline-limit-more { font-size: 11px; opacity: 0.6; padding-left: 10px; }

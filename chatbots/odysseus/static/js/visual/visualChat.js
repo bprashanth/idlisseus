@@ -395,6 +395,35 @@ async function hydrateSlot(slot) {
     });
   }
 
+  // The honesty lives with the number, not one click away: surface the
+  // serious caveats on the card, keep the rest for the panel.
+  const serious = (envelope.limitations || [])
+    .filter((l) => l && (l.severity === 'error' || l.severity === 'warning') && l.message);
+  if (serious.length) {
+    const lims = document.createElement('div');
+    lims.className = 'viz-inline-limits';
+    for (const l of serious.slice(0, 2)) {
+      const row = document.createElement('div');
+      row.className = `viz-inline-limit viz-sev-${l.severity}`;
+      const icon = document.createElement('span');
+      icon.textContent = l.severity === 'error' ? '⛔' : '⚠';
+      row.appendChild(icon);
+      const msg = document.createElement('span');
+      msg.textContent = l.message;
+      row.appendChild(msg);
+      lims.appendChild(row);
+    }
+    if (serious.length > 2) {
+      const more = document.createElement('div');
+      more.className = 'viz-inline-limit-more';
+      more.textContent = serious.length - 2 === 1
+        ? 'One more caveat — open to read it'
+        : `${serious.length - 2} more caveats — open to read them`;
+      lims.appendChild(more);
+    }
+    card.appendChild(lims);
+  }
+
   const actions = (envelope.actions || []).filter((a) => a && a.label).slice(0, 4);
   if (actions.length) {
     const row = document.createElement('div');
