@@ -304,6 +304,11 @@ class Chapter {
   async _openDrill(visual, feature, layer, centroid) {
     const drills = (visual.drilldowns || []);
     const props = (feature && feature.properties) || {};
+    if (this.stage.opts.onMarkClick) {
+      const preId = props.event_id || props.source_row || props.cell_id || props.location_id
+        || (centroid ? `at:${centroid.lat.toFixed(5)}:${centroid.lon.toFixed(5)}` : '');
+      this.stage.opts.onMarkClick({ visual, layer, props, markId: preId, envelope: this.envelope });
+    }
     const panel = this._panel();
     panel.title.textContent = layer.legend?.label || evidenceLabel(layer.evidence_class);
     panel.body.replaceChildren();

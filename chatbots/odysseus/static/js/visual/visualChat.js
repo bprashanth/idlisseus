@@ -13,6 +13,14 @@ import { renderVisual } from './visualRenderers.js';
 let client = null;
 let clientEndpointUrl = null;
 
+// Defensive: clear any takeover-era state a stale cached bundle left behind.
+document.body.classList.remove('visual-mode', 'visual-had-stage');
+for (const id of ['visual-mode-toggle', 'viz-history-btn']) {
+  document.getElementById(id)?.remove();
+}
+document.querySelector('.viz-float-handle')?.remove();
+document.querySelector('.chat-input-bar')?.classList.remove('viz-float-composer', 'viz-float-dragging');
+
 function getSessions() {
   return import('../sessions.js');
 }
@@ -79,6 +87,21 @@ function ensurePanel() {
         return `${client.base}/results/${encodeURIComponent(envelope.result_id)}/data/${encodeURIComponent(ref.handle)}`;
       }
       return null;
+    },
+    onMarkClick: ({ layer, props, markId, envelope }) => {
+      // Interactions in the panel drive the main conversation: clicking a mark
+      // inserts that mark's question into the composer (user presses send).
+      const input = document.getElementById('message');
+      if (!input) return;
+      const what = (layer.legend && layer.legend.label) || layer.layer_id;
+      const val = ['records', 'count', 'value', 'estimate', 'effort']
+        .map((k) => props && props[k]).find((v) => v !== undefined);
+      const where = markId || 'this location';
+      input.value = `In result ${envelope.result_id}: what is behind the ${what}`
+        + (val !== undefined ? ` value of ${val}` : '') + ` at ${where}?`
+        + ' Which source rows produced it?';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
     },
     onAction: (action) => {
       // Actions stay ordinary audited chat turns through the normal composer.
