@@ -138,6 +138,10 @@ def setup_visual_routes():
             raise HTTPException(status_code=400, detail="bad result id")
         return _get(endpoint_id, f"/v1/results/{result_id}")
 
+    @router.get("/{endpoint_id}/headline-stats")
+    def headline_stats(endpoint_id: str):
+        return _get(endpoint_id, "/v1/site/headline-stats")
+
     @router.get("/{endpoint_id}/results/{result_id}/explain")
     def result_explain(endpoint_id: str, result_id: str, layer: str = "", mark: str = ""):
         if not _SAFE_ID.fullmatch(result_id):

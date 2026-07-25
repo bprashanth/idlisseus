@@ -268,6 +268,13 @@ async function ensureContextRail() {
   }
 }
 
+export function refreshContext() {
+  client = null; clientEndpointUrl = null;
+  recentVisuals.length = 0;
+  removeContextRail();
+  setTimeout(() => ensureContextRail(), 600);
+}
+
 function removeContextRail() {
   if (contextRail) { contextRail.remove(); contextRail = null; }
   document.body.classList.remove('viz-context-open');

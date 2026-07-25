@@ -331,7 +331,8 @@ class Chapter {
     askBtn.addEventListener('click', () => {
       const what = layer.legend?.label || layer.layer_id;
       const where = markId || props.label || props.event_date || 'the largest mark in the layer';
-      const q = `Explain how the ${what} value at mark ${where} in result ${this.resultId} was computed — which source rows and what aggregation.`;
+      const q = `Explain how the ${what} value at mark ${where} (layer ${layer.layer_id}) in result `
+        + `${this.resultId} was computed — which source rows and what aggregation.`;
       if (this.stage.opts.onAction) {
         this.stage.opts.onAction({ action_id: 'explain', kind: 'follow_up', label: q }, this.envelope);
       }
