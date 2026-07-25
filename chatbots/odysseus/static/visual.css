@@ -946,3 +946,10 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
 /* Inline previews are click-to-open: hide interactive-only chrome. */
 .viz-inline-canvas .viz-basemap-pick { display: none; }
 .viz-rail-recent-item { line-height: 1.45; }
+
+/* next steps live on the card itself, not only in the panel */
+.viz-inline-actions {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  padding: 10px 16px 2px;
+}
+.viz-inline-actions .viz-action-chip { cursor: pointer; }

@@ -698,6 +698,28 @@ export function renderInlineVisualSlots(container, visualResults) {
   }
 }
 
+// The controller can append raw machine failure text ("Execution stopped with
+// site pack capability not parameterised…"). Users should never read that: keep
+// the fact, drop the vocabulary.
+const MACHINE_FAILURE_PATTERNS = [
+  /Execution stopped with[\s\S]*?(?=\n\n|$)/gi,
+  /Parameterise this capability with[\s\S]*?(?=\n\n|$)/gi,
+  /\bsite pack capability not parameterised\b[^\n]*/gi,
+];
+
+export function stripMachineFailureText(text) {
+  let out = String(text || '');
+  let hit = false;
+  for (const re of MACHINE_FAILURE_PATTERNS) {
+    if (re.test(out)) { hit = true; out = out.replace(re, ''); }
+  }
+  if (hit) {
+    out = out.trimEnd() + '\n\n_That step needed more detail before it could run — '
+      + 'tell me which one you want and I will run it._';
+  }
+  return out;
+}
+
 export function parseInsightResponse(content, modelName, metadata) {
   const source = String(content || '');
   const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
@@ -727,7 +749,7 @@ export function parseInsightResponse(content, modelName, metadata) {
     return { content: source, trace: null, actions: null, evidence: null, isInsight: false };
   }
 
-  let clean = source;
+  let clean = stripMachineFailureText(source);
   if (progressEnvelopes.length) {
     clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
   }

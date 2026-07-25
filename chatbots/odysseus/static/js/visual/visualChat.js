@@ -395,6 +395,30 @@ async function hydrateSlot(slot) {
     });
   }
 
+  const actions = (envelope.actions || []).filter((a) => a && a.label).slice(0, 4);
+  if (actions.length) {
+    const row = document.createElement('div');
+    row.className = 'viz-inline-actions';
+    for (const a of actions) {
+      const chip = document.createElement('button');
+      chip.className = 'viz-action-chip';
+      chip.type = 'button';
+      chip.dataset.kind = a.kind || 'follow_up';
+      chip.textContent = a.label;
+      chip.addEventListener('click', (ev) => {
+        ev.stopPropagation();          // a next step, not a request to expand
+        const input = document.getElementById('message');
+        if (!input) return;
+        input.value = a.label;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        const form = input.closest('form') || document.getElementById('chat-form');
+        if (form) (form.requestSubmit ? form.requestSubmit() : form.submit());
+      });
+      row.appendChild(chip);
+    }
+    card.appendChild(row);
+  }
+
   const foot = document.createElement('div');
   foot.className = 'viz-inline-foot';
   const meta = document.createElement('span');
