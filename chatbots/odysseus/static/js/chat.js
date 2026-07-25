@@ -2693,6 +2693,9 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             holder._insightEvidence = finalInsight.evidence;
             chatRenderer.renderInsightEvidence(holder, holder._insightEvidence);
           }
+          if (finalInsight.visualResults?.length) {
+            chatRenderer.renderInlineVisualSlots(roundHolder || holder, finalInsight.visualResults);
+          }
           holder.dataset.raw = finalDisplay;
         }
         if (finalDisplay.trim()) {

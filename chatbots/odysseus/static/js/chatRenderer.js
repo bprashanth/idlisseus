@@ -682,6 +682,20 @@ function _normaliseInsightEvidence(evidence) {
  * and a small structured audit summary. This makes existing Idli Insight chats
  * readable without rewriting their stored history.
  */
+// Inline visual slots: one placeholder per idli-result marker in the message.
+// static/js/visual/visualChat.js hydrates them into compact visual cards.
+export function renderInlineVisualSlots(container, visualResults) {
+  for (const v of visualResults || []) {
+    if (!v || !v.result_id) continue;
+    if (container.querySelector(`.viz-inline[data-result-id="${v.result_id}"]`)) continue;
+    const slot = document.createElement('div');
+    slot.className = 'viz-inline';
+    slot.dataset.resultId = v.result_id;
+    if (v.revision) slot.dataset.revision = String(v.revision);
+    container.appendChild(slot);
+  }
+}
+
 export function parseInsightResponse(content, modelName, metadata) {
   const source = String(content || '');
   const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
@@ -2863,6 +2877,7 @@ export function addMessage(role, content, modelName, metadata) {
       renderInsightTrace(wrap, metadata?.insight_trace);
       renderInsightEvidence(wrap, metadata?.insight_evidence);
       renderT4GCModelRequest(wrap, textRaw, metadata?.insight_trace);
+      renderInlineVisualSlots(wrap, insightResponse.visualResults);
     }
 
     // Add stopped indicator + continue button for messages that were stopped by user

@@ -1,19 +1,17 @@
-// visualChat.js — glue between the chat app and the visual stage.
-// Listens for idli-result markers surfaced by chat.js/chatRenderer.js, enters
-// visual mode, fetches envelopes through the odysseus proxy, and renders chapters.
-// Also provides ambient site orientation when a conversation starts on a
-// visual-capable endpoint, and a toggle back to the classic chat view.
+// visualChat.js — inline visuals in the stock Idlisseus chat.
+// chatRenderer/chat.js insert `.viz-inline[data-result-id]` slots wherever an
+// assistant message carried an idli-result marker (live, final and history).
+// This module hydrates each slot into a compact visual card inside the bubble,
+// and opens the full interactive view (Leaflet maps, drill-down, explain,
+// estimate, actions) in a side panel when the card is clicked.
+// The old full-screen takeover is retired; the classic chat layout is the UI.
 
 import { VisualStage } from './visualStage.js';
 import { VisualClient } from './visualData.js';
+import { renderVisual } from './visualRenderers.js';
 
-let stage = null;
 let client = null;
 let clientEndpointUrl = null;
-let toggleBtn = null;
-let lastQuestion = '';
-const seenResults = new Set();
-const seenRevisions = new Map(); // result_id -> revision
 
 function getSessions() {
   return import('../sessions.js');
@@ -36,11 +34,37 @@ async function resolveClient() {
   }
 }
 
-function ensureStage() {
-  if (stage) return stage;
-  const container = document.getElementById('chat-container');
-  if (!container) return null;
-  stage = new VisualStage(container, {
+// ---- side panel: one full interactive chapter per opened result ------------
+let panel = null;
+let panelStage = null;
+const panelChapters = new Map(); // result_id -> chapter
+
+function ensurePanel() {
+  if (panel) return panel;
+  panel = document.createElement('aside');
+  panel.id = 'viz-side-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Visual detail');
+  const head = document.createElement('div');
+  head.className = 'viz-side-head';
+  const title = document.createElement('span');
+  title.className = 'viz-side-title';
+  title.textContent = 'Visual detail';
+  head.appendChild(title);
+  const close = document.createElement('button');
+  close.className = 'viz-panel-close';
+  close.textContent = '×';
+  close.setAttribute('aria-label', 'Close visual panel');
+  close.addEventListener('click', closePanel);
+  head.appendChild(close);
+  panel.appendChild(head);
+  const host = document.createElement('div');
+  host.className = 'viz-side-host';
+  panel.appendChild(host);
+  document.body.appendChild(panel);
+  panelStage = new VisualStage(host, {
+    noTakeover: true,
+    preferLeaflet: true,
     fetchData: (ref, envelope) => {
       if (!client) throw new Error('no visual client');
       return client.fetchData(ref, envelope);
@@ -57,158 +81,34 @@ function ensureStage() {
       return null;
     },
     onAction: (action) => {
-      // Actions become ordinary audited chat turns: fill the composer and send.
+      // Actions stay ordinary audited chat turns through the normal composer.
       const input = document.getElementById('message');
       if (!input) return;
-      const text = action.kind === 'follow_up' || action.kind === 'run_capability'
-        ? action.label
-        : `${action.label}`;
-      input.value = text;
+      input.value = action.label;
       input.dispatchEvent(new Event('input', { bubbles: true }));
       const form = input.closest('form') || document.getElementById('chat-form');
       if (form) form.requestSubmit ? form.requestSubmit() : form.submit();
+      closePanel();
     },
   });
-  ensureToggle();
-  ensureFloatingComposer();
-  ensureHistoryButton();
-  return stage;
+  return panel;
 }
 
-// ---- floating, draggable, corner-snapping composer -------------------------
-const CORNERS = ['br', 'bl', 'tr', 'tl'];
-
-function ensureFloatingComposer() {
-  const bar = document.querySelector('.chat-input-bar');
-  if (!bar || bar.dataset.vizFloating) return;
-  bar.dataset.vizFloating = '1';
-  bar.classList.add('viz-float-composer');
-  const saved = localStorage.getItem('viz-chatbox-corner');
-  bar.dataset.corner = CORNERS.includes(saved) ? saved : 'br';
-
-  const handle = document.createElement('div');
-  handle.className = 'viz-float-handle';
-  handle.title = 'Drag to move — snaps to a corner';
-  handle.setAttribute('aria-label', 'Move chat box');
-  handle.innerHTML = '<span></span><span></span><span></span>';
-  bar.prepend(handle);
-
-  let drag = null;
-  handle.addEventListener('pointerdown', (ev) => {
-    const r = bar.getBoundingClientRect();
-    drag = { dx: ev.clientX - r.left, dy: ev.clientY - r.top };
-    bar.classList.add('viz-float-dragging');
-    handle.setPointerCapture(ev.pointerId);
-    ev.preventDefault();
-  });
-  handle.addEventListener('pointermove', (ev) => {
-    if (!drag) return;
-    bar.style.left = `${ev.clientX - drag.dx}px`;
-    bar.style.top = `${ev.clientY - drag.dy}px`;
-    bar.style.right = 'auto';
-    bar.style.bottom = 'auto';
-  });
-  const drop = (ev) => {
-    if (!drag) return;
-    drag = null;
-    bar.classList.remove('viz-float-dragging');
-    const r = bar.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const corner = `${cy < window.innerHeight / 2 ? 't' : 'b'}${cx < window.innerWidth / 2 ? 'l' : 'r'}`;
-    bar.style.left = bar.style.top = bar.style.right = bar.style.bottom = '';
-    bar.dataset.corner = corner;
-    localStorage.setItem('viz-chatbox-corner', corner);
-  };
-  handle.addEventListener('pointerup', drop);
-  handle.addEventListener('pointercancel', drop);
+function closePanel() {
+  document.body.classList.remove('viz-panel-open');
 }
 
-// ---- landing history overlay ----------------------------------------------
-let historyPanel = null;
-
-async function buildHistoryPanel() {
-  if (historyPanel) { historyPanel.remove(); historyPanel = null; }
-  const sessions = await getSessions();
-  const list = (sessions.getSessions && sessions.getSessions()) || [];
-  historyPanel = document.createElement('div');
-  historyPanel.className = 'viz-history-panel';
-  const head = document.createElement('div');
-  head.className = 'viz-history-head';
-  const title = document.createElement('span');
-  title.textContent = 'Recent chats';
-  head.appendChild(title);
-  const close = document.createElement('button');
-  close.className = 'viz-panel-close';
-  close.textContent = '×';
-  close.setAttribute('aria-label', 'Close history');
-  close.addEventListener('click', () => historyPanel.classList.remove('on'));
-  head.appendChild(close);
-  historyPanel.appendChild(head);
-  const body = document.createElement('div');
-  body.className = 'viz-history-body';
-  for (const s of list.slice(0, 24)) {
-    const card = document.createElement('button');
-    card.className = 'viz-history-card';
-    const name = document.createElement('span');
-    name.className = 'viz-history-name';
-    name.textContent = s.name || s.id;
-    card.appendChild(name);
-    const meta = document.createElement('span');
-    meta.className = 'viz-history-meta';
-    meta.textContent = s.model || '';
-    card.appendChild(meta);
-    card.addEventListener('click', () => {
-      // Delegate to the app's own session handler (hidden sidebar item).
-      const item = document.querySelector(`.list-item[data-session-id="${s.id}"]`);
-      if (item) item.click();
-      historyPanel.classList.remove('on');
-    });
-    body.appendChild(card);
-  }
-  historyPanel.appendChild(body);
-  document.body.appendChild(historyPanel);
-  return historyPanel;
-}
-
-function ensureHistoryButton() {
-  if (document.getElementById('viz-history-btn')) return;
-  const btn = document.createElement('button');
-  btn.id = 'viz-history-btn';
-  btn.className = 'viz-mode-toggle viz-history-btn';
-  btn.type = 'button';
-  btn.textContent = 'Chats';
-  btn.addEventListener('click', async () => {
-    const panel = await buildHistoryPanel();
-    panel.classList.add('on');
-  });
-  document.body.appendChild(btn);
-}
-
-function ensureToggle() {
-  if (toggleBtn) return;
-  toggleBtn = document.createElement('button');
-  toggleBtn.id = 'visual-mode-toggle';
-  toggleBtn.className = 'viz-mode-toggle';
-  toggleBtn.type = 'button';
-  toggleBtn.textContent = 'Chat view';
-  toggleBtn.setAttribute('aria-pressed', 'true');
-  document.body.classList.add('visual-had-stage');
-  toggleBtn.addEventListener('click', () => {
-    const on = document.body.classList.toggle('visual-mode');
-    toggleBtn.textContent = on ? 'Chat view' : 'Visual view';
-    toggleBtn.setAttribute('aria-pressed', String(on));
-    if (stage) stage.root.style.display = on ? '' : 'none';
-  });
-  document.body.appendChild(toggleBtn);
-}
-
-async function handleResultMarker(payload) {
-  const resultId = payload && payload.result_id;
-  if (!resultId) return;
-  const revision = payload.revision || 1;
-  if (seenResults.has(resultId) && (seenRevisions.get(resultId) || 1) >= revision) return;
+export async function openInPanel(resultId) {
   const c = await resolveClient();
   if (!c) return;
+  ensurePanel();
+  document.body.classList.add('viz-panel-open');
+  let chapter = panelChapters.get(resultId);
+  if (chapter) {
+    chapter.node.scrollIntoView({ block: 'start' });
+    window.dispatchEvent(new Event('resize')); // leaflet size recalc
+    return;
+  }
   let envelope;
   try {
     envelope = await c.result(resultId);
@@ -216,69 +116,129 @@ async function handleResultMarker(payload) {
     console.warn('visual result fetch failed', resultId, err);
     return;
   }
-  seenResults.add(resultId);
-  seenRevisions.set(resultId, envelope.revision || revision);
-  const st = ensureStage();
-  if (!st) return;
-  let chapter = st.chapterFor(envelope);
-  if (!chapter) {
-    const q = (envelope.question?.original || lastQuestion || '').split(/===\s*File:/)[0].trim();
-    chapter = st.addChapter(q);
-  }
+  // One chapter at a time keeps the panel focused; prior ones are dropped.
+  for (const [, ch] of panelChapters) ch.node.remove();
+  panelChapters.clear();
+  panelStage.chapters.length = 0;
+  panelStage.rail.replaceChildren();
+  chapter = panelStage.addChapter(envelope.question?.original || '');
+  panelChapters.set(resultId, chapter);
   await chapter.setEnvelope(envelope);
 }
 
-// Ambient orientation: when a chat runs on a visual-capable endpoint, open the
-// stage with the site-orientation capability before any question is asked.
-let ambientTriedFor = null;
-async function maybeAmbientOrientation() {
+// ---- inline hydration ------------------------------------------------------
+const hydrating = new Set();
+
+async function hydrateSlot(slot) {
+  const resultId = slot.dataset.resultId;
+  if (!resultId || hydrating.has(resultId + ':' + (slot.dataset.revision || ''))) return;
+  hydrating.add(resultId + ':' + (slot.dataset.revision || ''));
   const c = await resolveClient();
-  if (!c || ambientTriedFor === clientEndpointUrl) return;
-  ambientTriedFor = clientEndpointUrl;
+  if (!c) { hydrating.delete(resultId); return; }
+  let envelope;
   try {
-    const caps = await c.capabilities();
-    const list = caps.capabilities || caps || [];
-    const hasOrientation = (Array.isArray(list) ? list : []).some(
-      (x) => (x.capability_id || x.id) === 'site-orientation' && (x.availability || 'ready') === 'ready'
-    );
-    if (!hasOrientation) return;
-    const envelope = await c.query('site-orientation', {}, '');
-    if (!envelope || !envelope.result_id) return;
-    seenResults.add(envelope.result_id);
-    seenRevisions.set(envelope.result_id, envelope.revision || 1);
-    const st = ensureStage();
-    if (!st) return;
-    const chapter = st.addChapter(envelope.site?.label || 'Orientation');
-    await chapter.setEnvelope(envelope);
+    envelope = await c.result(resultId);
   } catch {
-    // Endpoint has no visual plane — classic chat continues untouched.
+    slot.classList.add('viz-inline-unavailable');
+    slot.textContent = 'Visual unavailable for this endpoint.';
+    return;
+  }
+  slot.classList.add('hydrated');
+  slot.replaceChildren();
+
+  const card = document.createElement('figure');
+  card.className = 'viz-inline-card';
+  const headRow = document.createElement('figcaption');
+  headRow.className = 'viz-inline-head';
+  if (envelope.site && envelope.site.synthetic) {
+    const ribbon = document.createElement('span');
+    ribbon.className = 'viz-synthetic-ribbon';
+    ribbon.textContent = 'Synthetic test data';
+    headRow.appendChild(ribbon);
+  }
+  const head = document.createElement('span');
+  head.className = 'viz-inline-headline';
+  head.textContent = (envelope.answer && envelope.answer.headline) || '';
+  headRow.appendChild(head);
+  card.appendChild(headRow);
+
+  const canvas = document.createElement('div');
+  canvas.className = 'viz-inline-canvas';
+  card.appendChild(canvas);
+
+  const visuals = envelope.visuals || [];
+  const primary = visuals.find((v) => v.priority === 'primary') || visuals[0] || null;
+  if (primary) {
+    const layerData = new Map();
+    await Promise.all((primary.layers || []).map(async (layer) => {
+      if (!layer.data_ref) return;
+      try {
+        const parsed = await c.fetchData(layer.data_ref, envelope);
+        if (parsed) layerData.set(layer.layer_id, parsed);
+      } catch { /* partial inline render is fine; the panel retries */ }
+    }));
+    renderVisual(canvas, primary, layerData, {
+      rawUrl: (ref) => {
+        if (ref && ref.kind === 'result_data' && ref.handle) {
+          return `${c.base}/results/${encodeURIComponent(envelope.result_id)}/data/${encodeURIComponent(ref.handle)}`;
+        }
+        return null;
+      },
+      // Inline cards are previews: clicks open the panel rather than drilling.
+      onDrill: () => openInPanel(resultId),
+    });
+  }
+
+  const foot = document.createElement('div');
+  foot.className = 'viz-inline-foot';
+  const meta = document.createElement('span');
+  const n = visuals.length;
+  meta.textContent = `${envelope.site?.label || ''}${n > 1 ? ` · ${n} views` : ''}`;
+  foot.appendChild(meta);
+  const open = document.createElement('button');
+  open.className = 'viz-inline-open';
+  open.type = 'button';
+  open.textContent = 'Open ↗';
+  foot.appendChild(open);
+  card.appendChild(foot);
+
+  card.addEventListener('click', (ev) => {
+    // Any click on the card (including marks and Open) expands to the panel.
+    ev.preventDefault();
+    openInPanel(resultId);
+  });
+  slot.appendChild(card);
+}
+
+function scanForSlots(rootNode) {
+  const scope = rootNode && rootNode.querySelectorAll ? rootNode : document;
+  for (const slot of scope.querySelectorAll('.viz-inline:not(.hydrated):not(.viz-inline-unavailable)')) {
+    hydrateSlot(slot);
   }
 }
 
-window.addEventListener('idli-visual-result', (ev) => {
-  handleResultMarker(ev.detail);
+const observer = new MutationObserver((mutations) => {
+  for (const m of mutations) {
+    for (const node of m.addedNodes) {
+      if (node.nodeType !== 1) continue;
+      if (node.matches && node.matches('.viz-inline')) hydrateSlot(node);
+      else if (node.querySelectorAll) scanForSlots(node);
+    }
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Live-stream markers arrive before the final bubble exists; retry shortly.
+window.addEventListener('idli-visual-result', () => {
+  setTimeout(() => scanForSlots(document), 600);
+  setTimeout(() => scanForSlots(document), 2500);
 });
 
-// Track the question text for chapter headers.
-document.addEventListener('submit', (ev) => {
-  const form = ev.target;
-  if (!(form instanceof HTMLFormElement)) return;
-  const input = form.querySelector('#message') || document.getElementById('message');
-  if (input && input.value.trim()) {
-    // Chapter headers show the question, never inlined file payloads.
-    lastQuestion = input.value.split(/===\s*File:/)[0].trim();
+// History loads render in bulk; sweep once after load and on session switches.
+setTimeout(() => scanForSlots(document), 3000);
+document.addEventListener('click', (ev) => {
+  if (ev.target.closest && ev.target.closest('.list-item[data-session-id]')) {
+    client = null; clientEndpointUrl = null; // endpoint may change with the session
+    setTimeout(() => scanForSlots(document), 2500);
   }
-  // A new turn on a possibly-new endpoint: refresh the ambient check lazily.
-  setTimeout(maybeAmbientOrientation, 400);
 }, true);
-
-// First load: give the session list a moment to hydrate, then try orientation.
-setTimeout(maybeAmbientOrientation, 2500);
-
-// Watch for endpoint changes (new chat on another model, session switch):
-// maybeAmbientOrientation self-dedups per endpoint, so a light poll is enough.
-setInterval(async () => {
-  const sessions = await getSessions();
-  const url = sessions.getCurrentEndpointUrl && sessions.getCurrentEndpointUrl();
-  if (url && url !== ambientTriedFor) maybeAmbientOrientation();
-}, 4000);

@@ -57,10 +57,12 @@ def _forward(resp: httpx.Response) -> Response:
 
 
 TILE_SOURCES = {
-    # Terrain basemap. Tiles are proxied same-origin (CSP: img-src 'self') and
+    # Basemaps. Tiles are proxied same-origin (CSP: img-src 'self') and
     # disk-cached; attribution is rendered by the map UI whenever a basemap is on.
     "terrain": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
     "osm": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    # Esri World Imagery (satellite; vegetation visible). Note the y/x order.
+    "imagery": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
 }
 TILE_CACHE = pathlib.Path("data/tile-cache")
 TILE_MAX_ZOOM = 15

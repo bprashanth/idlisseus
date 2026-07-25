@@ -25,11 +25,12 @@ export class VisualStage {
     this.root.appendChild(this.scroller);
     host.appendChild(this.root);
     this.chapters = [];
-    document.body.classList.add('visual-mode');
+    this.takeover = !(opts && opts.noTakeover);
+    if (this.takeover) document.body.classList.add('visual-mode');
   }
 
   destroy() {
-    document.body.classList.remove('visual-mode');
+    if (this.takeover) document.body.classList.remove('visual-mode');
     this.root.remove();
   }
 
@@ -243,6 +244,7 @@ class Chapter {
       const frame = renderVisual(this.canvas, primary, layerData, {
         onDrill: (feature, layer, centroid) => this._openDrill(primary, feature, layer, centroid),
         rawUrl: (ref) => this.stage.opts.rawUrl && this.stage.opts.rawUrl(ref, this.envelope),
+        preferLeaflet: this.stage.opts.preferLeaflet,
       });
       frame.classList.add('viz-enter');
       if (alt) {
@@ -250,6 +252,8 @@ class Chapter {
         const altData = await this._loadLayers(alt, fetchData);
         const altFrame = renderVisual(this.canvas, alt, altData, {
           onDrill: (feature, layer, centroid) => this._openDrill(alt, feature, layer, centroid),
+          rawUrl: (ref) => this.stage.opts.rawUrl && this.stage.opts.rawUrl(ref, this.envelope),
+          preferLeaflet: this.stage.opts.preferLeaflet,
         });
         altFrame.classList.add('viz-enter');
         supporting = supporting.filter((v) => v !== alt);
@@ -274,6 +278,8 @@ class Chapter {
         const data = await this._loadLayers(v, fetchData);
         const frame = renderVisual(this.canvas, v, data, {
           onDrill: (feature, layer, centroid) => this._openDrill(v, feature, layer, centroid),
+          rawUrl: (ref) => this.stage.opts.rawUrl && this.stage.opts.rawUrl(ref, this.envelope),
+          preferLeaflet: this.stage.opts.preferLeaflet,
         });
         frame.classList.add('viz-enter');
       });

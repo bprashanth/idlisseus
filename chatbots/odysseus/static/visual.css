@@ -769,3 +769,100 @@ body.visual-mode .viz-float-composer .chat-input-top { padding-top: 12px; }
 .viz-matrix-facet { min-width: 0; }
 .viz-matrix-facet-title { font-size: 12px; font-weight: 650; opacity: 0.75; margin: 2px 0 6px; }
 .viz-matrix-unit { font-size: 11px; opacity: 0.55; padding: 6px 2px 0; }
+
+/* ================= inline-in-chat era ================= */
+
+/* ---------- inline visual cards in message bubbles ---------- */
+.viz-inline { margin: 10px 0 4px; }
+.viz-inline-card {
+  margin: 0;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: box-shadow 0.15s, transform 0.15s;
+  max-width: 720px;
+}
+.viz-inline-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.16); transform: translateY(-1px); }
+.viz-inline-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 6px;
+}
+.viz-inline-headline { font-size: 14.5px; font-weight: 650; line-height: 1.35; }
+.viz-inline-canvas {
+  height: 340px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  pointer-events: none; /* preview: whole card is one click target */
+}
+.viz-inline-canvas .viz-figure { flex: 1; }
+.viz-inline-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  opacity: 0.65;
+  padding: 6px 14px 10px;
+}
+.viz-inline-open {
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  border-radius: 999px;
+  padding: 3px 12px;
+  cursor: zoom-in;
+}
+.viz-inline-unavailable { font-size: 12px; opacity: 0.55; padding: 6px 0; }
+
+/* ---------- side panel (click-to-expand) ---------- */
+#viz-side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(56vw, 940px);
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 34px rgba(0,0,0,0.18);
+  transform: translateX(102%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+}
+body.viz-panel-open #viz-side-panel { transform: none; }
+body.viz-panel-open .chat-container { margin-right: min(56vw, 940px); }
+body.viz-panel-open .chat-input-bar { margin-right: min(56vw, 940px); }
+.viz-side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.viz-side-title { font-size: 15px; font-weight: 650; }
+.viz-side-host { flex: 1; min-height: 0; display: flex; }
+.viz-side-host .viz-stage { height: 100%; }
+.viz-side-host .viz-chapter { padding: 14px 18px 20px; }
+.viz-side-host .viz-chapter-rail { display: none; }
+@media (max-width: 900px) {
+  #viz-side-panel { width: 100vw; }
+  body.viz-panel-open .chat-container, body.viz-panel-open .chat-input-bar { margin-right: 0; }
+}
+
+/* ---------- leaflet ---------- */
+.viz-leaflet-root { flex: 1; min-height: 320px; border-radius: 12px; overflow: hidden; z-index: 0; }
+.viz-ltooltip { font: 12.5px system-ui, sans-serif; }
+.viz-ltooltip strong { font-variant-numeric: tabular-nums; }
+.leaflet-container { background: var(--panel); font: inherit; }
+
+/* Panel chapters always stack caption below the visual — never overlay. */
+#viz-side-panel .viz-chapter { grid-template-rows: auto auto minmax(280px, 1fr) auto auto !important; }
+#viz-side-panel .viz-caption-card { position: static !important; max-width: 100% !important; }
+#viz-side-panel .viz-support-rail { position: static !important; flex-direction: row !important; }

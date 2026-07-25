@@ -35,7 +35,7 @@ function haversineKm(lat, lon1, lon2) {
 // Numeric magnitude property of a cell/point feature, generically:
 // prefer common count-ish keys, else the first finite numeric property.
 const MAGNITUDE_KEYS = ['records', 'count', 'value', 'effort', 'estimate', 'entities', 'persondays'];
-function magnitudeOf(props) {
+export function magnitudeOf(props) {
   for (const k of MAGNITUDE_KEYS) {
     if (Number.isFinite(props[k])) return { key: k, value: props[k] };
   }

@@ -3,6 +3,7 @@
 // sector vocabulary). Unknown visual types fall back to the summary card.
 
 import { renderMap } from './visualMap.js';
+import { renderLeafletMap } from './visualLeaflet.js';
 import { renderTimeSeries, renderStatTiles } from './visualChart.js';
 import {
   vegaAvailable, buildTimeSeriesSpec, buildFacetedSeriesSpec, renderSpec,
@@ -404,8 +405,21 @@ function renderChart(c, v, d, h) {
   return renderTimeSeries(c, v, d, h);
 }
 
+function renderMapAuto(c, v, d, h) {
+  // Full interactive contexts (the side panel) prefer Leaflet when vendored;
+  // inline cards and the lab keep the fast static figure map.
+  if (h && h.preferLeaflet && typeof window !== 'undefined' && window.L) {
+    try {
+      return renderLeafletMap(c, v, d, h);
+    } catch (err) {
+      console.warn('leaflet render failed, falling back to figure map', err);
+    }
+  }
+  return renderMap(c, v, d, h);
+}
+
 const RENDERERS = {
-  map: (c, v, d, h) => renderMap(c, v, d, h),
+  map: renderMapAuto,
   chart: renderChart,
   timeline: renderChart,
   metric: (c, v, d) => renderMetric(c, v, d),
@@ -423,7 +437,7 @@ const RENDERERS = {
 // Render one visual object into container. layerData: Map(layer_id -> parsed payload).
 // hooks: {onDrill(feature, layer)} — tooltip added here.
 export function renderVisual(container, visual, layerData, hooks) {
-  const h = { tooltip: tooltip(), onDrill: hooks && hooks.onDrill, rawUrl: hooks && hooks.rawUrl };
+  const h = { tooltip: tooltip(), onDrill: hooks && hooks.onDrill, rawUrl: hooks && hooks.rawUrl, preferLeaflet: hooks && hooks.preferLeaflet };
   const status = visual.status || 'ready';
   const frame = document.createElement('figure');
   frame.className = `viz-figure viz-status-${status}`;
