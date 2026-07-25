@@ -3,7 +3,7 @@
   "proposal_id": "TR-VIS-0002",
   "consumer": "idlisseus",
   "disposition": "implemented",
-  "consumer_commit": null,
+  "consumer_commit": "53cacf2",
   "contract_version": "idli-result/1",
   "summary": "Inline result cards render required_statements verbatim under a 'What this result requires you to know' rule, marked as the producer's voice (left rule, monospace caption, section mark) and visually distinct from the assistant's prose. Statements already carried as required are no longer duplicated as caveat banners. insight_answer_check is consumed off the stream and re-emitted as an idli-answer-check event; missing statements can be marked via [data-missing] on the rendered line. Results without required_statements render exactly as before. Verified live against the co-occurrence result on the ecology pack.",
   "producer_action_required": [
