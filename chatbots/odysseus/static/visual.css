@@ -603,3 +603,7 @@ body.visual-mode #chat-container > :not(.viz-stage):not(.chat-input-bar) { displ
   pointer-events: none;
 }
 .viz-brush-chip.on { opacity: 1; }
+
+/* ---------- annotations ---------- */
+.viz-ann-label { font: 12px system-ui, sans-serif; fill: currentColor; opacity: 0.85; }
+.viz-ann-primary { font-weight: 650; font-size: 13px; opacity: 1; }

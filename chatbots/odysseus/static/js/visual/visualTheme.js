@@ -133,6 +133,24 @@ export function hatchPattern(svgNS, color) {
   return { id, pattern };
 }
 
+// Stipple pattern (model-agreement "robust" texture, IPCC convention).
+export function stipplePattern(svgNS, color) {
+  const id = `viz-stipple-${++_hatchCounter}`;
+  const pattern = document.createElementNS(svgNS, 'pattern');
+  pattern.setAttribute('id', id);
+  pattern.setAttribute('width', '7');
+  pattern.setAttribute('height', '7');
+  pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+  const dot = document.createElementNS(svgNS, 'circle');
+  dot.setAttribute('cx', '3.5');
+  dot.setAttribute('cy', '3.5');
+  dot.setAttribute('r', '1');
+  dot.setAttribute('fill', color);
+  dot.setAttribute('opacity', '0.6');
+  pattern.appendChild(dot);
+  return { id, pattern };
+}
+
 export function formatNumber(v) {
   if (v === null || v === undefined || Number.isNaN(v)) return '—';
   const abs = Math.abs(v);

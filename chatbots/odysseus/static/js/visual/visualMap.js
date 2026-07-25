@@ -4,7 +4,7 @@
 // styling, hover tooltips, click-to-drilldown. No external tiles, no libraries.
 
 import {
-  palette, evidenceColor, evidenceLabel, quantileRamp, hatchPattern,
+  palette, evidenceColor, evidenceLabel, quantileRamp, hatchPattern, stipplePattern,
   RAMP_BLUE, RAMP_ORANGE, formatNumber, isDarkMode,
 } from './visualTheme.js';
 
@@ -221,6 +221,21 @@ export function renderMap(container, visual, layerData, hooks) {
       const ramp = cls === 'modelled' ? RAMP_ORANGE : (ramps.used === 0 ? RAMP_BLUE : RAMP_ORANGE);
       if (cls !== 'modelled') { ramps.used += 1; filledCellLayers += 1; }
       const q = quantileRamp(values, ramp, 5);
+      // Model-agreement texture (IPCC convention): stipple = robust signal,
+      // hatch = low agreement or weak signal. Declared in the envelope, never inferred.
+      let agreementOverlay = null;
+      const agr = layer.uncertainty && layer.uncertainty.agreement;
+      if (cls === 'modelled' && agr) {
+        if (agr.fraction >= 0.9 && (agr.signal_to_noise || 0) > 2) {
+          const s = stipplePattern(SVG, p.inkPrimary);
+          defs.appendChild(s.pattern);
+          agreementOverlay = { id: s.id, label: 'robust agreement' };
+        } else if (agr.fraction < 0.8 || (agr.signal_to_noise || 99) < 1) {
+          const hh = hatchPattern(SVG, p.inkPrimary);
+          defs.appendChild(hh.pattern);
+          agreementOverlay = { id: hh.id, label: 'low model agreement' };
+        }
+      }
       const missing = hatchPattern(SVG, p.inkMuted);
       defs.appendChild(missing.pattern);
       for (const f of fc.features) {
@@ -238,12 +253,23 @@ export function renderMap(container, visual, layerData, hooks) {
         attachHover(cell, hooks, () => tooltipRows(layer, props, key, value));
         attachDrill(cell, hooks, f, layer);
         g.appendChild(cell);
+        if (agreementOverlay) {
+          g.appendChild(el('path', {
+            d, fill: `url(#${agreementOverlay.id})`, 'pointer-events': 'none',
+          }));
+        }
       }
       legendEntries.push({
         swatch: 'ramp', ramp: q.colors || [], min: q.min, max: q.max,
         label: layer.legend?.label || evidenceLabel(cls),
         hatched: cls === 'modelled',
       });
+      if (agreementOverlay) {
+        legendEntries.push({ swatch: 'hatch', color: p.inkPrimary, label: agreementOverlay.label });
+      }
+      if (layer.absence_semantics === 'unknown') {
+        legendEntries.push({ swatch: 'outline', color: p.inkMuted, label: 'absence not interpretable (no effort data)' });
+      }
     } else if (layer.geometry_type === 'line') {
       // Transects/routes: stroked lines with a surface casing so they stay
       // legible over cell fills; width scales with the magnitude property.
@@ -347,6 +373,29 @@ export function renderMap(container, visual, layerData, hooks) {
         label: layer.legend?.label || evidenceLabel(cls),
       });
     }
+  }
+
+  // ---- annotations: leader-line labels anchored to coordinates (NYT device)
+  for (const ann of visual.annotations || []) {
+    const a = ann.anchor || {};
+    if (a.kind !== 'point' || !Number.isFinite(a.lon) || !Number.isFinite(a.lat)) continue;
+    const ax = px(a.lon), ay = py(a.lat);
+    const up = ay > height / 2;
+    const tx = Math.min(width - 150, ax + 26);
+    const ty = up ? ay - 28 : ay + 32;
+    const ag = el('g', { class: 'viz-map-annotation' });
+    ag.appendChild(el('line', {
+      x1: ax, y1: ay, x2: tx - 4, y2: ty - 4,
+      stroke: p.inkSecondary, 'stroke-width': 1,
+    }));
+    ag.appendChild(el('circle', { cx: ax, cy: ay, r: 3, fill: p.inkSecondary }));
+    const label = el('text', {
+      x: tx, y: ty,
+      class: `viz-ann-label${ann.emphasis === 'primary' ? ' viz-ann-primary' : ''}`,
+    });
+    label.textContent = ann.text || '';
+    ag.appendChild(label);
+    world.appendChild(ag);
   }
 
   // ---- scale bar

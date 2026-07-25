@@ -108,6 +108,45 @@ export function buildTimeSeriesSpec(visual, layerData, width, height) {
     },
   };
 
+  // Annotations: point anchors → labelled dot; range anchors → shaded band.
+  const anns = (visual.annotations || []).filter((a) => a.anchor);
+  for (const ann of anns) {
+    const a = ann.anchor;
+    const toMs = (v) => (typeof v === 'number' ? v : Date.parse(v));
+    if (a.kind === 'point' && a.t !== undefined) {
+      const t = toMs(a.t);
+      const datum = { t, value: Number.isFinite(a.value) ? a.value : null, label: ann.text || '' };
+      main.layer.push({
+        data: { values: [datum] },
+        mark: { type: 'point', filled: true, size: 70, color: p.inkPrimary },
+        encoding: {
+          x: { field: 't', type: 'temporal' },
+          y: datum.value !== null ? { field: 'value', type: 'quantitative' } : undefined,
+        },
+      });
+      main.layer.push({
+        data: { values: [datum] },
+        mark: {
+          type: 'text', align: 'left', dx: 8, dy: -10,
+          fontWeight: ann.emphasis === 'primary' ? 650 : 400,
+          fontSize: ann.emphasis === 'primary' ? 13 : 11.5,
+          color: p.inkPrimary,
+        },
+        encoding: {
+          x: { field: 't', type: 'temporal' },
+          y: datum.value !== null ? { field: 'value', type: 'quantitative' } : undefined,
+          text: { field: 'label' },
+        },
+      });
+    } else if (a.kind === 'range' && a.start !== undefined && a.end !== undefined) {
+      main.layer.unshift({
+        data: { values: [{ s: toMs(a.start), e: toMs(a.end) }] },
+        mark: { type: 'rect', opacity: 0.08, color: p.inkPrimary },
+        encoding: { x: { field: 's', type: 'temporal' }, x2: { field: 'e' } },
+      });
+    }
+  }
+
   const spec = { config: themeConfig(), datasets: { series: all }, vconcat: [main], resolve: { scale: { color: 'independent' } } };
   if (strip && strip.cells.length) {
     spec.datasets.strip = strip.cells.map((c) => ({ t: c.t, present: c.present ? 'covered' : 'missing' }));
