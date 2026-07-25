@@ -178,7 +178,57 @@
         "style_hint": {
           "type": "object",
           "additionalProperties": true
+        },
+        "uncertainty": {"$ref": "#/$defs/uncertainty"},
+        "denominator_ref": {"$ref": "#/$defs/dataRef"},
+        "absence_semantics": {
+          "enum": ["complete_survey", "non_detection", "unknown"]
         }
+      },
+      "additionalProperties": true
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["interval", "agreement"]},
+        "level": {"type": "number", "minimum": 0, "maximum": 1},
+        "inline": {"type": "boolean"},
+        "lower_ref": {"$ref": "#/$defs/dataRef"},
+        "upper_ref": {"$ref": "#/$defs/dataRef"},
+        "agreement": {
+          "type": "object",
+          "properties": {
+            "fraction": {"type": "number", "minimum": 0, "maximum": 1},
+            "signal_to_noise": {"type": "number"}
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "annotationAnchor": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["point", "range"]},
+        "t": {},
+        "value": {"type": ["number", "null"]},
+        "lon": {"type": ["number", "null"]},
+        "lat": {"type": ["number", "null"]},
+        "start": {},
+        "end": {}
+      },
+      "additionalProperties": true
+    },
+    "annotation": {
+      "type": "object",
+      "required": ["anchor", "text"],
+      "properties": {
+        "anchor": {"$ref": "#/$defs/annotationAnchor"},
+        "text": {"type": "string", "minLength": 1},
+        "evidence_class": {"$ref": "#/$defs/evidenceClass"},
+        "emphasis": {"enum": ["primary", "secondary"]}
       },
       "additionalProperties": true
     },
@@ -253,6 +303,10 @@
         "limitations": {
           "type": "array",
           "items": {"$ref": "#/$defs/limitation"}
+        },
+        "annotations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/annotation"}
         }
       },
       "additionalProperties": true

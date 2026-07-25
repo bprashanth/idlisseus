@@ -62,7 +62,14 @@
           },
           "style_hint": {
             "palette_role": "derived"
-          }
+          },
+          "denominator_ref": {
+            "kind": "result_data",
+            "handle": "effort",
+            "media_type": "application/geo+json",
+            "digest": "sha256:acf4dd2e282fdef79ddbc4b84d1a1d022eba0ba5a433ab8014c0de580bb5845d"
+          },
+          "absence_semantics": "non_detection"
         },
         {
           "layer_id": "effort",

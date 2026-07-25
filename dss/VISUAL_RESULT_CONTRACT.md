@@ -219,6 +219,68 @@ Model and transfer visuals must expose donor scope, target scope, model run, unc
 outcomes as layers or audit references. A failed gate returns the valid observed/data-coverage
 visual and a structured limitation; it does not erase the result.
 
+## Uncertainty, denominators and annotations (additive v1 fields)
+
+Three optional, additive fields per the `VISUAL_BACKEND_DECISION.md` roadmap. All are
+producer-optional; consumers ignore them when absent and no required list changes.
+
+**Per-layer `uncertainty`** (roadmap #1):
+
+```jsonc
+{
+  "kind": "interval",
+  "level": 0.8,
+  "lower_ref": {"kind": "result_data", "handle": "metric-lower", "media_type": "application/json"},
+  "upper_ref": {"kind": "result_data", "handle": "metric-upper", "media_type": "application/json"}
+}
+```
+
+`kind` is `interval` (a credible/confidence interval at `level`) or `agreement` (model or
+ensemble agreement, e.g. IPCC-style):
+
+```jsonc
+{"kind": "agreement", "agreement": {"fraction": 0.85, "signal_to_noise": 1.6}}
+```
+
+For `series` layers, an interval is often cheaper carried inline in the payload rows than as
+separate `lower_ref`/`upper_ref` data refs. When the producer does this, each payload row may
+carry numeric `lower`/`upper` fields alongside `value`, and the layer's `uncertainty` block
+declares only `{"kind": "interval", "level": 0.8, "inline": true}` — no refs needed.
+
+Per the roadmap: a layer with `evidence_class: "modelled"` should carry an `uncertainty` block;
+`validate_fixtures.py` emits a warning (not a failure) listing modelled layers without one.
+
+**Per-layer `denominator_ref` and `absence_semantics`** (roadmap #2):
+
+```jsonc
+{
+  "denominator_ref": {"kind": "result_data", "handle": "effort", "media_type": "application/geo+json"},
+  "absence_semantics": "non_detection"
+}
+```
+
+`denominator_ref` points at the effort/exposure payload a coverage or rate layer should be
+normalised against. `absence_semantics` is `complete_survey` (surveyed area with no target
+observed — a real absence), `non_detection` (surveyed but detection is imperfect — absence is
+not certain), or `unknown` (no basis to interpret a gap as absence at all). Idlisseus should
+refuse to render an absence claim when semantics are `unknown`.
+
+**Per-visual `annotations`** (roadmap #7):
+
+```jsonc
+{
+  "anchor": {"kind": "point", "t": "2023-12-01", "value": 32.16},
+  "text": "Highest value in the record",
+  "evidence_class": "derived",
+  "emphasis": "primary"
+}
+```
+
+`annotations` is an optional array on the visual object, alongside `layers`. Each entry anchors
+a short label to a mark: a `point` anchor (`t`/`value` for a chart mark, `lon`/`lat` for a map
+mark) or a `range` anchor (`start`/`end`). `emphasis` is `primary` or `secondary`; a primary
+annotation's `text` is a candidate for the visual's headline treatment.
+
 ## Actions and conversational continuation
 
 Actions are suggestions, not automatically executed commands:

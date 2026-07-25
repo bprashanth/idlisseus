@@ -79,7 +79,8 @@
           },
           "style_hint": {
             "palette_role": "observed"
-          }
+          },
+          "absence_semantics": "unknown"
         }
       ],
       "summary": {

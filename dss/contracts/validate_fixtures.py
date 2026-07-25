@@ -40,9 +40,31 @@ def _iter_data_refs(instance: dict) -> list[dict]:
     for visual in instance.get("visuals", []):
         for layer in visual.get("layers", []):
             refs.append(layer["data_ref"])
+            uncertainty = layer.get("uncertainty")
+            if uncertainty:
+                for key in ("lower_ref", "upper_ref"):
+                    ref = uncertainty.get(key)
+                    if ref:
+                        refs.append(ref)
+            denominator_ref = layer.get("denominator_ref")
+            if denominator_ref:
+                refs.append(denominator_ref)
         for drilldown in visual.get("drilldowns", []):
             refs.append(drilldown["data_ref"])
     return refs
+
+
+def _modelled_layers_without_uncertainty(instance: dict) -> list[str]:
+    """Layer ids with evidence_class "modelled" that carry no uncertainty
+    block. Per VISUAL_BACKEND_DECISION.md roadmap item 1: "Modelled layers
+    should not validate without one" -- enforced here as a warning, not a
+    schema failure, since the field is additive/optional in idli-result/1."""
+    missing = []
+    for visual in instance.get("visuals", []):
+        for layer in visual.get("layers", []):
+            if layer.get("evidence_class") == "modelled" and not layer.get("uncertainty"):
+                missing.append(f"{visual.get('visual_id')}/{layer.get('layer_id')}")
+    return missing
 
 
 def _check_payloads(instance: dict, seen: set[pathlib.Path]) -> list[str]:
@@ -77,6 +99,7 @@ def main() -> int:
         print("No fixtures found", file=sys.stderr)
         return 1
     errors = 0
+    warnings = 0
     seen_payload_files: set[pathlib.Path] = set()
     for path in paths:
         instance = load(path)
@@ -101,6 +124,14 @@ def main() -> int:
                     if ref.get("kind") == "result_data" and ref.get("handle")
                 )
                 print(f"ok {path.name}: {handle_count} data_ref payload(s) verified")
+            missing_uncertainty = _modelled_layers_without_uncertainty(instance)
+            if missing_uncertainty:
+                warnings += 1
+                print(
+                    f"WARN {path.name}: modelled layer(s) without an uncertainty block: "
+                    + ", ".join(missing_uncertainty),
+                    file=sys.stderr,
+                )
 
     if DATA_ROOT.is_dir():
         all_payload_files = {p.resolve() for p in DATA_ROOT.rglob("*") if p.is_file()}
@@ -108,6 +139,9 @@ def main() -> int:
         for orphan in orphans:
             errors += 1
             print(f"FAIL orphan payload file: {orphan}", file=sys.stderr)
+
+    if warnings:
+        print(f"{warnings} warning(s)", file=sys.stderr)
 
     return 1 if errors else 0
 

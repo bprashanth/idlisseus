@@ -549,8 +549,14 @@ def _time_series() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         month = index % 12 + 1
         noise = round(rng.uniform(-0.6, 0.6), 2)
         value = None if index in GAP_MONTH_INDICES else round(12.0 + 0.35 * index + noise, 2)
+        # Deterministic, monotonically widening 80% interval around value: the
+        # further into the record, the less certain the estimate.
+        width = None if value is None else round(0.5 + 0.05 * index, 2)
+        lower = None if value is None else round(value - width, 2)
+        upper = None if value is None else round(value + width, 2)
         metric_rows.append({
             "year": year, "month": month, "value": value, "unit": "units", "source_id": "source-a",
+            "lower": lower, "upper": upper,
         })
         coverage_rows.append({
             "year": year, "month": month, "present": value is not None, "source_id": "source-a",
@@ -560,6 +566,20 @@ def _time_series() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
 
 def _time_series_drilldown_rows(metric_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [{"row_id": index + 1, **row} for index, row in enumerate(metric_rows)]
+
+
+def _time_series_max_annotation(metric_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Point annotation anchored at the series maximum (highest value row)."""
+    best = max((row for row in metric_rows if row["value"] is not None), key=lambda row: row["value"])
+    return {
+        "anchor": {
+            "kind": "point",
+            "t": f"{best['year']:04d}-{best['month']:02d}-01",
+            "value": best["value"],
+        },
+        "text": "Highest value in the record",
+        "emphasis": "primary",
+    }
 
 
 def _result_cards() -> list[dict[str, Any]]:
@@ -604,8 +624,11 @@ def limitation(code: str, message: str, severity: str = "warning",
 
 
 def layer(layer_id: str, evidence_class: str, geometry_type: str, label: str,
-          payload: Any, media_type: str = "application/geo+json") -> dict[str, Any]:
-    return {
+          payload: Any, media_type: str = "application/geo+json", *,
+          uncertainty: dict[str, Any] | None = None,
+          denominator_ref: dict[str, Any] | None = None,
+          absence_semantics: str | None = None) -> dict[str, Any]:
+    result = {
         "layer_id": layer_id,
         "evidence_class": evidence_class,
         "geometry_type": geometry_type,
@@ -613,6 +636,13 @@ def layer(layer_id: str, evidence_class: str, geometry_type: str, label: str,
         "legend": {"label": label},
         "style_hint": {"palette_role": evidence_class},
     }
+    if uncertainty is not None:
+        result["uncertainty"] = uncertainty
+    if denominator_ref is not None:
+        result["denominator_ref"] = denominator_ref
+    if absence_semantics is not None:
+        result["absence_semantics"] = absence_semantics
+    return result
 
 
 def visual(visual_id: str, visual_type: str, view: str, title: str,
@@ -620,7 +650,8 @@ def visual(visual_id: str, visual_type: str, view: str, title: str,
            denominators: dict[str, Any], *,
            status: str = "ready", priority: str = "primary",
            limitations: list[dict[str, Any]] | None = None,
-           drilldown: bool = True, rows_payload: Any = None) -> dict[str, Any]:
+           drilldown: bool = True, rows_payload: Any = None,
+           annotations: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     drilldowns: list[dict[str, Any]] = []
     if drilldown:
         if rows_payload is None:
@@ -630,7 +661,7 @@ def visual(visual_id: str, visual_type: str, view: str, title: str,
             "label": "Inspect source rows",
             "data_ref": data_ref(f"{visual_id}-rows", rows_payload, "application/json"),
         }]
-    return {
+    result = {
         "visual_id": visual_id,
         "visual_type": visual_type,
         "view": view,
@@ -646,6 +677,9 @@ def visual(visual_id: str, visual_type: str, view: str, title: str,
         "drilldowns": drilldowns,
         "limitations": limitations or [],
     }
+    if annotations:
+        result["annotations"] = annotations
+    return result
 
 
 def action(action_id: str, kind: str, label: str, capability_id: str,
@@ -755,14 +789,17 @@ def fixtures() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, tuple[str
     )
 
     key = "coverage-effort"
+    effort_payload = reg(key, "effort", "application/geo+json", _effort_lines())
     coverage = visual(
         "coverage-effort-map", "map", "coverage-and-effort",
         "Records and documented effort",
         [
             layer("coverage", "derived", "cell", "Record coverage",
-                  reg(key, "coverage", "application/geo+json", _coverage_cells())),
+                  reg(key, "coverage", "application/geo+json", _coverage_cells()),
+                  denominator_ref=data_ref("effort", effort_payload, "application/geo+json"),
+                  absence_semantics="non_detection"),
             layer("effort", "observed", "line", "Documented survey effort",
-                  reg(key, "effort", "application/geo+json", _effort_lines())),
+                  effort_payload),
         ],
         "Effort is documented in 7 of the 12 cells containing records.",
         {"record_cells": 12, "effort_cells": 7},
@@ -784,7 +821,8 @@ def fixtures() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, tuple[str
                   reg(key, "target-aoi", "application/geo+json",
                       _aoi_feature_collection("target-area", "Target area", "target", RING_TARGET_AOI))),
             layer("surrounding-records", "observed", "point", "Surrounding records",
-                  reg(key, "surrounding-records", "application/geo+json", _records_as_points(surrounding_records))),
+                  reg(key, "surrounding-records", "application/geo+json", _records_as_points(surrounding_records)),
+                  absence_semantics="unknown"),
         ],
         "No target records were returned; 27 records are available in the context area.",
         {"target_records": 0, "context_records": 27},
@@ -804,7 +842,11 @@ def fixtures() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, tuple[str
             layer("donor-records", "observed", "point", "Donor observations",
                   reg(key, "donor-records", "application/geo+json", _records_as_points(donor_records))),
             layer("estimate", "modelled", "raster", "Modelled estimate",
-                  reg(key, "estimate", "application/geo+json", _estimate_cells())),
+                  reg(key, "estimate", "application/geo+json", _estimate_cells()),
+                  uncertainty={
+                      "kind": "agreement",
+                      "agreement": {"fraction": 0.85, "signal_to_noise": 1.6},
+                  }),
             layer("uncertainty", "modelled", "raster", "Model uncertainty",
                   reg(key, "uncertainty", "application/geo+json", _uncertainty_cells_target())),
         ],
@@ -860,13 +902,15 @@ def fixtures() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, tuple[str
         "time-series", "chart", "metric-time-series", "Metric through time",
         [
             layer("metric-series", "observed", "series", "Monthly measurements",
-                  reg(key, "metric-series", "application/json", metric_rows), "application/json"),
+                  reg(key, "metric-series", "application/json", metric_rows), "application/json",
+                  uncertainty={"kind": "interval", "level": 0.8, "inline": True}),
             layer("coverage-strip", "derived", "series", "Monthly coverage",
                   reg(key, "coverage-strip", "application/json", coverage_rows), "application/json"),
         ],
         "The chart contains 60 monthly values with units and coverage.",
         {"months": 60, "missing_months": 3, "sources": 1},
         rows_payload=reg(key, "time-series-rows", "application/json", _time_series_drilldown_rows(metric_rows)),
+        annotations=[_time_series_max_annotation(metric_rows)],
     )
 
     outage_limit = limitation(

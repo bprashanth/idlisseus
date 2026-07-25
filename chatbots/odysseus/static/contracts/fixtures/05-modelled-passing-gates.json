@@ -79,6 +79,13 @@
           },
           "style_hint": {
             "palette_role": "modelled"
+          },
+          "uncertainty": {
+            "kind": "agreement",
+            "agreement": {
+              "fraction": 0.85,
+              "signal_to_noise": 1.6
+            }
           }
         },
         {

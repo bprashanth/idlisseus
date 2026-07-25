@@ -55,13 +55,18 @@
             "kind": "result_data",
             "handle": "metric-series",
             "media_type": "application/json",
-            "digest": "sha256:bff086906c3b55ac72b65414506335ebde054f517fa34f0c5ed9dede17d415c0"
+            "digest": "sha256:539418858a87f787863a6529eafebfbd7ae6d7444c38bb6a09994adb2a0d9616"
           },
           "legend": {
             "label": "Monthly measurements"
           },
           "style_hint": {
             "palette_role": "observed"
+          },
+          "uncertainty": {
+            "kind": "interval",
+            "level": 0.8,
+            "inline": true
           }
         },
         {
@@ -98,11 +103,22 @@
             "kind": "result_data",
             "handle": "time-series-rows",
             "media_type": "application/json",
-            "digest": "sha256:247f1a0126c3383ca011532b1ae183edb430b6d2cf2c24db211d6f144ae282da"
+            "digest": "sha256:54c3e8bbc1e7fa0ae8e5c80b0f3f55991870bce51e668ac7ff641055bae98f64"
           }
         }
       ],
-      "limitations": []
+      "limitations": [],
+      "annotations": [
+        {
+          "anchor": {
+            "kind": "point",
+            "t": "2023-12-01",
+            "value": 32.16
+          },
+          "text": "Highest value in the record",
+          "emphasis": "primary"
+        }
+      ]
     }
   ],
   "limitations": [
