@@ -138,6 +138,17 @@ def setup_visual_routes():
             raise HTTPException(status_code=400, detail="bad result id")
         return _get(endpoint_id, f"/v1/results/{result_id}")
 
+    @router.get("/{endpoint_id}/targets")
+    def targets(endpoint_id: str):
+        if not _SAFE_ID.fullmatch(endpoint_id):
+            raise HTTPException(status_code=400, detail="bad endpoint id")
+        base, headers = _bridge_target(endpoint_id)
+        try:
+            r = httpx.post(f"{base}/v1/estimate/targets", json={}, headers=headers, timeout=_TIMEOUT)
+        except httpx.HTTPError as exc:
+            raise HTTPException(status_code=502, detail=f"bridge unreachable: {type(exc).__name__}")
+        return _forward(r)
+
     @router.get("/{endpoint_id}/headline-stats")
     def headline_stats(endpoint_id: str):
         return _get(endpoint_id, "/v1/site/headline-stats")

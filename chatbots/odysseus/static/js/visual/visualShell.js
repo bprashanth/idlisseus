@@ -5,6 +5,7 @@
 // sector words and statistics come from the endpoints themselves.
 
 import { openInPanel, refreshContext } from './visualChat.js';
+import { openExplorer } from './visualExplorer.js';
 
 const SHELL_CLASS = 'eco-shell';
 let landingEl = null;
@@ -152,7 +153,7 @@ function ensureNav() {
   const items = [
     ['chat', 'Chat', () => { hideLanding(); }],
     ['map', 'Maps', () => openLatestVisual()],
-    ['data', 'Data', () => openLatestVisual()],
+    ['data', 'Data', () => openDataExplorer()],
     ['research', 'Sites', () => showLanding(true)],
   ];
   for (const [ic, label, fn] of items) {
@@ -202,8 +203,29 @@ function toggleChatList() {
 }
 
 async function openLatestVisual() {
-  const el = document.querySelector('.viz-inline[data-result-id]');
-  if (el) openInPanel(el.dataset.resultId);
+  const els = [...document.querySelectorAll('.viz-inline[data-result-id]')];
+  const last = els[els.length - 1];
+  if (last) { openInPanel(last.dataset.resultId); return; }
+  // Nothing on screen yet: orient on the site's own map.
+  const active = await syncActiveSite();
+  if (!active) { showLanding(true); return; }
+  try {
+    const r = await fetch(`/api/visual/${encodeURIComponent(active.endpointId)}/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ capability_id: 'site-orientation', arguments: {}, question: '' }),
+    });
+    if (r.ok) {
+      const env = await r.json();
+      if (env.result_id) openInPanel(env.result_id);
+    }
+  } catch { /* leave the chat as it is */ }
+}
+
+async function openDataExplorer() {
+  const active = await syncActiveSite();
+  if (!active) { showLanding(true); return; }
+  openExplorer(active.endpointId);
 }
 
 export function setActiveSite(site) {
