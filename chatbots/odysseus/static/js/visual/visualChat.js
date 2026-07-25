@@ -154,10 +154,11 @@ const hydrating = new Set();
 
 async function hydrateSlot(slot) {
   const resultId = slot.dataset.resultId;
-  if (!resultId || hydrating.has(resultId + ':' + (slot.dataset.revision || ''))) return;
-  hydrating.add(resultId + ':' + (slot.dataset.revision || ''));
+  const hydrationKey = resultId + ':' + (slot.dataset.revision || '');
+  if (!resultId || hydrating.has(hydrationKey)) return;
+  hydrating.add(hydrationKey);
   const c = await resolveClient();
-  if (!c) { hydrating.delete(resultId); return; }
+  if (!c) { hydrating.delete(hydrationKey); return; }
   let envelope;
   try {
     envelope = await c.result(resultId);

@@ -2877,7 +2877,8 @@ export function addMessage(role, content, modelName, metadata) {
       renderInsightTrace(wrap, metadata?.insight_trace);
       renderInsightEvidence(wrap, metadata?.insight_evidence);
       renderT4GCModelRequest(wrap, textRaw, metadata?.insight_trace);
-      renderInlineVisualSlots(wrap, insightResponse.visualResults);
+      renderInlineVisualSlots(wrap, insightResponse.visualResults?.length
+        ? insightResponse.visualResults : metadata?._visualResults);
     }
 
     // Add stopped indicator + continue button for messages that were stopped by user

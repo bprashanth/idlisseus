@@ -1644,7 +1644,16 @@ export async function selectSession(id, { keepSidebar = false } = {}) {
         'OpenClaw');
     } else if (msgHistory.length) {
       for (const msg of msgHistory) {
-        const meta = msg.metadata ? { ...msg.metadata, _fromHistory: true } : null;
+        let meta = msg.metadata ? { ...msg.metadata, _fromHistory: true } : null;
+        // Result markers must survive even when the markdown renderer eats the
+        // HTML comment: extract from the raw content and pass via metadata.
+        if (msg.role === 'assistant' && typeof msg.content === 'string' && msg.content.includes('idli-result')) {
+          const found = [];
+          for (const m of msg.content.matchAll(/<!--\s*idli-result:([\s\S]*?)-->/gi)) {
+            try { const p = JSON.parse(m[1]); if (p && p.result_id) found.push(p); } catch (_) {}
+          }
+          if (found.length) meta = { ...(meta || { _fromHistory: true }), _visualResults: found };
+        }
         let displayContent;
         if (typeof msg.content === 'string') {
           displayContent = msg.content;
