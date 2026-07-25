@@ -175,6 +175,11 @@ async function ensureContextRail() {
     document.body.appendChild(contextRail);
     document.body.classList.add('viz-context-open');
   }
+  let human = null;
+  try {
+    const hr = await fetch(`${c.base}/headline-stats`);
+    if (hr.ok) human = await hr.json();
+  } catch { /* optional: packs may not publish plain-worded stats */ }
   try {
     const env = await c.query('site-orientation', {}, '');
     contextRail.replaceChildren();
@@ -196,9 +201,16 @@ async function ensureContextRail() {
     const denoms = (primary.summary && primary.summary.denominators) || {};
     const tiles = document.createElement('div');
     tiles.className = 'viz-rail-tiles';
-    const entries = Object.entries(denoms).slice(0, 3);
-    if (!denoms.sources && !denoms.source_versions) {
-      entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
+    let entries;
+    let details = null;
+    if (human && Array.isArray(human.stats) && human.stats.length) {
+      entries = human.stats.slice(0, 4).map((s) => [s.label, s.value]);
+      details = new Map(human.stats.slice(0, 4).map((s) => [s.label, s.detail || '']));
+    } else {
+      entries = Object.entries(denoms).slice(0, 3);
+      if (!denoms.sources && !denoms.source_versions) {
+        entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
+      }
     }
     const maxVal = Math.max(...entries.map(([, v]) => (typeof v === 'number' ? v : 0)), 1);
     for (const [k, v] of entries) {
@@ -211,6 +223,7 @@ async function ensureContextRail() {
       const lab = document.createElement('div');
       lab.className = 'viz-rail-tile-label';
       lab.textContent = String(k).replace(/_/g, ' ');
+      if (details && details.get(k)) lab.title = details.get(k);
       tile.appendChild(lab);
       if (typeof v === 'number' && v > 0) {
         const meter = document.createElement('div');
