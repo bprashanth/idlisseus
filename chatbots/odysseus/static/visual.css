@@ -988,3 +988,15 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
 .viz-inline-limit.viz-sev-warning { background: rgba(250, 178, 25, 0.13); }
 .viz-inline-limit.viz-sev-error { background: rgba(208, 59, 59, 0.12); }
 .viz-inline-limit-more { font-size: 11px; opacity: 0.6; padding-left: 10px; }
+
+/* first rows under the answer; the rest in the panel */
+.viz-inline-rows { padding: 10px 16px 0; }
+.viz-inline-rows-cap {
+  font: 600 10px 'JetBrainsMonoVendored', ui-monospace, monospace;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  opacity: 0.55; margin-bottom: 5px;
+}
+.viz-inline-rows .viz-table { font-size: 11.5px; }
+.viz-inline-rows .viz-table th { font-size: 9.5px; }
+.viz-inline-rows .viz-table td, .viz-inline-rows .viz-table th { padding: 4px 8px; }
+.viz-inline-rows-more { font-size: 11px; opacity: 0.6; padding: 5px 2px 0; }

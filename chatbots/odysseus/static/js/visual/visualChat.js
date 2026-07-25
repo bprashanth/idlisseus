@@ -8,7 +8,7 @@
 
 import { VisualStage } from './visualStage.js';
 import { VisualClient } from './visualData.js';
-import { renderVisual } from './visualRenderers.js';
+import { renderVisual, renderTable } from './visualRenderers.js';
 
 let client = null;
 let clientEndpointUrl = null;
@@ -393,6 +393,32 @@ async function hydrateSlot(slot) {
       // Inline cards are previews: clicks open the panel rather than drilling.
       onDrill: () => openInPanel(resultId),
     });
+  }
+
+  // Rows are the evidence: show the first few under the answer rather than
+  // behind a click, with the full set one tap away in the panel.
+  const drill = (primary && (primary.drilldowns || [])[0])
+    || ((envelope.visuals || []).flatMap((v) => v.drilldowns || [])[0]);
+  if (drill && drill.data_ref) {
+    try {
+      const rows = await c.fetchData(drill.data_ref, envelope);
+      if (Array.isArray(rows) && rows.length) {
+        const box = document.createElement('div');
+        box.className = 'viz-inline-rows';
+        const cap = document.createElement('div');
+        cap.className = 'viz-inline-rows-cap';
+        cap.textContent = drill.label || 'Records behind this';
+        box.appendChild(cap);
+        renderTable(box, rows.slice(0, 4), { limit: 4 });
+        if (rows.length > 4) {
+          const more = document.createElement('div');
+          more.className = 'viz-inline-rows-more';
+          more.textContent = `${rows.length.toLocaleString('en-IN')} rows in total — open to read them all`;
+          box.appendChild(more);
+        }
+        card.appendChild(box);
+      }
+    } catch { /* rows stay in the panel */ }
   }
 
   // The honesty lives with the number, not one click away: surface the
