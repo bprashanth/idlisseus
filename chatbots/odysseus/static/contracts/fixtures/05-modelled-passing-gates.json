@@ -1,0 +1,156 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-modelled-passing-gates",
+  "request_id": "fixture-request-modelled-passing-gates",
+  "revision": 1,
+  "status": "complete",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37",
+    "synthetic": true
+  },
+  "question": {
+    "original": "Can surrounding data be transferred here?",
+    "resolved": "Run the registered transfer model and disclose all gates.",
+    "bindings": {
+      "aoi_ids": [
+        "target"
+      ],
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "The transfer gate passed; estimate and uncertainty are available.",
+    "detail": "Synthetic renderer fixture; not evidence about a real place.",
+    "evidence_classes": [
+      "observed",
+      "modelled"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "transfer-map",
+      "visual_type": "map",
+      "view": "donor-target-gates",
+      "title": "Transferred estimate and uncertainty",
+      "priority": "primary",
+      "status": "ready",
+      "scope": {
+        "aoi_ids": [
+          "target",
+          "context"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "donor-records",
+          "evidence_class": "observed",
+          "geometry_type": "point",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "donor-records",
+            "media_type": "application/geo+json",
+            "digest": "sha256:95eb971e07bc43bf3bdbb37bfb680c3063edc0472b259543ba5242b8e06ce136"
+          },
+          "legend": {
+            "label": "Donor observations"
+          },
+          "style_hint": {
+            "palette_role": "observed"
+          }
+        },
+        {
+          "layer_id": "estimate",
+          "evidence_class": "modelled",
+          "geometry_type": "raster",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "estimate",
+            "media_type": "application/geo+json",
+            "digest": "sha256:ccff5c67a3bc271d433f8a9eebe65f85d8ac6561e1cd2b784733d50ef851c9f4"
+          },
+          "legend": {
+            "label": "Modelled estimate"
+          },
+          "style_hint": {
+            "palette_role": "modelled"
+          }
+        },
+        {
+          "layer_id": "uncertainty",
+          "evidence_class": "modelled",
+          "geometry_type": "raster",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "uncertainty",
+            "media_type": "application/geo+json",
+            "digest": "sha256:881da35d06b72509bb6ab10f6a50b068ac48c1b58f0d6a10471d4cf409e868ad"
+          },
+          "legend": {
+            "label": "Model uncertainty"
+          },
+          "style_hint": {
+            "palette_role": "modelled"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "The registered transfer gate passed for 68 target cells.",
+        "denominators": {
+          "donor_records": 84,
+          "target_cells": 68,
+          "holdout_rows": 21
+        }
+      },
+      "drilldowns": [
+        {
+          "action_id": "inspect-transfer-map",
+          "label": "Inspect source rows",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "transfer-map-rows",
+            "media_type": "application/json",
+            "digest": "sha256:922f7fc879c13008955f5b31658429b1ded43a8bcf6e59f2a84298bfcfe1d7d3"
+          }
+        }
+      ],
+      "limitations": []
+    }
+  ],
+  "limitations": [
+    {
+      "code": "synthetic-data",
+      "severity": "info",
+      "message": "This result uses synthetic test data and is not evidence about a real place.",
+      "affects": [
+        "answer"
+      ],
+      "details_ref": null
+    }
+  ],
+  "actions": [],
+  "audit": {
+    "audit_id": "fixture-audit-modelled-passing-gates",
+    "source_versions": [
+      {
+        "source_id": "synthetic-fixture-source",
+        "version": "1",
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb",
+        "synthetic": true
+      }
+    ],
+    "capability_runs": [
+      {
+        "capability_id": "gated-transfer",
+        "version": "1.0.0",
+        "status": "complete"
+      }
+    ],
+    "query_hash": "sha256:b47ee07edd3104531011ea1d44903e8c2fe933e8567d1a9eb12ba123f3935427"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "idli-activity/1",
+  "request_id": "fixture-request-modelled-passing-gates",
+  "phase": "compute",
+  "label": "Testing transfer gates",
+  "capability_id": "gated-transfer",
+  "state": "running",
+  "sequence": 2
+}

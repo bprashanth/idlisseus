@@ -656,6 +656,10 @@ app.include_router(setup_embedding_routes())
 from routes.model_routes import setup_model_routes
 app.include_router(setup_model_routes(model_discovery))
 
+# Visual result proxy (idli-result/1 stage)
+from routes.visual_routes import setup_visual_routes
+app.include_router(setup_visual_routes())
+
 # GitHub Copilot device-flow login
 from routes.copilot_routes import setup_copilot_routes
 app.include_router(setup_copilot_routes())

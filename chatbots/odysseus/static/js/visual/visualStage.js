@@ -1,0 +1,412 @@
+// visualStage.js — the visual-first conversation stage.
+// A conversation is a scrollable sequence of chapters; one question → one chapter.
+// Each chapter renders an idli-result/1 envelope: primary visual full-bleed,
+// caption card with headline + evidence chips, supporting visuals as a rail,
+// structured limitations, capability-derived action chips, and a slide-in
+// evidence panel for drill-downs. Revisions replace in place — no jumps.
+
+import { renderVisual, renderTable, tooltip } from './visualRenderers.js';
+import { evidenceColor, evidenceLabel, formatNumber } from './visualTheme.js';
+
+export class VisualStage {
+  // host: element the stage mounts into. opts.fetchData(ref) -> Promise<parsed payload>
+  // opts.onAction(action, envelope) — action chip clicked.
+  constructor(host, opts) {
+    this.host = host;
+    this.opts = opts || {};
+    this.root = document.createElement('div');
+    this.root.className = 'viz-stage';
+    this.rail = document.createElement('nav');
+    this.rail.className = 'viz-chapter-rail';
+    this.rail.setAttribute('aria-label', 'Chapters');
+    this.root.appendChild(this.rail);
+    this.scroller = document.createElement('div');
+    this.scroller.className = 'viz-stage-scroller';
+    this.root.appendChild(this.scroller);
+    host.appendChild(this.root);
+    this.chapters = [];
+    document.body.classList.add('visual-mode');
+  }
+
+  destroy() {
+    document.body.classList.remove('visual-mode');
+    this.root.remove();
+  }
+
+  addChapter(question) {
+    const ch = new Chapter(this, question, this.chapters.length);
+    this.chapters.push(ch);
+    this.scroller.appendChild(ch.node);
+    this._railDot(ch);
+    requestAnimationFrame(() => ch.node.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    return ch;
+  }
+
+  // Find a chapter by request/result id (revision routing).
+  chapterFor(envelope) {
+    return this.chapters.find(
+      (c) => c.resultId === envelope.result_id || c.requestId === envelope.request_id
+    ) || null;
+  }
+
+  _railDot(ch) {
+    const dot = document.createElement('button');
+    dot.className = 'viz-rail-dot';
+    dot.title = ch.question || `Chapter ${ch.index + 1}`;
+    dot.setAttribute('aria-label', dot.title);
+    dot.addEventListener('click', () => ch.node.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    this.rail.appendChild(dot);
+    ch.railDot = dot;
+    // active-dot tracking
+    if (!this._observer) {
+      this._observer = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          const c = this.chapters.find((x) => x.node === e.target);
+          if (c && c.railDot) c.railDot.classList.toggle('on', e.isIntersecting);
+        }
+      }, { root: this.scroller, threshold: 0.5 });
+    }
+    this._observer.observe(ch.node);
+  }
+}
+
+class Chapter {
+  constructor(stage, question, index) {
+    this.stage = stage;
+    this.question = question;
+    this.index = index;
+    this.resultId = null;
+    this.requestId = null;
+    this.revision = 0;
+    this.node = document.createElement('section');
+    this.node.className = 'viz-chapter';
+    // question header (small, quiet — the visual is the answer)
+    this.qNode = document.createElement('div');
+    this.qNode.className = 'viz-chapter-question';
+    this.qNode.textContent = question || '';
+    this.node.appendChild(this.qNode);
+    // activity ticker
+    this.activityNode = document.createElement('div');
+    this.activityNode.className = 'viz-activity';
+    this.node.appendChild(this.activityNode);
+    // main canvas
+    this.canvas = document.createElement('div');
+    this.canvas.className = 'viz-canvas';
+    this.node.appendChild(this.canvas);
+    // caption card
+    this.caption = document.createElement('div');
+    this.caption.className = 'viz-caption-card';
+    this.node.appendChild(this.caption);
+    // supporting rail
+    this.supportRail = document.createElement('div');
+    this.supportRail.className = 'viz-support-rail';
+    this.node.appendChild(this.supportRail);
+    // evidence panel host
+    this.panel = null;
+    this._skeleton();
+  }
+
+  _skeleton() {
+    this.canvas.replaceChildren();
+    const sk = document.createElement('div');
+    sk.className = 'viz-skeleton';
+    sk.innerHTML = '<div class="viz-skeleton-pulse"></div>';
+    this.canvas.appendChild(sk);
+  }
+
+  setActivity(activity) {
+    // activity: idli-activity/1 event or plain string
+    const label = typeof activity === 'string' ? activity : (activity && activity.label) || '';
+    const state = typeof activity === 'object' && activity ? activity.state : 'running';
+    this.activityNode.replaceChildren();
+    if (!label || state === 'complete') {
+      this.activityNode.classList.remove('on');
+      return;
+    }
+    this.activityNode.classList.add('on');
+    const pulse = document.createElement('span');
+    pulse.className = 'viz-activity-pulse';
+    this.activityNode.appendChild(pulse);
+    const text = document.createElement('span');
+    text.textContent = label;
+    this.activityNode.appendChild(text);
+  }
+
+  appendProse(markdownHtml) {
+    // Streamed assistant prose lands in the caption's expandable detail area.
+    if (!this.proseNode) {
+      this.proseNode = document.createElement('details');
+      this.proseNode.className = 'viz-caption-more';
+      const sum = document.createElement('summary');
+      sum.textContent = 'More';
+      this.proseNode.appendChild(sum);
+      this.proseBody = document.createElement('div');
+      this.proseNode.appendChild(this.proseBody);
+      this.caption.appendChild(this.proseNode);
+    }
+    this.proseBody.innerHTML = markdownHtml; // caller sanitizes via app markdown pipeline
+  }
+
+  async setEnvelope(envelope) {
+    // Progressive: revisions replace content in place, keyed by result_id.
+    if (envelope.revision && envelope.revision <= this.revision
+        && this.resultId === envelope.result_id) return;
+    this.revision = envelope.revision || 1;
+    this.resultId = envelope.result_id;
+    this.requestId = envelope.request_id;
+    this.envelope = envelope;
+    if (envelope.status === 'complete' || envelope.status === 'partial') this.setActivity('');
+    await this._render();
+  }
+
+  async _render() {
+    const env = this.envelope;
+    const fetchData = this.stage.opts.fetchData;
+    // ---- caption card
+    this.caption.replaceChildren();
+    if (env.site && env.site.synthetic) {
+      const ribbon = document.createElement('div');
+      ribbon.className = 'viz-synthetic-ribbon';
+      ribbon.textContent = 'Synthetic test data';
+      this.caption.appendChild(ribbon);
+    }
+    const head = document.createElement('h2');
+    head.className = 'viz-headline';
+    head.textContent = (env.answer && env.answer.headline) || '';
+    this.caption.appendChild(head);
+    if (env.answer && env.answer.detail) {
+      const detail = document.createElement('p');
+      detail.className = 'viz-detail';
+      detail.textContent = env.answer.detail;
+      this.caption.appendChild(detail);
+    }
+    // evidence chips
+    const chips = document.createElement('div');
+    chips.className = 'viz-chip-row';
+    for (const cls of (env.answer && env.answer.evidence_classes) || []) {
+      chips.appendChild(evidenceChip(cls));
+    }
+    this.caption.appendChild(chips);
+    // limitations
+    for (const lim of env.limitations || []) {
+      this.caption.appendChild(limitationBanner(lim));
+    }
+    // actions
+    const actions = (env.actions || []).filter((a) => a && a.label);
+    if (actions.length) {
+      const row = document.createElement('div');
+      row.className = 'viz-action-row';
+      for (const a of actions) {
+        const chip = document.createElement('button');
+        chip.className = 'viz-action-chip';
+        chip.dataset.kind = a.kind || 'follow_up';
+        chip.textContent = a.label;
+        chip.addEventListener('click', () => {
+          if (this.stage.opts.onAction) this.stage.opts.onAction(a, env);
+        });
+        row.appendChild(chip);
+      }
+      this.caption.appendChild(row);
+    }
+    // provenance footer (compact, honest)
+    this.caption.appendChild(provenanceFooter(env, () => this._openAudit()));
+    if (this.proseNode) this.caption.appendChild(this.proseNode);
+
+    // ---- visuals
+    const visuals = env.visuals || [];
+    const primary = visuals.find((v) => v.priority === 'primary') || visuals[0] || null;
+    const supporting = visuals.filter((v) => v !== primary && v.priority !== 'audit');
+
+    this.canvas.replaceChildren();
+    this.node.classList.remove('viz-primary-map', 'viz-primary-chart');
+    if (!primary) {
+      // Text-only answer: the caption *is* the content; show it centered.
+      this.node.classList.add('viz-chapter-textonly');
+    } else {
+      this.node.classList.remove('viz-chapter-textonly');
+      // Full-bleed maps carry the caption as an overlay (desktop); charts stack.
+      if (primary.visual_type === 'map' && (primary.status === 'ready' || primary.status === 'partial')) {
+        this.node.classList.add('viz-primary-map');
+      }
+      const layerData = await this._loadLayers(primary, fetchData);
+      const frame = renderVisual(this.canvas, primary, layerData, {
+        onDrill: (feature, layer) => this._openDrill(primary, feature, layer),
+      });
+      frame.classList.add('viz-enter');
+    }
+
+    this.supportRail.replaceChildren();
+    for (const v of supporting) {
+      const card = document.createElement('button');
+      card.className = 'viz-support-card';
+      const t = document.createElement('span');
+      t.className = 'viz-support-title';
+      t.textContent = v.title || v.visual_type;
+      card.appendChild(t);
+      const s = document.createElement('span');
+      s.className = 'viz-support-meta';
+      s.textContent = `${v.visual_type} · ${v.status}`;
+      card.appendChild(s);
+      card.addEventListener('click', async () => {
+        // Promote the supporting visual to the canvas (crossfade, no jump).
+        this.canvas.replaceChildren();
+        const data = await this._loadLayers(v, fetchData);
+        const frame = renderVisual(this.canvas, v, data, {
+          onDrill: (feature, layer) => this._openDrill(v, feature, layer),
+        });
+        frame.classList.add('viz-enter');
+      });
+      this.supportRail.appendChild(card);
+    }
+  }
+
+  async _loadLayers(visual, fetchData) {
+    const layerData = new Map();
+    await Promise.all((visual.layers || []).map(async (layer) => {
+      if (!layer.data_ref) return;
+      try {
+        const parsed = await fetchData(layer.data_ref, this.envelope);
+        if (parsed) layerData.set(layer.layer_id, parsed);
+      } catch (err) {
+        console.warn('visual layer fetch failed', layer.layer_id, err);
+      }
+    }));
+    return layerData;
+  }
+
+  async _openDrill(visual, feature, layer) {
+    const drills = (visual.drilldowns || []);
+    const props = (feature && feature.properties) || {};
+    const panel = this._panel();
+    panel.title.textContent = layer.legend?.label || evidenceLabel(layer.evidence_class);
+    panel.body.replaceChildren();
+    // Clicked mark first: its own facts, no black box.
+    const factRows = Object.keys(props).map((k) => ({ field: k.replace(/_/g, ' '), value: props[k] }));
+    if (factRows.length) renderTable(panel.body, factRows);
+    // Then the declared drilldown rows, filtered client-side where an obvious key matches.
+    for (const d of drills) {
+      const h = document.createElement('h3');
+      h.className = 'viz-panel-subhead';
+      h.textContent = d.label || 'Rows';
+      panel.body.appendChild(h);
+      try {
+        let rows = await this.stage.opts.fetchData(d.data_ref, this.envelope);
+        if (Array.isArray(rows)) {
+          const keys = ['source_row', 'event_id', 'location_id'];
+          const key = keys.find((k) => props[k] !== undefined && rows[0] && rows[0][k] !== undefined);
+          if (key) {
+            const filtered = rows.filter((r) => r[key] === props[key]);
+            if (filtered.length) rows = filtered;
+          }
+          renderTable(panel.body, rows);
+        }
+      } catch (err) {
+        const fail = document.createElement('div');
+        fail.className = 'viz-empty-note';
+        fail.textContent = 'Rows unavailable.';
+        panel.body.appendChild(fail);
+      }
+    }
+    panel.open();
+  }
+
+  _openAudit() {
+    const env = this.envelope;
+    const panel = this._panel();
+    panel.title.textContent = 'Provenance & audit';
+    panel.body.replaceChildren();
+    const audit = env.audit || {};
+    const rows = [];
+    rows.push({ field: 'result id', value: env.result_id });
+    rows.push({ field: 'revision', value: env.revision });
+    rows.push({ field: 'status', value: env.status });
+    if (audit.audit_id) rows.push({ field: 'audit id', value: audit.audit_id });
+    if (audit.query_hash) rows.push({ field: 'query hash', value: audit.query_hash });
+    if (env.site) rows.push({ field: 'pack digest', value: env.site.pack_digest });
+    if (env.question && env.question.resolved) rows.push({ field: 'resolved question', value: env.question.resolved });
+    renderTable(panel.body, rows);
+    const sv = audit.source_versions || [];
+    if (sv.length) {
+      const h = document.createElement('h3');
+      h.className = 'viz-panel-subhead';
+      h.textContent = 'Source versions';
+      panel.body.appendChild(h);
+      renderTable(panel.body, sv.map((s) => (typeof s === 'string' ? { source: s } : s)));
+    }
+    panel.open();
+  }
+
+  _panel() {
+    if (this.panelObj) return this.panelObj;
+    const wrap = document.createElement('aside');
+    wrap.className = 'viz-evidence-panel';
+    wrap.setAttribute('role', 'dialog');
+    wrap.setAttribute('aria-label', 'Evidence');
+    const head = document.createElement('div');
+    head.className = 'viz-panel-head';
+    const title = document.createElement('h2');
+    title.className = 'viz-panel-title';
+    head.appendChild(title);
+    const close = document.createElement('button');
+    close.className = 'viz-panel-close';
+    close.textContent = '×';
+    close.setAttribute('aria-label', 'Close evidence panel');
+    close.addEventListener('click', () => wrap.classList.remove('on'));
+    head.appendChild(close);
+    wrap.appendChild(head);
+    const body = document.createElement('div');
+    body.className = 'viz-panel-body';
+    wrap.appendChild(body);
+    this.node.appendChild(wrap);
+    this.panelObj = { node: wrap, title, body, open: () => wrap.classList.add('on') };
+    return this.panelObj;
+  }
+}
+
+function evidenceChip(cls) {
+  const chip = document.createElement('span');
+  chip.className = 'viz-evidence-chip';
+  chip.dataset.cls = cls;
+  const dot = document.createElement('span');
+  dot.className = 'viz-chip-dot';
+  dot.style.setProperty('--sw', evidenceColor(cls));
+  chip.appendChild(dot);
+  const lab = document.createElement('span');
+  lab.textContent = evidenceLabel(cls);
+  chip.appendChild(lab);
+  return chip;
+}
+
+function limitationBanner(lim) {
+  const b = document.createElement('div');
+  b.className = `viz-limitation viz-sev-${lim.severity || 'info'}`;
+  const icon = document.createElement('span');
+  icon.className = 'viz-lim-icon';
+  icon.textContent = lim.severity === 'error' ? '⛔' : lim.severity === 'warning' ? '⚠' : 'ℹ';
+  b.appendChild(icon);
+  const msg = document.createElement('span');
+  msg.textContent = lim.message || lim.code || '';
+  b.appendChild(msg);
+  return b;
+}
+
+function provenanceFooter(env, onAudit) {
+  const f = document.createElement('div');
+  f.className = 'viz-prov-footer';
+  const site = document.createElement('span');
+  site.textContent = (env.site && env.site.label) || '';
+  f.appendChild(site);
+  const audit = env.audit || {};
+  const nSources = (audit.source_versions || []).length;
+  if (nSources) {
+    const s = document.createElement('span');
+    s.textContent = `${nSources} source version${nSources > 1 ? 's' : ''}`;
+    f.appendChild(s);
+  }
+  const btn = document.createElement('button');
+  btn.className = 'viz-audit-link';
+  btn.textContent = 'Provenance';
+  btn.addEventListener('click', onAudit);
+  f.appendChild(btn);
+  return f;
+}

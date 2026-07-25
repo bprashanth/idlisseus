@@ -1463,7 +1463,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 // Consume every complete marker, not just a single anchored marker.
                 const compatDelta = String(json.delta);
                 const compatMarkers = Array.from(
-                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions|evidence):([\s\S]*?)-->/gi),
+                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions|evidence|result):([\s\S]*?)-->/gi),
                 );
                 if (compatMarkers.length) {
                   for (const marker of compatMarkers) {
@@ -1485,6 +1485,14 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                     if (kind === 'evidence') {
                       holder._insightEvidence = payload;
+                      continue;
+                    }
+                    if (kind === 'result') {
+                      // Visual result marker: hand off to the visual stage immediately
+                      // so the first visual appears while prose is still streaming.
+                      try {
+                        window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
+                      } catch (_) { /* stage unavailable — prose still renders */ }
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();
@@ -1513,7 +1521,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                   }
                   const visibleDelta = compatDelta.replace(
-                    /<!--\s*idli-(?:progress|skill|actions|evidence):[\s\S]*?-->/gi, '',
+                    /<!--\s*idli-(?:progress|skill|actions|evidence|result):[\s\S]*?-->/gi, '',
                   );
                   if (!visibleDelta.trim()) continue;
                   json.delta = visibleDelta;

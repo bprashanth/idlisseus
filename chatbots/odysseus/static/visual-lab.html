@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual lab — idli-result renderers</title>
+<link rel="stylesheet" href="./visual.css">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --panel: #f6f6f4; --border: #e4e3dd;
+  }
+  :root:not(.light) {
+    --bg: #121211; --fg: #f2f1ec; --panel: #1e1e1c; --border: #34332f;
+  }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  header.lab-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  header.lab-bar select, header.lab-bar button {
+    font: inherit;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--fg);
+    cursor: pointer;
+  }
+  #lab-host { flex: 1; min-height: 0; display: flex; position: relative; }
+  .lab-status { font-size: 12px; opacity: 0.6; margin-left: auto; }
+</style>
+</head>
+<body>
+<header class="lab-bar">
+  <strong>Visual lab</strong>
+  <select id="fixture-select" aria-label="Fixture"></select>
+  <button id="prev-btn">‹ prev</button>
+  <button id="next-btn">next ›</button>
+  <button id="theme-btn">light/dark</button>
+  <button id="all-btn">render all</button>
+  <span class="lab-status" id="lab-status"></span>
+</header>
+<main id="lab-host"></main>
+<script type="module" src="./js/visual/visualLab.js"></script>
+</body>
+</html>

@@ -15,6 +15,20 @@ The primary chatbot deployment is Idlisseus (formerly Odysseus) in `chatbots/ody
 - HTML documents render as interactive iframes (Chart.js, vanilla JS work)
 - Plain text, markdown, JSON render in a code panel with copy/download
 
+**Visual stage (idli-result/1) — new**
+- Visual-first conversation mode: full-viewport "stage" of scrollable chapters, one per question
+- Generic renderers driven by the `idli-result/1` contract (`dss/VISUAL_RESULT_CONTRACT.md`):
+  SVG figure maps (AOI/cells/points/modelled surfaces), time series with coverage strips,
+  stat tiles, hierarchy bars, dashboards of result cards — no sector vocabulary in the UI
+- Evidence-class design system (validated palette): observed/derived/modelled hues;
+  proxy dashed, designed diamonds, reported outline, missing hatched
+- Hover tooltips, click-through drill-down to source rows, provenance/audit panel,
+  capability-derived action chips, synthetic-data ribbon, partial/failed states
+- Transport: `<!-- idli-result:{...} -->` markers in the chat stream + `/api/visual/*` proxy
+  (`routes/visual_routes.py`); ambient site-orientation on visual-capable endpoints
+- Dev: `static/visual-lab.html` renders the contract fixtures (`static/contracts/fixtures/`)
+  with zero backends; code in `static/js/visual/`
+
 **Web / research**
 - `web_search` via self-hosted SearXNG (no external search API key)
 - Numbered citation panel: sources extracted from tool output and displayed

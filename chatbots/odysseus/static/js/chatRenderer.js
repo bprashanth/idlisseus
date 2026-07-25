@@ -689,6 +689,7 @@ export function parseInsightResponse(content, modelName, metadata) {
   const progressEnvelopes = Array.from(source.matchAll(/<!--\s*idli-progress:([\s\S]*?)-->/gi));
   const actionEnvelopes = Array.from(source.matchAll(/<!--\s*idli-actions:([\s\S]*?)-->/gi));
   const evidenceEnvelopes = Array.from(source.matchAll(/<!--\s*idli-evidence:([\s\S]*?)-->/gi));
+  const resultEnvelopes = Array.from(source.matchAll(/<!--\s*idli-result:([\s\S]*?)-->/gi));
   const legacy = source.match(/<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>([\s\S]*?)<\/details>\s*/i);
   const legacyStart = legacy ? null : source.match(
     /<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>/i,
@@ -702,6 +703,7 @@ export function parseInsightResponse(content, modelName, metadata) {
     || progressEnvelopes.length > 0
     || actionEnvelopes.length > 0
     || evidenceEnvelopes.length > 0
+    || resultEnvelopes.length > 0
     || !!metadata?.insight_trace
     || !!metadata?.insight_actions
     || !!metadata?.insight_evidence;
@@ -712,6 +714,20 @@ export function parseInsightResponse(content, modelName, metadata) {
   let clean = source;
   if (progressEnvelopes.length) {
     clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
+  }
+  const visualResults = [];
+  if (resultEnvelopes.length) {
+    for (const match of resultEnvelopes) {
+      try {
+        const payload = JSON.parse(match[1]);
+        if (payload && payload.result_id) {
+          visualResults.push(payload);
+          // History and final renders re-announce results; the stage dedups by id.
+          window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
+        }
+      } catch (_) { /* malformed marker is simply hidden */ }
+    }
+    clean = clean.replace(/<!--\s*idli-result:[\s\S]*?-->/gi, '').trim();
   }
   let trace = _normaliseInsightTrace(metadata?.insight_trace || {});
   let actions = _normaliseInsightActions(metadata?.insight_actions);
@@ -791,7 +807,7 @@ export function parseInsightResponse(content, modelName, metadata) {
       ? (source.slice(0, legacy.index) + source.slice(legacy.index + legacy[0].length)).trim()
       : source.slice(0, legacyStart.index).trim();
   }
-  return { content: clean, trace, actions, evidence, isInsight: true };
+  return { content: clean, trace, actions, evidence, visualResults, isInsight: true };
 }
 
 /** Render controller-verified evidence classes without adding tags to answer prose. */
