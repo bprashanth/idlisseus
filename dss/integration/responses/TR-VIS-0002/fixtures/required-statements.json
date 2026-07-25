@@ -1,0 +1,102 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-required-statements",
+  "request_id": "fixture-required-statements",
+  "revision": 1,
+  "status": "complete",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:0",
+    "synthetic": true
+  },
+  "question": {
+    "original": "Where were both subjects recorded?",
+    "resolved": "TR-VIS-0002 acceptance fixture",
+    "bindings": {
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "Twelve squares hold records of both subjects.",
+    "detail": "Sector-neutral acceptance fixture.",
+    "evidence_classes": [
+      "derived"
+    ]
+  },
+  "required_statements": [
+    {
+      "id": "join-rule",
+      "statement": "A shared square means each subject was written down inside the same square. It is not an interaction or contact between them.",
+      "why": "Without this the reader reads co-occurrence as association."
+    },
+    {
+      "id": "effort-shapes-overlap",
+      "statement": "Where records overlap partly shows where people looked.",
+      "why": "Overlap is confounded by survey effort."
+    },
+    {
+      "id": "name-the-survey",
+      "statement": "Name the survey each figure came from: Survey A; Survey B.",
+      "why": "Model-directed: instructs the answer, not the reader."
+    }
+  ],
+  "visuals": [
+    {
+      "visual_id": "shared",
+      "visual_type": "map",
+      "view": "co-occurrence",
+      "title": "Shared squares",
+      "priority": "primary",
+      "status": "ready",
+      "scope": {
+        "aoi_ids": [
+          "target"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "shared-squares",
+          "evidence_class": "derived",
+          "geometry_type": "cell",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "shared-squares",
+            "media_type": "application/geo+json"
+          },
+          "legend": {
+            "label": "Recorded together"
+          },
+          "style_hint": {
+            "palette_role": "derived",
+            "render": "fill",
+            "emphasis": "primary"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "",
+        "denominators": {
+          "shared_squares": 12
+        }
+      },
+      "drilldowns": [],
+      "limitations": []
+    }
+  ],
+  "limitations": [],
+  "actions": [],
+  "audit": {
+    "audit_id": "fixture",
+    "source_versions": [
+      "source-a",
+      "source-b"
+    ],
+    "capability_runs": [],
+    "query_hash": "sha256:0"
+  }
+}

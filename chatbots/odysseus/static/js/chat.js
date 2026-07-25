@@ -2191,6 +2191,13 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 if (_isBg) continue;
                 if (currentHolder && json.id) currentHolder.dataset.dbId = json.id;
 
+              } else if (json.type === 'insight_answer_check') {
+                // Producer's own audit of the answer: mark required statements
+                // the prose failed to make, without rewriting the prose.
+                try {
+                  window.dispatchEvent(new CustomEvent('idli-answer-check', { detail: json }));
+                } catch (_) { /* nothing rendered if the stage is absent */ }
+                continue;
               } else if (json.type === 'tool_start') {
                 if (_isBg) continue;
                 _cancelThinkingTimer();

@@ -1000,3 +1000,25 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
 .viz-inline-rows .viz-table th { font-size: 9.5px; }
 .viz-inline-rows .viz-table td, .viz-inline-rows .viz-table th { padding: 4px 8px; }
 .viz-inline-rows-more { font-size: 11px; opacity: 0.6; padding: 5px 2px 0; }
+
+/* TR-VIS-0002: the producer's required statements — its voice, not the model's */
+.viz-required {
+  margin: 10px 16px 0;
+  padding: 10px 12px;
+  border-left: 3px solid color-mix(in srgb, var(--fg) 25%, transparent);
+  background: color-mix(in srgb, var(--fg) 3.5%, transparent);
+  border-radius: 0 10px 10px 0;
+}
+.viz-required-cap {
+  font: 600 9.5px 'JetBrainsMonoVendored', ui-monospace, monospace;
+  letter-spacing: 0.11em; text-transform: uppercase;
+  opacity: 0.5; margin-bottom: 6px;
+}
+.viz-required-line {
+  display: flex; gap: 8px; align-items: baseline;
+  font-size: 12.5px; line-height: 1.5;
+  padding: 2px 0;
+  color: var(--fg);
+}
+.viz-required-mark { opacity: 0.35; flex: none; font-size: 11px; }
+.viz-required-line[data-missing="1"] { background: rgba(250, 178, 25, 0.14); border-radius: 6px; padding: 4px 6px; }

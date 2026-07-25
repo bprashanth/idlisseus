@@ -421,10 +421,45 @@ async function hydrateSlot(slot) {
     } catch { /* rows stay in the panel */ }
   }
 
+  // TR-VIS-0002: statements the producing capability says must accompany this
+  // result, in its own words. Rendered as the floor under the model's prose —
+  // visibly the source's voice, not the assistant's.
+  // Some required statements are addressed to the answering model ("Name the
+  // survey each figure came from: …") rather than to the reader. Those are a
+  // producer instruction, not a fact to display; show only reader-facing ones.
+  const MODEL_DIRECTED = /^(name|say|state|mention|report|include|use|avoid|do not|don't)\b/i;
+  const required = (envelope.required_statements || [])
+    .filter((r) => r && r.statement && !MODEL_DIRECTED.test(r.statement.trim()));
+  if (required.length) {
+    const box = document.createElement('div');
+    box.className = 'viz-required';
+    const cap = document.createElement('div');
+    cap.className = 'viz-required-cap';
+    cap.textContent = 'What this result requires you to know';
+    box.appendChild(cap);
+    for (const r of required.slice(0, 4)) {
+      const line = document.createElement('div');
+      line.className = 'viz-required-line';
+      if (r.id) line.dataset.statementId = r.id;
+      const mark = document.createElement('span');
+      mark.className = 'viz-required-mark';
+      mark.textContent = '§';
+      line.appendChild(mark);
+      const txt = document.createElement('span');
+      txt.textContent = r.statement;
+      if (r.why) txt.title = r.why;
+      line.appendChild(txt);
+      box.appendChild(line);
+    }
+    card.appendChild(box);
+  }
+
   // The honesty lives with the number, not one click away: surface the
   // serious caveats on the card, keep the rest for the panel.
+  const requiredText = new Set(required.map((r) => (r.statement || '').slice(0, 60)));
   const serious = (envelope.limitations || [])
-    .filter((l) => l && (l.severity === 'error' || l.severity === 'warning') && l.message);
+    .filter((l) => l && (l.severity === 'error' || l.severity === 'warning') && l.message)
+    .filter((l) => !requiredText.has(l.message.slice(0, 60)));
   if (serious.length) {
     const lims = document.createElement('div');
     lims.className = 'viz-inline-limits';
