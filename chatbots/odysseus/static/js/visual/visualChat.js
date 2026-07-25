@@ -45,6 +45,10 @@ function ensureStage() {
       if (!client) throw new Error('no visual client');
       return client.fetchData(ref, envelope);
     },
+    explain: (resultId, layerId, mark) => {
+      if (!client) throw new Error('no visual client');
+      return client.explain(resultId, layerId, mark);
+    },
     onAction: (action) => {
       // Actions become ordinary audited chat turns: fill the composer and send.
       const input = document.getElementById('message');

@@ -95,6 +95,19 @@ export class VisualClient {
     if (!res.ok) throw new Error(`result ${res.status}`);
     return res.json();
   }
+
+  // Deterministic computation lineage for a result (optionally one mark of one layer).
+  async explain(resultId, layerId, mark) {
+    const params = new URLSearchParams();
+    if (layerId) params.set('layer', layerId);
+    if (mark) params.set('mark', mark);
+    const qs = params.toString();
+    const res = await fetch(
+      `${this.base}/results/${encodeURIComponent(resultId)}/explain${qs ? '?' + qs : ''}`
+    );
+    if (!res.ok) throw new Error(`explain ${res.status}`);
+    return res.json();
+  }
 }
 
 // ---- fixture client (dev/lab; also the offline fallback)

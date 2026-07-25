@@ -408,7 +408,7 @@ function tooltipRows(layer, props, magnitudeKey, magnitudeValue) {
   if (magnitudeKey !== null) {
     rows.push({ label: magnitudeKey.replace(/_/g, ' '), value: formatNumber(magnitudeValue), strong: true });
   }
-  for (const k of ['label', 'event_date', 'source_id', 'unit', 'scope_role', 'role', 'uncertainty']) {
+  for (const k of ['label', 'event_date', 'source_id', 'source_row', 'records', 'unit', 'scope_role', 'role', 'uncertainty']) {
     if (props[k] !== undefined && props[k] !== null && k !== magnitudeKey) {
       rows.push({ label: k.replace(/_/g, ' '), value: String(props[k]) });
     }

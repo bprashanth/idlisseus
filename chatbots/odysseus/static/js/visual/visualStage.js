@@ -215,17 +215,28 @@ class Chapter {
     // ---- visuals
     const visuals = env.visuals || [];
     const primary = visuals.find((v) => v.priority === 'primary') || visuals[0] || null;
-    const supporting = visuals.filter((v) => v !== primary && v.priority !== 'audit');
+    let supporting = visuals.filter((v) => v !== primary && v.priority !== 'audit');
 
     this.canvas.replaceChildren();
-    this.node.classList.remove('viz-primary-map', 'viz-primary-chart');
+    this.node.classList.remove('viz-primary-map', 'viz-primary-chart', 'viz-chapter-split');
     if (!primary) {
       // Text-only answer: the caption *is* the content; show it centered.
       this.node.classList.add('viz-chapter-textonly');
     } else {
       this.node.classList.remove('viz-chapter-textonly');
+      // Variety rule: a conversation should not show the same form twice in a
+      // row when the envelope offers another grammar. If this chapter's primary
+      // repeats the previous chapter's, co-star a different-grammar supporting
+      // visual in a split view instead of another lone repeat.
+      const prev = this.stage.chapters[this.index - 1];
+      const repeated = prev && prev.primaryType === primary.visual_type;
+      const alt = repeated
+        ? supporting.find((v) => v.visual_type !== primary.visual_type
+            && (v.status === 'ready' || v.status === 'partial'))
+        : null;
+      this.primaryType = primary.visual_type;
       // Full-bleed maps carry the caption as an overlay (desktop); charts stack.
-      if (primary.visual_type === 'map' && (primary.status === 'ready' || primary.status === 'partial')) {
+      if (!alt && primary.visual_type === 'map' && (primary.status === 'ready' || primary.status === 'partial')) {
         this.node.classList.add('viz-primary-map');
       }
       const layerData = await this._loadLayers(primary, fetchData);
@@ -233,6 +244,15 @@ class Chapter {
         onDrill: (feature, layer) => this._openDrill(primary, feature, layer),
       });
       frame.classList.add('viz-enter');
+      if (alt) {
+        this.node.classList.add('viz-chapter-split');
+        const altData = await this._loadLayers(alt, fetchData);
+        const altFrame = renderVisual(this.canvas, alt, altData, {
+          onDrill: (feature, layer) => this._openDrill(alt, feature, layer),
+        });
+        altFrame.classList.add('viz-enter');
+        supporting = supporting.filter((v) => v !== alt);
+      }
     }
 
     this.supportRail.replaceChildren();
@@ -280,6 +300,28 @@ class Chapter {
     const panel = this._panel();
     panel.title.textContent = layer.legend?.label || evidenceLabel(layer.evidence_class);
     panel.body.replaceChildren();
+    // "Why this?" — instant deterministic lineage plus a narrated chat explanation.
+    const markId = props.event_id || props.source_row || props.cell_id || props.location_id || '';
+    const whyRow = document.createElement('div');
+    whyRow.className = 'viz-why-row';
+    const whyBtn = document.createElement('button');
+    whyBtn.className = 'viz-action-chip';
+    whyBtn.textContent = 'Why this value?';
+    whyBtn.addEventListener('click', () => this._showLineage(panel, visual, layer, markId, whyBtn));
+    whyRow.appendChild(whyBtn);
+    const askBtn = document.createElement('button');
+    askBtn.className = 'viz-action-chip';
+    askBtn.textContent = 'Explain in chat';
+    askBtn.addEventListener('click', () => {
+      const what = layer.legend?.label || layer.layer_id;
+      const where = props.label || props.event_date || markId || 'this mark';
+      const q = `Explain how the ${what} value at ${where} in result ${this.resultId} was computed — which source rows and what aggregation.`;
+      if (this.stage.opts.onAction) {
+        this.stage.opts.onAction({ action_id: 'explain', kind: 'follow_up', label: q }, this.envelope);
+      }
+    });
+    whyRow.appendChild(askBtn);
+    panel.body.appendChild(whyRow);
     // Clicked mark first: its own facts, no black box.
     const factRows = Object.keys(props).map((k) => ({ field: k.replace(/_/g, ' '), value: props[k] }));
     if (factRows.length) renderTable(panel.body, factRows);
@@ -308,6 +350,45 @@ class Chapter {
       }
     }
     panel.open();
+  }
+
+  async _showLineage(panel, visual, layer, markId, btn) {
+    btn.disabled = true;
+    const host = document.createElement('div');
+    host.className = 'viz-lineage';
+    panel.body.insertBefore(host, panel.body.children[1] || null);
+    const explainFn = this.stage.opts.explain;
+    if (!explainFn) {
+      host.textContent = 'Lineage service not available on this endpoint.';
+      return;
+    }
+    try {
+      const lineage = await explainFn(this.resultId, layer.layer_id, markId, this.envelope);
+      host.replaceChildren();
+      const capLine = document.createElement('p');
+      capLine.className = 'viz-lineage-head';
+      capLine.textContent = lineage.summary
+        || `Computed by ${lineage.capability_id || 'a registered capability'} over ${
+          (lineage.source_versions || []).length} source version(s).`;
+      host.appendChild(capLine);
+      if (lineage.aggregation) {
+        const agg = document.createElement('p');
+        agg.className = 'viz-lineage-agg';
+        agg.textContent = lineage.aggregation;
+        host.appendChild(agg);
+      }
+      if (Array.isArray(lineage.rows) && lineage.rows.length) {
+        renderTable(host, lineage.rows, { limit: 25 });
+      }
+      for (const lim of lineage.limitations || []) {
+        const l = document.createElement('p');
+        l.className = 'viz-lineage-lim';
+        l.textContent = typeof lim === 'string' ? lim : lim.message || lim.code || '';
+        host.appendChild(l);
+      }
+    } catch (err) {
+      host.textContent = 'Lineage unavailable for this result.';
+    }
   }
 
   _openAudit() {

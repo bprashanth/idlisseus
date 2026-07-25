@@ -101,6 +101,16 @@ def setup_visual_routes():
             raise HTTPException(status_code=400, detail="bad result id")
         return _get(endpoint_id, f"/v1/results/{result_id}")
 
+    @router.get("/{endpoint_id}/results/{result_id}/explain")
+    def result_explain(endpoint_id: str, result_id: str, layer: str = "", mark: str = ""):
+        if not _SAFE_ID.fullmatch(result_id):
+            raise HTTPException(status_code=400, detail="bad result id")
+        from urllib.parse import urlencode
+
+        params = {k: v for k, v in (("layer", layer), ("mark", mark)) if v}
+        suffix = ("?" + urlencode(params)) if params else ""
+        return _get(endpoint_id, f"/v1/results/{result_id}/explain{suffix}")
+
     @router.get("/{endpoint_id}/results/{result_id}/data/{handle}")
     def result_data(endpoint_id: str, result_id: str, handle: str):
         if not (_SAFE_ID.fullmatch(result_id) and _SAFE_ID.fullmatch(handle)):
