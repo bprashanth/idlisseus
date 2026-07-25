@@ -559,6 +559,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
 
     // Declare accumulated outside try block so it's accessible in catch
     let accumulated = '';
+    let _vizMarkers = []; // idli-result payloads seen mid-stream, flushed at final render
     // Are we currently inside an unclosed <think> block? Toggled per think/answer
     // cycle so a multi-round agent response (one reasoning phase PER round) wraps each
     // round's reasoning in its own <think>…</think> instead of leaking rounds 2+ as text.
@@ -1488,13 +1489,19 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                       continue;
                     }
                     if (kind === 'result') {
-                      // Visual result marker: insert the inline slot NOW (the marker is
-                      // stripped from the visible stream, so the final-render parse will
-                      // never see it) and announce it for hydration.
+                      // Visual result marker (stripped from the visible stream, so the
+                      // final-render parse never sees it). The bubble may not exist yet
+                      // at this point in the stream — buffer, insert if possible, and
+                      // flush the rest at final render.
+                      _vizMarkers.push(payload);
                       try {
-                        chatRenderer.renderInlineVisualSlots(roundHolder || holder, [payload]);
+                        const _vizTarget = (typeof roundHolder !== 'undefined' && roundHolder)
+                          || (typeof holder !== 'undefined' && holder) || null;
+                        if (_vizTarget) chatRenderer.renderInlineVisualSlots(_vizTarget, [payload]);
+                      } catch (_) { /* flushed at final render instead */ }
+                      try {
                         window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
-                      } catch (_) { /* prose still renders without the card */ }
+                      } catch (_) { /* hydrator absent */ }
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();
@@ -2695,8 +2702,14 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             holder._insightEvidence = finalInsight.evidence;
             chatRenderer.renderInsightEvidence(holder, holder._insightEvidence);
           }
-          if (finalInsight.visualResults?.length) {
-            chatRenderer.renderInlineVisualSlots(roundHolder || holder, finalInsight.visualResults);
+          if (finalInsight.visualResults?.length || _vizMarkers.length) {
+            try {
+              chatRenderer.renderInlineVisualSlots(roundHolder || holder,
+                [..._vizMarkers, ...(finalInsight.visualResults || [])]);
+            } catch (e) {
+              console.warn('inline visual slot flush failed', e);
+            }
+            _vizMarkers = [];
           }
           holder.dataset.raw = finalDisplay;
         }

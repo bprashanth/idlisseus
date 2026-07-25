@@ -578,7 +578,9 @@ const INSIGHT_MODEL = 'idli-insight';
 
 export function isInsightModel(name) {
   const value = modelValue(name).toLowerCase();
-  return value === INSIGHT_MODEL || value === 'gpt-5.4-codex-native-skills';
+  // Per-site bridges use ids like idli-insight-<site> (one endpoint per site).
+  return value === INSIGHT_MODEL || value.startsWith(INSIGHT_MODEL + '-')
+    || value === 'gpt-5.4-codex-native-skills';
 }
 
 function modelValue(name) {
@@ -3048,6 +3050,7 @@ export function addMessage(role, content, modelName, metadata) {
 }
 
 const chatRenderer = {
+  renderInlineVisualSlots,
   shortModel,
   isInsightModel,
   sameModelName,

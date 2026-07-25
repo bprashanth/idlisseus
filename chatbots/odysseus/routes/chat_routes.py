@@ -913,7 +913,8 @@ def setup_chat_routes(
         _user = ctx.user
         _idli_attachments = []
         _idli_context = None
-        if str(getattr(sess, "model", "") or "").lower() in _IDLI_BRIDGE_MODELS:
+        if (str(getattr(sess, "model", "") or "").lower() in _IDLI_BRIDGE_MODELS
+                or str(getattr(sess, "model", "") or "").lower().startswith("idli-insight-")):
             _auth_manager = getattr(request.app.state, "auth_manager", None)
             _idli_attachments = _idli_attachment_manifest(
                 upload_handler, att_ids, _user, auth_manager=_auth_manager,

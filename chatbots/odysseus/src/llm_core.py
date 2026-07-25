@@ -737,7 +737,8 @@ def _apply_idli_bridge_context(
     idlisseus_context: Optional[Dict],
 ) -> None:
     """Attach private Idlisseus request metadata only to the internal Idli bridge."""
-    if str(model or "").lower() not in {"idli-insight", "gpt-5.4-codex-native-skills"}:
+    _m = str(model or "").lower()
+    if _m not in {"idli-insight", "gpt-5.4-codex-native-skills"} and not _m.startswith("idli-insight-"):
         return
     if session_id:
         payload["session_id"] = str(session_id)
