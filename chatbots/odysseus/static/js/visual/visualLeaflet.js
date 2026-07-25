@@ -205,6 +205,66 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     { collapsed: true, position: 'topright' }
   ).addTo(map);
 
+  // ---- ground truth: swipe the data away to see the bare imagery underneath.
+  // The single most-asked field question is "is that square really forest?" —
+  // this answers it without leaving the map.
+  const swipe = document.createElement('div');
+  swipe.className = 'viz-swipe';
+  const swipeBtn = document.createElement('button');
+  swipeBtn.className = 'viz-swipe-toggle';
+  swipeBtn.type = 'button';
+  swipeBtn.textContent = 'Compare with imagery';
+  swipe.appendChild(swipeBtn);
+  const handle = document.createElement('div');
+  handle.className = 'viz-swipe-handle';
+  handle.hidden = true;
+  const grip = document.createElement('span');
+  grip.className = 'viz-swipe-grip';
+  handle.appendChild(grip);
+  const leftTag = document.createElement('span');
+  leftTag.className = 'viz-swipe-tag viz-swipe-tag-left';
+  leftTag.textContent = 'imagery only';
+  handle.appendChild(leftTag);
+  const rightTag = document.createElement('span');
+  rightTag.className = 'viz-swipe-tag viz-swipe-tag-right';
+  rightTag.textContent = 'with records';
+  handle.appendChild(rightTag);
+  swipe.appendChild(handle);
+  root.appendChild(swipe);
+
+  let swiping = false;
+  const panes = () => [
+    root.querySelector('.leaflet-overlay-pane'),
+    root.querySelector('.leaflet-marker-pane'),
+    root.querySelector('.leaflet-shadow-pane'),
+  ].filter(Boolean);
+  const applyClip = (pct) => {
+    for (const pane of panes()) {
+      pane.style.clipPath = swiping ? `inset(0 0 0 ${pct}%)` : '';
+    }
+    handle.style.left = `${pct}%`;
+  };
+  let pct = 38;  // leave most of the data visible so the split reads instantly
+  swipeBtn.addEventListener('click', () => {
+    swiping = !swiping;
+    handle.hidden = !swiping;
+    swipeBtn.textContent = swiping ? 'Show all data' : 'Compare with imagery';
+    swipeBtn.classList.toggle('on', swiping);
+    applyClip(pct);
+  });
+  let dragging = false;
+  const moveTo = (clientX) => {
+    const r = root.getBoundingClientRect();
+    pct = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
+    applyClip(pct);
+  };
+  handle.addEventListener('pointerdown', (ev) => {
+    dragging = true; handle.setPointerCapture(ev.pointerId); ev.preventDefault();
+  });
+  handle.addEventListener('pointermove', (ev) => { if (dragging) moveTo(ev.clientX); });
+  handle.addEventListener('pointerup', () => { dragging = false; });
+  handle.addEventListener('pointercancel', () => { dragging = false; });
+
   const fit = () => {
     map.invalidateSize();
     const target = emphasisBounds.isValid() ? emphasisBounds

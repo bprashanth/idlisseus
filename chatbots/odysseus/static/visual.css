@@ -953,3 +953,50 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
   padding: 10px 16px 2px;
 }
 .viz-inline-actions .viz-action-chip { cursor: pointer; }
+
+/* ---------- ground-truth swipe ---------- */
+.viz-swipe { position: absolute; inset: 0; pointer-events: none; z-index: 500; }
+.viz-swipe-toggle {
+  position: absolute; left: 12px; bottom: 12px;
+  pointer-events: auto;
+  font-size: 12px; font-weight: 600;
+  padding: 7px 13px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.65);
+  background: rgba(20, 24, 22, 0.66);
+  color: #fff; cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.viz-swipe-toggle:hover { background: rgba(20, 24, 22, 0.82); }
+.viz-swipe-toggle.on { background: var(--eco-primary, #064e3b); border-color: transparent; }
+.viz-swipe-handle {
+  position: absolute; top: 0; bottom: 0; width: 3px;
+  margin-left: -1.5px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
+  pointer-events: auto;
+  cursor: ew-resize;
+  touch-action: none;
+}
+.viz-swipe-grip {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  display: block;
+}
+.viz-swipe-grip::after {
+  content: '‹ ›';
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 13px; color: #191c1e;
+}
+.viz-swipe-tag {
+  position: absolute; top: 12px;
+  font: 600 10px 'JetBrainsMonoVendored', ui-monospace, monospace;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: #fff; background: rgba(20, 24, 22, 0.6);
+  padding: 3px 8px; border-radius: 5px; white-space: nowrap;
+}
+.viz-swipe-tag-left { right: 10px; }
+.viz-swipe-tag-right { left: 10px; }
