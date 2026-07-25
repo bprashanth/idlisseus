@@ -7,7 +7,7 @@
 //   - Other static assets (images/fonts/libs): cache-first with bg refresh.
 //   - API / non-GET: never cached.
 // Bump CACHE_NAME whenever the precache list or SW logic changes.
-const CACHE_NAME = 'odysseus-v335';
+const CACHE_NAME = 'odysseus-v336';
 
 // Core shell precached on install so repeat opens are instant without any
 // network wait. Keep this list in sync with the <script type="module"> tags
@@ -16,6 +16,7 @@ const PRECACHE = [
   '/',
   '/static/style.css',
   '/static/visual.css',
+  '/static/ecodata.css',
   '/static/js/visual/visualTheme.js',
   '/static/js/visual/visualMap.js',
   '/static/js/visual/visualChart.js',

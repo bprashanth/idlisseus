@@ -942,3 +942,7 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
   #viz-context-rail { display: none; }
   body.viz-context-open .chat-container, body.viz-context-open .chat-input-bar { margin-right: 0; }
 }
+
+/* Inline previews are click-to-open: hide interactive-only chrome. */
+.viz-inline-canvas .viz-basemap-pick { display: none; }
+.viz-rail-recent-item { line-height: 1.45; }

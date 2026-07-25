@@ -1,0 +1,272 @@
+/* ecodata.css — "Eco-Data Narrative" skin for the visual-first chat.
+   Applied only when the ecodata theme is active (body.theme-ecodata), so the
+   stock Idlisseus themes are untouched. Design tokens follow the supplied
+   mockups: Inter + JetBrains Mono, deep-forest primary, surface containers,
+   generous rounding, mono uppercase micro-labels. */
+
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMonoVendored';
+  src: url('/static/lib/fonts/jbmono-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMonoVendored';
+  src: url('/static/lib/fonts/jbmono-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+body.theme-ecodata {
+  /* Eco-Data Narrative tokens */
+  --eco-surface: #f7f9fb;
+  --eco-container-lowest: #ffffff;
+  --eco-container-low: #f2f4f6;
+  --eco-container: #eceef0;
+  --eco-container-high: #e6e8ea;
+  --eco-on-surface: #191c1e;
+  --eco-on-surface-variant: #404944;
+  --eco-outline: #707974;
+  --eco-outline-variant: #bfc9c3;
+  --eco-primary: #064e3b;
+  --eco-primary-deep: #003527;
+  --eco-on-primary: #ffffff;
+  --eco-primary-soft: #b0f0d6;
+  --eco-accent: #2b6954;
+  --eco-good: #0ca30c;
+  --eco-warn: #f69f0d;
+  --eco-bad: #ba1a1a;
+
+  font-family: 'InterVendored', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: -0.006em;
+}
+body.theme-ecodata .font-mono,
+body.theme-ecodata .viz-card-titlebar,
+body.theme-ecodata .viz-rail-heading,
+body.theme-ecodata .viz-eco-mono {
+  font-family: 'JetBrainsMonoVendored', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ---------- chat stream: calmer bubbles, more air ---------- */
+body.theme-ecodata .chat-history { --chat-max: 880px; }
+body.theme-ecodata .msg.msg-ai,
+body.theme-ecodata .msg.msg-user {
+  border-radius: 16px;
+}
+body.theme-ecodata .msg.msg-ai { background: transparent; }
+body.theme-ecodata .msg-user {
+  background: var(--eco-primary) !important;
+  color: var(--eco-on-primary) !important;
+}
+body.theme-ecodata .msg-user * { color: var(--eco-on-primary) !important; }
+
+/* ---------- data card (mockup: mono id bar, body, italic caption) ---------- */
+body.theme-ecodata .viz-inline-card {
+  background: var(--eco-container-lowest);
+  border: 1px solid color-mix(in srgb, var(--eco-outline-variant) 45%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(25, 28, 30, 0.04);
+}
+body.theme-ecodata .viz-inline-card:hover {
+  box-shadow: 0 8px 26px rgba(25, 28, 30, 0.10);
+  border-color: color-mix(in srgb, var(--eco-primary) 28%, transparent);
+}
+body.theme-ecodata .viz-card-titlebar {
+  background: var(--eco-container-low);
+  border-bottom: 1px solid color-mix(in srgb, var(--eco-outline-variant) 40%, transparent);
+  color: var(--eco-on-surface-variant);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 10px 16px;
+  opacity: 1;
+}
+body.theme-ecodata .viz-inline-headline {
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+body.theme-ecodata .viz-inline-head { padding: 14px 16px 8px; }
+body.theme-ecodata .viz-inline-foot {
+  border-top: 1px solid color-mix(in srgb, var(--eco-outline-variant) 30%, transparent);
+  font-style: italic;
+  font-size: 11.5px;
+  padding: 8px 16px 10px;
+}
+body.theme-ecodata .viz-inline-open {
+  font-style: normal;
+  border-color: color-mix(in srgb, var(--eco-outline-variant) 60%, transparent);
+  color: var(--eco-primary);
+  font-weight: 600;
+}
+body.theme-ecodata .viz-synthetic-ribbon {
+  background: color-mix(in srgb, var(--eco-warn) 20%, transparent);
+  color: #6b4500;
+  font-family: 'JetBrainsMonoVendored', monospace;
+}
+
+/* ---------- context rail (mockup: Current Context + meters + streams) ---------- */
+body.theme-ecodata #viz-context-rail {
+  background: var(--eco-container-lowest);
+  border-left: 1px solid color-mix(in srgb, var(--eco-outline-variant) 45%, transparent);
+  width: 288px;
+  padding: 20px 18px;
+  gap: 14px;
+}
+body.theme-ecodata.viz-context-open .chat-container,
+body.theme-ecodata.viz-context-open .chat-input-bar { margin-right: 288px; }
+body.theme-ecodata .viz-rail-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--eco-outline);
+}
+body.theme-ecodata .viz-rail-site {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--eco-on-surface);
+}
+body.theme-ecodata .viz-rail-tiles { grid-template-columns: 1fr; gap: 10px; }
+body.theme-ecodata .viz-rail-tile {
+  background: var(--eco-container-low);
+  border: 1px solid color-mix(in srgb, var(--eco-outline-variant) 30%, transparent);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+body.theme-ecodata .viz-rail-tile-value {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--eco-on-surface);
+}
+body.theme-ecodata .viz-rail-tile-label {
+  font-family: 'JetBrainsMonoVendored', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--eco-outline);
+  margin-top: 5px;
+}
+/* thin meter under each tile value (mockup signature) */
+.viz-rail-meter {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--eco-outline-variant) 45%, transparent);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.viz-rail-meter span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--eco-primary);
+}
+
+/* data streams list (mockup: connected sensors with status dots) */
+.viz-rail-streams { display: flex; flex-direction: column; gap: 8px; }
+.viz-rail-stream {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+.viz-rail-stream-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--eco-good, #0ca30c);
+  flex: none;
+}
+.viz-rail-stream-dot.warn { background: var(--eco-warn, #f69f0d); }
+.viz-rail-stream-name {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--eco-on-surface-variant);
+}
+.viz-rail-stream-state {
+  margin-left: auto;
+  font-family: 'JetBrainsMonoVendored', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--eco-outline);
+  flex: none;
+}
+body.theme-ecodata .viz-rail-recent-item {
+  background: var(--eco-container-low);
+  border-color: color-mix(in srgb, var(--eco-outline-variant) 30%, transparent);
+  border-radius: 12px;
+  font-size: 11.5px;
+}
+
+/* ---------- side panel ---------- */
+body.theme-ecodata #viz-side-panel { background: var(--eco-surface); }
+body.theme-ecodata .viz-side-head {
+  background: var(--eco-container-lowest);
+  border-bottom-color: color-mix(in srgb, var(--eco-outline-variant) 45%, transparent);
+}
+body.theme-ecodata .viz-side-title {
+  font-family: 'JetBrainsMonoVendored', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body.theme-ecodata .viz-caption-card {
+  background: var(--eco-container-lowest);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(25, 28, 30, 0.06);
+}
+body.theme-ecodata .viz-headline { letter-spacing: -0.015em; }
+body.theme-ecodata .viz-action-chip {
+  border-radius: 999px;
+  border-color: color-mix(in srgb, var(--eco-outline-variant) 60%, transparent);
+  color: var(--eco-primary);
+  font-weight: 600;
+}
+body.theme-ecodata .viz-action-chip:hover {
+  background: color-mix(in srgb, var(--eco-primary) 8%, transparent);
+}
+body.theme-ecodata .viz-evidence-chip {
+  font-family: 'JetBrainsMonoVendored', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- composer ---------- */
+body.theme-ecodata .chat-input-bar {
+  border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(25, 28, 30, 0.08);
+}
+
+@media (max-width: 1100px) {
+  body.theme-ecodata.viz-context-open .chat-container,
+  body.theme-ecodata.viz-context-open .chat-input-bar { margin-right: 0; }
+}
+
+/* recent-visuals: let the clamp actually breathe */
+body.theme-ecodata .viz-rail-recent-item {
+  line-height: 1.45;
+  padding: 10px 12px;
+  max-height: none;
+  -webkit-line-clamp: 3;
+}

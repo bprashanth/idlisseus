@@ -13,6 +13,18 @@ import { renderVisual } from './visualRenderers.js';
 let client = null;
 let clientEndpointUrl = null;
 
+// The ecodata skin (static/ecodata.css) applies only under this body class,
+// so the stock themes stay untouched. Cheap to re-check; theme switches are rare.
+function syncEcoThemeClass() {
+  let name = 'ecodata';
+  try {
+    const saved = JSON.parse(localStorage.getItem('idlisseus-theme') || 'null');
+    if (saved && saved.name) name = saved.name;
+  } catch { /* default */ }
+  document.body.classList.toggle('theme-ecodata', name === 'ecodata');
+}
+syncEcoThemeClass();
+
 // Defensive: clear any takeover-era state a stale cached bundle left behind.
 document.body.classList.remove('visual-mode', 'visual-had-stage');
 for (const id of ['visual-mode-toggle', 'viz-history-btn']) {
@@ -184,10 +196,11 @@ async function ensureContextRail() {
     const denoms = (primary.summary && primary.summary.denominators) || {};
     const tiles = document.createElement('div');
     tiles.className = 'viz-rail-tiles';
-    const entries = Object.entries(denoms).slice(0, 4);
+    const entries = Object.entries(denoms).slice(0, 3);
     if (!denoms.sources && !denoms.source_versions) {
       entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
     }
+    const maxVal = Math.max(...entries.map(([, v]) => (typeof v === 'number' ? v : 0)), 1);
     for (const [k, v] of entries) {
       const tile = document.createElement('div');
       tile.className = 'viz-rail-tile';
@@ -199,9 +212,48 @@ async function ensureContextRail() {
       lab.className = 'viz-rail-tile-label';
       lab.textContent = String(k).replace(/_/g, ' ');
       tile.appendChild(lab);
+      if (typeof v === 'number' && v > 0) {
+        const meter = document.createElement('div');
+        meter.className = 'viz-rail-meter';
+        const fill = document.createElement('span');
+        fill.style.width = `${Math.max(6, Math.round((v / maxVal) * 100))}%`;
+        meter.appendChild(fill);
+        tile.appendChild(meter);
+      }
       tiles.appendChild(tile);
     }
     contextRail.appendChild(tiles);
+    // Data streams — which sources this site is actually reading (mockup's
+    // "connected sensors", but honest: it lists real source versions).
+    const sources = (env.audit || {}).source_versions || [];
+    if (sources.length) {
+      const sh = document.createElement('div');
+      sh.className = 'viz-rail-heading';
+      sh.textContent = 'Data streams';
+      contextRail.appendChild(sh);
+      const streams = document.createElement('div');
+      streams.className = 'viz-rail-streams';
+      for (const s of sources.slice(0, 6)) {
+        const row = document.createElement('div');
+        row.className = 'viz-rail-stream';
+        const dot = document.createElement('span');
+        dot.className = 'viz-rail-stream-dot';
+        row.appendChild(dot);
+        const name = document.createElement('span');
+        name.className = 'viz-rail-stream-name';
+        const raw = typeof s === 'string' ? s : (s.title || s.source_id || '');
+        name.textContent = String(raw).replace(/^syn-/, '').replace(/[-_]/g, ' ');
+        name.title = String(raw);
+        row.appendChild(name);
+        const state = document.createElement('span');
+        state.className = 'viz-rail-stream-state';
+        state.textContent = 'indexed';
+        row.appendChild(state);
+        streams.appendChild(row);
+      }
+      contextRail.appendChild(streams);
+    }
+
     const rh = document.createElement('div');
     rh.className = 'viz-rail-heading';
     rh.textContent = 'Recent visuals';
