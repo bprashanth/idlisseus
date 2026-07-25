@@ -1488,11 +1488,13 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                       continue;
                     }
                     if (kind === 'result') {
-                      // Visual result marker: hand off to the visual stage immediately
-                      // so the first visual appears while prose is still streaming.
+                      // Visual result marker: insert the inline slot NOW (the marker is
+                      // stripped from the visible stream, so the final-render parse will
+                      // never see it) and announce it for hydration.
                       try {
+                        chatRenderer.renderInlineVisualSlots(roundHolder || holder, [payload]);
                         window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
-                      } catch (_) { /* stage unavailable — prose still renders */ }
+                      } catch (_) { /* prose still renders without the card */ }
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();

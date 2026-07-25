@@ -11,7 +11,6 @@ import {
 import { magnitudeOf } from './visualMap.js';
 
 const BASES = {
-  terrain: { label: 'Terrain', attrib: '© OpenStreetMap contributors · © OpenTopoMap (CC-BY-SA)', maxZoom: 15 },
   imagery: { label: 'Imagery', attrib: '© Esri — Source: Esri, Maxar, Earthstar Geographics', maxZoom: 15 },
   osm: { label: 'Streets', attrib: '© OpenStreetMap contributors', maxZoom: 15 },
 };
@@ -55,14 +54,14 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
   const map = L.map(root, { zoomSnap: 0.5, attributionControl: true });
   map.attributionControl.setPrefix(false);
 
-  const savedBase = localStorage.getItem('viz-basemap-leaflet') || 'terrain';
+  const savedBase = localStorage.getItem('viz-basemap-leaflet') || 'imagery';
   const baseLayers = {};
   for (const [id, cfg] of Object.entries(BASES)) {
     baseLayers[cfg.label] = L.tileLayer(`/api/visual/tiles/${id}/{z}/{x}/{y}.png`, {
       attribution: cfg.attrib, maxNativeZoom: cfg.maxZoom, maxZoom: 17,
     });
   }
-  const initial = BASES[savedBase] ? BASES[savedBase].label : 'Terrain';
+  const initial = BASES[savedBase] ? BASES[savedBase].label : 'Imagery';
   baseLayers[initial].addTo(map);
   map.on('baselayerchange', (ev) => {
     const id = Object.entries(BASES).find(([, c]) => c.label === ev.name)?.[0];
