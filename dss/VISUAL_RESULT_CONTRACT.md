@@ -344,6 +344,26 @@ example, `entity-record-map` can map records for a facility, programme, occupati
 other resolved entity. The pack supplies entity meaning and arguments; the renderer receives the
 same map contract.
 
+## Transport (implemented POC binding)
+
+Two additive bindings carry this contract into the live chat product:
+
+1. **Result marker in the chat stream.** When the bridge's conversation agent completes a
+   capability run, its streamed answer includes, on its own line,
+   `<!-- idli-result:{"result_id":"…"} -->`. The Idlisseus stream consumer strips the marker
+   from visible prose (live, resumed and history renders) and raises it as a UI event. Markers
+   persist in stored message content, so history replay re-materialises visuals.
+2. **Proxy fetch of envelopes and payloads.** The browser never talks to a bridge directly and
+   never holds bridge tokens. Idlisseus exposes, for each registered endpoint id:
+   `GET /api/visual/{endpoint}/results/{result_id}`,
+   `GET /api/visual/{endpoint}/results/{result_id}/data/{handle}`,
+   `GET /api/visual/{endpoint}/capabilities` and `POST /api/visual/{endpoint}/query`, proxied to
+   the bridge's `/v1/results/*` and `/v1/capabilities` with the endpoint's stored bearer token.
+   Payload responses are immutable and digest-verified client-side.
+
+The stage also issues an unprompted `site-orientation` query when a conversation starts on an
+endpoint whose capability list declares it ready — the ambient orientation visual.
+
 ## Compatibility and validation
 
 The normative machine-readable schemas and synthetic fixture corpus are in
