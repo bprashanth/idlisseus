@@ -40,9 +40,18 @@ export function makeFetcher(resolveUrl, opts) {
     if (!url) return null;
     const res = await fetch(url, { headers: { Accept: 'application/json' } });
     if (!res.ok) throw new Error(`payload fetch ${res.status}`);
-    const parsed = await res.json();
+    const raw = await res.text();
+    const parsed = JSON.parse(raw);
     if (cacheKey) {
-      const ok = await verifyDigest(parsed, cacheKey);
+      // Digest is over the exact bytes the producer wrote; hash the raw body
+      // first and only fall back to stable-JSON re-serialisation.
+      let ok = null;
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw.replace(/\n$/, '')));
+        const hex = [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+        ok = `sha256:${hex}` === cacheKey ? true : null;
+      } catch { ok = null; }
+      if (ok === null) ok = await verifyDigest(parsed, cacheKey);
       if (ok === false) {
         console.warn('digest mismatch for payload', ref.handle || url);
         if (strict) throw new Error('digest mismatch');
