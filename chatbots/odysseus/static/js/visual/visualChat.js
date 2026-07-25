@@ -104,7 +104,8 @@ async function handleResultMarker(payload) {
   if (!st) return;
   let chapter = st.chapterFor(envelope);
   if (!chapter) {
-    chapter = st.addChapter(envelope.question?.original || lastQuestion || '');
+    const q = (envelope.question?.original || lastQuestion || '').split(/===\s*File:/)[0].trim();
+    chapter = st.addChapter(q);
   }
   await chapter.setEnvelope(envelope);
 }
@@ -145,7 +146,10 @@ document.addEventListener('submit', (ev) => {
   const form = ev.target;
   if (!(form instanceof HTMLFormElement)) return;
   const input = form.querySelector('#message') || document.getElementById('message');
-  if (input && input.value.trim()) lastQuestion = input.value.trim();
+  if (input && input.value.trim()) {
+    // Chapter headers show the question, never inlined file payloads.
+    lastQuestion = input.value.split(/===\s*File:/)[0].trim();
+  }
   // A new turn on a possibly-new endpoint: refresh the ambient check lazily.
   setTimeout(maybeAmbientOrientation, 400);
 }, true);
