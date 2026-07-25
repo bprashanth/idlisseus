@@ -49,6 +49,13 @@ function ensureStage() {
       if (!client) throw new Error('no visual client');
       return client.explain(resultId, layerId, mark);
     },
+    rawUrl: (ref, envelope) => {
+      if (!client || !ref || !envelope) return null;
+      if (ref.kind === 'result_data' && ref.handle) {
+        return `${client.base}/results/${encodeURIComponent(envelope.result_id)}/data/${encodeURIComponent(ref.handle)}`;
+      }
+      return null;
+    },
     onAction: (action) => {
       // Actions become ordinary audited chat turns: fill the composer and send.
       const input = document.getElementById('message');

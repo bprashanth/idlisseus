@@ -723,3 +723,49 @@ body.visual-mode .viz-float-composer { width: min(560px, calc(100vw - 48px)) !im
 body.visual-mode .viz-float-composer #pinned-tools-bar { display: none !important; }
 body.visual-mode .viz-float-composer #message { max-height: 120px; }
 body.visual-mode .viz-float-composer .chat-input-top { padding-top: 12px; }
+
+/* ---------- basemap picker & attribution ---------- */
+.viz-basemap-pick {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 8;
+  font: 12px system-ui, sans-serif;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 80%, transparent);
+  color: var(--fg);
+  opacity: 0.55;
+  transition: opacity 0.15s;
+}
+.viz-basemap-pick:hover, .viz-basemap-pick:focus { opacity: 1; }
+.viz-map-attrib {
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  font-size: 10px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+:root:not(.light) .viz-basemap image { filter: brightness(0.72) contrast(1.05) saturate(0.9); }
+
+/* ---------- estimate mini-dialog ---------- */
+.viz-estimate-form { display: flex; flex-direction: column; gap: 12px; }
+.viz-estimate-intro { font-size: 13px; opacity: 0.75; line-height: 1.5; margin: 0; }
+.viz-estimate-form label { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; }
+.viz-estimate-form input {
+  font: 13.5px system-ui, sans-serif;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+}
+.viz-estimate-chip { border-style: dashed; }
+
+/* ---------- matrix facets (TR-VIS-0001) ---------- */
+.viz-matrix-facets { display: flex; flex-wrap: wrap; gap: 18px; }
+.viz-matrix-facet { min-width: 0; }
+.viz-matrix-facet-title { font-size: 12px; font-weight: 650; opacity: 0.75; margin: 2px 0 6px; }
+.viz-matrix-unit { font-size: 11px; opacity: 0.55; padding: 6px 2px 0; }

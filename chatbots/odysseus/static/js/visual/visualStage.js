@@ -242,6 +242,7 @@ class Chapter {
       const layerData = await this._loadLayers(primary, fetchData);
       const frame = renderVisual(this.canvas, primary, layerData, {
         onDrill: (feature, layer, centroid) => this._openDrill(primary, feature, layer, centroid),
+        rawUrl: (ref) => this.stage.opts.rawUrl && this.stage.opts.rawUrl(ref, this.envelope),
       });
       frame.classList.add('viz-enter');
       if (alt) {
@@ -325,6 +326,11 @@ class Chapter {
       }
     });
     whyRow.appendChild(askBtn);
+    const estBtn = document.createElement('button');
+    estBtn.className = 'viz-action-chip viz-estimate-chip';
+    estBtn.textContent = 'Estimate here…';
+    estBtn.addEventListener('click', () => this._openEstimate(panel, layer, markId, props));
+    whyRow.appendChild(estBtn);
     panel.body.appendChild(whyRow);
     // Clicked mark first: its own facts, no black box.
     const factRows = Object.keys(props).map((k) => ({ field: k.replace(/_/g, ' '), value: props[k] }));
@@ -406,6 +412,57 @@ class Chapter {
     } catch (err) {
       host.textContent = 'Lineage unavailable for this result.';
     }
+  }
+
+  _openEstimate(panel, layer, markId, props) {
+    // Mini-dialog: collect what/why, then hand a structured estimation request to
+    // the conversation. The system (not the user) proposes concrete approaches
+    // from the pack's data, runs gates and a model, and must report confidence,
+    // data used, and what would improve it.
+    panel.title.textContent = 'Estimate for this cell';
+    panel.body.replaceChildren();
+    const form = document.createElement('div');
+    form.className = 'viz-estimate-form';
+    const intro = document.createElement('p');
+    intro.className = 'viz-estimate-intro';
+    intro.textContent = 'Say what you want estimated for this location. The system will suggest '
+      + 'estimation approaches based on the data it actually has, run the checks, and state its confidence.';
+    form.appendChild(intro);
+    const whatLab = document.createElement('label');
+    whatLab.textContent = 'What do you want to estimate?';
+    const what = document.createElement('input');
+    what.type = 'text';
+    what.placeholder = 'e.g. fire risk, likely record density, expected wage level';
+    whatLab.appendChild(what);
+    form.appendChild(whatLab);
+    const whyLab = document.createElement('label');
+    whyLab.textContent = 'What is it for? (optional — helps pick the method)';
+    const why = document.createElement('input');
+    why.type = 'text';
+    why.placeholder = 'e.g. planning next survey, a proposal, prioritising patrols';
+    whyLab.appendChild(why);
+    form.appendChild(whyLab);
+    const go = document.createElement('button');
+    go.className = 'viz-action-chip';
+    go.textContent = 'Suggest approaches & estimate';
+    go.addEventListener('click', () => {
+      const target = what.value.trim();
+      if (!target) { what.focus(); return; }
+      const where = markId || 'this location';
+      const purpose = why.value.trim();
+      const q = `Estimate ${target} for the cell at ${where} in result ${this.resultId}.`
+        + (purpose ? ` Purpose: ${purpose}.` : '')
+        + ' First list the estimation approaches actually supported by the available data'
+        + ' and pick the best one; then run it, state whether confidence is low or high and why,'
+        + ' list exactly which data was used, and what additional data would most improve the estimate.';
+      if (this.stage.opts.onAction) {
+        this.stage.opts.onAction({ action_id: 'estimate', kind: 'run_capability', label: q }, this.envelope);
+      }
+      panel.node.classList.remove('on');
+    });
+    form.appendChild(go);
+    panel.body.appendChild(form);
+    what.focus();
   }
 
   _openAudit() {

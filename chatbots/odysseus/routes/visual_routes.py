@@ -15,6 +15,7 @@ Routes (auth enforced by the global AuthMiddleware like every /api route):
   GET  /api/visual/{endpoint_id}/results/{result_id}/data/{handle}
 """
 
+import pathlib
 import re
 
 import httpx
@@ -55,8 +56,42 @@ def _forward(resp: httpx.Response) -> Response:
     return out
 
 
+TILE_SOURCES = {
+    # Terrain basemap. Tiles are proxied same-origin (CSP: img-src 'self') and
+    # disk-cached; attribution is rendered by the map UI whenever a basemap is on.
+    "terrain": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
+    "osm": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+}
+TILE_CACHE = pathlib.Path("data/tile-cache")
+TILE_MAX_ZOOM = 15
+
+
 def setup_visual_routes():
     router = APIRouter(prefix="/api/visual")
+
+    @router.get("/tiles/{source}/{z}/{x}/{y}.png")
+    def tile(source: str, z: int, x: int, y: int):
+        template = TILE_SOURCES.get(source)
+        if not template:
+            raise HTTPException(status_code=404, detail="unknown tile source")
+        if not (0 <= z <= TILE_MAX_ZOOM and 0 <= x < 2 ** z and 0 <= y < 2 ** z):
+            raise HTTPException(status_code=400, detail="bad tile address")
+        cached = TILE_CACHE / source / str(z) / str(x) / f"{y}.png"
+        if cached.is_file():
+            return Response(cached.read_bytes(), media_type="image/png",
+                            headers={"Cache-Control": "public, max-age=604800"})
+        url = template.format(z=z, x=x, y=y)
+        try:
+            r = httpx.get(url, timeout=_TIMEOUT,
+                          headers={"User-Agent": "Idlisseus/1.0 (self-hosted visual stage)"})
+        except httpx.HTTPError as exc:
+            raise HTTPException(status_code=502, detail=f"tile fetch failed: {type(exc).__name__}")
+        if r.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"tile upstream {r.status_code}")
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        cached.write_bytes(r.content)
+        return Response(r.content, media_type="image/png",
+                        headers={"Cache-Control": "public, max-age=604800"})
 
     def _get(endpoint_id: str, path: str) -> Response:
         if not _SAFE_ID.fullmatch(endpoint_id):

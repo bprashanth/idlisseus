@@ -83,16 +83,20 @@ export function renderMap(container, visual, layerData, hooks) {
   const padLat = (maxLat - minLat) * 0.08;
   minLon -= padLon; maxLon += padLon; minLat -= padLat; maxLat += padLat;
 
-  // ---- local equirectangular projection preserving aspect
+  // ---- Web-Mercator projection (conformal; basemap tiles align exactly)
   const midLat = (minLat + maxLat) / 2;
-  const kx = Math.cos(midLat * Math.PI / 180);
-  const spanX = (maxLon - minLon) * kx;
-  const spanY = maxLat - minLat;
+  const mercDeg = (lat) => {
+    const r = Math.max(-85, Math.min(85, lat)) * Math.PI / 180;
+    return Math.log(Math.tan(Math.PI / 4 + r / 2)) * 180 / Math.PI;
+  };
+  const spanX = maxLon - minLon;
+  const spanY = mercDeg(maxLat) - mercDeg(minLat);
   const scale = Math.min(width / spanX, height / spanY);
   const ox = (width - spanX * scale) / 2;
   const oy = (height - spanY * scale) / 2;
-  const px = (lon) => ox + (lon - minLon) * kx * scale;
-  const py = (lat) => oy + (maxLat - lat) * scale;
+  const px = (lon) => ox + (lon - minLon) * scale;
+  const py = (lat) => oy + (mercDeg(maxLat) - mercDeg(lat)) * scale;
+  const kmPerPx = haversineKm(midLat, minLon, maxLon) / (spanX * scale);
 
   const svg = el('svg', {
     class: 'viz-map', viewBox: `0 0 ${width} ${height}`,
@@ -104,6 +108,85 @@ export function renderMap(container, visual, layerData, hooks) {
   svg.appendChild(el('rect', { x: 0, y: 0, width, height, fill: p.surface, rx: 12 }));
   const world = el('g', { class: 'viz-map-world' });
   svg.appendChild(world);
+  const legendEntries = [];
+  const ramps = { used: 0 };
+
+  // ---- optional basemap (slippy tiles through the same-origin caching proxy).
+  // Off by default: the figure map is the identity; terrain is a user choice.
+  const basemapGroup = el('g', { class: 'viz-basemap' });
+  world.appendChild(basemapGroup);
+  const drawBasemap = (source) => {
+    basemapGroup.replaceChildren();
+    root.querySelector('.viz-map-attrib')?.remove();
+    if (!source || source === 'none') return;
+    const n = (z) => Math.pow(2, z);
+    let z = 15;
+    while (z > 2 && (360 / n(z)) * scale < 220) z -= 1;
+    const tX = (lon, zz) => Math.floor(((lon + 180) / 360) * n(zz));
+    const tY = (lat, zz) => {
+      const r = lat * Math.PI / 180;
+      return Math.floor(((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * n(zz));
+    };
+    const lonOfX = (x, zz) => (x / n(zz)) * 360 - 180;
+    const latOfY = (y, zz) => Math.atan(Math.sinh(Math.PI * (1 - (2 * y) / n(zz)))) * 180 / Math.PI;
+    const x0 = tX(minLon, z), x1 = tX(maxLon, z);
+    const y0 = tY(maxLat, z), y1 = tY(minLat, z);
+    for (let x = x0; x <= x1; x++) {
+      for (let y = y0; y <= y1; y++) {
+        const w = px(lonOfX(x + 1, z)) - px(lonOfX(x, z));
+        const h = py(latOfY(y + 1, z)) - py(latOfY(y, z));
+        const img = el('image', {
+          x: px(lonOfX(x, z)).toFixed(1), y: py(latOfY(y, z)).toFixed(1),
+          width: w.toFixed(1), height: h.toFixed(1),
+          preserveAspectRatio: 'none',
+        });
+        img.setAttribute('href', `/api/visual/tiles/${source}/${z}/${x}/${y}.png`);
+        basemapGroup.appendChild(img);
+      }
+    }
+    const attrib = document.createElement('div');
+    attrib.className = 'viz-map-attrib';
+    attrib.textContent = source === 'terrain'
+      ? '© OpenStreetMap contributors · © OpenTopoMap (CC-BY-SA)'
+      : '© OpenStreetMap contributors';
+    root.appendChild(attrib);
+  };
+  const savedBase = localStorage.getItem('viz-basemap') || 'none';
+  drawBasemap(savedBase);
+  const basePick = document.createElement('select');
+  basePick.className = 'viz-basemap-pick';
+  basePick.setAttribute('aria-label', 'Basemap');
+  for (const [v, label] of [['none', 'No basemap'], ['terrain', 'Terrain'], ['osm', 'Streets']]) {
+    const o = document.createElement('option');
+    o.value = v; o.textContent = label;
+    basePick.appendChild(o);
+  }
+  basePick.value = ['none', 'terrain', 'osm'].includes(savedBase) ? savedBase : 'none';
+  basePick.addEventListener('change', () => {
+    localStorage.setItem('viz-basemap', basePick.value);
+    drawBasemap(basePick.value);
+  });
+  root.appendChild(basePick);
+
+  // ---- computed layers as georeferenced image overlays (e.g. built-up, terrain
+  // products from an earth-layer skill): geometry_type "raster_image" with
+  // layer.bounds = [w, s, e, n]; the data_ref handle serves the image bytes.
+  for (const layer of visual.layers || []) {
+    if (layer.geometry_type !== 'raster_image' || !Array.isArray(layer.bounds)) continue;
+    const [wB, sB, eB, nB] = layer.bounds;
+    const url = hooks.rawUrl && hooks.rawUrl(layer.data_ref);
+    if (!url) continue;
+    const img = el('image', {
+      x: px(wB).toFixed(1), y: py(nB).toFixed(1),
+      width: (px(eB) - px(wB)).toFixed(1), height: (py(sB) - py(nB)).toFixed(1),
+      preserveAspectRatio: 'none',
+      opacity: (layer.style_hint && layer.style_hint.opacity) || 0.75,
+    });
+    img.setAttribute('href', url);
+    world.appendChild(img);
+    legendEntries.push({ swatch: 'ramp', ramp: ['#666', '#ccc'], min: null, max: null,
+      label: layer.legend?.label || 'computed layer' });
+  }
 
   // ---- graticule (hairline, recessive)
   const grat = el('g');
@@ -131,9 +214,6 @@ export function renderMap(container, visual, layerData, hooks) {
       grat.appendChild(t);
     }
   }
-
-  const legendEntries = [];
-  const ramps = { used: 0 };
 
   // ---- draw layers in class order: polygons first, cells, then points on top
   const ordered = [...(visual.layers || [])].sort((a, b) => {
@@ -350,7 +430,7 @@ export function renderMap(container, visual, layerData, hooks) {
         // Uncertainty halo when declared.
         const unc = props.coordinate_uncertainty_m;
         if (Number.isFinite(unc) && unc > 0) {
-          const uncPx = (unc / 1000 / haversineKm(midLat, 0, 1)) * kx * scale;
+          const uncPx = (unc / 1000) / kmPerPx;
           if (uncPx > r + 2 && uncPx < Math.min(width, height) / 4) {
             g.appendChild(el('circle', {
               cx: x, cy: y, r: uncPx, fill: 'none',
@@ -400,7 +480,6 @@ export function renderMap(container, visual, layerData, hooks) {
 
   // ---- scale bar
   const targetPx = width / 5;
-  const kmPerPx = haversineKm(midLat, minLon, maxLon) / width;
   const niceKm = [0.25, 0.5, 1, 2, 5, 10, 20, 50, 100].find((k) => k / kmPerPx >= targetPx * 0.6) || 100;
   const barPx = niceKm / kmPerPx;
   const sb = el('g', { class: 'viz-map-scalebar' });
