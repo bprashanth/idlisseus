@@ -1,0 +1,290 @@
+[
+  {
+    "category": "Group A",
+    "x": "06",
+    "y": 1000,
+    "value": 0.47,
+    "series": 8,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "06",
+    "y": 2000,
+    "value": 0.65,
+    "series": 9,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "06",
+    "y": 3000,
+    "value": 0.82,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "07",
+    "y": 1000,
+    "value": 0.88,
+    "series": 9,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "07",
+    "y": 2000,
+    "value": 0.06,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "07",
+    "y": 3000,
+    "value": 0.24,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "08",
+    "y": 1000,
+    "value": 0.29,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "08",
+    "y": 2000,
+    "value": 0.47,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "08",
+    "y": 3000,
+    "value": 0.65,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "09",
+    "y": 1000,
+    "value": 0.71,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "09",
+    "y": 2000,
+    "value": 0.88,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "09",
+    "y": 3000,
+    "value": 0.06,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "10",
+    "y": 1000,
+    "value": 0.12,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "10",
+    "y": 2000,
+    "value": 0.29,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "10",
+    "y": 3000,
+    "value": 0.47,
+    "series": 5,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "11",
+    "y": 1000,
+    "value": 0.53,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "11",
+    "y": 2000,
+    "value": 0.71,
+    "series": 5,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group A",
+    "x": "11",
+    "y": 3000,
+    "value": 0.88,
+    "series": 6,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "06",
+    "y": 1000,
+    "value": 0.53,
+    "series": 8,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "06",
+    "y": 2000,
+    "value": 0.71,
+    "series": 9,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "06",
+    "y": 3000,
+    "value": 0.88,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "07",
+    "y": 1000,
+    "value": 0.94,
+    "series": 9,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "07",
+    "y": 2000,
+    "value": 0.12,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "07",
+    "y": 3000,
+    "value": 0.29,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "08",
+    "y": 1000,
+    "value": 0.35,
+    "series": 1,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "08",
+    "y": 2000,
+    "value": 0.53,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "08",
+    "y": 3000,
+    "value": 0.71,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "09",
+    "y": 1000,
+    "value": 0.76,
+    "series": 2,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "09",
+    "y": 2000,
+    "value": 0.94,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "09",
+    "y": 3000,
+    "value": 0.12,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "10",
+    "y": 1000,
+    "value": 0.18,
+    "series": 3,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "10",
+    "y": 2000,
+    "value": 0.35,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "10",
+    "y": 3000,
+    "value": 0.53,
+    "series": 5,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "11",
+    "y": 1000,
+    "value": 0.59,
+    "series": 4,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "11",
+    "y": 2000,
+    "value": 0.76,
+    "series": 5,
+    "unit": "scaled activity"
+  },
+  {
+    "category": "Group B",
+    "x": "11",
+    "y": 3000,
+    "value": 0.94,
+    "series": 6,
+    "unit": "scaled activity"
+  }
+]

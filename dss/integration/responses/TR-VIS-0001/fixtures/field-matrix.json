@@ -1,0 +1,84 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-field-matrix",
+  "request_id": "fixture-field-matrix",
+  "revision": 1,
+  "status": "complete",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:0",
+    "synthetic": true
+  },
+  "question": {
+    "original": "Render a field-declared matrix.",
+    "resolved": "TR-VIS-0001 acceptance fixture",
+    "bindings": {
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "Two facets of a generic two-dimensional result.",
+    "detail": "Sector-neutral acceptance fixture.",
+    "evidence_classes": [
+      "derived"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "field-matrix",
+      "visual_type": "matrix",
+      "view": "generic-field-matrix",
+      "title": "Field-declared matrix",
+      "priority": "primary",
+      "status": "ready",
+      "scope": {
+        "aoi_ids": [
+          "target"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "cells",
+          "evidence_class": "derived",
+          "geometry_type": "matrix",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "cells",
+            "media_type": "application/json"
+          },
+          "legend": {
+            "label": "Scaled activity"
+          },
+          "style_hint": {
+            "facet_field": "category",
+            "x_field": "x",
+            "y_field": "y",
+            "value_field": "value",
+            "coverage_field": "series"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "",
+        "denominators": {}
+      },
+      "drilldowns": [],
+      "limitations": []
+    }
+  ],
+  "limitations": [],
+  "actions": [],
+  "audit": {
+    "audit_id": "fixture",
+    "source_versions": [
+      "source-a"
+    ],
+    "capability_runs": [],
+    "query_hash": "sha256:0"
+  }
+}
