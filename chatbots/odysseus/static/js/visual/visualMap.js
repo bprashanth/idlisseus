@@ -58,15 +58,26 @@ export function renderMap(container, visual, layerData, hooks) {
 
   // ---- bounds over all layers
   let minLon = Infinity, maxLon = -Infinity, minLat = Infinity, maxLat = -Infinity;
-  for (const [, fc] of layerData) {
-    for (const f of (fc && fc.features) || []) {
-      for (const [lon, lat] of geomCoords(f.geometry)) {
-        if (lon < minLon) minLon = lon;
-        if (lon > maxLon) maxLon = lon;
-        if (lat < minLat) minLat = lat;
-        if (lat > maxLat) maxLat = lat;
+  // Two passes: features the reader asked about first (declared target roles),
+  // falling back to everything when a result is entirely context.
+  const isContextFeature = (f) => {
+    const p = (f && f.properties) || {};
+    const role = String(p.scope_role || p.role || '').toLowerCase();
+    return role.includes('context') || role.includes('donor') || role.includes('comparison');
+  };
+  for (const skipContext of [true, false]) {
+    for (const [, fc] of layerData) {
+      for (const f of (fc && fc.features) || []) {
+        if (skipContext && isContextFeature(f)) continue;
+        for (const [lon, lat] of geomCoords(f.geometry)) {
+          if (lon < minLon) minLon = lon;
+          if (lon > maxLon) maxLon = lon;
+          if (lat < minLat) minLat = lat;
+          if (lat > maxLat) maxLat = lat;
+        }
       }
     }
+    if (Number.isFinite(minLon)) break;
   }
   if (!Number.isFinite(minLon)) { minLon = 0; maxLon = 1; minLat = 0; maxLat = 1; }
   // Enforce a minimum extent so a single place still gets a legible neighbourhood.

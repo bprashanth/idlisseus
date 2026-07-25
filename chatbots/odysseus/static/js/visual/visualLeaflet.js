@@ -68,8 +68,44 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     if (id) localStorage.setItem('viz-basemap-leaflet', id);
   });
 
-  const bounds = L.latLngBounds([]);
+  const bounds = L.latLngBounds([]);       // everything drawn
+  const focusBounds = L.latLngBounds([]);  // non-context features
+  const emphasisBounds = L.latLngBounds([]); // the layer the answer is about
   const overlays = {};
+
+  // A feature is "context" when the producer says so (donor/comparison/context
+  // roles). Those inform, but they must not dictate the viewport.
+  const isContext = (f) => {
+    const p = (f && f.properties) || {};
+    const role = String(p.scope_role || p.role || '').toLowerCase();
+    return role.includes('context') || role.includes('donor') || role.includes('comparison');
+  };
+  const extendFocus = (fc, layer) => {
+    if (!fc || !fc.features) return;
+    const emphasis = (layer.style_hint || {}).emphasis === 'primary';
+    for (const f of fc.features) {
+      if (emphasis) {
+        const g0 = f.geometry;
+        if (g0) {
+          if (g0.type === 'Point') emphasisBounds.extend([g0.coordinates[1], g0.coordinates[0]]);
+          else {
+            const r0 = g0.type === 'Polygon' ? g0.coordinates[0]
+              : g0.type === 'MultiPolygon' ? g0.coordinates[0][0] : null;
+            for (const c of r0 || []) emphasisBounds.extend([c[1], c[0]]);
+          }
+        }
+      }
+      if (!emphasis && isContext(f)) continue;
+      const g = f.geometry;
+      if (!g) continue;
+      if (g.type === 'Point') focusBounds.extend([g.coordinates[1], g.coordinates[0]]);
+      else {
+        const ring = g.type === 'Polygon' ? g.coordinates[0]
+          : g.type === 'MultiPolygon' ? g.coordinates[0][0] : null;
+        for (const c of ring || []) focusBounds.extend([c[1], c[0]]);
+      }
+    }
+  };
   const ramps = { used: 0 };
 
   const ordered = [...(visual.layers || [])].sort((a, b) => {
@@ -129,6 +165,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
       }).addTo(map);
       overlays[label] = gj;
       if (gj.getBounds().isValid()) bounds.extend(gj.getBounds());
+      if (!isBoundary) extendFocus(fc, layer);
     } else if (layer.geometry_type === 'point') {
       const counts = fc.features.map((f) => magnitudeOf(f.properties || {}).value || 1);
       const maxCount = Math.max(...counts, 1);
@@ -148,6 +185,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
       group.addTo(map);
       overlays[label] = group;
       if (group.getBounds().isValid()) bounds.extend(group.getBounds());
+      extendFocus(fc, layer);
     } else if (layer.geometry_type === 'line') {
       const gj = L.geoJSON(fc, {
         style: { color, weight: 3, opacity: 0.9 },
@@ -169,7 +207,9 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
 
   const fit = () => {
     map.invalidateSize();
-    if (bounds.isValid()) map.fitBounds(bounds.pad(0.06));
+    const target = emphasisBounds.isValid() ? emphasisBounds
+      : (focusBounds.isValid() ? focusBounds : bounds);
+    if (target.isValid()) map.fitBounds(target.pad(0.12), { maxZoom: 14 });
     else map.setView([0, 0], 2);
   };
   fit();
