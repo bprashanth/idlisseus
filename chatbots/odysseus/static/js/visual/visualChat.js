@@ -149,6 +149,104 @@ export async function openInPanel(resultId) {
   await chapter.setEnvelope(envelope);
 }
 
+// ---- right context rail (EcoData "Current Context" inspiration) ------------
+let contextRail = null;
+const recentVisuals = [];
+
+async function ensureContextRail() {
+  const c = await resolveClient();
+  if (!c) { removeContextRail(); return; }
+  if (!contextRail) {
+    contextRail = document.createElement('aside');
+    contextRail.id = 'viz-context-rail';
+    contextRail.setAttribute('aria-label', 'Site context');
+    document.body.appendChild(contextRail);
+    document.body.classList.add('viz-context-open');
+  }
+  try {
+    const env = await c.query('site-orientation', {}, '');
+    contextRail.replaceChildren();
+    const h = document.createElement('div');
+    h.className = 'viz-rail-heading';
+    h.textContent = 'Current context';
+    contextRail.appendChild(h);
+    const site = document.createElement('div');
+    site.className = 'viz-rail-site';
+    site.textContent = (env.site && env.site.label) || '';
+    contextRail.appendChild(site);
+    if (env.site && env.site.synthetic) {
+      const ribbon = document.createElement('span');
+      ribbon.className = 'viz-synthetic-ribbon';
+      ribbon.textContent = 'Synthetic test data';
+      contextRail.appendChild(ribbon);
+    }
+    const primary = (env.visuals || [])[0] || {};
+    const denoms = (primary.summary && primary.summary.denominators) || {};
+    const tiles = document.createElement('div');
+    tiles.className = 'viz-rail-tiles';
+    const entries = Object.entries(denoms).slice(0, 4);
+    if (!denoms.sources && !denoms.source_versions) {
+      entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
+    }
+    for (const [k, v] of entries) {
+      const tile = document.createElement('div');
+      tile.className = 'viz-rail-tile';
+      const val = document.createElement('div');
+      val.className = 'viz-rail-tile-value';
+      val.textContent = typeof v === 'number' ? v.toLocaleString('en-IN') : String(v);
+      tile.appendChild(val);
+      const lab = document.createElement('div');
+      lab.className = 'viz-rail-tile-label';
+      lab.textContent = String(k).replace(/_/g, ' ');
+      tile.appendChild(lab);
+      tiles.appendChild(tile);
+    }
+    contextRail.appendChild(tiles);
+    const rh = document.createElement('div');
+    rh.className = 'viz-rail-heading';
+    rh.textContent = 'Recent visuals';
+    contextRail.appendChild(rh);
+    const list = document.createElement('div');
+    list.className = 'viz-rail-recent';
+    list.id = 'viz-rail-recent';
+    contextRail.appendChild(list);
+    renderRecentList();
+  } catch {
+    removeContextRail(); // endpoint has no visual plane
+  }
+}
+
+function removeContextRail() {
+  if (contextRail) { contextRail.remove(); contextRail = null; }
+  document.body.classList.remove('viz-context-open');
+}
+
+function noteRecentVisual(resultId, headline) {
+  if (recentVisuals.some((r) => r.resultId === resultId)) return;
+  recentVisuals.unshift({ resultId, headline });
+  recentVisuals.length = Math.min(recentVisuals.length, 8);
+  renderRecentList();
+}
+
+function renderRecentList() {
+  const list = document.getElementById('viz-rail-recent');
+  if (!list) return;
+  list.replaceChildren();
+  for (const r of recentVisuals) {
+    const item = document.createElement('button');
+    item.className = 'viz-rail-recent-item';
+    item.textContent = r.headline || r.resultId;
+    item.addEventListener('click', () => openInPanel(r.resultId));
+    list.appendChild(item);
+  }
+  if (!recentVisuals.length) {
+    const none = document.createElement('div');
+    none.className = 'viz-rail-empty';
+    none.textContent = 'Ask a question to see visuals here.';
+    list.appendChild(none);
+  }
+}
+
 // ---- inline hydration ------------------------------------------------------
 const hydrating = new Set();
 
@@ -172,6 +270,18 @@ async function hydrateSlot(slot) {
 
   const card = document.createElement('figure');
   card.className = 'viz-inline-card';
+  const primaryV = (envelope.visuals || []).find((v) => v.priority === 'primary') || (envelope.visuals || [])[0];
+  const titlebar = document.createElement('div');
+  titlebar.className = 'viz-card-titlebar';
+  const tname = document.createElement('span');
+  tname.textContent = ((primaryV && (primaryV.view || primaryV.visual_type)) || 'result')
+    .toUpperCase().replace(/-/g, '_');
+  titlebar.appendChild(tname);
+  const topen = document.createElement('span');
+  topen.className = 'viz-card-titlebar-open';
+  topen.textContent = '⤢';
+  titlebar.appendChild(topen);
+  card.appendChild(titlebar);
   const headRow = document.createElement('figcaption');
   headRow.className = 'viz-inline-head';
   if (envelope.site && envelope.site.synthetic) {
@@ -232,6 +342,8 @@ async function hydrateSlot(slot) {
     openInPanel(resultId);
   });
   slot.appendChild(card);
+  noteRecentVisual(resultId, (envelope.answer && envelope.answer.headline) || '');
+  ensureContextRail();
 }
 
 function scanForSlots(rootNode) {
@@ -259,10 +371,11 @@ window.addEventListener('idli-visual-result', () => {
 });
 
 // History loads render in bulk; sweep once after load and on session switches.
-setTimeout(() => scanForSlots(document), 3000);
+setTimeout(() => { scanForSlots(document); ensureContextRail(); }, 3000);
 document.addEventListener('click', (ev) => {
   if (ev.target.closest && ev.target.closest('.list-item[data-session-id]')) {
     client = null; clientEndpointUrl = null; // endpoint may change with the session
-    setTimeout(() => scanForSlots(document), 2500);
+    recentVisuals.length = 0;
+    setTimeout(() => { scanForSlots(document); ensureContextRail(); }, 2500);
   }
 }, true);

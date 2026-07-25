@@ -34,9 +34,14 @@ export const THEMES = {
                 advanced: { brandColor: '#ec4899', brandMixTo: '#8a2be2',
                             sendBtnBg: '#ec4899', sendBtnHover: '#be185d',
                             accentPrimary: '#ec4899' } },
+  // Scientific-minimal field-data theme (Eco-Data Narrative inspiration)
+  ecodata:    { bg:'#f7f9fb', fg:'#191c1e', panel:'#ffffff', border:'#d8dde0', red:'#064e3b',
+                advanced: { brandColor: '#064e3b', brandMixTo: '#2b6954',
+                            sendBtnBg: '#064e3b', sendBtnHover: '#003527',
+                            accentPrimary: '#0b7a5c' } },
 };
 
-const DEFAULT_THEME = 'idlisseus';
+const DEFAULT_THEME = 'ecodata';
 const LS_KEY = 'idlisseus-theme';
 const CUSTOM_THEMES_KEY = 'idlisseus-custom-themes';
 

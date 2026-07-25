@@ -52,7 +52,17 @@ export const RAMP_BLUE = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf',
 export const RAMP_ORANGE = ['#fde3d3', '#f8c4a4', '#f2a578', '#eb6834', '#d95926', '#b0431a', '#8a3212'];
 
 export function isDarkMode() {
-  return !document.documentElement.classList.contains('light');
+  // Trust the app's light class when present; otherwise infer from the actual
+  // theme background so light themes never get dark chart surfaces.
+  if (document.documentElement.classList.contains('light')) return false;
+  const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+  const m = /^#([0-9a-f]{6})$/i.exec(bg);
+  if (m) {
+    const n = parseInt(m[1], 16);
+    const lum = 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255);
+    return lum < 128;
+  }
+  return true;
 }
 
 export function palette() {
