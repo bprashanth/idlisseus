@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "failed-donor-records",
             "media_type": "application/geo+json",
-            "digest": "sha256:3b0f3674673561314c64a7918f9a3b35dbb5ef7e6a8458f9d828f1687fc76a18"
+            "digest": "sha256:8e9b00928bfe50824d03ecc4f99217cc058da1ea95a4ae12e06a8ffb402fb3dd"
           },
           "legend": {
             "label": "Donor observations"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "unsupported-target",
             "media_type": "application/geo+json",
-            "digest": "sha256:650290ff494ea497c6d44a918b5b82bfba96eca5c8638501cf5ec83911687368"
+            "digest": "sha256:beb835db5b2c319cce95b6140054062e5ec6eb192cd797bbf12d7895e98ed2f0"
           },
           "legend": {
             "label": "Unsupported target cells"
@@ -97,7 +97,7 @@
             "kind": "result_data",
             "handle": "failed-gate-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:5be11414148583779f02dfd76e0de53709a00bfe8f89d392ffa3c45103132f4e"
+            "digest": "sha256:4bad7143e1b927d2fc77303217aab883cb608ece947703e351687c24f3ab14da"
           }
         }
       ],

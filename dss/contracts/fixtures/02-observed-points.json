@@ -54,7 +54,7 @@
             "kind": "result_data",
             "handle": "observations",
             "media_type": "application/geo+json",
-            "digest": "sha256:bfc5a6b45b6a16128fbf94195a8b6895883b709e9ab0bf0bc5dc5a14fa18cf2f"
+            "digest": "sha256:740bd052424e8cd939ee53dc97d052e1be6a21c1867cddb0d2c4a090ecfe4378"
           },
           "legend": {
             "label": "Observed records"
@@ -80,7 +80,7 @@
             "kind": "result_data",
             "handle": "observed-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:920d3f3d29c322a323d05a7691571f86ac6af4ab7971cc23ab918cb3f439a34c"
+            "digest": "sha256:a2cdb4ab8dfcf9ea8c1bcb1aef1a358725c8649d92e38270b60be47066051b57"
           }
         }
       ],

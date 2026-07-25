@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "target-aoi",
             "media_type": "application/geo+json",
-            "digest": "sha256:d2bb34aaa82acabc4d192ed308c2344aa3348b9b8d8e653fa7225c4c39111148"
+            "digest": "sha256:0ff0665c13349c6fb8d8440a2b0a0b94f90b3b2e44990d3abb7bdf52835630f3"
           },
           "legend": {
             "label": "Target area"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "surrounding-records",
             "media_type": "application/geo+json",
-            "digest": "sha256:45e745eda1b05a53dabb26f592ebae33a837a8e55a65a3f35e378ac3c4470ca9"
+            "digest": "sha256:37bcc28f9ddc9e04243f1d536140fafe6e234eb2105e486be5caf3388ff25855"
           },
           "legend": {
             "label": "Surrounding records"
@@ -97,7 +97,7 @@
             "kind": "result_data",
             "handle": "surrounding-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:5458286ad92c2950f28e0671ae9920657509dc354e8e23d7efab2698f981d6d3"
+            "digest": "sha256:8288964cfa8a006a716d2dd838b0a7b032733e495fd3c983e387d1745932cb3a"
           }
         }
       ],

@@ -54,7 +54,7 @@
             "kind": "result_data",
             "handle": "last-known-good",
             "media_type": "application/geo+json",
-            "digest": "sha256:da6f906b0561ad74f7b69e728123cbab220526789da094c923ba4d9f1ac41aba"
+            "digest": "sha256:8f8394b92014938ad57316f021dd74f8145f014ef7bbbd18c567773899d17586"
           },
           "legend": {
             "label": "Last-known-good records"
@@ -79,7 +79,7 @@
             "kind": "result_data",
             "handle": "outage-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:ab0ab821bba087a998372827b972b1a1a31e4935dbfbb78c6e89fd86f5761535"
+            "digest": "sha256:2a10ea6857a81d5d3203c16c7cbcb559268ac502019178398dfa2100b624340b"
           }
         }
       ],

@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "uncertainty-surface",
             "media_type": "application/geo+json",
-            "digest": "sha256:e4764305b66cd15a5182093ae74545cbce16b9f21c454e051c70fda6fa873b35"
+            "digest": "sha256:43364cd4194b0dae3ccba4eaadf76ebeae68ac1d41451db7a647927b34574c83"
           },
           "legend": {
             "label": "Current uncertainty"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "candidate-actions",
             "media_type": "application/geo+json",
-            "digest": "sha256:604a54866a4f1cfce64a662a6a6b83b701cf97206e816395b8f804212dd3dd5c"
+            "digest": "sha256:cf300323bc6760c46d0e8a9449245b9aaa209097dfc7a102dc57b1b17a0b15e3"
           },
           "legend": {
             "label": "Candidate collection locations"
@@ -97,7 +97,7 @@
             "kind": "result_data",
             "handle": "data-request-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:c713c6c6b07296f7eb3611128a8ab27972ab269c95297a09b9b79e8672bfaf4f"
+            "digest": "sha256:8ae2f6042cab58e6e150f7d14b5dc30159d3df4cae69f4fdb4a37777eac5434b"
           }
         }
       ],

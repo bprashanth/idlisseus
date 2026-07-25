@@ -54,7 +54,7 @@
             "kind": "result_data",
             "handle": "result-cards",
             "media_type": "application/json",
-            "digest": "sha256:961bb2332058a089100ecc03a0304ac5a9aaeb45125616e0b996c0ecd99f2394"
+            "digest": "sha256:6d0260e0f062ef097655821b58ebb5893305f5263d56254be670d865dbfe17cf"
           },
           "legend": {
             "label": "Immutable prior results"

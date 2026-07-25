@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "donor-records",
             "media_type": "application/geo+json",
-            "digest": "sha256:2a86c1d7d459934faa72c71898bd9329ab09317a29de0d2804275026eb69dcb6"
+            "digest": "sha256:95eb971e07bc43bf3bdbb37bfb680c3063edc0472b259543ba5242b8e06ce136"
           },
           "legend": {
             "label": "Donor observations"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "estimate",
             "media_type": "application/geo+json",
-            "digest": "sha256:79e1d925e79c904a9cf8ef433d2eb255d5e3f1a881e45d7e3ea1121a86da1749"
+            "digest": "sha256:ccff5c67a3bc271d433f8a9eebe65f85d8ac6561e1cd2b784733d50ef851c9f4"
           },
           "legend": {
             "label": "Modelled estimate"
@@ -89,7 +89,7 @@
             "kind": "result_data",
             "handle": "uncertainty",
             "media_type": "application/geo+json",
-            "digest": "sha256:9019f8058b99ac31bb7dfedda8717b003d6a9ac5b8a809f9e5e08e2349e4c4d4"
+            "digest": "sha256:881da35d06b72509bb6ab10f6a50b068ac48c1b58f0d6a10471d4cf409e868ad"
           },
           "legend": {
             "label": "Model uncertainty"
@@ -115,7 +115,7 @@
             "kind": "result_data",
             "handle": "transfer-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:fc9b596a332917e8c2f1c496bdc96d4bfefd90b93252f1eb6808ecff40cabc9f"
+            "digest": "sha256:922f7fc879c13008955f5b31658429b1ded43a8bcf6e59f2a84298bfcfe1d7d3"
           }
         }
       ],

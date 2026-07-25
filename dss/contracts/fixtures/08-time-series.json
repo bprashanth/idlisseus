@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "metric-series",
             "media_type": "application/json",
-            "digest": "sha256:563c79b164d4468eb5b17f25fa7490709334c26de4bd0bce45c9b984765bdcb4"
+            "digest": "sha256:bff086906c3b55ac72b65414506335ebde054f517fa34f0c5ed9dede17d415c0"
           },
           "legend": {
             "label": "Monthly measurements"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "coverage-strip",
             "media_type": "application/json",
-            "digest": "sha256:7842d7e85af7a1a7a2a0c7b5b3c9a1938203a239f193a7e08950f824e86f0dd3"
+            "digest": "sha256:db14b781eeb884841dbac03f292d1ddf1c92001642f883419231b0095617e227"
           },
           "legend": {
             "label": "Monthly coverage"
@@ -98,7 +98,7 @@
             "kind": "result_data",
             "handle": "time-series-rows",
             "media_type": "application/json",
-            "digest": "sha256:04fb1e2f35329ac5841f636834c2dfb39becbf6e0c60c490452f4d47e98a873c"
+            "digest": "sha256:247f1a0126c3383ca011532b1ae183edb430b6d2cf2c24db211d6f144ae282da"
           }
         }
       ],

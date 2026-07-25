@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "declared-aoi",
             "media_type": "application/geo+json",
-            "digest": "sha256:a798783106bc0c36ffd0f3e6accea03df80dc7ff0b7b020795d694c3c7bb35e8"
+            "digest": "sha256:1999b72498ebf110ef5b96058a68e3347b696be983b74f725886eb82ce15b97a"
           },
           "legend": {
             "label": "Declared analysis area"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "event-density",
             "media_type": "application/geo+json",
-            "digest": "sha256:066c4f79a5f89e94d5eabf20356fd54ffe569c7ad96fe4b98d58f73370798637"
+            "digest": "sha256:560869e59b23d7558dcc6514b6b321f980d886f2cf1eba2e3961892897d06698"
           },
           "legend": {
             "label": "Indexed record density"
@@ -97,7 +97,7 @@
             "kind": "result_data",
             "handle": "orientation-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:4432b40871df64952d75539f5f73246c391c67c3edd08f66e49e06003e6d048e"
+            "digest": "sha256:7c4cf17d0ad1213d136a64a2d0268644a6a29acddfbb240c0534b70c989e11bf"
           }
         }
       ],

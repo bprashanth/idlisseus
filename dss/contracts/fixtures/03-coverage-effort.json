@@ -55,7 +55,7 @@
             "kind": "result_data",
             "handle": "coverage",
             "media_type": "application/geo+json",
-            "digest": "sha256:c3a3091b9d32267d0b3175ee14f70a1e0b3d7292d0a0fa45020ced5fb764d620"
+            "digest": "sha256:8d450fb1ba7e3d83386e39d7cb6feeb693e42de0c54792af0af2b6e50ba51fce"
           },
           "legend": {
             "label": "Record coverage"
@@ -72,7 +72,7 @@
             "kind": "result_data",
             "handle": "effort",
             "media_type": "application/geo+json",
-            "digest": "sha256:a4f12c3895258d0b6e32d9a4d692057c8cfcd5f8efc97dbdf7cefe1c46382b89"
+            "digest": "sha256:acf4dd2e282fdef79ddbc4b84d1a1d022eba0ba5a433ab8014c0de580bb5845d"
           },
           "legend": {
             "label": "Documented survey effort"
@@ -97,7 +97,7 @@
             "kind": "result_data",
             "handle": "coverage-effort-map-rows",
             "media_type": "application/json",
-            "digest": "sha256:15236b7b3dedab3f3dc20308d5c93c55dab50c98d2dc4c4f95912074edda9503"
+            "digest": "sha256:2340a101144000260e5c658f6f71cc29b379065989cb5b91642475e98cecae06"
           }
         }
       ],
