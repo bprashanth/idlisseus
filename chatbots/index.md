@@ -85,13 +85,15 @@ docker compose build odysseus && docker compose up -d --force-recreate odysseus
 
 Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 
-### Visual shell — the quiet layer (2026-07-26)
+### Visual shell — dark, minimal, one blue (2026-07-27)
 
 The site-pack UI is now one design system rather than the general chat app with
-overrides. Paper-and-ink palette with a single deep-green accent and one marker
-highlight; a 720px measure shared by prose, result cards and the composer; the
-left rail carries the active site and four destinations; the right rail carries
-the site's figures without meters. The composer is a single card anchored to the
+overrides. Near-black page, white type, and a solid blue block behind the words that
+matter. Navigation is text floating at the left edge with no panel around it,
+which hands the width back to the work; the right context rail is gone. A 760px
+measure carries cards, with prose set to a 62ch line. Charts and maps follow
+automatically — the renderers already carry a validated dark palette keyed off
+the document background, which the shell now sets at the root. The composer is a single card anchored to the
 foot of the column, and it steps aside for the context rail and the detail panel.
 Remnants of the general-purpose chat app (agent/chat switcher, model picker,
 tool strip, sidebar and its toggle) are hidden inside the shell. Key figures in

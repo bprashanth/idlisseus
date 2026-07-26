@@ -185,6 +185,8 @@ function ensureNav() {
 
   document.body.appendChild(navEl);
   document.body.classList.add(SHELL_CLASS);
+  document.documentElement.classList.remove('light');
+  document.documentElement.style.setProperty('--bg', '#0a0a0b');
   return navEl;
 }
 

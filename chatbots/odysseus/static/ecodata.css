@@ -542,563 +542,395 @@ body.eco-explorer-open #eco-explorer { transform: none; }
 }
 
 /* =========================================================================
-   Idli Insight — the quiet layer
+   Idli Insight — dark, minimal, one blue
 
-   One measure, one accent, hairline edges, generous air. The reference is a
-   printed research page rather than a dashboard: ink on paper, a single
-   highlight for the thing that matters, and no chrome that isn't carrying
-   information. Everything below is scoped to body.eco-shell, so the plain
-   chat app keeps its own look.
+   Near-black page, white type, and a solid blue block behind the words that
+   matter. Navigation is text floating at the left edge with no panel around
+   it, which hands the whole width back to the work. Nothing here is a box
+   unless it holds a figure.
    ========================================================================= */
 
 body.eco-shell {
-  /* paper and ink */
-  --ink:            #16181c;
-  --ink-soft:       #4a5058;
-  --ink-faint:      #8a9099;
-  --paper:          #fbfbfa;
-  --paper-raised:   #ffffff;
-  --paper-sunk:     #f4f4f2;
-  --line:           rgba(22, 24, 28, 0.09);
-  --line-strong:    rgba(22, 24, 28, 0.16);
-  /* one accent, used sparingly */
-  --accent:         #1f5c46;
-  --accent-deep:    #123a2c;
-  --accent-wash:    rgba(31, 92, 70, 0.07);
-  --highlight:      #fdf3c9;   /* the marker used on the thing that matters */
-  --highlight-edge: #f3e3a4;
-  --radius:         14px;
-  --radius-sm:      10px;
-  --measure:        720px;
-  --rail-w:         272px;
-  --nav-w:          232px;
+  --page:        #0a0a0b;
+  --surface:     #131315;
+  --surface-2:   #1b1b1e;
+  --ink:         #f5f5f7;
+  --ink-soft:    #a1a1a8;
+  --ink-faint:   #6e6e76;
+  --line:        rgba(255,255,255,0.09);
+  --line-strong: rgba(255,255,255,0.16);
+  --blue:        #2f9bff;
+  --blue-deep:   #1b7fe0;
+  --radius:      16px;
+  --radius-sm:   10px;
+  --measure:     760px;
+  --prose:       62ch;
+  --nav-w:       150px;
 
-  /* the chat app's own tokens, retuned to the above */
-  --red: var(--accent);
-  --accent-primary: var(--accent);
-  --brand-color: var(--accent);
-  --send-btn-bg: var(--accent);
-  --send-btn-hover: var(--accent-deep);
-  --input-bg: var(--paper-raised);
-  --input-border: var(--line);
-
-  background: var(--paper);
-  color: var(--ink);
-  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ---- remnants of the general-purpose chat app that this product doesn't use */
-body.eco-shell .mode-toggle,
-body.eco-shell #mode-agent-btn,
-body.eco-shell #mode-chat-btn,
-body.eco-shell .mode-toggle-btn,
-body.eco-shell .model-picker-wrap,
-body.eco-shell .chat-input-toolbar-left,
-body.eco-shell .attach-strip:empty,
-body.eco-shell .chat-top-bar .newchat-mode,
-body.eco-shell #eco-explorer { display: none !important; }
-
-/* ============================ the left panel ============================ */
-body.eco-shell #eco-nav {
-  width: var(--nav-w);
-  background: var(--paper);
-  border-right: 1px solid var(--line);
-  padding: 22px 14px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-body.eco-shell .eco-brand {
-  display: flex; align-items: center; gap: 9px;
-  padding: 0 8px 22px;
-  font-size: 15px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink);
-}
-body.eco-shell .eco-brand-mark {
-  width: 22px; height: 22px; border-radius: 6px;
-  background: var(--accent); color: #fff;
-  display: grid; place-items: center; font-size: 11px; font-weight: 700;
-}
-body.eco-shell .eco-nav-site {
-  padding: 9px 10px; margin: 0 0 4px;
-  border-radius: var(--radius-sm);
-  background: var(--paper-sunk);
-  font-size: 13.5px; font-weight: 600; color: var(--ink);
-  display: flex; flex-direction: column; gap: 2px;
-}
-body.eco-shell .eco-nav-site small {
-  font-size: 10.5px; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--ink-faint);
-}
-body.eco-shell .eco-nav-item {
-  display: flex; align-items: center; gap: 10px;
-  width: 100%; padding: 8px 10px;
-  border: 0; background: none; border-radius: var(--radius-sm);
-  font: inherit; font-size: 13.5px; color: var(--ink-soft);
-  text-align: left; cursor: pointer;
-  transition: background 120ms ease, color 120ms ease;
-}
-body.eco-shell .eco-nav-item:hover { background: var(--paper-sunk); color: var(--ink); }
-body.eco-shell .eco-nav-item.is-active { background: var(--accent-wash); color: var(--accent-deep); font-weight: 550; }
-body.eco-shell .eco-nav-icon { width: 15px; height: 15px; opacity: 0.62; flex: none; }
-body.eco-shell .eco-nav-item.is-active .eco-nav-icon { opacity: 0.9; }
-body.eco-shell .eco-nav-spacer { flex: 1 1 auto; }
-body.eco-shell .eco-new-btn {
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-  width: 100%; padding: 10px 12px; margin-bottom: 10px;
-  border: 1px solid var(--line-strong); border-radius: var(--radius-sm);
-  background: var(--paper-raised); color: var(--ink);
-  font: inherit; font-size: 13.5px; font-weight: 550; cursor: pointer;
-  transition: background 120ms ease, border-color 120ms ease;
-}
-body.eco-shell .eco-new-btn:hover { background: var(--paper-sunk); border-color: var(--ink-faint); }
-body.eco-shell .eco-nav-foot { padding: 0 10px; }
-body.eco-shell .eco-nav-mini {
-  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--ink-faint); padding: 6px 0;
-}
-
-/* ============================ the centre column ============================ */
-body.eco-shell .chat-container {
-  margin-left: var(--nav-w);
-  background: var(--paper);
-  display: flex; flex-direction: column;
-}
-body.eco-shell.viz-context-open .chat-container { margin-right: var(--rail-w); }
-body.eco-shell .chat-top-bar {
-  border: 0; background: none;
-  padding: 14px 24px 0;
-  justify-content: center;
-  font-size: 12.5px; color: var(--ink-faint);
-}
-body.eco-shell .chat-history {
-  padding: 26px 24px 150px;
-  scroll-padding-bottom: 150px;
-  background: var(--paper);
-}
-/* one measure, centred, shared by prose, cards and composer */
-body.eco-shell .msg,
-body.eco-shell .viz-inline,
-body.eco-shell #eco-welcome,
-body.eco-shell .chat-input-bar > form,
-body.eco-shell .chat-input-bar > * {
-  max-width: var(--measure);
-  margin-left: auto; margin-right: auto;
-}
-
-/* ---- prose: a research page, not a transcript */
-body.eco-shell .msg { border: 0; background: none; padding: 2px 0 20px; }
-body.eco-shell .msg-ai .body,
-body.eco-shell .msg-ai .msg-body {
-  font-size: 15.5px; line-height: 1.68; color: var(--ink);
-  letter-spacing: -0.004em;
-}
-body.eco-shell .msg-ai .body p { margin: 0 0 0.9em; }
-body.eco-shell .msg-ai .body strong { font-weight: 600; color: var(--ink); }
-body.eco-shell .msg-head, body.eco-shell .msg-ai .msg-head {
-  font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
-  color: var(--ink-faint); font-weight: 600; margin-bottom: 7px;
-}
-/* the reader's own turn: a quiet indent, not a coloured bubble */
-body.eco-shell .msg-user .body, body.eco-shell .msg-user .msg-body {
-  background: none; border: 0; border-left: 2px solid var(--line-strong);
-  padding: 1px 0 1px 14px; color: var(--ink-soft);
-  font-size: 15px; line-height: 1.55;
-}
-body.eco-shell .msg-user { padding-bottom: 22px; }
-
-/* ---- the highlight: one marker, for the figure the answer turns on */
-body.eco-shell mark.eco-mark,
-body.eco-shell .eco-mark {
-  background: linear-gradient(to bottom, transparent 12%, var(--highlight) 12%, var(--highlight) 92%, transparent 92%);
-  color: inherit;
-  padding: 0 2px;
-  border-radius: 2px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  font-weight: 550;
-}
-
-/* ============================ the composer ============================ */
-body.eco-shell .chat-input-bar {
-  position: fixed; bottom: 0;
-  left: var(--nav-w); right: 0;
-  width: auto !important; max-width: none !important;
-  margin: 0 !important; padding: 0 24px 22px;
-  z-index: 30; border: 0;
-  background: linear-gradient(to bottom, rgba(251,251,250,0) 0%, var(--paper) 26%);
-}
-body.eco-shell.viz-context-open .chat-input-bar { right: var(--rail-w); }
-body.eco-shell.viz-panel-open .chat-input-bar { right: min(56vw, 940px); }
-body.eco-shell .chat-input-wrap, body.eco-shell .chat-input-inner {
-  max-width: var(--measure); margin: 0 auto;
-  background: var(--paper-raised);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 2px rgba(22,24,28,0.04), 0 8px 24px rgba(22,24,28,0.06);
-  padding: 4px 6px 4px 4px;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
-}
-body.eco-shell .chat-input-wrap:focus-within, body.eco-shell .chat-input-inner:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 1px 2px rgba(22,24,28,0.04), 0 8px 28px rgba(31,92,70,0.13);
-}
-body.eco-shell #message {
-  background: none; border: 0; box-shadow: none;
-  padding: 13px 12px; font-size: 15px; line-height: 1.5; color: var(--ink);
-  resize: none;
-}
-body.eco-shell #message::placeholder { color: var(--ink-faint); }
-body.eco-shell .send-btn, body.eco-shell #send-btn {
-  background: var(--accent) !important; color: #fff !important;
-  border: 0 !important; border-radius: 9px;
-  width: 32px; height: 32px; display: grid; place-items: center;
-  transition: background 120ms ease, transform 120ms ease;
-}
-body.eco-shell .send-btn:hover, body.eco-shell #send-btn:hover {
-  background: var(--accent-deep) !important; transform: translateY(-1px);
-}
-body.eco-shell .chat-input-bottom, body.eco-shell .chat-input-toolbar {
-  border: 0; background: none; padding: 0 4px 4px; justify-content: flex-end;
-}
-@media (max-width: 1180px) { body.eco-shell.viz-context-open .chat-input-bar { right: 0; } }
-@media (max-width: 900px)  { body.eco-shell .chat-input-bar { left: 0; padding: 0 14px 16px; } }
-
-/* ============================ the right panel ============================ */
-body.eco-shell #viz-context-rail {
-  width: var(--rail-w);
-  background: var(--paper);
-  border-left: 1px solid var(--line);
-  padding: 22px 18px;
-}
-body.eco-shell .viz-rail-heading {
-  font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--ink-faint); font-weight: 600; margin: 0 0 10px;
-}
-body.eco-shell .viz-rail-site {
-  font-size: 16px; font-weight: 600; letter-spacing: -0.015em;
-  color: var(--ink); margin-bottom: 18px;
-}
-/* quiet figures: no meters, no progress bars, no invented precision */
-body.eco-shell .viz-rail-stat {
-  display: flex; flex-direction: column; gap: 1px;
-  padding: 9px 0; border-top: 1px solid var(--line);
-  background: none; border-radius: 0;
-}
-body.eco-shell .viz-rail-stat:first-of-type { border-top: 0; }
-body.eco-shell .viz-rail-stat-value {
-  font-size: 19px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-body.eco-shell .viz-rail-stat-label {
-  font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0;
-  text-transform: none;
-}
-body.eco-shell .viz-rail-meter, body.eco-shell .viz-rail-bar { display: none; }
-body.eco-shell .viz-rail-item {
-  display: block; width: 100%; text-align: left;
-  padding: 8px 10px; margin-bottom: 4px;
-  border: 1px solid var(--line); border-radius: var(--radius-sm);
-  background: var(--paper-raised); color: var(--ink-soft);
-  font: inherit; font-size: 12.5px; cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease;
-}
-body.eco-shell .viz-rail-item:hover { border-color: var(--ink-faint); color: var(--ink); }
-
-/* ============================ landing ============================ */
-body.eco-shell #eco-landing { background: var(--paper); padding: 0 24px; }
-body.eco-shell.eco-landing-open #eco-landing {
-  display: grid; place-items: center; align-content: center;
-}
-body.eco-shell .eco-landing-inner { width: 100%; max-width: 860px; }
-body.eco-shell .eco-landing-head { text-align: center; margin-bottom: 34px; }
-body.eco-shell .eco-landing-head h1 {
-  font-size: 34px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em;
-  color: var(--ink); margin: 0 0 12px;
-}
-body.eco-shell .eco-landing-head p {
-  font-size: 15.5px; line-height: 1.6; color: var(--ink-soft);
-  margin: 0 auto; max-width: 520px;
-}
-body.eco-shell .eco-site-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
-  gap: 14px; margin-bottom: 26px;
-}
-body.eco-shell .eco-card {
-  background: var(--paper-raised);
-  border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 18px 18px 16px; cursor: pointer;
-  display: flex; flex-direction: column; gap: 9px;
-  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
-}
-body.eco-shell .eco-card:hover {
-  border-color: var(--line-strong); transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(22,24,28,0.03), 0 10px 26px rgba(22,24,28,0.07);
-}
-body.eco-shell .eco-card-top { display: flex; align-items: baseline; gap: 8px; }
-body.eco-shell .eco-card-title {
-  font-size: 16.5px; font-weight: 600; letter-spacing: -0.018em; color: var(--ink);
-}
-body.eco-shell .eco-card-tag {
-  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  color: var(--ink-faint); border: 1px solid var(--line);
-  border-radius: 999px; padding: 2px 7px;
-}
-body.eco-shell .eco-card-stats { display: flex; flex-direction: column; gap: 3px; }
-body.eco-shell .eco-card-stat { font-size: 12.5px; color: var(--ink-soft); }
-body.eco-shell .eco-card-foot {
-  margin-top: auto; padding-top: 4px;
-  font-size: 12.5px; font-weight: 550; color: var(--accent);
-}
-
-/* ============================ site welcome ============================ */
-body.eco-shell #eco-welcome { padding: 8vh 0 0; text-align: center; }
-body.eco-shell #eco-welcome h2 {
-  font-size: 28px; font-weight: 600; letter-spacing: -0.028em;
-  color: var(--ink); margin: 0 0 10px;
-}
-body.eco-shell #eco-welcome p {
-  font-size: 15.5px; line-height: 1.6; color: var(--ink-soft);
-  margin: 0 auto 18px; max-width: 460px;
-}
-body.eco-shell .eco-welcome-stats {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px;
-  margin-bottom: 22px;
-}
-body.eco-shell .eco-welcome-stat {
-  font-size: 12.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums;
-}
-body.eco-shell .eco-welcome-chips {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-}
-body.eco-shell .eco-welcome-chip {
-  padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--paper-raised); color: var(--ink-soft);
-  font: inherit; font-size: 13px; cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
-}
-body.eco-shell .eco-welcome-chip:hover {
-  border-color: var(--accent); color: var(--accent-deep); background: var(--accent-wash);
-}
-
-/* ============================ result cards ============================ */
-body.eco-shell .viz-inline-card {
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: none;
-  overflow: hidden;
-  max-width: 100%;
-}
-body.eco-shell .viz-card-titlebar {
-  background: var(--paper-sunk); border-bottom: 1px solid var(--line);
-  padding: 9px 14px;
-  font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--ink-faint); font-weight: 600;
-}
-body.eco-shell .viz-inline-headline {
-  font-size: 16px; font-weight: 600; letter-spacing: -0.015em;
-  line-height: 1.4; color: var(--ink); padding: 15px 16px 4px;
-}
-body.eco-shell .viz-inline-canvas { height: 320px; }
-body.eco-shell .viz-required {
-  background: var(--paper-sunk); border-left: 2px solid var(--accent);
-  margin: 12px 16px; padding: 12px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-body.eco-shell .viz-required-head {
-  font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--ink-faint); font-weight: 600; margin-bottom: 7px;
-}
-body.eco-shell .viz-required li { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
-body.eco-shell .viz-inline-actions { padding: 4px 16px 14px; }
-body.eco-shell .viz-action-chip {
-  border: 1px solid var(--line); border-radius: 999px;
-  background: var(--paper-raised); color: var(--accent-deep);
-  padding: 7px 13px; font-size: 12.5px; cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease;
-}
-body.eco-shell .viz-action-chip:hover { border-color: var(--accent); background: var(--accent-wash); }
-body.eco-shell .viz-inline-foot {
-  border-top: 1px solid var(--line); padding: 10px 16px;
-  font-size: 12px; color: var(--ink-faint);
-}
-
-/* ---- the active-site block: two lines that flow, never a caption on top of
-        the nav beneath it, and never a hamburger over the wordmark. */
-body.eco-shell .eco-nav-site {
-  position: static;
-  align-items: flex-start;
-  text-align: left;
-  border: 0;
-  cursor: pointer;
-  overflow: visible;
-}
-body.eco-shell .eco-nav-site .eco-site-label {
-  display: block; position: static;
-  font-size: 13.5px; font-weight: 600; line-height: 1.35; color: var(--ink);
-}
-body.eco-shell .eco-nav-site .eco-site-sub {
-  display: block; position: static; margin-top: 3px;
-  font-size: 10.5px; font-weight: 500; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--ink-faint); line-height: 1.4;
-}
-body.eco-shell .eco-nav-list { margin-top: 8px; display: flex; flex-direction: column; gap: 1px; }
-
-/* the general chat app's hamburger has no job here — the nav is always present */
-body.eco-shell .hamburger, body.eco-shell #hamburger,
-body.eco-shell .sidebar-toggle, body.eco-shell #sidebar-toggle { display: none !important; }
-
-/* sentence case everywhere the old shell shouted */
-body.eco-shell .eco-card-foot,
-body.eco-shell .eco-nav-mini {
-  font-family: inherit; text-transform: none; letter-spacing: 0;
-  font-size: 12.5px;
-}
-body.eco-shell .eco-nav-mini { color: var(--ink-faint); }
-
-/* landing sits on the optical centre, not the geometric one */
-body.eco-shell.eco-landing-open #eco-landing { padding-bottom: 6vh; }
-
-/* ---- the composer, with the class names the app actually uses.
-        A single quiet card: hairline, soft lift, accent only on focus. */
-body.eco-shell .chat-input-bar > .chat-input-top {
-  max-width: var(--measure); margin: 0 auto;
-  background: var(--paper-raised);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius) var(--radius) 0 0;
-  border-bottom: 0;
-  padding: 6px 8px 0;
-  transition: border-color 140ms ease;
-}
-body.eco-shell .chat-input-bar > .chat-input-bottom {
-  max-width: var(--measure); margin: 0 auto;
-  background: var(--paper-raised);
-  border: 1px solid var(--line-strong);
-  border-top: 0;
-  border-radius: 0 0 var(--radius) var(--radius);
-  box-shadow: 0 1px 2px rgba(22,24,28,0.04), 0 10px 28px rgba(22,24,28,0.07);
-  padding: 2px 8px 8px;
-  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
-}
-body.eco-shell .chat-input-bar:focus-within > .chat-input-top,
-body.eco-shell .chat-input-bar:focus-within > .chat-input-bottom { border-color: var(--accent); }
-body.eco-shell .chat-input-top textarea, body.eco-shell #message {
-  background: none !important; border: 0 !important; box-shadow: none !important;
-  padding: 12px 10px 6px; font-size: 15px; line-height: 1.5; color: var(--ink);
-}
-/* the general-purpose toolbar belongs to the other product */
-body.eco-shell .chat-input-left { display: none !important; }
-body.eco-shell .chat-input-right { gap: 6px; }
-
-/* ---- rail figures: the number and its name, nothing else */
-body.eco-shell .viz-rail-tiles { display: flex; flex-direction: column; gap: 0; }
-body.eco-shell .viz-rail-tile {
-  background: none !important; border: 0 !important; border-radius: 0 !important;
-  border-top: 1px solid var(--line) !important;
-  padding: 11px 0 !important; box-shadow: none !important;
-}
-body.eco-shell .viz-rail-tiles .viz-rail-tile:first-child { border-top: 0 !important; }
-body.eco-shell .viz-rail-tile-value {
-  font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink);
-  font-variant-numeric: tabular-nums; font-family: inherit;
-}
-body.eco-shell .viz-rail-tile-label {
-  font-size: 11.5px; color: var(--ink-faint); text-transform: none;
-  letter-spacing: 0; font-family: inherit; margin-top: 1px;
-}
-body.eco-shell .viz-rail-meter { display: none !important; }
-body.eco-shell .viz-synthetic-ribbon {
-  background: var(--paper-sunk); color: var(--ink-faint);
-  border: 1px solid var(--line); border-radius: 999px;
-  font-size: 10px; letter-spacing: 0.06em; padding: 2px 8px;
-}
-
-/* ---- the composer is one card: the anonymous spacer between its halves must
-        not break the seam, and the whole must clear the viewport foot. */
-body.eco-shell .chat-input-bar > div:not([class]) { display: none; }
-body.eco-shell .chat-input-bar { padding: 0 24px 18px; }
-body.eco-shell .chat-input-bar > .chat-input-top { padding: 4px 8px 0; }
-body.eco-shell .chat-input-bar > .chat-input-bottom {
-  padding: 0 8px 7px; min-height: 0;
-  justify-content: flex-end !important;
-}
-body.eco-shell .chat-input-top textarea, body.eco-shell #message {
-  padding: 11px 10px 4px; min-height: 46px;
-}
-body.eco-shell .chat-input-right { justify-content: flex-end; margin-left: auto; }
-
-/* welcome figures wear the text face, not the machine face */
-body.eco-shell .eco-welcome-stat,
-body.eco-shell .eco-card-stat {
-  font-family: inherit; letter-spacing: 0; font-size: 12.5px;
-}
-body.eco-shell .eco-welcome-stats { gap: 4px 16px; }
-
-/* the bar centres and shrink-wraps its children; the card wants full width and
-   no seam between its halves */
-body.eco-shell .chat-input-bar {
-  display: flex; flex-direction: column; align-items: center; gap: 0 !important;
-}
-body.eco-shell .chat-input-bar > .chat-input-top,
-body.eco-shell .chat-input-bar > .chat-input-bottom {
-  width: 100%; max-width: var(--measure); flex: none;
-}
-
-/* ---- bubbles: this product reads as a page, so the app's bubble tokens go flat */
-body.eco-shell {
+  /* the general chat app's own tokens, retuned */
+  --bg: var(--page);
+  --red: var(--blue);
+  --accent-primary: var(--blue);
+  --brand-color: var(--blue);
+  --send-btn-bg: var(--blue);
+  --send-btn-hover: var(--blue-deep);
   --user-bubble-bg: transparent;
   --ai-bubble-bg: transparent;
   --bubble-border: transparent;
-}
-body.eco-shell .msg.user .msg-content,
-body.eco-shell .message.user .bubble,
-body.eco-shell [class*="user"] .bubble {
-  background: transparent !important;
-  color: var(--ink) !important;
-  border: 0 !important;
-  border-left: 2px solid var(--line-strong) !important;
-  border-radius: 0 !important;
-  padding-left: 14px !important;
-  box-shadow: none !important;
-}
-/* the speaker line: ink and small caps, never a brand colour or a heart */
-body.eco-shell .role, body.eco-shell .role.has-logo {
-  color: var(--ink-faint) !important;
-  font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600;
-}
-body.eco-shell .role-provider-logo { display: none !important; }
-body.eco-shell .role-timestamp { color: var(--ink-faint); font-weight: 500; letter-spacing: 0; text-transform: none; }
+  --input-bg: var(--surface);
+  --input-border: var(--line);
 
-/* the trace block: a quiet aside, not a highlighted box */
-body.eco-shell .insight-why {
-  background: var(--paper-sunk); border: 1px solid var(--line);
+  background: var(--page) !important;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+body.eco-shell::before {
+  /* a single soft light source, top-left, so the black is not flat */
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(60vw 50vh at 12% -10%, rgba(47,155,255,0.055), transparent 70%);
+}
+
+/* ---- everything the general-purpose chat app brought that this product doesn't use */
+body.eco-shell .mode-toggle, body.eco-shell .mode-toggle-btn,
+body.eco-shell .model-picker-wrap, body.eco-shell .chat-input-left,
+body.eco-shell #sidebar, body.eco-shell .sidebar,
+body.eco-shell #hamburger-btn, body.eco-shell .hamburger-btn,
+body.eco-shell #eco-explorer, body.eco-shell .attach-strip:empty,
+body.eco-shell .role-provider-logo,
+body.eco-shell #viz-context-rail { display: none !important; }
+
+/* ============================ the floating menu ============================ */
+body.eco-shell #eco-nav {
+  position: fixed; left: 44px; top: 0; bottom: 0;
+  width: var(--nav-w); z-index: 40;
+  background: none !important; border: 0 !important; padding: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 0; pointer-events: none;
+}
+body.eco-shell #eco-nav > * { pointer-events: auto; }
+body.eco-shell .eco-brand {
+  position: absolute; top: 40px; left: 0;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink);
+  padding: 0;
+}
+body.eco-shell .eco-brand-mark {
+  width: 18px; height: 18px; border-radius: 5px; background: var(--blue);
+  color: #fff; font-size: 9px; font-weight: 700; display: grid; place-items: center;
+}
+body.eco-shell .eco-nav-site {
+  position: absolute; top: 72px; left: 0; width: 100%;
+  background: none !important; border: 0 !important; padding: 0 !important;
+  height: auto !important; text-align: left; cursor: pointer;
+}
+body.eco-shell .eco-nav-site .eco-site-label {
+  display: block; font-size: 11px; font-weight: 500; color: var(--ink-soft);
+  letter-spacing: 0.01em; line-height: 1.4;
+}
+body.eco-shell .eco-nav-site .eco-site-sub { display: none; }
+
+/* the menu itself: letters in space */
+body.eco-shell .eco-nav-list { display: flex; flex-direction: column; gap: 13px; }
+body.eco-shell .eco-nav-item {
+  background: none !important; border: 0 !important; padding: 0 !important;
+  font: inherit; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-faint); cursor: pointer; text-align: left;
+  transition: color 140ms ease;
+}
+body.eco-shell .eco-nav-item:hover { color: var(--ink); }
+body.eco-shell .eco-nav-item.is-active { color: var(--ink); }
+body.eco-shell .eco-nav-icon { display: none; }
+body.eco-shell .eco-nav-spacer { display: none; }
+body.eco-shell .eco-new-btn {
+  position: absolute; bottom: 40px; left: 0;
+  background: none !important; border: 0 !important; padding: 0 !important;
+  font: inherit; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-faint); cursor: pointer; width: auto;
+  display: flex; align-items: center; gap: 7px;
+  transition: color 140ms ease;
+}
+body.eco-shell .eco-new-btn:hover { color: var(--blue); }
+body.eco-shell .eco-new-btn .eco-nav-icon { display: block; width: 11px; height: 11px; opacity: 0.8; }
+
+/* ============================ the column ============================ */
+body.eco-shell .chat-container {
+  margin-left: calc(var(--nav-w) + 44px);
+  margin-right: 0;
+  background: none;
+  position: relative; z-index: 1;
+}
+body.eco-shell .chat-top-bar {
+  background: none; border: 0; padding: 26px 40px 0;
+  justify-content: flex-start;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint);
+}
+body.eco-shell .chat-history { padding: 30px 40px 170px; background: none; }
+body.eco-shell .msg, body.eco-shell .viz-inline, body.eco-shell #eco-welcome {
+  max-width: var(--measure); margin-left: 0; margin-right: auto;
+}
+
+/* ============================ type on black ============================ */
+body.eco-shell .msg { background: none; border: 0; padding: 4px 0 26px; }
+body.eco-shell .msg-ai .body, body.eco-shell .msg-ai .msg-body,
+body.eco-shell .msg .body p, body.eco-shell .msg .body li {
+  color: var(--ink) !important;
+  font-size: 16px; line-height: 1.7; letter-spacing: -0.004em;
+}
+body.eco-shell .msg .body p { max-width: var(--prose); margin: 0 0 1em; }
+body.eco-shell .msg .body strong { color: #fff; font-weight: 600; }
+body.eco-shell .msg .body a { color: var(--blue); text-decoration: none; }
+body.eco-shell .msg .body a:hover { text-decoration: underline; }
+body.eco-shell .msg .body code, body.eco-shell .msg .body pre {
+  background: var(--surface-2) !important; color: var(--ink) !important;
+  border: 1px solid var(--line); border-radius: 6px;
+}
+
+/* the speaker line */
+body.eco-shell .role, body.eco-shell .role.has-logo {
+  color: var(--ink-faint) !important; background: none !important;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+  margin-bottom: 10px;
+}
+body.eco-shell .role-timestamp { color: var(--ink-faint); letter-spacing: 0.04em; }
+
+/* the reader's own turn: a blue hairline, no slab */
+body.eco-shell .msg.user .msg-content, body.eco-shell .msg-user .msg-content,
+body.eco-shell [class*="user"] .bubble, body.eco-shell .msg.user .bubble {
+  background: none !important; color: var(--ink) !important;
+  border: 0 !important; border-left: 2px solid var(--blue) !important;
+  border-radius: 0 !important; padding: 2px 0 2px 16px !important;
+  box-shadow: none !important; font-size: 15.5px; line-height: 1.6;
+}
+
+/* ---- the blue block: the reference's highlight, on the words that matter */
+body.eco-shell mark.eco-mark, body.eco-shell .eco-mark {
+  background: var(--blue); color: #fff;
+  padding: 1px 5px; border-radius: 4px; font-weight: 500;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* ---- trace, badges and the clarify card, in the dark register */
+body.eco-shell .insight-why, body.eco-shell .insight-trace {
+  background: var(--surface) !important; border: 1px solid var(--line) !important;
   border-radius: var(--radius-sm); box-shadow: none;
 }
-body.eco-shell .insight-why-label { color: var(--ink-soft); font-weight: 600; font-size: 12.5px; }
-body.eco-shell .insight-why-count {
-  background: var(--paper-raised); border: 1px solid var(--line);
-  color: var(--ink-faint); font-size: 11px; border-radius: 999px; padding: 1px 7px;
+body.eco-shell .insight-why *, body.eco-shell .insight-trace * { color: var(--ink-soft) !important; }
+body.eco-shell .insight-why-label { color: var(--ink) !important; font-weight: 600; }
+body.eco-shell .insight-why-count, body.eco-shell .insight-badge, body.eco-shell [class*="badge"] {
+  background: var(--surface-2) !important; border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important; border-radius: 999px;
 }
+body.eco-shell .ask-user-card {
+  background: var(--surface) !important; border: 1px solid var(--line-strong) !important;
+  border-radius: var(--radius); box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  color: var(--ink) !important; max-width: var(--measure);
+}
+body.eco-shell .ask-user-card *, body.eco-shell .ask-user-question { color: var(--ink) !important; }
+body.eco-shell .ask-user-options button, body.eco-shell .ask-user-card input {
+  background: var(--surface-2) !important; border: 1px solid var(--line) !important;
+  color: var(--ink) !important; border-radius: var(--radius-sm);
+}
+body.eco-shell .ask-user-options button:hover { border-color: var(--blue) !important; }
 
-/* an empty composer offers "new chat"; that is a secondary act here, and the
-   left rail already carries it — so it must not wear the primary colour */
+/* ============================ the composer ============================ */
+body.eco-shell .chat-input-bar {
+  position: fixed; bottom: 0; right: 0;
+  left: calc(var(--nav-w) + 44px);
+  width: auto !important; max-width: none !important;
+  margin: 0 !important; padding: 0 40px 26px; z-index: 30; border: 0;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0 !important;
+  background: linear-gradient(to bottom, rgba(10,10,11,0) 0%, var(--page) 30%);
+}
+body.eco-shell .chat-input-bar > div:not([class]) { display: none; }
+body.eco-shell .chat-input-bar > .chat-input-top,
+body.eco-shell .chat-input-bar > .chat-input-bottom {
+  width: 100%; max-width: var(--measure); flex: none;
+  background: var(--surface) !important; border: 1px solid var(--line-strong);
+}
+body.eco-shell .chat-input-bar > .chat-input-top {
+  border-radius: var(--radius) var(--radius) 0 0; border-bottom: 0; padding: 4px 10px 0;
+}
+body.eco-shell .chat-input-bar > .chat-input-bottom {
+  border-radius: 0 0 var(--radius) var(--radius); border-top: 0; padding: 0 10px 8px;
+  display: flex; justify-content: flex-end !important; align-items: center;
+}
+body.eco-shell .chat-input-bar:focus-within > .chat-input-top,
+body.eco-shell .chat-input-bar:focus-within > .chat-input-bottom { border-color: var(--blue); }
+body.eco-shell #message, body.eco-shell .chat-input-top textarea {
+  background: none !important; border: 0 !important; box-shadow: none !important;
+  color: var(--ink) !important; font-size: 15.5px; line-height: 1.55;
+  padding: 12px 8px 6px; min-height: 48px;
+}
+body.eco-shell #message::placeholder { color: var(--ink-faint); }
+body.eco-shell .send-btn, body.eco-shell #send-btn {
+  background: var(--blue) !important; color: #fff !important; border: 0 !important;
+  border-radius: 9px; width: 32px; height: 32px; display: grid; place-items: center;
+}
+body.eco-shell .send-btn:hover { background: var(--blue-deep) !important; }
 body.eco-shell .send-btn.newchat-mode {
-  background: var(--paper-sunk) !important;
-  color: var(--ink-faint) !important;
+  background: var(--surface-2) !important; color: var(--ink-faint) !important;
   border: 1px solid var(--line) !important;
 }
 body.eco-shell .send-btn.newchat-mode .send-btn-label { display: none; }
 
-/* ---- the active-site block sizes to its text; a long site name must never
-        spill onto the navigation beneath it */
-body.eco-shell .eco-nav-site {
-  height: auto !important; min-height: 0 !important;
-  white-space: normal; line-height: 1.35;
+/* ============================ landing ============================ */
+body.eco-shell #eco-landing {
+  background: var(--page) !important;
+  left: 0; right: 0;
+  padding: 0 40px 0 calc(var(--nav-w) + 84px);
+  display: none;
 }
-body.eco-shell .eco-nav-site .eco-site-label { white-space: normal; }
+body.eco-shell.eco-landing-open #eco-landing {
+  display: flex; flex-direction: column; justify-content: center;
+}
+body.eco-shell .eco-landing-inner { width: 100%; max-width: var(--measure); margin: 0; }
+body.eco-shell .eco-landing-head { text-align: left; margin-bottom: 44px; }
+body.eco-shell .eco-landing-head h1 {
+  font-size: 44px; line-height: 1.12; font-weight: 600; letter-spacing: -0.035em;
+  color: var(--ink); margin: 0 0 16px; max-width: 15ch;
+}
+body.eco-shell .eco-landing-head p {
+  font-size: 16px; line-height: 1.65; color: var(--ink-soft);
+  margin: 0; max-width: 46ch;
+}
+body.eco-shell .eco-site-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px; margin-bottom: 0;
+}
+body.eco-shell .eco-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important; border-radius: var(--radius);
+  padding: 20px; cursor: pointer; box-shadow: none;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+body.eco-shell .eco-card:hover {
+  border-color: var(--blue) !important; background: var(--surface-2) !important;
+  transform: none;
+}
+body.eco-shell .eco-card-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+body.eco-shell .eco-card-tag {
+  background: var(--surface-2) !important; border: 1px solid var(--line) !important;
+  color: var(--ink-faint) !important; border-radius: 999px;
+  font-size: 9.5px; letter-spacing: 0.1em; padding: 3px 8px; font-family: inherit;
+}
+body.eco-shell .eco-card-stat { color: var(--ink-soft); font-size: 13px; font-family: inherit; letter-spacing: 0; }
+body.eco-shell .eco-card-foot {
+  margin-top: auto; padding-top: 6px; color: var(--blue);
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: inherit;
+}
+body.eco-shell .eco-landing-loading { color: var(--ink-faint); font-size: 13px; }
 
-/* the general chat app's sidebar is not part of this product */
-body.eco-shell #sidebar, body.eco-shell .sidebar,
-body.eco-shell .sidebar-overlay, body.eco-shell .sidebar-backdrop { display: none !important; }
-/* the sidebar toggle has nothing to toggle here */
-body.eco-shell #hamburger-btn, body.eco-shell .hamburger-btn { display: none !important; }
+/* ============================ site welcome ============================ */
+body.eco-shell #eco-welcome { padding: 10vh 0 0; text-align: left; max-width: var(--measure); }
+body.eco-shell #eco-welcome h2 {
+  font-size: 40px; font-weight: 600; letter-spacing: -0.034em; color: var(--ink);
+  margin: 0 0 14px; line-height: 1.15;
+}
+body.eco-shell #eco-welcome p {
+  font-size: 16px; line-height: 1.65; color: var(--ink-soft);
+  margin: 0 0 22px; max-width: 46ch;
+}
+body.eco-shell .eco-welcome-stats {
+  display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px 22px; margin-bottom: 26px;
+}
+body.eco-shell .eco-welcome-stat {
+  font-size: 13px; color: var(--ink-faint); font-family: inherit; letter-spacing: 0;
+}
+body.eco-shell .eco-welcome-chips { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; }
+body.eco-shell .eco-welcome-chip {
+  background: none !important; border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important; border-radius: 999px;
+  padding: 9px 15px; font-size: 13.5px; cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease;
+}
+body.eco-shell .eco-welcome-chip:hover { border-color: var(--blue) !important; color: var(--ink) !important; }
+
+/* wordmark and top bar sit on black now */
+body.eco-shell .eco-brand, body.eco-shell .eco-brand-name { color: var(--ink) !important; }
+body.eco-shell .chat-top-bar, body.eco-shell .chat-top-bar * { color: var(--ink-faint) !important; }
+/* the composer's lower rail is a rail, not a band */
+body.eco-shell .chat-input-bar > .chat-input-bottom { min-height: 0; padding: 0 10px 8px; }
+body.eco-shell .chat-input-right { margin-left: auto; gap: 6px; }
+
+/* ============================ result cards ============================ */
+body.eco-shell .viz-inline-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius); box-shadow: none; overflow: hidden;
+  max-width: 100%;
+}
+body.eco-shell .viz-card-titlebar {
+  background: none !important; border-bottom: 1px solid var(--line) !important;
+  color: var(--ink-faint) !important; padding: 11px 18px;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+}
+body.eco-shell .viz-inline-headline {
+  color: var(--ink) !important; font-size: 17px; font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1.4; padding: 18px 18px 6px;
+}
+body.eco-shell .viz-inline-canvas { height: 340px; background: none; }
+body.eco-shell .viz-inline-card *, body.eco-shell .viz-legend, body.eco-shell .viz-legend * {
+  color: var(--ink-soft);
+}
+body.eco-shell .viz-inline-card .viz-table th {
+  color: var(--ink-faint) !important; border-bottom: 1px solid var(--line) !important;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; background: none !important;
+}
+body.eco-shell .viz-inline-card .viz-table td {
+  color: var(--ink-soft) !important; border-bottom: 1px solid var(--line) !important;
+  background: none !important; font-size: 12.5px;
+}
+body.eco-shell .viz-inline-rows-more, body.eco-shell .viz-inline-foot {
+  color: var(--ink-faint) !important; border-top-color: var(--line) !important;
+}
+/* what the result requires: the producer's voice, in blue */
+body.eco-shell .viz-required {
+  background: rgba(47,155,255,0.06) !important;
+  border: 0 !important; border-left: 2px solid var(--blue) !important;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 14px 18px; padding: 14px 16px;
+}
+body.eco-shell .viz-required-head { color: var(--blue) !important; font-size: 10px; letter-spacing: 0.16em; }
+body.eco-shell .viz-required li, body.eco-shell .viz-required * { color: var(--ink) !important; font-size: 13.5px; line-height: 1.65; }
+/* caveats stay amber but muted for the dark surface */
+body.eco-shell .viz-inline-caveat, body.eco-shell [class*="caveat"] {
+  background: rgba(235,140,52,0.08) !important; border: 0 !important;
+  border-left: 2px solid #eb8c34 !important; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink-soft) !important; margin: 0 18px 14px; padding: 12px 16px;
+}
+body.eco-shell .viz-action-chip {
+  background: none !important; border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important; border-radius: 999px; padding: 8px 14px; font-size: 12.5px;
+}
+body.eco-shell .viz-action-chip:hover { border-color: var(--blue) !important; color: var(--ink) !important; }
+body.eco-shell .viz-inline-actions { padding: 4px 18px 16px; }
+body.eco-shell .viz-inline-foot { padding: 12px 18px; }
+body.eco-shell .viz-open-btn, body.eco-shell .viz-inline-open {
+  background: none !important; border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important; border-radius: 8px;
+}
+body.eco-shell .viz-open-btn:hover { border-color: var(--blue) !important; color: var(--ink) !important; }
+/* legend swatches keep their evidence colours; only their labels change */
+body.eco-shell .viz-legend-label { color: var(--ink-soft) !important; }
+
+/* the last two light surfaces the app ships */
+body.eco-shell .scroll-nav-btn, body.eco-shell .toast {
+  background: var(--surface-2) !important; color: var(--ink) !important;
+  border: 1px solid var(--line) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+body.eco-shell .scroll-nav-btn svg { color: var(--ink-soft); }
+
+/* scrollbars belong to the dark too */
+body.eco-shell *::-webkit-scrollbar { width: 10px; height: 10px; }
+body.eco-shell *::-webkit-scrollbar-track { background: transparent; }
+body.eco-shell *::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.13); border-radius: 999px; border: 3px solid transparent;
+  background-clip: content-box;
+}
+body.eco-shell *::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.24); background-clip: content-box; }
+
+/* selection picks up the one accent */
+body.eco-shell ::selection { background: rgba(47,155,255,0.32); color: #fff; }
