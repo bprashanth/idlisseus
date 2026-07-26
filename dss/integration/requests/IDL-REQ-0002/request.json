@@ -1,0 +1,33 @@
+{
+  "schema_version": "producer-consumer-request/1",
+  "request_id": "IDL-REQ-0002",
+  "title": "Resolve a subject the way a person says it: widen deterministically, then let the model choose from real candidates",
+  "consumer": "idlisseus",
+  "producer": "totalrecall",
+  "created_at": "2026-07-26",
+  "priority": "high",
+  "problem": "Subject resolution is exact equality at all three stages - alias key, event type, hierarchy rank - over a string that is only case-folded and whitespace-collapsed. An ordinary English question therefore fails on two counts at once: a plural ('elephants') misses an alias that exists in the singular, and a common group word ('hornbills') misses because no entity carries that name and the only thing grouping those birds is the Latin family. The user is left needing to know which of their words happens to be an indexed string.",
+  "evidence": [
+    "Live against runs/insight-valparai: 'elephant' resolves to Elephant; 'elephants' NO MATCH; 'hornbill' NO MATCH; 'hornbills' NO MATCH; 'Bucerotidae' matches only at stage 3 as a family (2 entities).",
+    "The pack does hold them: aliases matching %hornbill% are Great Hornbill, Malabar Grey Hornbill, Malabar Gray Hornbill, Great Hornbill (Great Pied Hornbill).",
+    "The working co-occurrence map was built from the exact strings 'Elephant' and 'Bucerotidae', which is why the same question phrased in English now fails.",
+    "Deterministic widening already answers most of it: substring + plural-stripping on 'hornbill' returns 3 entities whose single shared family is Bucerotidae, and on 'elephants' returns 1 entity. No model needed for either.",
+    "It does not answer everything: 'raptor' and 'shade tree' return 0 entities by substring, because those groupings are not substrings of any recorded name."
+  ],
+  "requested_outcome": [
+    "Stage 1 - widen deterministically before failing: try singular/plural variants, then substring both ways over aliases and over hierarchy rank values. Cheap, exhaustive over a bounded vocabulary, and fully explainable.",
+    "Stage 2 - when the widened match returns several entities, compute their shared ancestor: if every matched entity agrees on one value at some rank, offer that rank as the grouping ('hornbill' -> family Bucerotidae, 3 entities). Prefer the narrowest rank on which they all agree.",
+    "Stage 3 - only when stages 1 and 2 return nothing, ask the model to CHOOSE among enumerated candidates drawn from the index. It must return an identifier that already exists; it may return none. It must never invent a name. This is the 'interpret with general knowledge, verify against the data' rule applied to naming.",
+    "Whatever resolved, say so in the result: which word was asked, which indexed name answered it, at which rank, and how many entities it covers - so a reader can see 'hornbills' was read as the family Bucerotidae covering 3 recorded birds.",
+    "Cache the resolution per (site, term) so the same phrasing is not re-litigated every turn.",
+    "Keep it sector-neutral: nothing here is taxonomic. The same widening serves job titles, crop names or scheme names in another pack."
+  ],
+  "acceptance": [
+    "'Where were elephants and hornbills both recorded?' returns the same map as the exact-string question, and names how each word was read.",
+    "A word that matches nothing still fails honestly, and lists what it did try.",
+    "A model-proposed mapping that does not exist in the index is rejected rather than used.",
+    "An ambiguous word that matches two unrelated groups asks rather than picking silently.",
+    "A pack with no hierarchy at all still benefits from stages 1 and 3."
+  ],
+  "notes": "The consumer asked whether to use embeddings for this. Recommendation is no, for this job: the candidate set is bounded and enumerable, so SQL widening is exhaustive where a nearest-neighbour search is approximate; the correct answer is frequently a level in a hierarchy rather than a nearest neighbour; and a choice from an enumerated list can be verified against the index while a vector's nearest neighbour cannot. Embeddings earned their place in this project on discovery over an unbounded literature corpus - a different job from resolving a name against a known vocabulary."
+}
