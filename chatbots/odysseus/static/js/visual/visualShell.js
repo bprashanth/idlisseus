@@ -119,9 +119,16 @@ const ICONS = {
   chat: ['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
   map: ['M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z', 'M9 3v15', 'M15 6v15'],
   data: ['M3 5c0-1.1 4-2 9-2s9 .9 9 2-4 2-9 2-9-.9-9-2z', 'M3 5v14c0 1.1 4 2 9 2s9-.9 9-2V5', 'M3 12c0 1.1 4 2 9 2s9-.9 9-2'],
+  history: ['M12 8v4l3 3', 'M3.05 11a9 9 0 1 1 .5 4', 'M3 5v6h6'],
   research: ['M3 3v18h18', 'M7 15l4-5 3 3 5-7'],
   plus: ['M12 5v14', 'M5 12h14'],
 };
+
+function setActiveNav(name) {
+  for (const b of document.querySelectorAll('#eco-nav .eco-nav-item')) {
+    b.classList.toggle('is-active', b.dataset.nav === name);
+  }
+}
 
 function ensureNav() {
   if (navEl) return navEl;
@@ -133,11 +140,15 @@ function ensureNav() {
   brand.className = 'eco-brand';
   const mark = document.createElement('span');
   mark.className = 'eco-brand-mark';
-  mark.textContent = 'II';
+  mark.innerHTML = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">'
+    + '<rect width="32" height="32" rx="8" fill="#1d5c45"/>'
+    + '<path d="M6 22q5-9 10-9t10 9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>'
+    + '<path d="M9 25q4-6 7-6t7 6" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.55"/>'
+    + '<circle cx="16" cy="9" r="2.2" fill="#fff"/></svg>';
   brand.appendChild(mark);
   const name = document.createElement('span');
   name.className = 'eco-brand-name';
-  name.textContent = 'Idli Insight';
+  name.textContent = 'Idlisseus';
   brand.appendChild(name);
   navEl.appendChild(brand);
 
@@ -154,6 +165,7 @@ function ensureNav() {
     ['chat', 'Chat', () => { hideLanding(); }],
     ['map', 'Maps', () => openLatestVisual()],
     ['data', 'Data', () => openDataExplorer()],
+    ['history', 'History', () => toggleChatList()],
     ['research', 'Sites', () => showLanding(true)],
   ];
   for (const [ic, label, fn] of items) {
@@ -164,7 +176,7 @@ function ensureNav() {
     const t = document.createElement('span');
     t.textContent = label;
     b.appendChild(t);
-    b.addEventListener('click', fn);
+    b.addEventListener('click', () => { setActiveNav(ic); fn(); });
     list.appendChild(b);
   }
   navEl.appendChild(list);
@@ -185,8 +197,9 @@ function ensureNav() {
 
   document.body.appendChild(navEl);
   document.body.classList.add(SHELL_CLASS);
-  document.documentElement.classList.remove('light');
-  document.documentElement.style.setProperty('--bg', '#0a0a0b');
+  // Field-journal shell is light; charts key their palette off the root --bg.
+  document.documentElement.classList.add('light');
+  document.documentElement.style.setProperty('--bg', '#f7f5f0');
   return navEl;
 }
 
@@ -344,6 +357,7 @@ async function openSite(site) {
   sessions.createDirectChat(site.url, site.model, site.endpointId);
   setActiveSite(site);
   hideLanding();
+  setActiveNav('chat');
   refreshContext();               // the rail must follow the site, not the last one
   renderSiteWelcome(site);
   setTimeout(() => document.getElementById('message')?.focus(), 400);
@@ -400,6 +414,23 @@ async function renderSiteWelcome(site) {
   });
 }
 
+// The stock app titles direct-chat sessions with the machine model id
+// (idli-insight-<site>); readers should see the site's own name.
+async function prettifyMeta() {
+  const meta = document.getElementById('current-meta');
+  if (!meta) return;
+  const raw = (meta.textContent || '').trim();
+  if (!/^idli-insight/i.test(raw)) return;
+  const sites = await discoverSites();
+  const hit = sites.find((s) => raw.toLowerCase().startsWith(String(s.model).toLowerCase()));
+  const label = hit ? hit.label : raw.replace(/^idli-insight-?/i, '').replace(/[-_]/g, ' ');
+  if (label) meta.textContent = label;
+}
+new MutationObserver(() => prettifyMeta()).observe(
+  document.getElementById('current-meta') || document.body,
+  { childList: true, characterData: true, subtree: true },
+);
+
 // ---- boot ------------------------------------------------------------------
 async function syncActiveSite() {
   const sessions = await getSessions();
@@ -415,7 +446,9 @@ async function boot() {
   ensureNav();
   const active = await syncActiveSite();
   const hasMessages = !!document.querySelector('#chat-history .msg, #chat-history [class*="msg"]');
-  if (!active || !hasMessages) showLanding(true);
+  if (!active || !hasMessages) { showLanding(true); setActiveNav('research'); }
+  else setActiveNav('chat');
+  prettifyMeta();
 }
 
 setTimeout(boot, 1500);

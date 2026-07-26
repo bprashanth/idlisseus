@@ -85,17 +85,25 @@ docker compose build odysseus && docker compose up -d --force-recreate odysseus
 
 Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 
-### Visual shell — dark, minimal, one blue (2026-07-27)
+### Visual shell — "Field journal", one light system (2026-07-27)
 
-The site-pack UI is now one design system rather than the general chat app with
-overrides. Near-black page, white type, and a solid blue block behind the words that
-matter. Navigation is text floating at the left edge with no panel around it,
-which hands the width back to the work; the right context rail is gone. A 760px
-measure carries cards, with prose set to a 62ch line. Charts and maps follow
-automatically — the renderers already carry a validated dark palette keyed off
-the document background, which the shell now sets at the root. The composer is a single card anchored to the
-foot of the column, and it steps aside for the context rail and the detail panel.
-Remnants of the general-purpose chat app (agent/chat switcher, model picker,
-tool strip, sidebar and its toggle) are hidden inside the shell. Key figures in
-an answer are marked with a highlight — text nodes only, capped at three, never
-inside code, links or tables, and it never rewords anything.
+The whole product — login, shell, chat, cards, charts, maps, panels — now runs on
+one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
+type, a single pine-green accent, and an amber marker wash behind the key figures
+in an answer (capped at three, text nodes only, never inside code/links/tables).
+Display type is a vendored Source Serif 4 (landing hero, site names, figure
+headlines, stat values); UI is Inter; mono is reserved for identifiers. Charts
+keep the validated evidence-class palette — the shell sets a light root `--bg`,
+so the renderers pick their light steps automatically (aqua is sub-3:1 on this
+surface; the relief rule is satisfied by legends + row tables on every card).
+
+Shell: a 232px nav rail (Chat / Maps / Data / History / Sites + pine "New
+analysis") with active states; the stock sidebar is a History slide-over; the
+right context rail (site stat tiles, data streams, recent visuals) is back; the
+data explorer and the figure panel are mutually exclusive right-hand surfaces,
+and the composer shifts with whichever is open. Machine voice is gone from the
+reading line: role labels say "Idlisseus" (never `idli-insight-*`), session
+titles are prettified to the site name, the Why panel ("How this was answered")
+defaults closed and replaces tracebacks with a plain sentence, and card kind
+labels are human words ("Map", "Time series"). Login is deterministic brand
+chrome (no theme/bg-effect bootstrap) matching the app.

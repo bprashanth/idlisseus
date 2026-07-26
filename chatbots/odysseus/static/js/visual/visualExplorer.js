@@ -121,6 +121,8 @@ export function close() {
 
 export async function openExplorer(endpointId) {
   ensurePanel();
+  // One right-hand surface at a time: the figure panel yields to the explorer.
+  document.body.classList.remove('viz-panel-open');
   document.body.classList.add('eco-explorer-open');
   const body = panel.querySelector('.eco-explorer-body');
   body.replaceChildren();

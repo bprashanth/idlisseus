@@ -69,7 +69,8 @@ function ensurePanel() {
   head.className = 'viz-side-head';
   const title = document.createElement('span');
   title.className = 'viz-side-title';
-  title.textContent = 'Visual detail';
+  title.id = 'viz-side-title';
+  title.textContent = 'Figure detail';
   head.appendChild(title);
   const close = document.createElement('button');
   close.className = 'viz-panel-close';
@@ -137,6 +138,8 @@ export async function openInPanel(resultId) {
   const c = await resolveClient();
   if (!c) return;
   ensurePanel();
+  // One right-hand surface at a time: the explorer yields to the figure panel.
+  document.body.classList.remove('eco-explorer-open');
   document.body.classList.add('viz-panel-open');
   let chapter = panelChapters.get(resultId);
   if (chapter) {
@@ -158,6 +161,8 @@ export async function openInPanel(resultId) {
   panelStage.rail.replaceChildren();
   chapter = panelStage.addChapter(envelope.question?.original || '');
   panelChapters.set(resultId, chapter);
+  const title = document.getElementById('viz-side-title');
+  if (title) title.textContent = envelope.site?.label || 'Figure detail';
   await chapter.setEnvelope(envelope);
 }
 
@@ -212,7 +217,8 @@ async function ensureContextRail() {
         entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
       }
     }
-    const maxVal = Math.max(...entries.map(([, v]) => (typeof v === 'number' ? v : 0)), 1);
+    // No meter bars: the tiles hold unlike quantities, and a shared scale would
+    // imply a comparison the numbers don't support.
     for (const [k, v] of entries) {
       const tile = document.createElement('div');
       tile.className = 'viz-rail-tile';
@@ -225,14 +231,6 @@ async function ensureContextRail() {
       lab.textContent = String(k).replace(/_/g, ' ');
       if (details && details.get(k)) lab.title = details.get(k);
       tile.appendChild(lab);
-      if (typeof v === 'number' && v > 0) {
-        const meter = document.createElement('div');
-        meter.className = 'viz-rail-meter';
-        const fill = document.createElement('span');
-        fill.style.width = `${Math.max(6, Math.round((v / maxVal) * 100))}%`;
-        meter.appendChild(fill);
-        tile.appendChild(meter);
-      }
       tiles.appendChild(tile);
     }
     contextRail.appendChild(tiles);
@@ -258,10 +256,8 @@ async function ensureContextRail() {
         name.textContent = String(raw).replace(/^syn-/, '').replace(/[-_]/g, ' ');
         name.title = String(raw);
         row.appendChild(name);
-        const state = document.createElement('span');
-        state.className = 'viz-rail-stream-state';
-        state.textContent = 'indexed';
-        row.appendChild(state);
+        // Every listed stream is indexed by definition; the dot says so without
+        // repeating the same word down the column.
         streams.appendChild(row);
       }
       contextRail.appendChild(streams);
@@ -319,6 +315,20 @@ function renderRecentList() {
   }
 }
 
+// Card kind labels are words a reader would say, not producer enum values.
+const KIND_LABELS = {
+  figure_map: 'Map', map: 'Map', leaflet: 'Map',
+  time_series: 'Time series', timeseries: 'Time series',
+  stat_tiles: 'Key figures', stats: 'Key figures',
+  hierarchy: 'Breakdown', matrix: 'Matrix', table: 'Records',
+  dashboard: 'Dashboard', chart: 'Chart', summary: 'Summary',
+  result: 'Figure',
+};
+function humanKind(kind) {
+  const key = String(kind || '').toLowerCase().replace(/-/g, '_');
+  return KIND_LABELS[key] || key.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+}
+
 // ---- inline hydration ------------------------------------------------------
 const hydrating = new Set();
 
@@ -346,8 +356,7 @@ async function hydrateSlot(slot) {
   const titlebar = document.createElement('div');
   titlebar.className = 'viz-card-titlebar';
   const tname = document.createElement('span');
-  tname.textContent = ((primaryV && (primaryV.view || primaryV.visual_type)) || 'result')
-    .toUpperCase().replace(/-/g, '_');
+  tname.textContent = humanKind((primaryV && (primaryV.view || primaryV.visual_type)) || 'result');
   titlebar.appendChild(tname);
   const topen = document.createElement('span');
   topen.className = 'viz-card-titlebar-open';

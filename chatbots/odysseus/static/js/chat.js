@@ -2806,6 +2806,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
           if (guidedActions) {
             chatRenderer.renderAskUserCard(guidedActions);
           }
+          // Live turns take this finalize path, not addMessage — mark the key
+          // figures here too so streamed answers match reloaded history.
+          const finalBody = roundHolder.querySelector('.body');
+          if (finalBody) chatRenderer.highlightKeyFigures(finalBody);
         }
 
 

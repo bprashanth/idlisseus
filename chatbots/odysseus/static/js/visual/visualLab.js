@@ -92,8 +92,9 @@ document.getElementById('all-btn').addEventListener('click', showAll);
 
 // URL params for headless screenshots: ?fixture=NAME&theme=light|dark&all=1
 const params = new URLSearchParams(location.search);
-if (params.get('theme') === 'light') document.documentElement.classList.add('light');
+// Light is the product default; ?theme=dark still exercises the dark palette.
 if (params.get('theme') === 'dark') document.documentElement.classList.remove('light');
+else document.documentElement.classList.add('light');
 if (params.get('all')) {
   showAll();
 } else {

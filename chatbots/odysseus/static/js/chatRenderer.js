@@ -599,7 +599,8 @@ export function sameModelName(left, right) {
 export function modelRouteLabel(requestedModel, actualModel) {
   const requested = modelValue(requestedModel);
   const actual = modelValue(actualModel) || requested;
-  if (isInsightModel(requested) || isInsightModel(actual)) return INSIGHT_MODEL;
+  // Readers see the product's name, not the routing id (idli-insight-<site>).
+  if (isInsightModel(requested) || isInsightModel(actual)) return 'Idlisseus';
   if (!requested || sameModelName(requested, actual)) return shortModel(actual || requested);
   return shortModel(requested) + ' -> ' + shortModel(actual);
 }
@@ -971,15 +972,18 @@ export function renderInsightTrace(messageElement, trace) {
     else messageElement.appendChild(panel);
   }
   panel.textContent = '';
-  panel.open = existed ? wasOpen : true;
+  // Closed by default: the answer reads first; the working stays one click away.
+  panel.open = existed ? wasOpen : false;
 
   const summary = document.createElement('summary');
   const label = document.createElement('span');
   label.className = 'insight-why-label';
-  label.textContent = 'Why';
+  label.textContent = 'How this was answered';
   const count = document.createElement('span');
   count.className = 'insight-why-count';
-  count.textContent = `${normal.skills.length} ${normal.skills.length === 1 ? 'skill' : 'skills'}`;
+  const failed = normal.skills.filter((s) => s.status === 'failed').length;
+  count.textContent = `${normal.skills.length} ${normal.skills.length === 1 ? 'step' : 'steps'}`
+    + (failed ? ` · ${failed} did not finish` : '');
   summary.append(label, count);
   panel.appendChild(summary);
 
@@ -999,7 +1003,17 @@ export function renderInsightTrace(messageElement, trace) {
     if (skill.summary) {
       const result = document.createElement('div');
       result.className = 'insight-skill-result';
-      result.textContent = skill.summary;
+      // Machine internals (tracebacks, stack paths) never render in the reading
+      // line — the step is summarised in plain words; the full detail stays in
+      // the producer's audit record.
+      let text = String(skill.summary);
+      if (/Traceback \(most recent call last\)|^\s*File "|urllib|stack trace/im.test(text)) {
+        const status = text.match(/HTTP\s+(\d{3})/);
+        text = 'This step stopped before returning a result'
+          + (status ? ` (HTTP ${status[1]})` : '') + '.';
+      }
+      if (text.length > 220) text = text.slice(0, 217).trimEnd() + '…';
+      result.textContent = text;
       item.appendChild(result);
     }
     list.appendChild(item);

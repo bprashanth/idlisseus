@@ -116,6 +116,11 @@ export function buildTimeSeriesSpec(visual, layerData, width, height) {
     if (a.kind === 'point' && a.t !== undefined) {
       const t = toMs(a.t);
       const datum = { t, value: Number.isFinite(a.value) ? a.value : null, label: ann.text || '' };
+      // Labels near the right edge of the time domain flip to the left of the
+      // dot, so they never run off the plot.
+      const ts = all.map((d) => toMs(d.t)).filter(Number.isFinite);
+      const tMin = Math.min(...ts), tMax = Math.max(...ts);
+      const nearRight = ts.length > 1 && (t - tMin) / (tMax - tMin) > 0.72;
       main.layer.push({
         data: { values: [datum] },
         mark: { type: 'point', filled: true, size: 70, color: p.inkPrimary },
@@ -127,7 +132,7 @@ export function buildTimeSeriesSpec(visual, layerData, width, height) {
       main.layer.push({
         data: { values: [datum] },
         mark: {
-          type: 'text', align: 'left', dx: 8, dy: -10,
+          type: 'text', align: nearRight ? 'right' : 'left', dx: nearRight ? -8 : 8, dy: -10,
           fontWeight: ann.emphasis === 'primary' ? 650 : 400,
           fontSize: ann.emphasis === 'primary' ? 13 : 11.5,
           color: p.inkPrimary,
