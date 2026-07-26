@@ -409,7 +409,19 @@ async function hydrateSlot(slot) {
         cap.className = 'viz-inline-rows-cap';
         cap.textContent = drill.label || 'Records behind this';
         box.appendChild(cap);
-        renderTable(box, rows.slice(0, 4), { limit: 4 });
+        // Inline preview: a readable handful of columns, not the whole schema —
+        // the panel keeps every column and every row.
+        const cols = Object.keys(rows[0] || {});
+        const preferred = cols.filter((c) => !/^(properties|geometry|cell_id|uncertainty)/i.test(c));
+        const shown = preferred.slice(0, 5);
+        const slim = rows.slice(0, 4).map((r) => Object.fromEntries(shown.map((c) => [c, r[c]])));
+        renderTable(box, slim, { limit: 4 });
+        if (cols.length > shown.length) {
+          const note = document.createElement('div');
+          note.className = 'viz-inline-rows-more';
+          note.textContent = `${shown.length} of ${cols.length} columns shown`;
+          box.appendChild(note);
+        }
         if (rows.length > 4) {
           const more = document.createElement('div');
           more.className = 'viz-inline-rows-more';

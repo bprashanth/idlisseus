@@ -65,10 +65,19 @@ export function renderMap(container, visual, layerData, hooks) {
     const role = String(p.scope_role || p.role || '').toLowerCase();
     return role.includes('context') || role.includes('donor') || role.includes('comparison');
   };
-  for (const skipContext of [true, false]) {
-    for (const [, fc] of layerData) {
+  const emphasisIds = new Set(
+    (visual.layers || [])
+      .filter((l) => (l.style_hint || {}).emphasis === 'primary')
+      .map((l) => l.layer_id)
+  );
+  // Pass 1: the layer the answer is about. Pass 2: everything non-context.
+  // Pass 3: everything, for results that are entirely context.
+  for (const pass of [0, 1, 2]) {
+    for (const [layerId, fc] of layerData) {
+      if (pass === 0 && emphasisIds.size && !emphasisIds.has(layerId)) continue;
+      if (pass === 0 && !emphasisIds.size) continue;
       for (const f of (fc && fc.features) || []) {
-        if (skipContext && isContextFeature(f)) continue;
+        if (pass === 1 && isContextFeature(f)) continue;
         for (const [lon, lat] of geomCoords(f.geometry)) {
           if (lon < minLon) minLon = lon;
           if (lon > maxLon) maxLon = lon;

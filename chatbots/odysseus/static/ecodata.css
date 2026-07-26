@@ -540,3 +540,132 @@ body.eco-explorer-open #eco-explorer { transform: none; }
   font-family: 'JetBrainsMonoVendored', monospace;
   font-size: 9.5px; color: var(--eco-outline, #707974);
 }
+
+/* ================= professional pass: no pink, nothing occluded ================= */
+
+/* 1. The product's own palette, whatever theme the user has saved.
+      Nature-journal register: ink, paper, a single deep accent, no candy. */
+body.eco-shell {
+  --red: #14532d;
+  --accent-primary: #14532d;
+  --accent-error: #b3261e;
+  --brand-color: #14532d;
+  --brand-mix-to: #1f6f4a;
+  --send-btn-bg: #14532d;
+  --send-btn-hover: #0b3d21;
+}
+body.eco-shell .model-picker-btn,
+body.eco-shell .model-picker-label,
+body.eco-shell #model-picker-label,
+body.eco-shell .msg-model,
+body.eco-shell .message-model,
+body.eco-shell [class*="model-name"],
+body.eco-shell [class*="brand"] {
+  color: var(--eco-on-surface-variant, #404944) !important;
+}
+body.eco-shell .send-btn,
+body.eco-shell #send-btn,
+body.eco-shell .chat-input-bottom .primary {
+  background: var(--eco-primary, #064e3b) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+body.eco-shell .send-btn:hover, body.eco-shell #send-btn:hover {
+  background: var(--eco-primary-deep, #003527) !important;
+}
+/* the assistant's name line: ink, not brand pink */
+body.eco-shell .msg-ai .msg-head,
+body.eco-shell .msg-ai .msg-head * {
+  color: var(--eco-on-surface, #191c1e) !important;
+  font-weight: 600;
+}
+
+/* 2. Nothing sits under the composer. The scroll column ends above it. */
+body.eco-shell #chat-history,
+body.eco-shell .chat-history {
+  padding-bottom: 200px;
+  scroll-padding-bottom: 200px;
+}
+body.eco-shell .chat-input-bar {
+  background: color-mix(in srgb, var(--eco-surface, #f7f9fb) 94%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+/* 3. One measured column: text and cards share the same width and centre. */
+body.eco-shell .chat-history { --chat-max: 760px; }
+body.eco-shell .msg,
+body.eco-shell .viz-inline,
+body.eco-shell #eco-welcome {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+body.eco-shell .viz-inline-card { max-width: 100%; }
+body.eco-shell .viz-inline-canvas { height: 320px; }
+
+/* 4. The composer is a column of the same measure, not a floating slab. */
+body.eco-shell .chat-input-bar > * { max-width: 760px; margin-left: auto; margin-right: auto; }
+
+/* 5. Type: one scale, quiet weights, generous leading (journal, not dashboard). */
+body.eco-shell .msg-ai .body { font-size: 15px; line-height: 1.66; letter-spacing: -0.003em; }
+body.eco-shell .msg-ai .body p { margin: 0 0 0.85em; }
+body.eco-shell .msg-user { font-size: 14.5px; line-height: 1.55; }
+
+/* 6. The composer belongs at the foot of the column, always — not floating
+      wherever the content happens to end. */
+body.eco-shell .chat-container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+body.eco-shell .chat-history { flex: 1 1 auto; min-height: 0; }
+body.eco-shell .chat-input-bar {
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding-bottom: 14px;
+}
+/* with the composer pinned, the scroll column needs only a modest tail */
+body.eco-shell #chat-history, body.eco-shell .chat-history {
+  padding-bottom: 28px;
+  scroll-padding-bottom: 28px;
+}
+
+/* 6b. Whatever the flex distribution does, the composer stays at the foot of
+      the column and in the layout (sticky, so it never covers a card). */
+body.eco-shell .chat-container { justify-content: flex-end; }
+body.eco-shell .chat-history { flex: 1 1 auto; }
+body.eco-shell .chat-input-bar { position: sticky; bottom: 0; z-index: 20; }
+
+/* 6c. Deterministic footer: the app's flex column refuses to distribute its
+      free space here, so anchor the composer to the viewport foot and reserve
+      exactly its height in the scroll column. Nothing floats, nothing covers. */
+body.eco-shell .chat-container { justify-content: flex-start; }
+body.eco-shell .chat-input-bar {
+  position: fixed;
+  left: 232px;
+  right: 0;
+  bottom: 0;
+  margin: 0 !important;
+  padding: 0 0 16px;
+  z-index: 30;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--eco-surface, #f7f9fb) 0%, transparent) 0%,
+    var(--eco-surface, #f7f9fb) 22%);
+  backdrop-filter: none;
+}
+body.eco-shell.viz-context-open .chat-input-bar { right: 288px; }
+body.eco-shell.viz-panel-open .chat-input-bar { right: min(56vw, 940px); }
+body.eco-shell #chat-history, body.eco-shell .chat-history {
+  padding-bottom: 148px;
+  scroll-padding-bottom: 148px;
+}
+@media (max-width: 1100px) {
+  body.eco-shell.viz-context-open .chat-input-bar { right: 0; }
+}
+@media (max-width: 900px) {
+  body.eco-shell .chat-input-bar { left: 64px; }
+}
+/* the app sets an explicit width on the composer; with left+right anchored,
+   width must yield or the bar overruns the context rail */
+body.eco-shell .chat-input-bar { width: auto !important; max-width: none !important; }
