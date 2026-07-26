@@ -738,6 +738,50 @@ export function stripMachineFailureText(text) {
   return out;
 }
 
+
+// The marker. An answer usually turns on one or two figures; highlighting them
+// makes the sentence scannable without restating it. Text nodes only, never
+// inside code, links or tables, and capped so it stays a marker rather than a
+// wash. Nothing is added or reworded — this only wraps text already written.
+const FIGURE_RE = /\b\d[\d,]*(?:\.\d+)?\s*(?:%|km²|km2|km|m|ha|°[NSEW]?)?(?:\s+(?:records?|squares?|sites?|visits?|species|detections?|plots?|surveys?|observations?|rows?|years?))?/g;
+const HL_SKIP = new Set(['CODE', 'PRE', 'A', 'MARK', 'TABLE', 'THEAD', 'TBODY', 'TH', 'TD', 'SCRIPT', 'STYLE', 'BUTTON']);
+
+export function highlightKeyFigures(root, limit = 3) {
+  if (!root || !document.body.classList.contains('eco-shell')) return;
+  let left = limit;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      for (let p = node.parentElement; p && p !== root; p = p.parentElement) {
+        if (HL_SKIP.has(p.tagName) || p.classList.contains('viz-inline')) return NodeFilter.FILTER_REJECT;
+      }
+      return /\d/.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const targets = [];
+  while (walker.nextNode() && targets.length < 40) targets.push(walker.currentNode);
+  for (const node of targets) {
+    if (left <= 0) break;
+    const text = node.nodeValue;
+    FIGURE_RE.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let cursor = 0, m, used = false;
+    while ((m = FIGURE_RE.exec(text)) && left > 0) {
+      const raw = m[0].trimEnd();
+      if (!raw || !/\d/.test(raw)) continue;
+      frag.appendChild(document.createTextNode(text.slice(cursor, m.index)));
+      const mark = document.createElement('mark');
+      mark.className = 'eco-mark';
+      mark.textContent = raw;
+      frag.appendChild(mark);
+      cursor = m.index + raw.length;
+      left -= 1; used = true;
+    }
+    if (!used) continue;
+    frag.appendChild(document.createTextNode(text.slice(cursor)));
+    node.parentNode.replaceChild(frag, node);
+  }
+}
+
 export function parseInsightResponse(content, modelName, metadata) {
   const source = String(content || '');
   const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
@@ -2916,6 +2960,7 @@ export function addMessage(role, content, modelName, metadata) {
     wrap.appendChild(r);
     wrap.appendChild(b);
     if (role === 'assistant' && insightResponse.isInsight) {
+      highlightKeyFigures(b);
       renderInsightTrace(wrap, metadata?.insight_trace);
       renderInsightEvidence(wrap, metadata?.insight_evidence);
       renderT4GCModelRequest(wrap, textRaw, metadata?.insight_trace);
@@ -3091,6 +3136,7 @@ export function addMessage(role, content, modelName, metadata) {
 
 const chatRenderer = {
   renderInlineVisualSlots,
+  highlightKeyFigures,
   shortModel,
   isInsightModel,
   sameModelName,

@@ -133,7 +133,7 @@ function ensureNav() {
   brand.className = 'eco-brand';
   const mark = document.createElement('span');
   mark.className = 'eco-brand-mark';
-  mark.textContent = '◧';
+  mark.textContent = 'II';
   brand.appendChild(mark);
   const name = document.createElement('span');
   name.className = 'eco-brand-name';
@@ -142,7 +142,7 @@ function ensureNav() {
   navEl.appendChild(brand);
 
   const siteCard = document.createElement('button');
-  siteCard.className = 'eco-site-card';
+  siteCard.className = 'eco-nav-site';
   siteCard.id = 'eco-site-card';
   siteCard.hidden = true;
   siteCard.addEventListener('click', () => showLanding(true));
@@ -182,14 +182,6 @@ function ensureNav() {
   newBtn.addEventListener('click', () => showLanding(true));
   navEl.appendChild(newBtn);
 
-  const foot = document.createElement('div');
-  foot.className = 'eco-nav-foot';
-  const chats = document.createElement('button');
-  chats.className = 'eco-nav-mini';
-  chats.textContent = 'Recent chats';
-  chats.addEventListener('click', () => toggleChatList());
-  foot.appendChild(chats);
-  navEl.appendChild(foot);
 
   document.body.appendChild(navEl);
   document.body.classList.add(SHELL_CLASS);
@@ -260,20 +252,24 @@ export async function showLanding(force) {
   document.body.classList.add('eco-landing-open');
   landingEl.replaceChildren();
 
+  const inner = document.createElement('div');
+  inner.className = 'eco-landing-inner';
+  landingEl.appendChild(inner);
+
   const head = document.createElement('header');
   head.className = 'eco-landing-head';
   const h1 = document.createElement('h1');
-  h1.textContent = 'Choose a site to work on';
+  h1.textContent = 'Choose a site, or just ask a question.';
   head.appendChild(h1);
   const sub = document.createElement('p');
-  sub.textContent = 'Each site is a prepared data pack. Open one to ask questions about it, '
-    + 'see its maps and trends, and trace any number back to its records.';
+  sub.textContent = 'Every answer arrives with a visual, and every number can be traced '
+    + 'back to the record it came from.';
   head.appendChild(sub);
-  landingEl.appendChild(head);
+  inner.appendChild(head);
 
   const grid = document.createElement('div');
   grid.className = 'eco-site-grid';
-  landingEl.appendChild(grid);
+  inner.appendChild(grid);
 
   const loading = document.createElement('div');
   loading.className = 'eco-landing-loading';
