@@ -338,15 +338,27 @@ async function hydrateSlot(slot) {
   const hydrationKey = resultId + ':' + (slot.dataset.revision || '');
   if (!resultId || hydrating.has(hydrationKey)) return;
   hydrating.add(hydrationKey);
-  const c = await resolveClient();
-  if (!c) { hydrating.delete(hydrationKey); return; }
+  // `c` is used far below (layer/rows fetches) — it must outlive this try.
+  let c;
   let envelope;
   try {
-    envelope = await c.result(resultId);
+    c = await resolveClient();
+    if (!c) return;
+    // A session switch can race the endpoint change: an attempt against the
+    // outgoing endpoint may hang rather than fail. Time-box it so the guard is
+    // released and a later sweep retries against the right endpoint.
+    envelope = await Promise.race([
+      c.result(resultId),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('visual result timeout')), 12000)),
+    ]);
   } catch {
     slot.classList.add('viz-inline-unavailable');
     slot.textContent = 'Visual unavailable for this endpoint.';
     return;
+  } finally {
+    // In-flight guard only: the .hydrated class is what stops re-hydration of
+    // finished slots, so the key must never outlive the attempt.
+    hydrating.delete(hydrationKey);
   }
   slot.classList.add('hydrated');
   slot.replaceChildren();
@@ -580,10 +592,27 @@ window.addEventListener('idli-visual-result', () => {
 
 // History loads render in bulk; sweep once after load and on session switches.
 setTimeout(() => { scanForSlots(document); ensureContextRail(); }, 3000);
+
+// A session switch may change the endpoint behind the visuals: drop the cached
+// client and re-hydrate whatever the restored history brought with it. Two
+// sweeps because history rendering is not instant.
+export function noteSessionSwitch() {
+  client = null; clientEndpointUrl = null;
+  recentVisuals.length = 0;
+  const sweep = () => {
+    // Slots that failed against the previous endpoint get another chance.
+    for (const el of document.querySelectorAll('.viz-inline.viz-inline-unavailable')) {
+      el.classList.remove('viz-inline-unavailable');
+      el.textContent = '';
+    }
+    scanForSlots(document);
+    ensureContextRail();
+  };
+  setTimeout(sweep, 1200);
+  setTimeout(sweep, 3500);
+}
 document.addEventListener('click', (ev) => {
   if (ev.target.closest && ev.target.closest('.list-item[data-session-id]')) {
-    client = null; clientEndpointUrl = null; // endpoint may change with the session
-    recentVisuals.length = 0;
-    setTimeout(() => { scanForSlots(document); ensureContextRail(); }, 2500);
+    noteSessionSwitch();
   }
 }, true);

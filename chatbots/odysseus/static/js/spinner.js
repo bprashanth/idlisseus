@@ -38,8 +38,8 @@ class Spinner {
     const span = document.createElement('span');
     span.className = 'ai-spinner';
     // Inherit the theme's UI face — the label should read like the app, not a
-    // terminal. `pre` keeps the frame track from collapsing its spaces.
-    span.style.cssText = 'font-family: inherit; white-space: pre;';
+    // terminal. Inline-flex centres the ping glyph against the label's text.
+    span.style.cssText = 'font-family: inherit; display: inline-flex; align-items: center; gap: 7px;';
     this.element = span;
     this.updateDisplay();
     return span;
@@ -275,13 +275,16 @@ class Spinner {
     // every frame occupies the same width and the loop doesn't shimmy.
     this.element.textContent = '';
     const frameSpan = document.createElement('span');
-    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;';
+    // Fixed 1ch box in mono: every frame is the same width, so the loop is
+    // still. line-height 1 keeps the circle on the label's optical centre.
+    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;'
+      + 'width: 1.1ch; text-align: center; line-height: 1;';
     frameSpan.textContent = frame;
     if (this.style === 'left') {
       this.element.appendChild(frameSpan);
-      this.element.appendChild(document.createTextNode(' ' + this.message));
+      this.element.appendChild(document.createTextNode(this.message));
     } else if (this.style === 'right') {
-      this.element.appendChild(document.createTextNode(this.message + ' '));
+      this.element.appendChild(document.createTextNode(this.message));
       this.element.appendChild(frameSpan);
     } else { // clean
       this.element.textContent = this.message;
@@ -291,7 +294,7 @@ class Spinner {
   /**
    * Start the spinner animation
    */
-  start(speed = 150) {
+  start(speed = 280) {
     if (this.isRunning) return;
     this.isRunning = true;
 

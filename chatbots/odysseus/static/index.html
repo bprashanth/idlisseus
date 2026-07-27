@@ -232,20 +232,20 @@
 </head>
 <body>
   <!-- Loading overlay — hides all flashing until app is ready -->
-  <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#282c34);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
-    <div id="loader-wave" style="color:var(--brand-color,var(--red,#e06c75));font-family:monospace;font-size:11px;opacity:.5">▁▂▃</div>
+  <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#f7f5f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
+    <div id="loader-wave" style="color:var(--brand-color,var(--red,#1d5c45));font-family:monospace;font-size:15px;opacity:.6">·</div>
   </div>
   <script nonce="{{CSP_NONCE}}">
   (function(){
     var el=document.getElementById('loader-wave');
     if(!el)return;
-    var frames=['▁▂▃','▂▃▄','▃▄▅','▄▅▆','▅▆▅','▆▅▄','▅▄▃','▄▃▂','▃▂▁'];
+    var frames=['\u00b7','\u2218','\u25cb','\u25ce','\u25c9','\u25ce','\u25cb','\u2218'];
     var i=0;
     var iv=setInterval(function(){
       if(!document.getElementById('app-loader')){clearInterval(iv);return}
       el.textContent=frames[i%frames.length];
       i++;
-    },150);
+    },240);
     setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},5000);
   })();
   </script>

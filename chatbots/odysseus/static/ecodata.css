@@ -305,14 +305,17 @@ body.eco-shell .msg .body table { border-collapse: collapse; }
 body.eco-shell .msg .body th { border-bottom: 1px solid var(--line-strong); }
 body.eco-shell .msg .body td { border-bottom: 1px solid var(--line); }
 
-/* speaker line: tiny, quiet. Normal case — uppercase turned Inter's thin
-   capital I into a lost sliver ("DLI INSIGHTS"). */
+/* speaker line: a small serif byline. Inter's sans capital I is a bare 2px
+   bar that reads as cropped at this size; the serifed face gives "Idli
+   Insights" a real letter. */
 body.eco-shell .role, body.eco-shell .role.has-logo {
   color: var(--ink-faint) !important; background: none !important;
-  font: 600 12px var(--font-ui); letter-spacing: 0.015em; text-transform: none;
+  font: 600 13px var(--font-display); letter-spacing: 0.01em; text-transform: none;
   margin-bottom: 8px;
   overflow: visible;
+  padding-left: 1px;
 }
+body.eco-shell .role-timestamp { font-family: var(--font-ui); font-size: 11px; }
 /* one identity dot, on-palette — never the per-model hash color */
 body.eco-shell .msg .role::before { background: var(--pine) !important; }
 body.eco-shell .msg-user .role::before { background: var(--line-strong) !important; }

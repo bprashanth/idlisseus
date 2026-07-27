@@ -4,7 +4,7 @@
 // rail only appears once a site is open. Everything here is generic: site names,
 // sector words and statistics come from the endpoints themselves.
 
-import { openInPanel, refreshContext } from './visualChat.js';
+import { openInPanel, refreshContext, noteSessionSwitch } from './visualChat.js';
 import { openExplorer } from './visualExplorer.js';
 
 const SHELL_CLASS = 'eco-shell';
@@ -395,6 +395,8 @@ async function renderHistoryList(filterText) {
       hideLanding();
       setActiveNav('chat');
       (await getSessions()).selectSession(s.id);
+      // The restored history carries visual markers; the endpoint may differ.
+      noteSessionSwitch();
       setTimeout(syncActiveSite, 1200);
     });
     list.appendChild(item);
@@ -626,10 +628,16 @@ async function syncActiveSite() {
 async function boot() {
   ensureNav();
   await syncActiveSite();
-  // The product always opens on the site-selection page; a restored
-  // conversation stays one Chat click away.
-  showLanding(true);
-  setActiveNav('research');
+  // A #<session-id> URL is a deep link into a conversation (the stock app
+  // restores it): honour it. Everything else opens on the site-selection page.
+  const deepLink = /^#[0-9a-f][0-9a-f-]{7,}$/i.test(window.location.hash || '');
+  if (deepLink) {
+    hideLanding();
+    setActiveNav('chat');
+  } else {
+    showLanding(true);
+    setActiveNav('research');
+  }
   prettifyMeta();
 }
 
