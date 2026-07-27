@@ -1074,3 +1074,23 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
 }
 .viz-required-mark { opacity: 0.35; flex: none; font-size: 11px; }
 .viz-required-line[data-missing="1"] { background: rgba(250, 178, 25, 0.14); border-radius: 6px; padding: 4px 6px; }
+
+/* ---------- TR-VIS-0003: "Read as" subject disclosure ---------- */
+/* Dashed rule + explicit wording: an assistant interpretation is structurally
+   distinct from a source-declared group, never by colour alone. */
+.viz-readas {
+  margin: 8px 16px 2px;
+  padding: 8px 13px;
+  border-left: 2px dashed var(--line-strong, rgba(127,127,127,0.45));
+  border-radius: 0 var(--radius-sm, 9px) var(--radius-sm, 9px) 0;
+  background: color-mix(in srgb, var(--ink, currentColor) 3%, transparent);
+}
+.viz-readas-line { font-size: 12.5px; line-height: 1.55; color: var(--ink-soft, inherit); }
+.viz-readas-cap { font-weight: 600; color: var(--ink, currentColor); margin-right: 6px; }
+.viz-readas-tag {
+  margin-top: 4px;
+  font: 600 10px var(--font-ui, system-ui, sans-serif);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-faint, currentColor);
+}
+

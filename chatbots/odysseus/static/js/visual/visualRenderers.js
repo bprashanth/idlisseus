@@ -517,3 +517,49 @@ export function renderVisual(container, visual, layerData, hooks) {
   container.appendChild(frame);
   return frame;
 }
+
+// ---- TR-VIS-0003: model-selected subject membership ------------------------
+// When the producer records that a subject phrase was read by the assistant
+// (resolution_method model_selected / cached_model_selection), the reading is
+// shown beside the visual — named members, explicitly labelled as an
+// interpretation — so a model judgement is never mistaken for a source-declared
+// category. Distinction is structural (dashed rule + wording), never colour
+// alone. Results without these additive fields render unchanged.
+const MODEL_RESOLUTIONS = new Set(['model_selected', 'cached_model_selection']);
+
+export function renderSubjectDisclosure(container, envelope) {
+  const subjects = ((envelope.question || {}).bindings || {}).subjects || [];
+  const read = subjects.filter((s) => s && MODEL_RESOLUTIONS.has(s.resolution_method)
+    && Array.isArray(s.member_labels) && s.member_labels.length);
+  if (!read.length) return null;
+  const box = document.createElement('div');
+  box.className = 'viz-readas';
+  for (const s of read) {
+    const line = document.createElement('div');
+    line.className = 'viz-readas-line';
+    const cap = document.createElement('span');
+    cap.className = 'viz-readas-cap';
+    cap.textContent = s.requested ? `“${cleanText(s.requested)}” read as` : 'Read as';
+    line.appendChild(cap);
+    const members = document.createElement('span');
+    members.className = 'viz-readas-members';
+    members.textContent = s.member_labels.map((m) => cleanText(m)).join(', ');
+    line.appendChild(members);
+    box.appendChild(line);
+  }
+  const tag = document.createElement('div');
+  tag.className = 'viz-readas-tag';
+  tag.textContent = 'Assistant interpretation — not a source-declared group';
+  box.appendChild(tag);
+  container.appendChild(box);
+  return box;
+}
+
+// TR-VIS-0003/0004: the producer's correction action reopens the bounded
+// choice; give it its agreed reading-change label when the producer sent none.
+export function subjectActionLabel(action) {
+  if (action && !action.label && String(action.action_id || '').startsWith('correct-subject-')) {
+    return 'Change this reading';
+  }
+  return action && action.label;
+}

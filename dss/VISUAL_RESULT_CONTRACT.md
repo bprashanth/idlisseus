@@ -426,6 +426,48 @@ Two additive bindings carry this contract into the live chat product:
 The stage also issues an unprompted `site-orientation` query when a conversation starts on an
 endpoint whose capability list declares it ready — the ambient orientation visual.
 
+## Subject bindings and model-selected membership (additive v1 fields, TR-VIS-0003/0004)
+
+`question.bindings.subjects` MAY carry, per subject, `requested` (the reader's phrase),
+`resolution_method` (`exact_alias` | `source_declared_group` | `deterministic_widening` |
+`model_selected` | `cached_model_selection`), `member_labels` (reader-facing names of the
+selected members), `entity_ids`, `binding_id` and `selector` (`model`, `prompt_version`).
+
+Consumer behaviour: when `resolution_method` is `model_selected` or
+`cached_model_selection` and `member_labels` is non-empty, the renderer shows a compact
+"read as" disclosure beside the visual — the phrase, the member names, and an explicit
+"assistant interpretation" label — structurally distinct (dashed rule + wording, never
+colour alone) from an exact stored name or source-declared group. `binding_id` and
+`selector` stay out of the primary prose. An action whose `action_id` begins
+`correct-subject-` renders as the correction affordance ("Change this reading" when the
+producer sends no label) and is forwarded through the conversation like any other action.
+Results without these fields render unchanged. The consumer never infers membership: it
+renders what the producer verified, and forwards choices; the producer remains the
+id-verification boundary.
+
+A blocked or unresolved subject lookup produces no result marker, so nothing renders as a
+successful visual; the clarification itself is carried by the conversation (agent prose
+and, when supplied, guided actions), with progress events covering the selection turn.
+
+## Problem reports (additive, TR-VIS-0005)
+
+The producer MAY expose `POST /v1/feedback/draft` and `POST /v1/feedback/submit`
+(proxied at `/api/visual/{endpoint_id}/feedback/draft|submit`). Draft accepts
+`{session_id, description (required), include_conversation (default true),
+transcript: [{role: user|assistant, content}]}` and returns an immutable draft
+(`report_id`, `repository`, `public_warning`, `title`, `body`,
+`conversation_messages`, `requires_confirmation: true`). Submit requires
+`{report_id, confirmed: true}` and returns either `status: submitted` with the public
+issue `url`, or `status: ready_for_browser_confirmation` with a pre-filled issue `url`.
+
+Consumer behaviour: a "Report a problem" action is always discoverable on a result card
+and prominent when the envelope is failed/blocked or carries an error-severity
+limitation. The dialog requires free-form text, defaults conversation inclusion to on,
+sends only the visible user/assistant transcript, and shows the returned repository,
+public warning, title and full body before a separate explicit confirmation. Cancelling
+publishes nothing. Hidden prompts, progress events, tool output and credentials are
+never included — enforced again producer-side.
+
 ## Compatibility and validation
 
 The normative machine-readable schemas and synthetic fixture corpus are in

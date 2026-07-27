@@ -42,6 +42,20 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
 - Integrated sidebars; Calendar uses external `.ics` feeds
 - These are Odysseus upstream features; see `docs/odysseus.md` for full list
 
+## Producer-consumer exchange (latest dispositions)
+
+- TR-VIS-0003 **implemented**: model-selected subject membership renders as a "read as"
+  disclosure (dashed rule + explicit "assistant interpretation" wording) on cards and in
+  the panel caption; `correct-subject-*` actions render as "Change this reading".
+  Fixture: `dss/contracts/fixtures/11-model-selected-subject.json`.
+- TR-VIS-0004 **accepted**: blocked lookups render no successful visual; selection turns
+  show progress; asked the producer to emit clarification candidates as guided actions
+  for chip-level rendering.
+- TR-VIS-0005 **implemented**: "Report a problem" on every result card (prominent on
+  failed/blocked/error results) → description form (transcript inclusion on by default,
+  visible messages only) → full public preview with repository + warning → explicit
+  publish confirmation. Proxy: `/api/visual/{endpoint_id}/feedback/draft|submit`.
+
 ## Citation status
 
 Currently **Level 1** — prompt-only:

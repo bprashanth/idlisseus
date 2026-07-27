@@ -8,7 +8,7 @@
 
 import { VisualStage } from './visualStage.js';
 import { VisualClient } from './visualData.js';
-import { renderVisual, renderTable } from './visualRenderers.js';
+import { renderVisual, renderTable, renderSubjectDisclosure, subjectActionLabel } from './visualRenderers.js';
 import { cleanText } from './visualTheme.js';
 
 let client = null;
@@ -390,6 +390,9 @@ async function hydrateSlot(slot) {
   headRow.appendChild(head);
   card.appendChild(headRow);
 
+  // TR-VIS-0003: a model-read subject is disclosed beside the claim it shaped.
+  renderSubjectDisclosure(card, envelope);
+
   const canvas = document.createElement('div');
   canvas.className = 'viz-inline-canvas';
   card.appendChild(canvas);
@@ -528,7 +531,7 @@ async function hydrateSlot(slot) {
       chip.className = 'viz-action-chip';
       chip.type = 'button';
       chip.dataset.kind = a.kind || 'follow_up';
-      chip.textContent = a.label;
+      chip.textContent = subjectActionLabel(a) || a.label;
       chip.addEventListener('click', (ev) => {
         ev.stopPropagation();          // a next step, not a request to expand
         const input = document.getElementById('message');
@@ -549,11 +552,24 @@ async function hydrateSlot(slot) {
   const n = visuals.length;
   meta.textContent = `${envelope.site?.label || ''}${n > 1 ? ` · ${n} views` : ''}`;
   foot.appendChild(meta);
+  const footRight = document.createElement('span');
+  footRight.className = 'viz-inline-foot-right';
+  // TR-VIS-0005: reporting is always discoverable, and prominent when the
+  // result is blocked, failed or carries an error-severity limitation.
+  const troubled = envelope.status === 'failed' || envelope.status === 'blocked'
+    || (envelope.limitations || []).some((l) => l && l.severity === 'error');
+  const report = document.createElement('button');
+  report.type = 'button';
+  report.className = 'viz-report-btn' + (troubled ? ' viz-report-prominent' : '');
+  report.textContent = 'Report a problem';
+  report.addEventListener('click', (ev) => { ev.stopPropagation(); openReportDialog(); });
+  footRight.appendChild(report);
   const open = document.createElement('button');
   open.className = 'viz-inline-open';
   open.type = 'button';
   open.textContent = 'Open ↗';
-  foot.appendChild(open);
+  footRight.appendChild(open);
+  foot.appendChild(footRight);
   card.appendChild(foot);
 
   card.addEventListener('click', (ev) => {
@@ -616,3 +632,199 @@ document.addEventListener('click', (ev) => {
     noteSessionSwitch();
   }
 }, true);
+
+// ---- TR-VIS-0005: reviewable public problem report -------------------------
+// The producer owns redaction, immutable drafts and the destination repository;
+// this dialog owns the description, the public warning, the full preview and
+// the explicit confirmation. Nothing is published without the second click,
+// and only the visible user/assistant conversation is ever included.
+let reportOverlay = null;
+
+function visibleTranscript() {
+  const out = [];
+  for (const msg of document.querySelectorAll('#chat-history .msg')) {
+    const role = msg.classList.contains('msg-user') ? 'user'
+      : msg.classList.contains('msg-ai') ? 'assistant' : null;
+    if (!role) continue;
+    const body = msg.querySelector('.body');
+    const text = body ? body.innerText.trim() : '';
+    if (text) out.push({ role, content: text.slice(0, 6000) });
+  }
+  return out.slice(-60);
+}
+
+function reportEl(tag, cls, text) {
+  const el = document.createElement(tag);
+  if (cls) el.className = cls;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+
+export async function openReportDialog() {
+  const c = await resolveClient();
+  if (!reportOverlay) {
+    reportOverlay = reportEl('div', 'viz-report-overlay');
+    reportOverlay.addEventListener('click', (ev) => {
+      if (ev.target === reportOverlay) closeReportDialog();
+    });
+    document.body.appendChild(reportOverlay);
+  }
+  reportOverlay.replaceChildren();
+  reportOverlay.classList.add('on');
+  const box = reportEl('div', 'viz-report-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Report a problem');
+  reportOverlay.appendChild(box);
+  const head = reportEl('div', 'viz-report-head');
+  head.appendChild(reportEl('span', 'viz-report-title', 'Report a problem'));
+  const x = reportEl('button', 'viz-panel-close', '×');
+  x.addEventListener('click', closeReportDialog);
+  head.appendChild(x);
+  box.appendChild(head);
+
+  if (!c) {
+    box.appendChild(reportEl('p', 'viz-report-note',
+      'Reporting is not available for this conversation — no site service is connected.'));
+    return;
+  }
+
+  // ---- step 1: describe
+  box.appendChild(reportEl('p', 'viz-report-note',
+    'This files a public issue in the repository this site is configured to use. '
+    + 'Nothing is published until you review the exact issue text and confirm.'));
+  const desc = document.createElement('textarea');
+  desc.className = 'viz-report-desc';
+  desc.placeholder = 'What went wrong, in your own words? (required)';
+  desc.rows = 5;
+  box.appendChild(desc);
+  const inc = reportEl('label', 'viz-report-include');
+  const check = document.createElement('input');
+  check.type = 'checkbox';
+  check.checked = true;
+  inc.appendChild(check);
+  inc.appendChild(document.createTextNode(' Include this conversation (visible messages only)'));
+  box.appendChild(inc);
+  const err = reportEl('div', 'viz-report-error');
+  box.appendChild(err);
+  const row = reportEl('div', 'viz-report-actions');
+  const draftBtn = reportEl('button', 'viz-report-primary', 'Preview the public issue');
+  const cancelBtn = reportEl('button', 'viz-report-secondary', 'Cancel');
+  cancelBtn.addEventListener('click', closeReportDialog);
+  row.appendChild(cancelBtn);
+  row.appendChild(draftBtn);
+  box.appendChild(row);
+
+  draftBtn.addEventListener('click', async () => {
+    err.textContent = '';
+    const description = desc.value.trim();
+    if (!description) { err.textContent = 'A description is required.'; desc.focus(); return; }
+    draftBtn.disabled = true;
+    draftBtn.textContent = 'Drafting…';
+    let draft;
+    try {
+      const sessions = await getSessions();
+      const sessionId = (sessions.getCurrentSessionId && sessions.getCurrentSessionId())
+        || window.location.hash.replace('#', '') || 'unknown';
+      const res = await fetch(`${c.base}/feedback/draft`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          description,
+          include_conversation: check.checked,
+          transcript: check.checked ? visibleTranscript() : [],
+        }),
+      });
+      if (!res.ok) throw new Error(`draft failed (${res.status})`);
+      draft = await res.json();
+    } catch (e) {
+      err.textContent = 'Could not draft the report: ' + (e.message || e);
+      draftBtn.disabled = false;
+      draftBtn.textContent = 'Preview the public issue';
+      return;
+    }
+    renderReportPreview(box, c, draft);
+  });
+}
+
+function renderReportPreview(box, c, draft) {
+  box.replaceChildren();
+  const head = reportEl('div', 'viz-report-head');
+  head.appendChild(reportEl('span', 'viz-report-title', 'Review before publishing'));
+  const x = reportEl('button', 'viz-panel-close', '×');
+  x.addEventListener('click', closeReportDialog);
+  head.appendChild(x);
+  box.appendChild(head);
+  box.appendChild(reportEl('p', 'viz-report-warning',
+    draft.public_warning || `This will create a public issue in ${draft.repository}.`));
+  const metaBits = [`Repository: ${draft.repository}`];
+  if (draft.include_conversation) {
+    metaBits.push(`${draft.conversation_messages} conversation message${draft.conversation_messages === 1 ? '' : 's'} included`);
+  } else {
+    metaBits.push('conversation not included');
+  }
+  box.appendChild(reportEl('div', 'viz-report-meta', metaBits.join(' · ')));
+  box.appendChild(reportEl('div', 'viz-report-preview-title', draft.title || ''));
+  const body = reportEl('pre', 'viz-report-preview-body', draft.body || '');
+  box.appendChild(body);
+  const err = reportEl('div', 'viz-report-error');
+  box.appendChild(err);
+  const row = reportEl('div', 'viz-report-actions');
+  const cancel = reportEl('button', 'viz-report-secondary', 'Cancel');
+  cancel.addEventListener('click', closeReportDialog);
+  const submit = reportEl('button', 'viz-report-primary', 'Publish this issue');
+  row.appendChild(cancel);
+  row.appendChild(submit);
+  box.appendChild(row);
+  submit.addEventListener('click', async () => {
+    err.textContent = '';
+    submit.disabled = true;
+    submit.textContent = 'Publishing…';
+    let out;
+    try {
+      const res = await fetch(`${c.base}/feedback/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ report_id: draft.report_id, confirmed: true }),
+      });
+      if (!res.ok) throw new Error(`submit failed (${res.status})`);
+      out = await res.json();
+    } catch (e) {
+      err.textContent = 'Could not publish: ' + (e.message || e);
+      submit.disabled = false;
+      submit.textContent = 'Publish this issue';
+      return;
+    }
+    box.replaceChildren();
+    const h2 = reportEl('div', 'viz-report-head');
+    h2.appendChild(reportEl('span', 'viz-report-title', 'Report sent'));
+    const x2 = reportEl('button', 'viz-panel-close', '×');
+    x2.addEventListener('click', closeReportDialog);
+    h2.appendChild(x2);
+    box.appendChild(h2);
+    if (out.status === 'ready_for_browser_confirmation' && out.url) {
+      box.appendChild(reportEl('p', 'viz-report-note',
+        'One more step: the issue opens pre-filled in your browser — press its Submit button there.'));
+      window.open(out.url, '_blank', 'noopener');
+      const link = reportEl('a', 'viz-report-link', 'Open the pre-filled issue');
+      link.href = out.url; link.target = '_blank'; link.rel = 'noopener';
+      box.appendChild(link);
+    } else if (out.url) {
+      box.appendChild(reportEl('p', 'viz-report-note', 'Thank you — the issue is public:'));
+      const link = reportEl('a', 'viz-report-link', out.url);
+      link.href = out.url; link.target = '_blank'; link.rel = 'noopener';
+      box.appendChild(link);
+    } else {
+      box.appendChild(reportEl('p', 'viz-report-note', 'The report was recorded.'));
+    }
+    const done = reportEl('div', 'viz-report-actions');
+    const ok = reportEl('button', 'viz-report-primary', 'Done');
+    ok.addEventListener('click', closeReportDialog);
+    done.appendChild(ok);
+    box.appendChild(done);
+  });
+}
+
+function closeReportDialog() {
+  if (reportOverlay) reportOverlay.classList.remove('on');
+}

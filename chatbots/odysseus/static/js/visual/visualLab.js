@@ -10,6 +10,7 @@ const FIXTURES = [
   '01-site-orientation', '02-observed-points', '03-coverage-effort',
   '04-empty-target-surrounding', '05-modelled-passing-gates', '06-failed-gate',
   '07-data-request', '08-time-series', '09-partial-source-outage', '10-dashboard',
+  '11-model-selected-subject',
 ];
 
 const host = document.getElementById('lab-host');

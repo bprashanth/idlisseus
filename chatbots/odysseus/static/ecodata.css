@@ -695,6 +695,83 @@ body.eco-shell .viz-support-card { background: var(--surface); height: auto; }
 body.eco-shell .viz-audit-link { background: none; height: auto; }
 body.eco-shell .welcome-chip, body.eco-shell .scroll-nav-btn { height: auto; }
 
+/* ---------- TR-VIS-0005: problem report ---------- */
+.viz-inline-foot-right { display: inline-flex; align-items: center; gap: 8px; }
+body.eco-shell .viz-report-btn {
+  font: 500 12px var(--font-ui);
+  background: none; border: 0; height: auto;
+  color: var(--ink-faint);
+  cursor: pointer; padding: 3px 6px; border-radius: 7px;
+}
+body.eco-shell .viz-report-btn:hover { color: var(--critical); background: var(--surface-2); }
+body.eco-shell .viz-report-btn.viz-report-prominent {
+  border: 1px solid color-mix(in srgb, var(--critical) 45%, var(--line-strong));
+  color: var(--critical);
+  padding: 4px 12px; border-radius: 999px;
+}
+.viz-report-overlay {
+  position: fixed; inset: 0; z-index: 120;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(27, 26, 23, 0.35);
+  backdrop-filter: blur(3px);
+}
+.viz-report-overlay.on { display: flex; }
+.viz-report-box {
+  width: min(640px, 92vw); max-height: 86vh; overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.viz-report-head { display: flex; align-items: center; justify-content: space-between; }
+.viz-report-title { font: 600 19px var(--font-display); color: var(--ink); }
+.viz-report-note { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+.viz-report-warning {
+  margin: 0; padding: 10px 14px;
+  font-size: 13px; line-height: 1.55; color: var(--ink);
+  background: color-mix(in srgb, var(--warn) 14%, transparent);
+  border-left: 3px solid var(--warn);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.viz-report-meta { font-size: 12px; color: var(--ink-faint); }
+body.eco-shell .viz-report-desc {
+  width: 100%; box-sizing: border-box;
+  font: 14px/1.55 var(--font-ui);
+  padding: 10px 13px; border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); resize: vertical; min-height: 96px;
+}
+body.eco-shell .viz-report-desc:focus { outline: none; border-color: var(--pine); }
+.viz-report-include { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); }
+body.eco-shell .viz-report-include input { width: auto; accent-color: var(--pine); }
+.viz-report-preview-title { font: 600 15px var(--font-ui); color: var(--ink); }
+.viz-report-preview-body {
+  margin: 0; padding: 12px 14px;
+  max-height: 320px; overflow: auto;
+  font: 12px/1.55 var(--font-mono);
+  background: var(--code-bg); color: var(--code-fg);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.viz-report-error { color: var(--critical); font-size: 12.5px; min-height: 0; }
+.viz-report-error:empty { display: none; }
+.viz-report-actions { display: flex; justify-content: flex-end; gap: 10px; }
+body.eco-shell .viz-report-primary {
+  background: var(--pine-fill); color: #fff; border: 0; height: auto;
+  font: 600 13.5px var(--font-ui);
+  padding: 9px 18px; border-radius: 10px; cursor: pointer;
+}
+body.eco-shell .viz-report-primary:hover { background: var(--pine-deep); }
+body.eco-shell .viz-report-primary:disabled { opacity: 0.6; cursor: default; }
+body.eco-shell .viz-report-secondary {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 13.5px var(--font-ui); color: var(--ink-soft);
+  padding: 9px 16px; border-radius: 10px; cursor: pointer;
+}
+.viz-report-link { color: var(--pine); font-weight: 500; word-break: break-all; }
+
 /* thinking indicator: two surveyors out walking the site */
 .spinner-walkers {
   display: inline-block;

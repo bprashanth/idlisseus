@@ -5,7 +5,7 @@
 // structured limitations, capability-derived action chips, and a slide-in
 // evidence panel for drill-downs. Revisions replace in place — no jumps.
 
-import { renderVisual, renderTable, tooltip } from './visualRenderers.js';
+import { renderVisual, renderTable, tooltip, renderSubjectDisclosure } from './visualRenderers.js';
 import { evidenceColor, evidenceLabel, formatNumber, cleanText } from './visualTheme.js';
 
 export class VisualStage {
@@ -181,6 +181,8 @@ class Chapter {
       detail.textContent = cleanText(env.answer.detail);
       this.caption.appendChild(detail);
     }
+    // TR-VIS-0003: disclose a model-read subject in the panel caption too.
+    renderSubjectDisclosure(this.caption, env);
     // evidence chips
     const chips = document.createElement('div');
     chips.className = 'viz-chip-row';

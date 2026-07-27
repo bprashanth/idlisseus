@@ -169,6 +169,60 @@ def setup_visual_routes():
             raise HTTPException(status_code=400, detail="bad reference")
         return _get(endpoint_id, f"/v1/results/{result_id}/data/{handle}")
 
+    @router.post("/{endpoint_id}/feedback/draft")
+    async def feedback_draft(endpoint_id: str, request: Request):
+        """TR-VIS-0005: create an immutable, redacted problem-report draft.
+
+        The browser supplies the visible user/assistant transcript explicitly;
+        the bridge filters roles and content again on its side. Publication
+        never happens here — drafting is side-effect-free beyond the draft file.
+        """
+        if not _SAFE_ID.fullmatch(endpoint_id):
+            raise HTTPException(status_code=400, detail="bad endpoint id")
+        body = await request.json()
+        if not isinstance(body, dict):
+            raise HTTPException(status_code=400, detail="JSON object required")
+        transcript = []
+        for item in (body.get("transcript") or [])[:120]:
+            if not isinstance(item, dict):
+                continue
+            role = str(item.get("role") or "")
+            if role not in ("user", "assistant"):
+                continue
+            transcript.append({"role": role, "content": str(item.get("content") or "")[:6000]})
+        allowed = {
+            "session_id": str(body.get("session_id") or "")[:120],
+            "description": str(body.get("description") or "")[:4000],
+            "include_conversation": bool(body.get("include_conversation", True)),
+            "transcript": transcript,
+        }
+        base, headers = _bridge_target(endpoint_id)
+        try:
+            r = httpx.post(f"{base}/v1/feedback/draft", json=allowed, headers=headers, timeout=_TIMEOUT)
+        except httpx.HTTPError as exc:
+            raise HTTPException(status_code=502, detail=f"bridge unreachable: {type(exc).__name__}")
+        return _forward(r)
+
+    @router.post("/{endpoint_id}/feedback/submit")
+    async def feedback_submit(endpoint_id: str, request: Request):
+        """TR-VIS-0005: publish a previously drafted report — explicit confirm only."""
+        if not _SAFE_ID.fullmatch(endpoint_id):
+            raise HTTPException(status_code=400, detail="bad endpoint id")
+        body = await request.json()
+        if not isinstance(body, dict):
+            raise HTTPException(status_code=400, detail="JSON object required")
+        allowed = {
+            "report_id": str(body.get("report_id") or "")[:200],
+            "confirmed": body.get("confirmed") is True,
+        }
+        base, headers = _bridge_target(endpoint_id)
+        try:
+            r = httpx.post(f"{base}/v1/feedback/submit", json=allowed, headers=headers,
+                           timeout=httpx.Timeout(45.0, connect=5.0))
+        except httpx.HTTPError as exc:
+            raise HTTPException(status_code=502, detail=f"bridge unreachable: {type(exc).__name__}")
+        return _forward(r)
+
     @router.post("/{endpoint_id}/query")
     async def query(endpoint_id: str, request: Request):
         if not _SAFE_ID.fullmatch(endpoint_id):

@@ -1,0 +1,13 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0003",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "contract_version": "idli-result/1",
+  "summary": "Inline cards and the panel caption render a compact 'read as' disclosure when question.bindings.subjects carries resolution_method model_selected or cached_model_selection with member_labels: the reader's phrase, the selected member names, and an explicit 'Assistant interpretation \u2014 not a source-declared group' tag. The distinction is structural (dashed left rule + wording), never colour alone. binding_id and selector stay out of the prose. Actions whose action_id begins correct-subject- render as 'Change this reading' when the producer sends no label, and are forwarded through the conversation like every action. Results without the additive fields render unchanged. Contract doc updated; fixture 11-model-selected-subject renders in the lab with the disclosure, the info limitation and the correction action.",
+  "validated_fixtures": [
+    "dss/contracts/fixtures/11-model-selected-subject.json"
+  ],
+  "producer_action_required": [],
+  "updated_at": "2026-07-27"
+}
