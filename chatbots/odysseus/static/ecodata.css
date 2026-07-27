@@ -305,10 +305,11 @@ body.eco-shell .msg .body table { border-collapse: collapse; }
 body.eco-shell .msg .body th { border-bottom: 1px solid var(--line-strong); }
 body.eco-shell .msg .body td { border-bottom: 1px solid var(--line); }
 
-/* speaker line: tiny, quiet */
+/* speaker line: tiny, quiet. Normal case — uppercase turned Inter's thin
+   capital I into a lost sliver ("DLI INSIGHTS"). */
 body.eco-shell .role, body.eco-shell .role.has-logo {
   color: var(--ink-faint) !important; background: none !important;
-  font: 600 10.5px var(--font-ui); letter-spacing: 0.08em; text-transform: uppercase;
+  font: 600 12px var(--font-ui); letter-spacing: 0.015em; text-transform: none;
   margin-bottom: 8px;
   overflow: visible;
 }
@@ -745,7 +746,7 @@ body.eco-history-open #eco-history { transform: none; visibility: visible; }
   padding: 2px 6px; margin-top: 10px;
   min-height: 0;
 }
-#eco-nav .eco-user:empty { display: none; }
+.eco-user-avatar:empty { display: none; }
 .eco-user-avatar {
   width: 24px; height: 24px; border-radius: 50%; flex: none;
   background: var(--pine-wash); color: var(--pine);
@@ -757,16 +758,17 @@ body.eco-history-open #eco-history { transform: none; visibility: visible; }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-/* sign out: a whisper at the foot of the rail */
+/* sign out: a power button beside the signed-in name */
 #eco-nav .eco-signout {
-  margin-top: 8px;
-  background: none; border: 0; height: auto;
-  font: 500 12px var(--font-ui);
-  color: var(--ink-faint);
-  text-align: center; cursor: pointer;
-  padding: 4px 6px;
+  margin-left: auto; flex: none;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  background: none; border: 0; border-radius: 8px;
+  color: var(--ink-faint); cursor: pointer;
+  transition: color 130ms ease, background 130ms ease;
 }
-#eco-nav .eco-signout:hover { color: var(--pine); }
+#eco-nav .eco-signout:hover { color: var(--critical); background: var(--surface-2); }
+#eco-nav .eco-signout .eco-nav-icon { width: 15px; height: 15px; opacity: 1; }
 
 /* ============================= misc chrome ============================= */
 body.eco-shell .scroll-nav-btn, body.eco-shell .toast {
@@ -796,7 +798,9 @@ body.eco-shell [role="button"]:focus-visible {
   #eco-nav { padding: 16px 10px; gap: 12px; }
   .eco-brand-name, .eco-nav-item span, .eco-new-btn span,
   #eco-nav .eco-site-card, .eco-nav-site,
-  .eco-user-name, #eco-nav .eco-signout { display: none; }
+  .eco-user-name { display: none; }
+  #eco-nav .eco-user { justify-content: center; padding: 2px 0; }
+  #eco-nav .eco-signout { margin-left: 0; }
   #eco-history { left: 64px; }
   .eco-nav-item, .eco-new-btn { justify-content: center; padding: 10px; }
   body.eco-shell .chat-history { padding: 20px 16px 170px; }

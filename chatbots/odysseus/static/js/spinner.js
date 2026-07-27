@@ -7,11 +7,11 @@
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
     // Different animation frames. "wave" is the chat thinking indicator — a
-    // plain-text glyph ramp that loops cleanly, no color, no emoji (emoji
-    // frames jitter across platforms and fight the theme's ink).
+    // survey ping: one point swelling and settling, like a record being located
+    // on the map. Plain text, no color, palindromic so the loop has no jump.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: ['\u2581\u2582\u2583', '\u2582\u2583\u2584', '\u2583\u2584\u2585', '\u2584\u2585\u2586', '\u2585\u2586\u2585', '\u2586\u2585\u2584', '\u2585\u2584\u2583', '\u2584\u2583\u2582', '\u2583\u2582\u2581']
+      wave: ['\u00b7', '\u2218', '\u25cb', '\u25ce', '\u25c9', '\u25ce', '\u25cb', '\u2218']
     };
 
     this.animation = animation;

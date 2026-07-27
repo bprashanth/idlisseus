@@ -226,26 +226,30 @@ function ensureNav() {
   newBtn.addEventListener('click', () => showLanding(true));
   navEl.appendChild(newBtn);
 
+  // One row: who is signed in, and the way out — a power button beside the name.
   const user = document.createElement('div');
   user.className = 'eco-user';
   user.id = 'eco-user';
   navEl.appendChild(user);
+  const av = document.createElement('span');
+  av.className = 'eco-user-avatar';
+  user.appendChild(av);
+  const uname = document.createElement('span');
+  uname.className = 'eco-user-name';
+  user.appendChild(uname);
   fetch('/api/auth/status').then((r) => r.json()).then((d) => {
     if (!d || !d.username) return;
-    const av = document.createElement('span');
-    av.className = 'eco-user-avatar';
     av.textContent = String(d.username).slice(0, 1).toUpperCase();
-    user.appendChild(av);
-    const n = document.createElement('span');
-    n.className = 'eco-user-name';
-    n.textContent = d.username;
-    n.title = `Signed in as ${d.username}`;
-    user.appendChild(n);
+    uname.textContent = d.username;
+    uname.title = `Signed in as ${d.username}`;
   }).catch(() => { /* the rail works without a name */ });
 
   const signOut = document.createElement('button');
   signOut.className = 'eco-signout';
-  signOut.textContent = 'Sign out';
+  signOut.title = 'Sign out';
+  signOut.setAttribute('aria-label', 'Sign out');
+  signOut.appendChild(icon(['M12 2v10', 'M18.4 6.6a9 9 0 1 1-12.8 0']));
+  user.appendChild(signOut);
   signOut.addEventListener('click', async () => {
     try { await fetch('/api/auth/logout', { method: 'POST' }); } catch { /* still leave */ }
     // Same wipe as the stock settings logout: the next account on this browser
@@ -262,7 +266,6 @@ function ensureNav() {
     } catch { /* private mode */ }
     window.location.href = '/login';
   });
-  navEl.appendChild(signOut);
 
   document.body.appendChild(navEl);
   document.body.classList.add(SHELL_CLASS);
