@@ -6,6 +6,7 @@
 
 import { openInPanel, refreshContext, noteSessionSwitch } from './visualChat.js';
 import { openExplorer } from './visualExplorer.js';
+import { openAtlas, hideAtlas } from './visualAtlas.js';
 
 const SHELL_CLASS = 'eco-shell';
 let landingEl = null;
@@ -184,11 +185,11 @@ function ensureNav() {
   const list = document.createElement('div');
   list.className = 'eco-nav-list';
   const items = [
-    ['chat', 'Chat', () => { hideLanding(); }],
-    ['map', 'Maps', () => openLatestVisual()],
+    ['chat', 'Chat', () => { hideLanding(); hideAtlas(); }],
+    ['map', 'Maps', () => { hideAtlas(); openLatestVisual(); }],
     ['data', 'Data', () => openDataExplorer()],
     ['history', 'History', () => toggleHistory()],
-    ['research', 'Sites', () => showLanding(true)],
+    ['research', 'Sites', () => { hideAtlas(); showLanding(true); }],
   ];
   for (const [ic, label, fn] of items) {
     const b = document.createElement('button');
@@ -296,7 +297,9 @@ async function openLatestVisual() {
 async function openDataExplorer() {
   const active = await syncActiveSite();
   if (!active) { showLanding(true); return; }
-  openExplorer(active.endpointId);
+  // Data is a destination now: the full-page Atlas, with the inventory drawer
+  // one click away from inside it.
+  openAtlas(active.endpointId, () => openExplorer(active.endpointId));
 }
 
 // ---- past conversations: our own quiet drawer, not the stock sidebar -------
@@ -439,6 +442,7 @@ export function setActiveSite(site) {
 // ---- landing page ----------------------------------------------------------
 export async function showLanding(force) {
   ensureNav();
+  hideAtlas();
   if (!landingEl) {
     landingEl = document.createElement('div');
     landingEl.id = 'eco-landing';

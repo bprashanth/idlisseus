@@ -1,0 +1,236 @@
+{
+  "schema_version": "idli-graph/1",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "synthetic": true
+  },
+  "pack_digest": "sha256:fixture",
+  "node_kinds": [
+    {
+      "kind": "source",
+      "label": "Data sets",
+      "count": 4
+    },
+    {
+      "kind": "measurement",
+      "label": "Kinds of measurement",
+      "count": 5
+    },
+    {
+      "kind": "entity",
+      "label": "Recorded names",
+      "count": 961,
+      "capability_id": "entity-record-map"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "src:restoration-birds",
+      "kind": "source",
+      "label": "Restoration bird surveys",
+      "records": 12034
+    },
+    {
+      "id": "src:frugivore-watch",
+      "kind": "source",
+      "label": "Focal tree frugivore watches",
+      "records": 8420
+    },
+    {
+      "id": "src:plant-community",
+      "kind": "source",
+      "label": "Plant community plots",
+      "records": 5210
+    },
+    {
+      "id": "src:daylight",
+      "kind": "source",
+      "label": "Daily daylight readings",
+      "records": 4391
+    },
+    {
+      "id": "meas:point-count",
+      "kind": "measurement",
+      "label": "point count detections",
+      "records": 7463
+    },
+    {
+      "id": "meas:frugivore-visit",
+      "kind": "measurement",
+      "label": "frugivore visits",
+      "records": 5622
+    },
+    {
+      "id": "meas:plot-indicator",
+      "kind": "measurement",
+      "label": "restoration plot indicators",
+      "records": 4180
+    },
+    {
+      "id": "meas:stem-count",
+      "kind": "measurement",
+      "label": "stem counts",
+      "records": 3030
+    },
+    {
+      "id": "meas:daylight-hours",
+      "kind": "measurement",
+      "label": "daylight hours",
+      "records": 4391
+    },
+    {
+      "id": "ent:a",
+      "kind": "entity",
+      "label": "Recorded name A",
+      "records": 903,
+      "sources": 3
+    },
+    {
+      "id": "ent:b",
+      "kind": "entity",
+      "label": "Recorded name B",
+      "records": 611,
+      "sources": 2
+    },
+    {
+      "id": "ent:c",
+      "kind": "entity",
+      "label": "Recorded name C",
+      "records": 442,
+      "sources": 2
+    },
+    {
+      "id": "ent:d",
+      "kind": "entity",
+      "label": "Recorded name D",
+      "records": 310,
+      "sources": 1
+    },
+    {
+      "id": "ent:e",
+      "kind": "entity",
+      "label": "Recorded name E",
+      "records": 224,
+      "sources": 2
+    },
+    {
+      "id": "ent:f",
+      "kind": "entity",
+      "label": "Recorded name F",
+      "records": 141,
+      "sources": 1
+    },
+    {
+      "id": "ent:g",
+      "kind": "entity",
+      "label": "Recorded name G",
+      "records": 87,
+      "sources": 1
+    },
+    {
+      "id": "ent:h",
+      "kind": "entity",
+      "label": "Recorded name H",
+      "records": 29,
+      "sources": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": "src:restoration-birds",
+      "to": "meas:point-count",
+      "records": 7463
+    },
+    {
+      "from": "src:restoration-birds",
+      "to": "meas:plot-indicator",
+      "records": 4180
+    },
+    {
+      "from": "src:frugivore-watch",
+      "to": "meas:frugivore-visit",
+      "records": 5622
+    },
+    {
+      "from": "src:plant-community",
+      "to": "meas:stem-count",
+      "records": 3030
+    },
+    {
+      "from": "src:plant-community",
+      "to": "meas:plot-indicator",
+      "records": 2180
+    },
+    {
+      "from": "src:daylight",
+      "to": "meas:daylight-hours",
+      "records": 4391
+    },
+    {
+      "from": "meas:point-count",
+      "to": "ent:a",
+      "records": 611
+    },
+    {
+      "from": "meas:point-count",
+      "to": "ent:b",
+      "records": 486
+    },
+    {
+      "from": "meas:point-count",
+      "to": "ent:d",
+      "records": 310
+    },
+    {
+      "from": "meas:point-count",
+      "to": "ent:g",
+      "records": 87
+    },
+    {
+      "from": "meas:frugivore-visit",
+      "to": "ent:a",
+      "records": 292
+    },
+    {
+      "from": "meas:frugivore-visit",
+      "to": "ent:c",
+      "records": 340
+    },
+    {
+      "from": "meas:frugivore-visit",
+      "to": "ent:e",
+      "records": 168
+    },
+    {
+      "from": "meas:stem-count",
+      "to": "ent:c",
+      "records": 102
+    },
+    {
+      "from": "meas:stem-count",
+      "to": "ent:f",
+      "records": 141
+    },
+    {
+      "from": "meas:plot-indicator",
+      "to": "ent:b",
+      "records": 125
+    },
+    {
+      "from": "meas:plot-indicator",
+      "to": "ent:e",
+      "records": 56
+    },
+    {
+      "from": "meas:plot-indicator",
+      "to": "ent:h",
+      "records": 29
+    }
+  ],
+  "more": {
+    "entity": {
+      "omitted": 953
+    }
+  }
+}

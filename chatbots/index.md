@@ -56,6 +56,19 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
   visible messages only) → full public preview with repository + warning → explicit
   publish confirmation. Proxy: `/api/visual/{endpoint_id}/feedback/draft|submit`.
 
+## Atlas — the pack as a graph (IDL-REQ-0003, consumer shipped 2026-07-28)
+
+The Data nav opens a full-page Atlas: an overview flow (data sets → kinds of
+measurement → most-recorded names, ribbons weighted by record counts, entities
+capped with an honest "…and N more" fold into search) and a focus view (one node
+centred, neighbors grouped by relation with counted edges, breadcrumbs, one hop
+per click). Node click-throughs seed the mapped question into the composer — the
+graph is an index, never an analysis engine. Renders the producer's bounded
+`/v1/graph` (proxied at `/api/visual/{id}/graph[...]`); until Codex ships
+IDL-REQ-0003 it falls back to the contract fixtures in
+`dss/contracts/fixtures/graph/`, ribboned as sample data. The inventory drawer
+remains one click away from inside the page.
+
 ## Citation status
 
 Currently **Level 1** — prompt-only:

@@ -169,6 +169,25 @@ def setup_visual_routes():
             raise HTTPException(status_code=400, detail="bad reference")
         return _get(endpoint_id, f"/v1/results/{result_id}/data/{handle}")
 
+    # IDL-REQ-0003: bounded pack graph (overview / node focus / entity search).
+    # Node ids are producer-namespaced ("ent:…", "src:…"), hence the wider regex.
+    _SAFE_NODE = re.compile(r"^[A-Za-z0-9_.:\-]{1,220}$")
+
+    @router.get("/{endpoint_id}/graph")
+    def graph_overview(endpoint_id: str, q: str = ""):
+        from urllib.parse import urlencode
+
+        suffix = ("?" + urlencode({"q": q[:120]})) if q else ""
+        return _get(endpoint_id, f"/v1/graph{suffix}")
+
+    @router.get("/{endpoint_id}/graph/node/{node_id}")
+    def graph_node(endpoint_id: str, node_id: str):
+        if not _SAFE_NODE.fullmatch(node_id):
+            raise HTTPException(status_code=400, detail="bad node id")
+        from urllib.parse import quote
+
+        return _get(endpoint_id, f"/v1/graph/node/{quote(node_id, safe='')}")
+
     @router.post("/{endpoint_id}/feedback/draft")
     async def feedback_draft(endpoint_id: str, request: Request):
         """TR-VIS-0005: create an immutable, redacted problem-report draft.

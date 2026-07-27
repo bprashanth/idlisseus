@@ -1,0 +1,62 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "ent:c",
+    "kind": "entity",
+    "label": "Recorded name C",
+    "records": 442,
+    "sources": 2
+  },
+  "relations": [
+    {
+      "relation": "recorded_in",
+      "label": "Recorded in",
+      "neighbors": [
+        {
+          "node": {
+            "id": "src:frugivore-watch",
+            "kind": "source",
+            "label": "Focal tree frugivore watches"
+          },
+          "records": 340
+        },
+        {
+          "node": {
+            "id": "src:plant-community",
+            "kind": "source",
+            "label": "Plant community plots"
+          },
+          "records": 102
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "interacts_with",
+      "label": "Recorded together with",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "entity",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 118
+        }
+      ],
+      "omitted": 0
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "map-ent-c",
+      "kind": "follow_up",
+      "label": "Map records for Recorded name C",
+      "capability_id": "entity-record-map",
+      "arguments": {
+        "entity": "Recorded name C"
+      }
+    }
+  ]
+}

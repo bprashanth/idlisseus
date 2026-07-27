@@ -1,0 +1,31 @@
+{
+  "schema_version": "producer-consumer-request/1",
+  "request_id": "IDL-REQ-0003",
+  "title": "A bounded graph of the pack: sources, measurements and entities, with counted edges",
+  "consumer": "idlisseus",
+  "producer": "totalrecall",
+  "created_at": "2026-07-27",
+  "priority": "medium",
+  "problem": "A reader has no way to see the shape of a pack \u2014 which sources feed it, what kinds of measurement they hold, and which recorded names those measurements attach to \u2014 without asking one question at a time. The consumer must not infer relationships client-side (that is the id-verification boundary from IDL-REQ-0002/TR-VIS-0003), and pulling raw rows to assemble edges in the browser is the wrong shape at 42k records. What is missing is one bounded, aggregated view of the pack as a graph.",
+  "evidence": [
+    "Everything the graph needs already exists producer-side in aggregate form: audit.source_versions, the estimate target catalogue (source \u2192 quantities with count columns), site-orientation denominators, the bounded entity catalogue with per-entity record counts (subject_resolver), and declared entity\u2194entity pairs (interaction-pairs, 5,622 named frugivory pairs).",
+    "The consumer's data explorer already renders source \u2192 quantity lists from /v1/estimate/targets; it cannot show which entities those quantities attach to, or how entities relate, because no endpoint aggregates that.",
+    "The UX (a full-page 'Atlas' under Data) is built and shipping against the fixture in dss/contracts/fixtures/graph/ \u2014 the fixture is the acceptance shape; a labelled sample-data fallback renders until this endpoint exists."
+  ],
+  "requested_outcome": [
+    "GET /v1/graph \u2014 an overview payload (schema idli-graph/1, fixture dss/contracts/fixtures/graph/overview.json): node_kinds (kind, human label, total count), nodes (id, kind, label, records, plus kind-specific counts such as sources-per-entity), edges (from, to, records), and a `more` object counting what the caps omitted. Entities capped to top-N by records (producer chooses N \u2264 ~30); sources and measurement kinds are small enough to send whole.",
+    "GET /v1/graph/node/{id} \u2014 a focus payload (fixture graph/node-*.json): the node, its neighbors grouped by a `relation` word (recorded_in, measures, interacts_with, member_of \u2014 plain machine keys the consumer maps to producer-provided labels), each neighbor with edge counts, capped per relation with an `omitted` count, and idli-result/1-shaped `actions` for click-through (e.g. entity-record-map for an entity node).",
+    "GET /v1/graph?q=<text> \u2014 bounded entity search over recorded names/aliases returning matching entity nodes (same node shape), so the '\u2026and 949 more' fold resolves through search rather than a full dump.",
+    "All labels are the pack's own human words (source titles, humanised quantity names, recorded names) \u2014 no sector vocabulary is assumed by the consumer, so the same screen serves the ecology and livelihoods packs unchanged.",
+    "Counts are honest aggregates of admitted records (same audit basis as site-orientation denominators); a node with thin data should look thin.",
+    "Cheap to serve: precomputable at pack index time; an ETag or pack_digest field so the consumer can cache per pack version."
+  ],
+  "acceptance": [
+    "The overview fixture shape renders live: sources \u2192 measurement kinds \u2192 top entities with counted ribbons for both the ecology and livelihoods packs, no consumer code change.",
+    "Focusing an entity returns its sources with per-source record counts, its measurement kinds, and (ecology pack) its declared interaction partners \u2014 each expandable by a further node call.",
+    "graph?q=hornbill returns the hornbill entities with counts; a term matching nothing returns an empty list, not an error.",
+    "Every count equals what the corresponding capability reports (e.g. an entity's records total matches entity-record-map's denominator).",
+    "A pack without declared entity\u2194entity pairs simply omits that relation \u2014 the consumer renders whatever relations arrive."
+  ],
+  "notes": "The graph is an index, not an analysis engine: clicking a node in the Atlas seeds the mapped question through the conversation, so insight still flows through audited turns. The consumer renders exactly the nodes/edges/labels supplied and never invents membership \u2014 same boundary as subject resolution."
+}

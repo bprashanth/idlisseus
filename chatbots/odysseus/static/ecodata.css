@@ -695,6 +695,106 @@ body.eco-shell .viz-support-card { background: var(--surface); height: auto; }
 body.eco-shell .viz-audit-link { background: none; height: auto; }
 body.eco-shell .welcome-chip, body.eco-shell .scroll-nav-btn { height: auto; }
 
+/* ---------- Atlas: the pack as a graph (IDL-REQ-0003) ---------- */
+#eco-atlas {
+  position: fixed;
+  left: var(--nav-w); right: 0; top: 0; bottom: 0;
+  z-index: 46;
+  display: none;
+  overflow-y: auto;
+  background: var(--paper);
+}
+body.eco-atlas-open #eco-atlas { display: block; }
+body.eco-atlas-open .chat-input-bar, body.eco-atlas-open #chat-container { visibility: hidden; }
+body.eco-atlas-open .scroll-nav-btn { display: none !important; }
+body.eco-atlas-open #viz-context-rail { display: none; }
+.eco-atlas-inner { max-width: 1240px; margin: 0 auto; padding: 6vh 48px 60px; }
+.eco-atlas-head { margin-bottom: 18px; }
+.eco-atlas-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.eco-atlas-title {
+  margin: 0 0 8px;
+  font: 600 32px/1.2 var(--font-display);
+  letter-spacing: -0.012em; color: var(--ink);
+}
+.eco-atlas-sub { margin: 0; max-width: 72ch; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.eco-atlas-controls {
+  position: relative;
+  display: flex; align-items: center; gap: 12px;
+  margin: 16px 0 6px; max-width: 560px;
+}
+#eco-atlas .eco-atlas-search { flex: 1; height: auto; }
+#eco-atlas .eco-atlas-inventory-btn {
+  flex: none; height: auto;
+  font: 500 13px var(--font-ui); color: var(--pine);
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: 999px; padding: 8px 15px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-inventory-btn:hover { background: var(--pine-wash); }
+.eco-atlas-search-results {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 5;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-2);
+  display: flex; flex-direction: column; padding: 6px; gap: 2px;
+}
+#eco-atlas .eco-atlas-search-hit {
+  display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 8px 10px; border-radius: 7px; text-align: left;
+}
+#eco-atlas .eco-atlas-search-hit:hover { background: var(--pine-wash); }
+.eco-atlas-search-hit-name { font-size: 13.5px; color: var(--ink); }
+.eco-atlas-search-hit-meta { font-size: 11.5px; color: var(--ink-faint); }
+.eco-atlas-stage { margin-top: 10px; }
+.eco-atlas-svg { width: 100%; height: auto; display: block; }
+.eco-atlas-colhead {
+  font: 600 12px var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase;
+  fill: var(--ink-faint);
+}
+.eco-atlas-ribbon {
+  stroke: color-mix(in srgb, var(--ink) 16%, transparent);
+  transition: stroke 140ms ease, opacity 140ms ease;
+}
+.eco-atlas-ribbon.is-lit { stroke: color-mix(in srgb, var(--pine) 55%, transparent); }
+.eco-atlas-ribbon.is-dim { opacity: 0.25; }
+.eco-atlas-node { cursor: pointer; }
+.eco-atlas-node.is-faded { opacity: 0.18; }
+.eco-atlas-pill {
+  fill: var(--surface);
+  stroke: var(--line-strong); stroke-width: 1;
+  transition: stroke 140ms ease;
+}
+.eco-atlas-node:hover .eco-atlas-pill, .eco-atlas-node:focus-visible .eco-atlas-pill {
+  stroke: var(--pine); stroke-width: 1.5;
+}
+.eco-atlas-node-source .eco-atlas-pill { stroke-dasharray: none; }
+.eco-atlas-node-measurement .eco-atlas-pill { fill: var(--surface-2); }
+.eco-atlas-node-label { font: 600 12.5px var(--font-ui); fill: var(--ink); }
+.eco-atlas-node-meta { font: 500 10.5px var(--font-ui); fill: var(--ink-faint); }
+.eco-atlas-more-box { fill: none; stroke: var(--line-strong); stroke-dasharray: 4 4; }
+.eco-atlas-more { cursor: pointer; }
+.eco-atlas-more-text { font: 500 11px var(--font-ui); fill: var(--ink-faint); }
+.eco-atlas-edge-count { font: 600 10.5px var(--font-ui); fill: var(--ink-faint); }
+.eco-atlas-centre-box {
+  fill: var(--pine-wash);
+  stroke: color-mix(in srgb, var(--pine) 55%, transparent); stroke-width: 1.5;
+}
+.eco-atlas-centre-label { font: 600 15px var(--font-display); fill: var(--ink); }
+.eco-atlas-centre-meta { font: 500 11px var(--font-ui); fill: var(--ink-soft); }
+.eco-atlas-crumbs { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin: 2px 0 8px; }
+#eco-atlas .eco-atlas-crumb {
+  background: none; border: 0; height: auto; cursor: pointer;
+  font: 500 12.5px var(--font-ui); color: var(--pine);
+  padding: 2px 4px; border-radius: 6px;
+}
+#eco-atlas .eco-atlas-crumb:hover { background: var(--pine-wash); }
+#eco-atlas .eco-atlas-crumb.is-here { color: var(--ink); cursor: default; }
+.eco-atlas-crumb-sep { color: var(--ink-faint); font-size: 12px; }
+.eco-atlas-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+@media (max-width: 980px) {
+  #eco-atlas { left: 64px; }
+  .eco-atlas-inner { padding: 4vh 18px 40px; }
+}
+
 /* ---------- TR-VIS-0005: problem report ---------- */
 .viz-inline-foot-right { display: inline-flex; align-items: center; gap: 8px; }
 body.eco-shell .viz-report-btn {

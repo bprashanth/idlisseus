@@ -1,0 +1,61 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "src:frugivore-watch",
+    "kind": "source",
+    "label": "Focal tree frugivore watches",
+    "records": 8420
+  },
+  "relations": [
+    {
+      "relation": "measures",
+      "label": "Holds measurements of",
+      "neighbors": [
+        {
+          "node": {
+            "id": "meas:frugivore-visit",
+            "kind": "measurement",
+            "label": "frugivore visits"
+          },
+          "records": 5622
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "records",
+      "label": "Records",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "entity",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 292
+        },
+        {
+          "node": {
+            "id": "ent:c",
+            "kind": "entity",
+            "label": "Recorded name C",
+            "records": 442
+          },
+          "records": 340
+        },
+        {
+          "node": {
+            "id": "ent:e",
+            "kind": "entity",
+            "label": "Recorded name E",
+            "records": 224
+          },
+          "records": 168
+        }
+      ],
+      "omitted": 41
+    }
+  ],
+  "actions": []
+}
