@@ -37,10 +37,7 @@
         // there during load and the bar "switches" colour once the app boots.
         var mtc = document.querySelector('meta[name="theme-color"]');
         if (mtc && c.bg) mtc.setAttribute('content', c.bg);
-        // Update favicon to match accent color
-        var ac = c.red || '#e06c75';
-        var fav = document.querySelector("link[rel='icon']");
-        if (fav) fav.href = 'data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 4L16 22L6 22Z' fill='" + ac + "'/><path d='M16 8L16 22L24 22Z' fill='" + ac + "' opacity='0.6'/><path d='M4 24Q10 20 16 24Q22 28 28 24' stroke='" + ac + "' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>");
+        // The favicon is the brand idli mark (set in <head>) — never accent-themed.
         // Derive syntax highlighting colors from theme
         function h2hsl(hex) {
           hex = hex.replace('#','');
@@ -232,20 +229,15 @@
 </head>
 <body>
   <!-- Loading overlay — hides all flashing until app is ready -->
+  <style nonce="{{CSP_NONCE}}">
+    #loader-walkers { display:inline-block; line-height:1; animation: eco-walk 1.5s infinite alternate ease-in-out; transform-origin: 50% 85%; }
+    @keyframes eco-walk { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(-5deg); } 100% { transform: translateY(0) rotate(5deg); } }
+  </style>
   <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#f7f5f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
-    <div id="loader-wave" style="color:var(--brand-color,var(--red,#1d5c45));font-family:monospace;font-size:15px;opacity:.6">·</div>
+    <div id="loader-walkers" style="color:var(--brand-color,var(--red,#1d5c45));font-size:22px;opacity:.7">𖨆𖨆</div>
   </div>
   <script nonce="{{CSP_NONCE}}">
   (function(){
-    var el=document.getElementById('loader-wave');
-    if(!el)return;
-    var frames=['\u00b7','\u2218','\u25cb','\u25ce','\u25c9','\u25ce','\u25cb','\u2218'];
-    var i=0;
-    var iv=setInterval(function(){
-      if(!document.getElementById('app-loader')){clearInterval(iv);return}
-      el.textContent=frames[i%frames.length];
-      i++;
-    },240);
     setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},5000);
   })();
   </script>

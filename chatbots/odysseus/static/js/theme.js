@@ -346,7 +346,8 @@ function _updateFavicon(fg) {
   if (routeShape) {
     svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>${routeShape.split('__C__').join(fg)}</svg>`;
   } else {
-    svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 4L16 22L6 22Z' fill='${fg}'/><path d='M16 8L16 22L24 22Z' fill='${fg}' opacity='0.6'/><path d='M4 24Q10 20 16 24Q22 28 28 24' stroke='${fg}' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>`;
+    // Root path keeps the brand idli mark, never accent-tinted.
+    svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#1d5c45'/><ellipse cx='16' cy='20' rx='9.5' ry='5' fill='#fffdfa'/><path d='M12 13c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/><path d='M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.55'/><path d='M21 13c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/></svg>";
   }
   const href = 'data:image/svg+xml,' + encodeURIComponent(svg);
   let link = document.querySelector("link[rel='icon']");

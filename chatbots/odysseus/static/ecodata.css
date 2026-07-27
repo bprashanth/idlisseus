@@ -695,6 +695,23 @@ body.eco-shell .viz-support-card { background: var(--surface); height: auto; }
 body.eco-shell .viz-audit-link { background: none; height: auto; }
 body.eco-shell .welcome-chip, body.eco-shell .scroll-nav-btn { height: auto; }
 
+/* thinking indicator: two surveyors out walking the site */
+.spinner-walkers {
+  display: inline-block;
+  font-size: 1.3em;
+  line-height: 1;
+  animation: eco-walk 1.5s infinite alternate ease-in-out;
+  transform-origin: 50% 85%;
+}
+@keyframes eco-walk {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-5deg); }
+  100% { transform: translateY(0) rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner-walkers { animation: none; }
+}
+
 /* message footer (elapsed time + copy/delete): a whisper until hovered */
 body.eco-shell .msg-footer { opacity: 0.45; transition: opacity 140ms ease; }
 body.eco-shell .msg:hover .msg-footer { opacity: 1; }

@@ -6,12 +6,12 @@
 
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // Different animation frames. "wave" is the chat thinking indicator — a
-    // survey ping: one point swelling and settling, like a record being located
-    // on the map. Plain text, no color, palindromic so the loop has no jump.
+    // Different animation frames. "wave" is the chat thinking indicator — two
+    // surveyors out walking the site. A single text frame; the motion is CSS
+    // (.spinner-walkers keyframes), so it loops smoothly with no glyph swaps.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: ['\u00b7', '\u2218', '\u25cb', '\u25ce', '\u25c9', '\u25ce', '\u25cb', '\u2218']
+      wave: ['𖨆𖨆']
     };
 
     this.animation = animation;
@@ -275,10 +275,8 @@ class Spinner {
     // every frame occupies the same width and the loop doesn't shimmy.
     this.element.textContent = '';
     const frameSpan = document.createElement('span');
-    // Fixed 1ch box in mono: every frame is the same width, so the loop is
-    // still. line-height 1 keeps the circle on the label's optical centre.
-    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;'
-      + 'width: 1.1ch; text-align: center; line-height: 1;';
+    frameSpan.className = 'spinner-walkers';
+    frameSpan.style.cssText = 'display: inline-block; line-height: 1;';
     frameSpan.textContent = frame;
     if (this.style === 'left') {
       this.element.appendChild(frameSpan);
@@ -311,6 +309,8 @@ class Spinner {
     }
 
     this.currentFrame = 0;
+    // Single-frame animations move via CSS; ticking would only rebuild DOM.
+    if (this.frames.length <= 1) { this.updateDisplay(); return; }
     this.intervalId = setInterval(() => {
       this.currentFrame++;
       this.updateDisplay();
