@@ -4,18 +4,35 @@
  * ASCII Spinner Module for AI thinking/processing status
  */
 
+
+// The loop pool: rotating disc, orbiting arc, braille spinner, spark,
+// corner orbit, survey ping. Arrows deliberately excluded.
+const WAVE_POOL = [
+  { frames: ['\u25d0', '\u25d3', '\u25d1', '\u25d2'], speed: 200 },
+  { frames: ['\u25dc', '\u25dd', '\u25de', '\u25df'], speed: 200 },
+  { frames: ['\u280b', '\u2819', '\u2839', '\u2838', '\u283c', '\u2834', '\u2826', '\u2827', '\u2807', '\u280f'], speed: 90 },
+  { frames: ['\u00b7', '\u2722', '\u2733', '\u2736', '\u2733', '\u2722'], speed: 240 },
+  { frames: ['\u2596', '\u2598', '\u259d', '\u2597'], speed: 220 },
+  { frames: ['\u00b7', '\u2218', '\u25cb', '\u25ce', '\u25c9', '\u25ce', '\u25cb', '\u2218'], speed: 240 },
+];
+
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // Different animation frames. "wave" is the chat thinking indicator — two
-    // surveyors out walking the site. A single text frame; the motion is CSS
-    // (.spinner-walkers keyframes), so it loops smoothly with no glyph swaps.
+    // "wave" is the chat thinking indicator. Each spinner instance draws one
+    // plain-text loop at random from the pool — so every message thinks with
+    // its own little instrument. All glyphs are single-width, no color.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: ['𖨆𖨆']
     };
 
     this.animation = animation;
-    this.frames = this.animations[animation] || this.animations.spinner;
+    if (animation === 'wave') {
+      const pick = WAVE_POOL[Math.floor(Math.random() * WAVE_POOL.length)];
+      this.frames = pick.frames;
+      this.frameSpeed = pick.speed;
+    } else {
+      this.frames = this.animations[animation] || this.animations.spinner;
+    }
     this.message = message;
     this.style = style; // "left", "right", or "clean"
     this.isRunning = false;
@@ -275,8 +292,10 @@ class Spinner {
     // every frame occupies the same width and the loop doesn't shimmy.
     this.element.textContent = '';
     const frameSpan = document.createElement('span');
-    frameSpan.className = 'spinner-walkers';
-    frameSpan.style.cssText = 'display: inline-block; line-height: 1;';
+    // Fixed 1ch mono box: every frame occupies the same width, so the loop
+    // is still; line-height 1 keeps the glyph on the label's optical centre.
+    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;'
+      + 'width: 1.1ch; text-align: center; line-height: 1;';
     frameSpan.textContent = frame;
     if (this.style === 'left') {
       this.element.appendChild(frameSpan);
@@ -292,7 +311,8 @@ class Spinner {
   /**
    * Start the spinner animation
    */
-  start(speed = 280) {
+  start(speed) {
+    speed = speed || this.frameSpeed || 200;
     if (this.isRunning) return;
     this.isRunning = true;
 
@@ -309,7 +329,6 @@ class Spinner {
     }
 
     this.currentFrame = 0;
-    // Single-frame animations move via CSS; ticking would only rebuild DOM.
     if (this.frames.length <= 1) { this.updateDisplay(); return; }
     this.intervalId = setInterval(() => {
       this.currentFrame++;

@@ -229,15 +229,18 @@
 </head>
 <body>
   <!-- Loading overlay — hides all flashing until app is ready -->
-  <style nonce="{{CSP_NONCE}}">
-    #loader-walkers { display:inline-block; line-height:1; animation: eco-walk 1.5s infinite alternate ease-in-out; transform-origin: 50% 85%; }
-    @keyframes eco-walk { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(-5deg); } 100% { transform: translateY(0) rotate(5deg); } }
-  </style>
   <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#f7f5f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
-    <div id="loader-walkers" style="color:var(--brand-color,var(--red,#1d5c45));font-size:22px;opacity:.7">𖨆𖨆</div>
+    <div id="loader-disc" style="color:var(--brand-color,var(--red,#1d5c45));font-family:monospace;font-size:19px;line-height:1;opacity:.65">◐</div>
   </div>
   <script nonce="{{CSP_NONCE}}">
   (function(){
+    var el=document.getElementById('loader-disc');
+    var frames=['\u25d0','\u25d3','\u25d1','\u25d2'];
+    var i=0;
+    var iv=setInterval(function(){
+      if(!document.getElementById('app-loader')){clearInterval(iv);return}
+      if(el){el.textContent=frames[++i%frames.length];}
+    },200);
     setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},5000);
   })();
   </script>
