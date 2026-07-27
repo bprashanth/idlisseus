@@ -33,6 +33,9 @@ downloads/
 eggs/
 .eggs/
 lib/
+# ...except the app's vendored browser libraries (Leaflet, Vega, fonts):
+!chatbots/odysseus/static/lib/
+!chatbots/odysseus/static/lib/**
 lib64/
 parts/
 sdist/
