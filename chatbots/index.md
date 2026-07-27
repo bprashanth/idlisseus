@@ -85,9 +85,12 @@ docker compose build odysseus && docker compose up -d --force-recreate odysseus
 
 Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 
-### Visual shell — "Field journal", one light system (2026-07-27)
+### Visual shell — "Field journal" (2026-07-27)
 
-The whole product — login, shell, chat, cards, charts, maps, panels — now runs on
+The product is branded **Idli Insights** (display only; `idli-insight-*` routing
+ids are unchanged), with an idli mark — steamed disc, three steam wisps — as the
+favicon and logo. The whole product — login, shell, chat, cards, charts, maps,
+panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures
 in an answer (capped at three, text nodes only, never inside code/links/tables).
@@ -97,8 +100,15 @@ keep the validated evidence-class palette — the shell sets a light root `--bg`
 so the renderers pick their light steps automatically (aqua is sub-3:1 on this
 surface; the relief rule is satisfied by legends + row tables on every card).
 
-Shell: a 232px nav rail (Chat / Maps / Data / History / Sites + pine "New
-analysis") with active states; the stock sidebar is a History slide-over; the
+A dark mode (nav Theme toggle, persisted) re-steps the same family for night:
+`#16140f` page, mint-pine `#5db390` accent, `--pine-fill` keeping solid buttons
+readable; charts flip to their validated dark palette automatically. The chat
+thinking indicator is an otter strolling off with paw prints, in the UI face.
+
+Shell: a 232px nav rail (Chat / Maps / Data / Sites / Theme + pine "New
+analysis" and a quiet Sign out) with active states; the stock sidebar slide-over
+is retired (History removed — the app always opens on the site-selection page,
+and the current conversation is one Chat click away); the
 right context rail (site stat tiles, data streams, recent visuals) is back; the
 data explorer and the figure panel are mutually exclusive right-hand surfaces,
 and the composer shifts with whichever is open. Machine voice is gone from the

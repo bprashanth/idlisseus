@@ -62,7 +62,7 @@ function _deselectCurrentSession(sid) {
   if (currentSessionId !== sid) return;
   currentSessionId = null;
   uiModule.el('chat-history').innerHTML = '';
-  uiModule.el('current-meta').textContent = 'Idlisseus Chat';
+  uiModule.el('current-meta').textContent = 'Idli Insights';
   Storage.remove('lastSessionId');
   history.replaceState(null, '', window.location.pathname);
   if (window.chatModule && window.chatModule.showWelcomeScreen) {
@@ -1573,7 +1573,7 @@ export async function selectSession(id, { keepSidebar = false } = {}) {
 
     const currentMetaEl = uiModule.el('current-meta');
     if (currentMetaEl) {
-      currentMetaEl.textContent = meta ? meta.name : 'Idlisseus Chat';
+      currentMetaEl.textContent = meta ? meta.name : 'Idli Insights';
     }
     // Update model picker visibility
     updateModelPicker();

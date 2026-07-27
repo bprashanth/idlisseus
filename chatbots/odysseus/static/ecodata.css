@@ -58,6 +58,7 @@ body.theme-ecodata, body.eco-shell {
   --line:         #e7e3da;
   --line-strong:  #d9d4c8;
   --pine:         #1d5c45;
+  --pine-fill:    #1d5c45;   /* solid buttons; splits from --pine in dark mode */
   --pine-deep:    #144533;
   --pine-wash:    rgba(29, 92, 69, 0.08);
   --marker:       rgba(252, 211, 77, 0.42);
@@ -104,6 +105,39 @@ body.theme-ecodata, body.eco-shell {
   -webkit-font-smoothing: antialiased;
 }
 body.theme-ecodata .font-mono, body.eco-shell .font-mono { font-family: var(--font-mono); }
+
+/* ============================= dark mode =============================
+   The field journal at night: same warm family, stepped for a dark page.
+   Toggled by the nav Theme button (body.eco-dark + root .light removed, so the
+   chart renderers pick their validated dark evidence palette). --pine splits:
+   the accent lightens for text/links, while solid fills keep white labels. */
+body.eco-shell.eco-dark, body.theme-ecodata.eco-dark {
+  --paper:        #16140f;
+  --surface:      #1e1c16;
+  --surface-2:    #27241d;
+  --ink:          #ece9e1;
+  --ink-soft:     #b8b4aa;
+  --ink-faint:    #8a8781;
+  --line:         #302d26;
+  --line-strong:  #403c33;
+  --pine:         #5db390;
+  --pine-fill:    #24704f;
+  --pine-deep:    #2c8560;
+  --pine-wash:    rgba(93, 179, 144, 0.13);
+  --marker:       rgba(252, 211, 77, 0.24);
+  --shadow-1:     0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2:     0 8px 28px rgba(0, 0, 0, 0.45);
+  --code-bg:      #27241d;
+  --code-fg:      #d9d5cb;
+}
+body.eco-shell.eco-dark .eco-card-tag {
+  background: rgba(250, 178, 25, 0.14);
+  color: #e6c470;
+}
+body.eco-shell.eco-dark ::selection { background: rgba(93, 179, 144, 0.28); }
+body.eco-shell.eco-dark input, body.eco-shell.eco-dark textarea, body.eco-shell.eco-dark select {
+  color-scheme: dark;
+}
 
 /* Legacy eco-* aliases still referenced by older rules/JS inline styles. */
 body.theme-ecodata, body.eco-shell {
@@ -194,7 +228,7 @@ body.theme-ecodata input, body.theme-ecodata textarea, body.theme-ecodata select
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 11px 14px; height: auto;
   border-radius: 10px; border: none;
-  background: var(--pine); color: #fff;
+  background: var(--pine-fill); color: #fff;
   font: 600 13.5px var(--font-ui); cursor: pointer;
   transition: background 140ms ease;
 }
@@ -380,7 +414,7 @@ body.eco-shell .chat-input-bar {
   margin: 0 !important; padding: 0 40px 22px; z-index: 30;
   display: flex; flex-direction: column; align-items: center; gap: 0 !important;
   border: 0;
-  background: linear-gradient(to bottom, rgba(247, 245, 240, 0) 0%, var(--paper) 34%);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--paper) 0%, transparent) 0%, var(--paper) 34%);
 }
 /* margins are zeroed above, so the side surfaces move the bar via `right` */
 body.eco-shell.viz-context-open .chat-input-bar { right: 268px; }
@@ -430,7 +464,7 @@ body.eco-shell .chat-input-right { margin-left: auto; gap: 6px; }
 body.eco-shell .input-icon-btn { color: var(--ink-faint); }
 body.eco-shell .input-icon-btn:hover { color: var(--pine); background: var(--pine-wash); }
 body.eco-shell .send-btn, body.eco-shell #send-btn {
-  background: var(--pine) !important; color: #fff !important; border: 0 !important;
+  background: var(--pine-fill) !important; color: #fff !important; border: 0 !important;
   border-radius: 9px; width: 32px; height: 32px; display: grid; place-items: center;
 }
 body.eco-shell .send-btn:hover { background: var(--pine-deep) !important; }
@@ -645,7 +679,7 @@ body.eco-shell .viz-peek-btn {
   border-color: rgba(255, 255, 255, 0.65); height: auto;
 }
 body.eco-shell .viz-peek-btn:hover { background: rgba(20, 24, 22, 0.85); }
-body.eco-shell .viz-peek-btn.on { background: var(--pine); border-color: transparent; }
+body.eco-shell .viz-peek-btn.on { background: var(--pine-fill); border-color: transparent; }
 body.eco-shell .viz-basemap-pick { background: color-mix(in srgb, var(--surface) 88%, transparent); height: auto; }
 body.eco-shell .viz-panel-close { background: none; color: var(--ink-faint); height: auto; }
 body.eco-shell .viz-panel-close:hover { color: var(--ink); }
@@ -665,6 +699,20 @@ body.eco-shell .msg-footer button {
   border-radius: 7px;
 }
 body.eco-shell .msg-footer button:hover { color: var(--ink); background: var(--surface-2); }
+
+/* the stock scroll-to-bottom arrow has no job on the landing page */
+body.eco-landing-open .scroll-nav-btn { display: none !important; }
+
+/* sign out: a whisper at the foot of the rail */
+#eco-nav .eco-signout {
+  margin-top: 8px;
+  background: none; border: 0; height: auto;
+  font: 500 12px var(--font-ui);
+  color: var(--ink-faint);
+  text-align: center; cursor: pointer;
+  padding: 4px 6px;
+}
+#eco-nav .eco-signout:hover { color: var(--pine); }
 
 /* ============================= misc chrome ============================= */
 body.eco-shell .scroll-nav-btn, body.eco-shell .toast {

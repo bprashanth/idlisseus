@@ -1,6 +1,9 @@
-# Idlisseus design system — "Field journal"
+# Idli Insights design system — "Field journal"
 
 One system for the whole product: login, shell, chat, cards, charts, maps, panels.
+Brand: **Idli Insights** (display name only — `idli-insight-*` routing ids are the
+producer contract and never change). The mark is an idli on a pine tile: a steamed
+disc with three steam wisps.
 Inspiration: the figure pages of a nature journal and the calm chrome of a modern
 data platform. Warm, precise, traceable. Nothing in this file changes the
 `idli-result/1` producer contract — it is presentation only.
@@ -58,3 +61,17 @@ inline cards and panel already do).
 - Right context rail (≥1360px): stat tiles with serif values, data streams,
   recent visuals. Hidden while the detail panel is open.
 - Composer: one white card (border on the bar, never on its halves), pine send.
+
+## Dark mode
+
+Toggled from the nav (persisted as `idli-theme`); body gets `eco-dark`, the root
+loses `.light` and `--bg` goes dark, so chart renderers pick the validated dark
+evidence palette. Tokens: page `#16140f`, surface `#1e1c16`, ink `#ece9e1`,
+hairline `#302d26`. Pine splits: `--pine #5db390` for text/links (7:1 on the dark
+page), `--pine-fill #24704f` for solid buttons with white labels. Marker wash
+drops to 0.24 alpha. Light stays the default and is unchanged.
+
+## Motion
+
+The chat thinking indicator is an otter (🦦) strolling off with paw prints
+fading behind it, set in the UI face — never a monospace terminal wave.

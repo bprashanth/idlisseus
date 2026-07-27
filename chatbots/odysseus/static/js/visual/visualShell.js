@@ -119,15 +119,40 @@ const ICONS = {
   chat: ['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
   map: ['M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z', 'M9 3v15', 'M15 6v15'],
   data: ['M3 5c0-1.1 4-2 9-2s9 .9 9 2-4 2-9 2-9-.9-9-2z', 'M3 5v14c0 1.1 4 2 9 2s9-.9 9-2V5', 'M3 12c0 1.1 4 2 9 2s9-.9 9-2'],
-  history: ['M12 8v4l3 3', 'M3.05 11a9 9 0 1 1 .5 4', 'M3 5v6h6'],
   research: ['M3 3v18h18', 'M7 15l4-5 3 3 5-7'],
+  theme: ['M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'],
   plus: ['M12 5v14', 'M5 12h14'],
 };
+
+// The brand mark: an idli on a pine tile — a soft steamed disc with rising steam.
+const IDLI_MARK_SVG = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">'
+  + '<rect width="32" height="32" rx="8" fill="#1d5c45"/>'
+  + '<ellipse cx="16" cy="20" rx="9.5" ry="5" fill="#fffdfa"/>'
+  + '<path d="M12 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/>'
+  + '<path d="M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>'
+  + '<path d="M21 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/>'
+  + '</svg>';
 
 function setActiveNav(name) {
   for (const b of document.querySelectorAll('#eco-nav .eco-nav-item')) {
     b.classList.toggle('is-active', b.dataset.nav === name);
   }
+}
+
+// ---- theme: light (default) / dark, one localStorage key -------------------
+function applyEcoTheme(mode) {
+  const dark = mode === 'dark';
+  document.body.classList.toggle('eco-dark', dark);
+  // Charts key their palette off the root: .light class + --bg luminance.
+  document.documentElement.classList.toggle('light', !dark);
+  document.documentElement.style.setProperty('--bg', dark ? '#16140f' : '#f7f5f0');
+  try { localStorage.setItem('idli-theme', mode); } catch { /* private mode */ }
+}
+function storedEcoTheme() {
+  try { return localStorage.getItem('idli-theme') === 'dark' ? 'dark' : 'light'; } catch { return 'light'; }
+}
+function toggleEcoTheme() {
+  applyEcoTheme(storedEcoTheme() === 'dark' ? 'light' : 'dark');
 }
 
 function ensureNav() {
@@ -140,15 +165,11 @@ function ensureNav() {
   brand.className = 'eco-brand';
   const mark = document.createElement('span');
   mark.className = 'eco-brand-mark';
-  mark.innerHTML = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">'
-    + '<rect width="32" height="32" rx="8" fill="#1d5c45"/>'
-    + '<path d="M6 22q5-9 10-9t10 9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>'
-    + '<path d="M9 25q4-6 7-6t7 6" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.55"/>'
-    + '<circle cx="16" cy="9" r="2.2" fill="#fff"/></svg>';
+  mark.innerHTML = IDLI_MARK_SVG;
   brand.appendChild(mark);
   const name = document.createElement('span');
   name.className = 'eco-brand-name';
-  name.textContent = 'Idlisseus';
+  name.textContent = 'Idli Insights';
   brand.appendChild(name);
   navEl.appendChild(brand);
 
@@ -165,7 +186,6 @@ function ensureNav() {
     ['chat', 'Chat', () => { hideLanding(); }],
     ['map', 'Maps', () => openLatestVisual()],
     ['data', 'Data', () => openDataExplorer()],
-    ['history', 'History', () => toggleChatList()],
     ['research', 'Sites', () => showLanding(true)],
   ];
   for (const [ic, label, fn] of items) {
@@ -179,6 +199,16 @@ function ensureNav() {
     b.addEventListener('click', () => { setActiveNav(ic); fn(); });
     list.appendChild(b);
   }
+  // Theme is a mode flip, not a destination — no active state.
+  const themeBtn = document.createElement('button');
+  themeBtn.className = 'eco-nav-item';
+  themeBtn.dataset.nav = 'theme';
+  themeBtn.appendChild(icon(ICONS.theme));
+  const tl = document.createElement('span');
+  tl.textContent = 'Theme';
+  themeBtn.appendChild(tl);
+  themeBtn.addEventListener('click', toggleEcoTheme);
+  list.appendChild(themeBtn);
   navEl.appendChild(list);
 
   const spacer = document.createElement('div');
@@ -194,19 +224,31 @@ function ensureNav() {
   newBtn.addEventListener('click', () => showLanding(true));
   navEl.appendChild(newBtn);
 
+  const signOut = document.createElement('button');
+  signOut.className = 'eco-signout';
+  signOut.textContent = 'Sign out';
+  signOut.addEventListener('click', async () => {
+    try { await fetch('/api/auth/logout', { method: 'POST' }); } catch { /* still leave */ }
+    // Same wipe as the stock settings logout: the next account on this browser
+    // must not inherit session state. Keep only the remembered username.
+    try {
+      const keep = new Set(['odysseus-last-user']);
+      const drop = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && !keep.has(k)) drop.push(k);
+      }
+      drop.forEach((k) => localStorage.removeItem(k));
+      sessionStorage.clear();
+    } catch { /* private mode */ }
+    window.location.href = '/login';
+  });
+  navEl.appendChild(signOut);
 
   document.body.appendChild(navEl);
   document.body.classList.add(SHELL_CLASS);
-  // Field-journal shell is light; charts key their palette off the root --bg.
-  document.documentElement.classList.add('light');
-  document.documentElement.style.setProperty('--bg', '#f7f5f0');
+  applyEcoTheme(storedEcoTheme());
   return navEl;
-}
-
-function toggleChatList() {
-  const sb = document.getElementById('sidebar');
-  if (!sb) return;
-  document.body.classList.toggle('eco-chats-open');
 }
 
 async function openLatestVisual() {
@@ -274,11 +316,10 @@ export async function showLanding(force) {
   const head = document.createElement('header');
   head.className = 'eco-landing-head';
   const h1 = document.createElement('h1');
-  h1.textContent = 'Choose a site, or just ask a question.';
+  h1.textContent = 'Choose a site to ask a question.';
   head.appendChild(h1);
   const sub = document.createElement('p');
-  sub.textContent = 'Every answer arrives with a visual, and every number can be traced '
-    + 'back to the record it came from.';
+  sub.textContent = 'Idli Insights lets you explore your data visually, in plain conversation.';
   head.appendChild(sub);
   inner.appendChild(head);
 
@@ -444,10 +485,11 @@ async function syncActiveSite() {
 
 async function boot() {
   ensureNav();
-  const active = await syncActiveSite();
-  const hasMessages = !!document.querySelector('#chat-history .msg, #chat-history [class*="msg"]');
-  if (!active || !hasMessages) { showLanding(true); setActiveNav('research'); }
-  else setActiveNav('chat');
+  await syncActiveSite();
+  // The product always opens on the site-selection page; a restored
+  // conversation stays one Chat click away.
+  showLanding(true);
+  setActiveNav('research');
   prettifyMeta();
 }
 

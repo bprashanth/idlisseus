@@ -6,10 +6,19 @@
 
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // Different animation frames
+    // Different animation frames. "wave" is the chat thinking indicator: an
+    // otter strolling off on its errand, leaving paw prints that fade behind.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: ['▁▂▃', '▂▃▄', '▃▄▅', '▄▅▆', '▅▆▅', '▆▅▄', '▅▄▃', '▄▃▂', '▃▂▁']
+      wave: [
+        '      🦦',
+        '    🦦 🐾',
+        '  🦦 🐾 🐾',
+        ' 🦦 🐾 🐾',
+        '🦦 🐾 🐾',
+        '🦦 🐾',
+        '🦦',
+      ]
     };
 
     this.animation = animation;
@@ -35,7 +44,9 @@ class Spinner {
     }
     const span = document.createElement('span');
     span.className = 'ai-spinner';
-    span.style.cssText = 'font-family: monospace; white-space: pre;';
+    // Inherit the theme's UI face — the label should read like the app, not a
+    // terminal. `pre` keeps the frame track from collapsing its spaces.
+    span.style.cssText = 'font-family: inherit; white-space: pre;';
     this.element = span;
     this.updateDisplay();
     return span;

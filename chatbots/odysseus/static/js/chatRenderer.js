@@ -600,7 +600,7 @@ export function modelRouteLabel(requestedModel, actualModel) {
   const requested = modelValue(requestedModel);
   const actual = modelValue(actualModel) || requested;
   // Readers see the product's name, not the routing id (idli-insight-<site>).
-  if (isInsightModel(requested) || isInsightModel(actual)) return 'Idlisseus';
+  if (isInsightModel(requested) || isInsightModel(actual)) return 'Idli Insights';
   if (!requested || sameModelName(requested, actual)) return shortModel(actual || requested);
   return shortModel(requested) + ' -> ' + shortModel(actual);
 }
