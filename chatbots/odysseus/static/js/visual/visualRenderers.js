@@ -9,7 +9,7 @@ import {
   vegaAvailable, buildTimeSeriesSpec, buildFacetedSeriesSpec, renderSpec,
 } from './visualVega.js';
 import {
-  evidenceColor, evidenceLabel, formatNumber, quantileRamp, RAMP_BLUE, inkOn,
+  evidenceColor, evidenceLabel, formatNumber, quantileRamp, RAMP_BLUE, inkOn, cleanText,
 } from './visualTheme.js';
 
 // ---- shared tooltip singleton (textContent only — labels are untrusted data)
@@ -94,7 +94,7 @@ export function renderTable(container, rows, opts) {
     for (const c of cols) {
       const td = document.createElement('td');
       const v = r[c];
-      td.textContent = typeof v === 'number' ? formatNumber(v) : (v === null || v === undefined ? '—' : String(v));
+      td.textContent = typeof v === 'number' ? formatNumber(v) : (v === null || v === undefined ? '—' : cleanText(v));
       if (typeof v === 'number') td.className = 'viz-tabular';
       tr.appendChild(td);
     }

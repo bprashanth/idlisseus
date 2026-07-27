@@ -119,6 +119,7 @@ const ICONS = {
   chat: ['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
   map: ['M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z', 'M9 3v15', 'M15 6v15'],
   data: ['M3 5c0-1.1 4-2 9-2s9 .9 9 2-4 2-9 2-9-.9-9-2z', 'M3 5v14c0 1.1 4 2 9 2s9-.9 9-2V5', 'M3 12c0 1.1 4 2 9 2s9-.9 9-2'],
+  history: ['M12 8v4l3 3', 'M3.05 11a9 9 0 1 1 .5 4', 'M3 5v6h6'],
   research: ['M3 3v18h18', 'M7 15l4-5 3 3 5-7'],
   theme: ['M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'],
   plus: ['M12 5v14', 'M5 12h14'],
@@ -186,6 +187,7 @@ function ensureNav() {
     ['chat', 'Chat', () => { hideLanding(); }],
     ['map', 'Maps', () => openLatestVisual()],
     ['data', 'Data', () => openDataExplorer()],
+    ['history', 'History', () => toggleHistory()],
     ['research', 'Sites', () => showLanding(true)],
   ];
   for (const [ic, label, fn] of items) {
@@ -223,6 +225,23 @@ function ensureNav() {
   newBtn.appendChild(nb);
   newBtn.addEventListener('click', () => showLanding(true));
   navEl.appendChild(newBtn);
+
+  const user = document.createElement('div');
+  user.className = 'eco-user';
+  user.id = 'eco-user';
+  navEl.appendChild(user);
+  fetch('/api/auth/status').then((r) => r.json()).then((d) => {
+    if (!d || !d.username) return;
+    const av = document.createElement('span');
+    av.className = 'eco-user-avatar';
+    av.textContent = String(d.username).slice(0, 1).toUpperCase();
+    user.appendChild(av);
+    const n = document.createElement('span');
+    n.className = 'eco-user-name';
+    n.textContent = d.username;
+    n.title = `Signed in as ${d.username}`;
+    user.appendChild(n);
+  }).catch(() => { /* the rail works without a name */ });
 
   const signOut = document.createElement('button');
   signOut.className = 'eco-signout';
@@ -275,6 +294,124 @@ async function openDataExplorer() {
   const active = await syncActiveSite();
   if (!active) { showLanding(true); return; }
   openExplorer(active.endpointId);
+}
+
+// ---- past conversations: our own quiet drawer, not the stock sidebar -------
+let historyEl = null;
+
+function relativeTime(iso) {
+  const t = Date.parse(iso || '');
+  if (!Number.isFinite(t)) return '';
+  const mins = Math.round((Date.now() - t) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} min ago`;
+  const hrs = Math.round(mins / 60);
+  if (hrs < 24) return `${hrs} h ago`;
+  const days = Math.round(hrs / 24);
+  if (days < 30) return `${days} d ago`;
+  return new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+async function humanSessionName(name) {
+  const raw = String(name || '').trim();
+  if (!/^idli-insight/i.test(raw)) return raw || 'Untitled conversation';
+  const sites = await discoverSites();
+  const hit = sites.find((s) => raw.toLowerCase().startsWith(String(s.model).toLowerCase()));
+  return hit ? hit.label : raw.replace(/^idli-insight-?/i, '').replace(/[-_]/g, ' ');
+}
+
+function ensureHistory() {
+  if (historyEl) return historyEl;
+  historyEl = document.createElement('aside');
+  historyEl.id = 'eco-history';
+  historyEl.setAttribute('role', 'dialog');
+  historyEl.setAttribute('aria-label', 'Past conversations');
+  const head = document.createElement('div');
+  head.className = 'viz-side-head';
+  const title = document.createElement('span');
+  title.className = 'viz-side-title';
+  title.textContent = 'Past conversations';
+  head.appendChild(title);
+  const x = document.createElement('button');
+  x.className = 'viz-panel-close';
+  x.textContent = '×';
+  x.setAttribute('aria-label', 'Close history');
+  x.addEventListener('click', closeHistory);
+  head.appendChild(x);
+  historyEl.appendChild(head);
+  const filter = document.createElement('input');
+  filter.className = 'eco-explorer-search eco-history-filter';
+  filter.type = 'search';
+  filter.placeholder = 'Filter conversations…';
+  filter.addEventListener('input', () => renderHistoryList(filter.value));
+  historyEl.appendChild(filter);
+  const list = document.createElement('div');
+  list.className = 'eco-history-list';
+  list.id = 'eco-history-list';
+  historyEl.appendChild(list);
+  document.body.appendChild(historyEl);
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') closeHistory();
+  });
+  return historyEl;
+}
+
+function closeHistory() {
+  document.body.classList.remove('eco-history-open');
+  // The drawer is transient; hand the active state back to the visible view.
+  setActiveNav(document.body.classList.contains('eco-landing-open') ? 'research' : 'chat');
+}
+
+async function renderHistoryList(filterText) {
+  const list = document.getElementById('eco-history-list');
+  if (!list) return;
+  const sessions = await getSessions();
+  const all = (sessions.getSessions() || [])
+    .slice()
+    .sort((a, b) => String(b.last_message_at || b.updated_at || b.created_at || '')
+      .localeCompare(String(a.last_message_at || a.updated_at || a.created_at || '')));
+  const needle = String(filterText || '').toLowerCase();
+  list.replaceChildren();
+  let shown = 0;
+  for (const s of all) {
+    const label = await humanSessionName(s.name);
+    if (needle && !label.toLowerCase().includes(needle)) continue;
+    shown += 1;
+    const item = document.createElement('button');
+    item.className = 'eco-history-item';
+    const n = document.createElement('span');
+    n.className = 'eco-history-name';
+    n.textContent = label;
+    item.appendChild(n);
+    const m = document.createElement('span');
+    m.className = 'eco-history-meta';
+    m.textContent = relativeTime(s.last_message_at || s.updated_at || s.created_at);
+    item.appendChild(m);
+    item.addEventListener('click', async () => {
+      closeHistory();
+      hideLanding();
+      setActiveNav('chat');
+      (await getSessions()).selectSession(s.id);
+      setTimeout(syncActiveSite, 1200);
+    });
+    list.appendChild(item);
+  }
+  if (!shown) {
+    const none = document.createElement('div');
+    none.className = 'eco-landing-loading';
+    none.textContent = needle ? 'No conversations match.' : 'No conversations yet.';
+    list.appendChild(none);
+  }
+}
+
+function toggleHistory() {
+  ensureHistory();
+  const open = document.body.classList.toggle('eco-history-open');
+  if (open) {
+    const filter = historyEl.querySelector('.eco-history-filter');
+    if (filter) filter.value = '';
+    renderHistoryList('');
+  }
 }
 
 export function setActiveSite(site) {

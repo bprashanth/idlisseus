@@ -9,6 +9,7 @@
 import { VisualStage } from './visualStage.js';
 import { VisualClient } from './visualData.js';
 import { renderVisual, renderTable } from './visualRenderers.js';
+import { cleanText } from './visualTheme.js';
 
 let client = null;
 let clientEndpointUrl = null;
@@ -373,7 +374,7 @@ async function hydrateSlot(slot) {
   }
   const head = document.createElement('span');
   head.className = 'viz-inline-headline';
-  head.textContent = (envelope.answer && envelope.answer.headline) || '';
+  head.textContent = cleanText((envelope.answer && envelope.answer.headline) || '');
   headRow.appendChild(head);
   card.appendChild(headRow);
 
@@ -549,7 +550,7 @@ async function hydrateSlot(slot) {
     openInPanel(resultId);
   });
   slot.appendChild(card);
-  noteRecentVisual(resultId, (envelope.answer && envelope.answer.headline) || '');
+  noteRecentVisual(resultId, cleanText((envelope.answer && envelope.answer.headline) || ''));
   ensureContextRail();
 }
 

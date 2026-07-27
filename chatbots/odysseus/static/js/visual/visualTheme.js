@@ -161,6 +161,13 @@ export function stipplePattern(svgNS, color) {
   return { id, pattern };
 }
 
+// Producer payloads occasionally carry U+FFFD — a byte the upstream ingest
+// mis-decoded (typically a curly quote or accent in a source CSV). The value is
+// otherwise intact, so the display layer drops the tofu rather than showing it.
+export function cleanText(v) {
+  return String(v === null || v === undefined ? '' : v).replace(/�/g, '');
+}
+
 export function formatNumber(v) {
   if (v === null || v === undefined || Number.isNaN(v)) return '—';
   const abs = Math.abs(v);

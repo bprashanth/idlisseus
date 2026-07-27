@@ -6,19 +6,12 @@
 
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // Different animation frames. "wave" is the chat thinking indicator: an
-    // otter strolling off on its errand, leaving paw prints that fade behind.
+    // Different animation frames. "wave" is the chat thinking indicator — a
+    // plain-text glyph ramp that loops cleanly, no color, no emoji (emoji
+    // frames jitter across platforms and fight the theme's ink).
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: [
-        '      🦦',
-        '    🦦 🐾',
-        '  🦦 🐾 🐾',
-        ' 🦦 🐾 🐾',
-        '🦦 🐾 🐾',
-        '🦦 🐾',
-        '🦦',
-      ]
+      wave: ['\u2581\u2582\u2583', '\u2582\u2583\u2584', '\u2583\u2584\u2585', '\u2584\u2585\u2586', '\u2585\u2586\u2585', '\u2586\u2585\u2584', '\u2585\u2584\u2583', '\u2584\u2583\u2582', '\u2583\u2582\u2581']
     };
 
     this.animation = animation;
@@ -278,16 +271,21 @@ class Spinner {
 
     const frame = this.frames[this.currentFrame % this.frames.length];
 
-    let display = '';
-    if (this.style === "left") {
-      display = `${frame} ${this.message}`;
-    } else if (this.style === "right") {
-      display = `${this.message} ${frame}`;
+    // The label wears the theme face; only the glyph frame is monospace so
+    // every frame occupies the same width and the loop doesn't shimmy.
+    this.element.textContent = '';
+    const frameSpan = document.createElement('span');
+    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;';
+    frameSpan.textContent = frame;
+    if (this.style === 'left') {
+      this.element.appendChild(frameSpan);
+      this.element.appendChild(document.createTextNode(' ' + this.message));
+    } else if (this.style === 'right') {
+      this.element.appendChild(document.createTextNode(this.message + ' '));
+      this.element.appendChild(frameSpan);
     } else { // clean
-      display = this.message;
+      this.element.textContent = this.message;
     }
-
-    this.element.innerHTML = display;
   }
 
   /**

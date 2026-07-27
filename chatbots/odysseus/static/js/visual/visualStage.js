@@ -6,7 +6,7 @@
 // evidence panel for drill-downs. Revisions replace in place — no jumps.
 
 import { renderVisual, renderTable, tooltip } from './visualRenderers.js';
-import { evidenceColor, evidenceLabel, formatNumber } from './visualTheme.js';
+import { evidenceColor, evidenceLabel, formatNumber, cleanText } from './visualTheme.js';
 
 export class VisualStage {
   // host: element the stage mounts into. opts.fetchData(ref) -> Promise<parsed payload>
@@ -173,12 +173,12 @@ class Chapter {
     }
     const head = document.createElement('h2');
     head.className = 'viz-headline';
-    head.textContent = (env.answer && env.answer.headline) || '';
+    head.textContent = cleanText((env.answer && env.answer.headline) || '');
     this.caption.appendChild(head);
     if (env.answer && env.answer.detail) {
       const detail = document.createElement('p');
       detail.className = 'viz-detail';
-      detail.textContent = env.answer.detail;
+      detail.textContent = cleanText(env.answer.detail);
       this.caption.appendChild(detail);
     }
     // evidence chips
@@ -394,9 +394,9 @@ class Chapter {
         || lineage.capability_id;
       const capLine = document.createElement('p');
       capLine.className = 'viz-lineage-head';
-      capLine.textContent = comp.statement || lineage.summary
+      capLine.textContent = cleanText(comp.statement || lineage.summary
         || `Computed by ${capId || 'a registered capability'} over ${
-          (lineage.source_versions || []).length} source version(s).`;
+          (lineage.source_versions || []).length} source version(s).`);
       host.appendChild(capLine);
       const mark = lineage.mark || {};
       if (mark.auto_selected) {
