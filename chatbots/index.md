@@ -1,8 +1,8 @@
 # Chatbots
 
-The primary chatbot deployment is Idlisseus (formerly Odysseus) in `chatbots/odysseus/`.
+The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in `chatbots/odysseus/`.
 
-## Idlisseus features
+## Idli Insights features
 
 **Conversation**
 - Multi-user with per-user chat history and settings
@@ -73,7 +73,7 @@ See [`docs/odysseus-internals.md`](docs/odysseus-internals.md) for:
 - Explain Simpler / rewrite endpoint (NOT a chat resend — separate lightweight call)
 - Agent mode vs Hermes: what's active, what's redundant
 
-## Running Idlisseus
+## Running Idli Insights
 
 ```bash
 cd chatbots/odysseus
@@ -112,7 +112,7 @@ and the current conversation is one Chat click away); the
 right context rail (site stat tiles, data streams, recent visuals) is back; the
 data explorer and the figure panel are mutually exclusive right-hand surfaces,
 and the composer shifts with whichever is open. Machine voice is gone from the
-reading line: role labels say "Idlisseus" (never `idli-insight-*`), session
+reading line: role labels say "Idli Insights" (never `idli-insight-*`), session
 titles are prettified to the site name, the Why panel ("How this was answered")
 defaults closed and replaces tracebacks with a plain sentence, and card kind
 labels are human words ("Map", "Time series"). Login is deterministic brand
