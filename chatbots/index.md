@@ -56,21 +56,25 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
   visible messages only) → full public preview with repository + warning → explicit
   publish confirmation. Proxy: `/api/visual/{endpoint_id}/feedback/draft|submit`.
 
-## Atlas — subject-centred relationship explorer (IDL-REQ-0003 amended, 2026-07-28)
+## Atlas — the pack as a living constellation (IDL-REQ-0003, 2026-07-28)
 
-The Data nav opens a full-page explorer modelled on how people think, not how the
-pipeline runs: search anything the producer declares (names, places, groups, data
-sets, measurements — aliases included), anchor a result, and walk its bounded
-neighbourhood up to three hops. Expansions MERGE into the retained graph (stable
-ids, nothing moves or vanishes); prominence decays with hop distance. Every edge
-keeps its producer relation, label, count and evidence basis — recorded solid,
-derived (shared source/place) dashed and lighter — with a relation legend,
-per-relation omitted counts and total canvas budgets shown honestly. Clicking a
-node opens a detail panel (relations, provenance, capability actions); actions
-fill the composer and never auto-send. Live from `/v1/graph*` when Codex ships;
-until then the sector-neutral fixtures in `dss/contracts/fixtures/graph/`
-(subject/place/group/source, five relations, three hops, ambiguous search,
-capped neighbours) render as a labelled sample.
+The Data nav opens on the whole graph: the producer's bounded ambient sample
+(~180 nodes / ~525 edges in the fixture) rendered as a force-settled
+constellation — dots sized by records, kind-toned and named in the legend,
+pine filaments solid for recorded relationships and dashed for derived ones.
+Landmarks (the heaviest nodes) stay labelled with collision declutter;
+everything else names itself on hover, which also lights its filaments and
+dims the rest. Drag to pan, scroll to zoom, drag a dot to nudge it; the view
+auto-fits until the person takes over. Search covers every node kind and
+alias; choosing a result anchors it (pine, size floor, pinned centre) and
+expands its bounded neighbourhood — merges by stable id, three hops before
+re-anchoring, budgets and omissions visible. Click opens a glass detail card
+(backdrop blur): counted relations grouped by producer relation and basis,
+provenance, and capability actions that fill the composer without sending.
+The physics is presentation only — positions carry no meaning beyond
+adjacency — and prefers-reduced-motion settles instantly. Live from
+`/v1/graph*` when Codex ships; the sector-neutral fixtures render as a
+labelled sample until then.
 
 ## Citation status
 

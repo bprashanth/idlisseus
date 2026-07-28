@@ -768,42 +768,81 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 .eco-atlas-suggestion-name { font: 600 13px var(--font-ui); color: var(--ink); }
 .eco-atlas-suggestion-meta { font-size: 10.5px; color: var(--ink-faint); }
 
-/* edges: evidence basis is structure (solid vs dashed), width is count */
-.eco-atlas-ribbon {
-  stroke: color-mix(in srgb, var(--ink) 20%, transparent);
-  transition: stroke 140ms ease, opacity 140ms ease;
+/* the constellation: filaments + dots on paper */
+.eco-atlas-cosmos { position: relative; }
+.eco-atlas-svg-cosmos {
+  height: min(66vh, 720px);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(90% 90% at 50% 42%, color-mix(in srgb, var(--surface) 65%, transparent), transparent 75%),
+    var(--paper);
+  cursor: grab;
+  touch-action: none;
 }
-.eco-atlas-ribbon.basis-derived {
-  stroke: color-mix(in srgb, var(--ink) 12%, transparent);
-  stroke-dasharray: 6 5;
-}
-.eco-atlas-ribbon.is-lit { stroke: color-mix(in srgb, var(--pine) 60%, transparent); }
-.eco-atlas-ribbon.is-dim { opacity: 0.22; }
+.eco-atlas-svg-cosmos:active { cursor: grabbing; }
 
-/* nodes: prominence decays with hop distance from the nearest anchor */
-.eco-atlas-node { cursor: pointer; }
-.eco-atlas-hop2 { opacity: 0.88; }
-.eco-atlas-hop3 { opacity: 0.68; }
-.eco-atlas-pill {
-  fill: var(--surface);
-  stroke: var(--line-strong); stroke-width: 1;
-  transition: stroke 140ms ease;
+.eco-atlas-fil {
+  stroke: color-mix(in srgb, var(--pine) 26%, transparent);
+  stroke-linecap: round;
+  transition: stroke 160ms ease, opacity 160ms ease;
 }
-.eco-atlas-node:hover .eco-atlas-pill, .eco-atlas-node:focus-visible .eco-atlas-pill {
-  stroke: var(--pine); stroke-width: 1.5;
+.eco-atlas-fil.basis-derived {
+  stroke: color-mix(in srgb, var(--ink) 13%, transparent);
+  stroke-dasharray: 5 5;
 }
-.eco-atlas-node.is-anchor .eco-atlas-pill {
-  fill: var(--pine-wash);
-  stroke: color-mix(in srgb, var(--pine) 60%, transparent); stroke-width: 1.6;
+.eco-atlas-fil.is-lit { stroke: color-mix(in srgb, var(--pine) 70%, transparent); }
+.eco-atlas-fil.is-dim { opacity: 0.16; }
+
+.eco-atlas-dot { cursor: pointer; outline: none; }
+.eco-atlas-dot-core {
+  fill: color-mix(in srgb, var(--ink) 42%, var(--paper));
+  stroke: var(--paper); stroke-width: 1.2;
+  transition: fill 160ms ease;
 }
-.eco-atlas-node.is-selected .eco-atlas-pill { stroke: var(--pine); stroke-width: 2; }
-.eco-atlas-node-measurement .eco-atlas-pill, .eco-atlas-node-source .eco-atlas-pill { fill: var(--surface-2); }
-.eco-atlas-node.is-anchor.eco-atlas-node-source .eco-atlas-pill,
-.eco-atlas-node.is-anchor.eco-atlas-node-measurement .eco-atlas-pill { fill: var(--pine-wash); }
-.eco-atlas-node-label { font-family: var(--font-ui); font-weight: 600; fill: var(--ink); }
-.eco-atlas-node.is-anchor .eco-atlas-node-label { font-family: var(--font-display); }
-.eco-atlas-node-meta { font-family: var(--font-ui); font-weight: 500; fill: var(--ink-faint); }
-.eco-atlas-expandable-dot { fill: var(--pine); opacity: 0.7; }
+.eco-atlas-dot-halo {
+  fill: color-mix(in srgb, var(--pine) 14%, transparent);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+/* kinds: tones within the theme, named in the legend and card — never colour alone */
+.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+.eco-atlas-dot.kind-group .eco-atlas-dot-core {
+  fill: var(--paper);
+  stroke: color-mix(in srgb, var(--ink) 55%, var(--paper)); stroke-width: 2;
+}
+.eco-atlas-dot.is-anchor .eco-atlas-dot-core {
+  fill: var(--pine);
+  stroke: color-mix(in srgb, var(--pine) 35%, var(--paper)); stroke-width: 2.5;
+}
+.eco-atlas-dot.is-selected .eco-atlas-dot-halo,
+.eco-atlas-dot.is-hovered .eco-atlas-dot-halo,
+.eco-atlas-dot:focus-visible .eco-atlas-dot-halo { opacity: 1; }
+.eco-atlas-dot.is-hovered .eco-atlas-dot-core { fill: var(--pine); }
+.eco-atlas-dot.is-bg { opacity: 0.35; }
+.eco-atlas-dot.is-neighbor .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 55%, var(--paper)); }
+.eco-atlas-dot.is-far { opacity: 0.3; }
+
+/* names: landmarks stay labelled, everything else speaks on hover */
+.eco-atlas-dot-label {
+  font-family: var(--font-ui); font-weight: 600;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+.eco-atlas-dot.is-labelled .eco-atlas-dot-label { opacity: 0.85; }
+.eco-atlas-dot.is-hovered .eco-atlas-dot-label,
+.eco-atlas-dot.is-selected .eco-atlas-dot-label,
+.eco-atlas-dot:focus-visible .eco-atlas-dot-label { opacity: 1; font-weight: 700; }
+.eco-atlas-dot.is-anchor .eco-atlas-dot-label {
+  opacity: 1; font-family: var(--font-display); font-weight: 600;
+}
+.eco-atlas-dot.is-bg .eco-atlas-dot-label { opacity: 0; }
 
 /* relation legend */
 .eco-atlas-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 12px 4px 0; }
@@ -812,16 +851,32 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   width: 22px; height: 0; display: inline-block;
   border-top: 2.5px solid color-mix(in srgb, var(--ink) 35%, transparent);
 }
+.eco-atlas-legend-dot {
+  width: 11px; height: 11px; border-radius: 50%; display: inline-block;
+  background: color-mix(in srgb, var(--ink) 42%, var(--paper));
+  border: 1px solid var(--paper);
+}
+.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+.eco-atlas-legend-dot.kind-group {
+  background: var(--paper);
+  border: 2px solid color-mix(in srgb, var(--ink) 55%, var(--paper));
+}
 .eco-atlas-legend-key.basis-derived { border-top-style: dashed; border-top-color: color-mix(in srgb, var(--ink) 22%, transparent); }
 .eco-atlas-legend-label { font-size: 11.5px; color: var(--ink-soft); }
 .eco-atlas-status { margin-top: 10px; font-size: 12px; color: var(--ink-faint); min-height: 16px; }
 
 /* detail panel: relationships, provenance, capability actions */
+.eco-atlas-detail[hidden] { display: none; }
 .eco-atlas-detail {
-  flex: none; width: 320px;
+  flex: none; width: 330px;
   position: sticky; top: 20px;
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: var(--shadow-1);
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
+  border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-2);
   padding: 16px 18px;
   display: flex; flex-direction: column; gap: 10px;
   max-height: calc(100vh - 120px); overflow-y: auto;
