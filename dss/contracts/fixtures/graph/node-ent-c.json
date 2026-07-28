@@ -2,43 +2,21 @@
   "schema_version": "idli-graph/1",
   "node": {
     "id": "ent:c",
-    "kind": "entity",
+    "kind": "subject",
     "label": "Recorded name C",
     "records": 442,
     "sources": 2
   },
   "relations": [
     {
-      "relation": "recorded_in",
-      "label": "Recorded in",
-      "neighbors": [
-        {
-          "node": {
-            "id": "src:frugivore-watch",
-            "kind": "source",
-            "label": "Focal tree frugivore watches"
-          },
-          "records": 340
-        },
-        {
-          "node": {
-            "id": "src:plant-community",
-            "kind": "source",
-            "label": "Plant community plots"
-          },
-          "records": 102
-        }
-      ],
-      "omitted": 0
-    },
-    {
-      "relation": "interacts_with",
+      "relation": "recorded_with",
       "label": "Recorded together with",
+      "basis": "recorded",
       "neighbors": [
         {
           "node": {
             "id": "ent:a",
-            "kind": "entity",
+            "kind": "subject",
             "label": "Recorded name A",
             "records": 903
           },
@@ -46,7 +24,44 @@
         }
       ],
       "omitted": 0
+    },
+    {
+      "relation": "member_of",
+      "label": "Belongs to the group",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "grp:one",
+            "kind": "group",
+            "label": "Group One",
+            "records": 1240
+          },
+          "records": 442
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "recorded_in",
+      "label": "Recorded in",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "src:alpha",
+            "kind": "source",
+            "label": "Field survey alpha",
+            "records": 12034
+          },
+          "records": 340
+        }
+      ],
+      "omitted": 0
     }
+  ],
+  "provenance": [
+    "Counts are admitted records."
   ],
   "actions": [
     {

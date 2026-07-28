@@ -56,18 +56,21 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
   visible messages only) → full public preview with repository + warning → explicit
   publish confirmation. Proxy: `/api/visual/{endpoint_id}/feedback/draft|submit`.
 
-## Atlas — the pack as a graph (IDL-REQ-0003, consumer shipped 2026-07-28)
+## Atlas — subject-centred relationship explorer (IDL-REQ-0003 amended, 2026-07-28)
 
-The Data nav opens a full-page Atlas: an overview flow (data sets → kinds of
-measurement → most-recorded names, ribbons weighted by record counts, entities
-capped with an honest "…and N more" fold into search) and a focus view (one node
-centred, neighbors grouped by relation with counted edges, breadcrumbs, one hop
-per click). Node click-throughs seed the mapped question into the composer — the
-graph is an index, never an analysis engine. Renders the producer's bounded
-`/v1/graph` (proxied at `/api/visual/{id}/graph[...]`); until Codex ships
-IDL-REQ-0003 it falls back to the contract fixtures in
-`dss/contracts/fixtures/graph/`, ribboned as sample data. The inventory drawer
-remains one click away from inside the page.
+The Data nav opens a full-page explorer modelled on how people think, not how the
+pipeline runs: search anything the producer declares (names, places, groups, data
+sets, measurements — aliases included), anchor a result, and walk its bounded
+neighbourhood up to three hops. Expansions MERGE into the retained graph (stable
+ids, nothing moves or vanishes); prominence decays with hop distance. Every edge
+keeps its producer relation, label, count and evidence basis — recorded solid,
+derived (shared source/place) dashed and lighter — with a relation legend,
+per-relation omitted counts and total canvas budgets shown honestly. Clicking a
+node opens a detail panel (relations, provenance, capability actions); actions
+fill the composer and never auto-send. Live from `/v1/graph*` when Codex ships;
+until then the sector-neutral fixtures in `dss/contracts/fixtures/graph/`
+(subject/place/group/source, five relations, three hops, ambiguous search,
+capped neighbours) render as a labelled sample.
 
 ## Citation status
 

@@ -1,7 +1,9 @@
-# IDL-REQ-0003 — a bounded graph of the pack
+# IDL-REQ-0003 — a subject-centred, bounded graph of the pack (amended 2026-07-28)
 
-One aggregated endpoint family (`/v1/graph`, `/v1/graph/node/{id}`, `/v1/graph?q=`)
-so the Atlas page can show where a pack's data comes from and how measurements and
-recorded names connect — without the consumer inferring relationships or pulling rows.
-The fixtures in `dss/contracts/fixtures/graph/` are the acceptance shape; the Atlas UI
-ships against them with a labelled sample-data fallback until the endpoint exists.
+Search across every node kind and alias; one bounded expansion primitive the consumer
+merges by stable id; relation + label + count + evidence basis on every edge; per-relation
+caps with omitted counts. The original sources→measurements→entities pipeline framing is
+withdrawn — the graph models the way people think, anchored on the thing they searched.
+Fixtures in `dss/contracts/fixtures/graph/` are the acceptance shape; the Atlas renders
+them as a labelled sample until the endpoint ships. Producer-side relationships are never
+implemented in Idlisseus.

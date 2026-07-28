@@ -695,7 +695,7 @@ body.eco-shell .viz-support-card { background: var(--surface); height: auto; }
 body.eco-shell .viz-audit-link { background: none; height: auto; }
 body.eco-shell .welcome-chip, body.eco-shell .scroll-nav-btn { height: auto; }
 
-/* ---------- Atlas: the pack as a graph (IDL-REQ-0003) ---------- */
+/* ---------- Atlas: subject-centred relationship explorer (IDL-REQ-0003) ---------- */
 #eco-atlas {
   position: fixed;
   left: var(--nav-w); right: 0; top: 0; bottom: 0;
@@ -708,19 +708,19 @@ body.eco-atlas-open #eco-atlas { display: block; }
 body.eco-atlas-open .chat-input-bar, body.eco-atlas-open #chat-container { visibility: hidden; }
 body.eco-atlas-open .scroll-nav-btn { display: none !important; }
 body.eco-atlas-open #viz-context-rail { display: none; }
-.eco-atlas-inner { max-width: 1240px; margin: 0 auto; padding: 6vh 48px 60px; }
-.eco-atlas-head { margin-bottom: 18px; }
+.eco-atlas-inner { max-width: 1320px; margin: 0 auto; padding: 5vh 48px 50px; }
+.eco-atlas-head { margin-bottom: 14px; }
 .eco-atlas-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .eco-atlas-title {
   margin: 0 0 8px;
   font: 600 32px/1.2 var(--font-display);
   letter-spacing: -0.012em; color: var(--ink);
 }
-.eco-atlas-sub { margin: 0; max-width: 72ch; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.eco-atlas-sub { margin: 0; max-width: 76ch; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
 .eco-atlas-controls {
   position: relative;
   display: flex; align-items: center; gap: 12px;
-  margin: 16px 0 6px; max-width: 560px;
+  margin: 16px 0 6px; max-width: 620px;
 }
 #eco-atlas .eco-atlas-search { flex: 1; height: auto; }
 #eco-atlas .eco-atlas-inventory-btn {
@@ -743,21 +743,47 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 }
 #eco-atlas .eco-atlas-search-hit:hover { background: var(--pine-wash); }
 .eco-atlas-search-hit-name { font-size: 13.5px; color: var(--ink); }
-.eco-atlas-search-hit-meta { font-size: 11.5px; color: var(--ink-faint); }
-.eco-atlas-stage { margin-top: 10px; }
+.eco-atlas-search-hit-meta { font-size: 11.5px; color: var(--ink-faint); flex: none; }
+
+/* canvas + detail panel side by side */
+.eco-atlas-body { display: flex; gap: 18px; align-items: flex-start; margin-top: 10px; }
+.eco-atlas-stage { flex: 1; min-width: 0; }
 .eco-atlas-svg { width: 100%; height: auto; display: block; }
-.eco-atlas-colhead {
-  font: 600 12px var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase;
-  fill: var(--ink-faint);
+
+/* empty state: search-first, seeded with real starting points */
+.eco-atlas-empty {
+  border: 1px dashed var(--line-strong); border-radius: var(--radius);
+  padding: 34px 30px 30px; background: color-mix(in srgb, var(--surface) 55%, transparent);
 }
+.eco-atlas-empty-lead { margin: 0 0 14px; font-size: 14px; color: var(--ink-soft); }
+.eco-atlas-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+#eco-atlas .eco-atlas-suggestion {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); height: auto; cursor: pointer;
+  padding: 9px 14px; text-align: left;
+  transition: border-color 130ms ease, background 130ms ease;
+}
+#eco-atlas .eco-atlas-suggestion:hover { border-color: var(--pine); background: var(--pine-wash); }
+.eco-atlas-suggestion-name { font: 600 13px var(--font-ui); color: var(--ink); }
+.eco-atlas-suggestion-meta { font-size: 10.5px; color: var(--ink-faint); }
+
+/* edges: evidence basis is structure (solid vs dashed), width is count */
 .eco-atlas-ribbon {
-  stroke: color-mix(in srgb, var(--ink) 16%, transparent);
+  stroke: color-mix(in srgb, var(--ink) 20%, transparent);
   transition: stroke 140ms ease, opacity 140ms ease;
 }
-.eco-atlas-ribbon.is-lit { stroke: color-mix(in srgb, var(--pine) 55%, transparent); }
-.eco-atlas-ribbon.is-dim { opacity: 0.25; }
+.eco-atlas-ribbon.basis-derived {
+  stroke: color-mix(in srgb, var(--ink) 12%, transparent);
+  stroke-dasharray: 6 5;
+}
+.eco-atlas-ribbon.is-lit { stroke: color-mix(in srgb, var(--pine) 60%, transparent); }
+.eco-atlas-ribbon.is-dim { opacity: 0.22; }
+
+/* nodes: prominence decays with hop distance from the nearest anchor */
 .eco-atlas-node { cursor: pointer; }
-.eco-atlas-node.is-faded { opacity: 0.18; }
+.eco-atlas-hop2 { opacity: 0.88; }
+.eco-atlas-hop3 { opacity: 0.68; }
 .eco-atlas-pill {
   fill: var(--surface);
   stroke: var(--line-strong); stroke-width: 1;
@@ -766,33 +792,79 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 .eco-atlas-node:hover .eco-atlas-pill, .eco-atlas-node:focus-visible .eco-atlas-pill {
   stroke: var(--pine); stroke-width: 1.5;
 }
-.eco-atlas-node-source .eco-atlas-pill { stroke-dasharray: none; }
-.eco-atlas-node-measurement .eco-atlas-pill { fill: var(--surface-2); }
-.eco-atlas-node-label { font: 600 12.5px var(--font-ui); fill: var(--ink); }
-.eco-atlas-node-meta { font: 500 10.5px var(--font-ui); fill: var(--ink-faint); }
-.eco-atlas-more-box { fill: none; stroke: var(--line-strong); stroke-dasharray: 4 4; }
-.eco-atlas-more { cursor: pointer; }
-.eco-atlas-more-text { font: 500 11px var(--font-ui); fill: var(--ink-faint); }
-.eco-atlas-edge-count { font: 600 10.5px var(--font-ui); fill: var(--ink-faint); }
-.eco-atlas-centre-box {
+.eco-atlas-node.is-anchor .eco-atlas-pill {
   fill: var(--pine-wash);
-  stroke: color-mix(in srgb, var(--pine) 55%, transparent); stroke-width: 1.5;
+  stroke: color-mix(in srgb, var(--pine) 60%, transparent); stroke-width: 1.6;
 }
-.eco-atlas-centre-label { font: 600 15px var(--font-display); fill: var(--ink); }
-.eco-atlas-centre-meta { font: 500 11px var(--font-ui); fill: var(--ink-soft); }
-.eco-atlas-crumbs { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin: 2px 0 8px; }
-#eco-atlas .eco-atlas-crumb {
-  background: none; border: 0; height: auto; cursor: pointer;
+.eco-atlas-node.is-selected .eco-atlas-pill { stroke: var(--pine); stroke-width: 2; }
+.eco-atlas-node-measurement .eco-atlas-pill, .eco-atlas-node-source .eco-atlas-pill { fill: var(--surface-2); }
+.eco-atlas-node.is-anchor.eco-atlas-node-source .eco-atlas-pill,
+.eco-atlas-node.is-anchor.eco-atlas-node-measurement .eco-atlas-pill { fill: var(--pine-wash); }
+.eco-atlas-node-label { font-family: var(--font-ui); font-weight: 600; fill: var(--ink); }
+.eco-atlas-node.is-anchor .eco-atlas-node-label { font-family: var(--font-display); }
+.eco-atlas-node-meta { font-family: var(--font-ui); font-weight: 500; fill: var(--ink-faint); }
+.eco-atlas-expandable-dot { fill: var(--pine); opacity: 0.7; }
+
+/* relation legend */
+.eco-atlas-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 12px 4px 0; }
+.eco-atlas-legend-item { display: inline-flex; align-items: center; gap: 8px; }
+.eco-atlas-legend-key {
+  width: 22px; height: 0; display: inline-block;
+  border-top: 2.5px solid color-mix(in srgb, var(--ink) 35%, transparent);
+}
+.eco-atlas-legend-key.basis-derived { border-top-style: dashed; border-top-color: color-mix(in srgb, var(--ink) 22%, transparent); }
+.eco-atlas-legend-label { font-size: 11.5px; color: var(--ink-soft); }
+.eco-atlas-status { margin-top: 10px; font-size: 12px; color: var(--ink-faint); min-height: 16px; }
+
+/* detail panel: relationships, provenance, capability actions */
+.eco-atlas-detail {
+  flex: none; width: 320px;
+  position: sticky; top: 20px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-1);
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  max-height: calc(100vh - 120px); overflow-y: auto;
+}
+.eco-atlas-detail-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.eco-atlas-detail-title { font: 600 19px/1.3 var(--font-display); color: var(--ink); }
+.eco-atlas-detail-kind { font-size: 12px; color: var(--ink-faint); }
+.eco-atlas-detail-note { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); }
+.eco-atlas-detail-moves { display: flex; flex-wrap: wrap; gap: 8px; }
+#eco-atlas .eco-atlas-move-primary {
+  background: var(--pine-fill); color: #fff; border: 0; height: auto;
+  font: 600 12.5px var(--font-ui);
+  padding: 8px 14px; border-radius: 9px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-move-primary:hover { background: var(--pine-deep); }
+#eco-atlas .eco-atlas-move-secondary {
+  background: none; border: 1px solid var(--line-strong); height: auto;
   font: 500 12.5px var(--font-ui); color: var(--pine);
-  padding: 2px 4px; border-radius: 6px;
+  padding: 8px 13px; border-radius: 9px; cursor: pointer;
 }
-#eco-atlas .eco-atlas-crumb:hover { background: var(--pine-wash); }
-#eco-atlas .eco-atlas-crumb.is-here { color: var(--ink); cursor: default; }
-.eco-atlas-crumb-sep { color: var(--ink-faint); font-size: 12px; }
-.eco-atlas-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+#eco-atlas .eco-atlas-move-secondary:hover { background: var(--pine-wash); }
+.eco-atlas-detail-rel { display: flex; flex-direction: column; gap: 2px; }
+.eco-atlas-detail-rel-head {
+  font: 600 10.5px var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 6px 0 3px;
+}
+#eco-atlas .eco-atlas-detail-neighbor {
+  display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 5px 8px; border-radius: 7px; text-align: left;
+}
+#eco-atlas .eco-atlas-detail-neighbor:hover { background: var(--pine-wash); }
+.eco-atlas-detail-neighbor-name { font-size: 13px; color: var(--ink); }
+.eco-atlas-detail-neighbor-count { font-size: 11.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.eco-atlas-detail-omitted { font-size: 11.5px; color: var(--ink-faint); padding: 3px 8px; }
+.eco-atlas-detail-prov-line { font-size: 12px; line-height: 1.55; color: var(--ink-soft); padding: 2px 0; }
+.eco-atlas-detail-hint { font-size: 11px; color: var(--ink-faint); }
+.eco-atlas-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 @media (max-width: 980px) {
   #eco-atlas { left: 64px; }
   .eco-atlas-inner { padding: 4vh 18px 40px; }
+  .eco-atlas-body { flex-direction: column; }
+  .eco-atlas-detail { position: static; width: auto; max-height: none; }
 }
 
 /* ---------- TR-VIS-0005: problem report ---------- */

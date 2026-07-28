@@ -1,31 +1,35 @@
 {
   "schema_version": "producer-consumer-request/1",
   "request_id": "IDL-REQ-0003",
-  "title": "A bounded graph of the pack: sources, measurements and entities, with counted edges",
+  "title": "A subject-centred, bounded graph of the pack: search anything, expand its neighbourhood, keep the evidence basis on every edge",
   "consumer": "idlisseus",
   "producer": "totalrecall",
   "created_at": "2026-07-27",
   "priority": "medium",
-  "problem": "A reader has no way to see the shape of a pack \u2014 which sources feed it, what kinds of measurement they hold, and which recorded names those measurements attach to \u2014 without asking one question at a time. The consumer must not infer relationships client-side (that is the id-verification boundary from IDL-REQ-0002/TR-VIS-0003), and pulling raw rows to assemble edges in the browser is the wrong shape at 42k records. What is missing is one bounded, aggregated view of the pack as a graph.",
+  "problem": "A reader has no way to see how the things they care about \u2014 a recorded name, a place, a group, a data set \u2014 connect, without asking one question at a time. The consumer must not infer identity, group membership or relationships (the id-verification boundary from IDL-REQ-0002/TR-VIS-0003), and pulling raw rows to assemble edges in the browser is the wrong shape at 42k records. What is missing is a bounded search across every node kind and a bounded per-node neighbourhood expansion, so the UI can model the way people think rather than the way the pipeline runs. AMENDED 2026-07-28: the original request framed the primary view as a sources \u2192 measurements \u2192 entities pipeline; that framing is replaced by this subject-centred one and the fixtures have been rewritten accordingly.",
   "evidence": [
     "Everything the graph needs already exists producer-side in aggregate form: audit.source_versions, the estimate target catalogue (source \u2192 quantities with count columns), site-orientation denominators, the bounded entity catalogue with per-entity record counts (subject_resolver), and declared entity\u2194entity pairs (interaction-pairs, 5,622 named frugivory pairs).",
     "The consumer's data explorer already renders source \u2192 quantity lists from /v1/estimate/targets; it cannot show which entities those quantities attach to, or how entities relate, because no endpoint aggregates that.",
-    "The UX (a full-page 'Atlas' under Data) is built and shipping against the fixture in dss/contracts/fixtures/graph/ \u2014 the fixture is the acceptance shape; a labelled sample-data fallback renders until this endpoint exists."
+    "The UX (a full-page 'Atlas' under Data) is built and shipping against the fixture in dss/contracts/fixtures/graph/ \u2014 the fixture is the acceptance shape; a labelled sample-data fallback renders until this endpoint exists.",
+    "AMENDED 2026-07-28: fixtures rewritten to the subject-centred shape \u2014 overview.json (starting points + kind totals), search.json (all-kind alias search incl. the ambiguous 'north'), node-ent-a/ent-c/ent-d/ent-n/grp-one/plc-north/src-alpha.json (relations with basis, provenance, actions, omitted counts). The Atlas UI implements the merge/expand/prominence/budget behaviour against them."
   ],
   "requested_outcome": [
-    "GET /v1/graph \u2014 an overview payload (schema idli-graph/1, fixture dss/contracts/fixtures/graph/overview.json): node_kinds (kind, human label, total count), nodes (id, kind, label, records, plus kind-specific counts such as sources-per-entity), edges (from, to, records), and a `more` object counting what the caps omitted. Entities capped to top-N by records (producer chooses N \u2264 ~30); sources and measurement kinds are small enough to send whole.",
-    "GET /v1/graph/node/{id} \u2014 a focus payload (fixture graph/node-*.json): the node, its neighbors grouped by a `relation` word (recorded_in, measures, interacts_with, member_of \u2014 plain machine keys the consumer maps to producer-provided labels), each neighbor with edge counts, capped per relation with an `omitted` count, and idli-result/1-shaped `actions` for click-through (e.g. entity-record-map for an entity node).",
-    "GET /v1/graph?q=<text> \u2014 bounded entity search over recorded names/aliases returning matching entity nodes (same node shape), so the '\u2026and 949 more' fold resolves through search rather than a full dump.",
-    "All labels are the pack's own human words (source titles, humanised quantity names, recorded names) \u2014 no sector vocabulary is assumed by the consumer, so the same screen serves the ecology and livelihoods packs unchanged.",
-    "Counts are honest aggregates of admitted records (same audit basis as site-orientation denominators); a node with thin data should look thin.",
-    "Cheap to serve: precomputable at pack index time; an ETag or pack_digest field so the consumer can cache per pack version."
+    "GET /v1/graph \u2014 starting points, not a pipeline: node_kinds (kind, human label, total count) and a small set of suggested starting nodes across kinds (top by records). The consumer renders these as entry chips on an otherwise search-first canvas.",
+    "GET /v1/graph?q=<text> \u2014 search across EVERY producer-declared node kind and its aliases (subjects, groups, places, sources, measurements). Returns matching nodes (stable id, kind, label, records, aliases); ambiguous terms simply return multiple kinds and the person chooses. Empty result is an empty list, not an error.",
+    "GET /v1/graph/node/{id} \u2014 the bounded expansion primitive. Returns the node, its relations grouped by a machine relation key with a human label, a per-relation `basis` field distinguishing explicitly recorded relationships ('recorded': declared interactions, group membership, recorded-in-source, recorded-at-place) from derived ones ('derived': shared source, shared location), each neighbor with its edge count, per-relation producer caps with an `omitted` count, a `provenance` list of plain statements, and idli-result/1-shaped `actions`. The consumer calls this repeatedly and MERGES responses by stable id \u2014 ids must be stable across calls.",
+    "The consumer keeps its own total budgets (nodes/edges on canvas), decays visual prominence with hop distance from the searched node (three hops maximum before re-anchoring), draws recorded edges solid and derived edges dashed-and-lighter (never colour alone), and shows every omitted count. Clicking a node opens details/provenance/actions \u2014 an action fills the composer; nothing is auto-sent.",
+    "All labels are the pack's own human words \u2014 the same screen serves the ecology and livelihoods packs unchanged.",
+    "Counts are honest aggregates of admitted records (same audit basis as site-orientation denominators).",
+    "Cheap to serve: precomputable at pack index time; pack_digest for cache identity."
   ],
   "acceptance": [
-    "The overview fixture shape renders live: sources \u2192 measurement kinds \u2192 top entities with counted ribbons for both the ecology and livelihoods packs, no consumer code change.",
-    "Focusing an entity returns its sources with per-source record counts, its measurement kinds, and (ecology pack) its declared interaction partners \u2014 each expandable by a further node call.",
-    "graph?q=hornbill returns the hornbill entities with counts; a term matching nothing returns an empty list, not an error.",
-    "Every count equals what the corresponding capability reports (e.g. an entity's records total matches entity-record-map's denominator).",
-    "A pack without declared entity\u2194entity pairs simply omits that relation \u2014 the consumer renders whatever relations arrive."
+    "Searching a term that is both a place and a recorded name returns both, each labelled with its kind; choosing one anchors it dominant on the canvas with its first bounded neighbourhood.",
+    "Expanding neighbors three hops from the anchor accretes into one merged graph \u2014 prior nodes never move or vanish \u2014 and a fourth hop requires re-anchoring.",
+    "Every edge carries relation, human label, count and basis; a derived shared-source edge is visibly lighter/dashed next to a recorded interaction edge.",
+    "Per-relation omitted counts and consumer budget omissions are visible, never silent.",
+    "A group node lists its source-declared members; membership never comes from the consumer.",
+    "Node detail shows provenance statements and capability-mapped actions; invoking an action fills the composer without sending.",
+    "The fixtures in dss/contracts/fixtures/graph/ (sector-neutral: a subject, a place, a group, a source, five relation types, three progressive hops, an ambiguous search, capped/omitted neighbours) all render live with no consumer change."
   ],
   "notes": "The graph is an index, not an analysis engine: clicking a node in the Atlas seeds the mapped question through the conversation, so insight still flows through audited turns. The consumer renders exactly the nodes/edges/labels supplied and never invents membership \u2014 same boundary as subject resolution."
 }

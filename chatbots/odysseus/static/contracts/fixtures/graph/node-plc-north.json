@@ -1,0 +1,58 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "plc:north",
+    "kind": "place",
+    "label": "Northern block",
+    "records": 611
+  },
+  "relations": [
+    {
+      "relation": "recorded_here",
+      "label": "Recorded here",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "subject",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 611
+        },
+        {
+          "node": {
+            "id": "ent:n",
+            "kind": "subject",
+            "label": "Recorded name North",
+            "records": 130
+          },
+          "records": 96
+        }
+      ],
+      "omitted": 12
+    },
+    {
+      "relation": "shared_place",
+      "label": "Shares records with the place",
+      "basis": "derived",
+      "neighbors": [
+        {
+          "node": {
+            "id": "plc:south",
+            "kind": "place",
+            "label": "Southern block",
+            "records": 512
+          },
+          "records": 84
+        }
+      ],
+      "omitted": 0
+    }
+  ],
+  "provenance": [
+    "Place records are the admitted rows whose location falls in this block."
+  ],
+  "actions": []
+}
