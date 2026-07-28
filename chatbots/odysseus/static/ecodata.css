@@ -813,15 +813,11 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   opacity: 0;
   transition: opacity 160ms ease;
 }
-/* kinds: the validated categorical trio (subject blue, measurement orange,
-   place aqua) plus tone/shape for the rest — named in the legend and card,
-   never colour alone */
-body.eco-shell { --atlas-subject: #2a78d6; --atlas-measurement: #eb6834; --atlas-place: #1baf7a; }
-body.eco-shell.eco-dark { --atlas-subject: #3987e5; --atlas-measurement: #d95926; --atlas-place: #199e70; }
-.eco-atlas-dot.kind-subject .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-subject) 78%, var(--paper)); }
-.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-measurement) 80%, var(--paper)); }
-.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-place) 72%, var(--paper)); }
-.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 78%, var(--paper)); }
+/* kinds: tones within the theme — ink for the record kinds, pine for places,
+   a ring for groups — named in the legend and card, never colour alone */
+.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
 .eco-atlas-dot.kind-group .eco-atlas-dot-core {
   fill: var(--paper);
   stroke: color-mix(in srgb, var(--ink) 55%, var(--paper)); stroke-width: 2;
@@ -881,10 +877,9 @@ body.eco-shell.eco-dark { --atlas-subject: #3987e5; --atlas-measurement: #d95926
   background: color-mix(in srgb, var(--ink) 42%, var(--paper));
   border: 1px solid var(--paper);
 }
-.eco-atlas-legend-dot.kind-subject { background: color-mix(in srgb, var(--atlas-subject) 78%, var(--paper)); }
-.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 78%, var(--paper)); }
-.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--atlas-measurement) 80%, var(--paper)); }
-.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--atlas-place) 72%, var(--paper)); }
+.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
 .eco-atlas-legend-dot.kind-group {
   background: var(--paper);
   border: 2px solid color-mix(in srgb, var(--ink) 55%, var(--paper));
