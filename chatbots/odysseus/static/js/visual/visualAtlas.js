@@ -100,6 +100,12 @@ function ensureAtlas() {
   atlasEl = el('div');
   atlasEl.id = 'eco-atlas';
   document.body.appendChild(atlasEl);
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && state && state.isolated
+        && document.body.classList.contains('eco-atlas-open')) {
+      exitIsolation();
+    }
+  });
   return atlasEl;
 }
 
@@ -247,56 +253,177 @@ function mergeNode(node, near) {
 }
 
 async function anchorNode(node) {
-  let entry = state.nodes.get(node.id) || mergeNode(node, null);
+  const entry = state.nodes.get(node.id) || mergeNode(node, null);
   if (!entry) return;
-  state.anchors.add(node.id);
-  entry.hop = 0;
-  // The camera moves to the searched thing — the graph never rearranges for
-  // a search, so anchoring adds emphasis without adding clutter.
-  state.spotlight = node.id;
-  glideTo(entry);
-  recomputeHops();
-  refreshAllNodeClasses();
-  refreshHover();
-  // Live packs load the anchor's full bounded neighbourhood; the sample
-  // already shows everything it has.
-  if (!state.sample) await expandNode(node.id);
-  else await selectNode(node.id);
+  state.anchors.add(node.id); // a memory of where you searched, kept as a tint
+  await isolateNode(node.id);
 }
 
-// Ease the view toward a node over ~450ms; the person keeps control after.
-function glideTo(entry) {
+// Ease the view to a target rect over ~420ms.
+function animateView(toX, toY, toK, after) {
   state.userMovedView = true;
   const fromX = state.view.x, fromY = state.view.y, fromK = state.view.k;
-  const toK = Math.max(fromK, 1.35);
-  const toX = entry.x - (WORLD_W / toK) / 2;
-  const toY = entry.y - (WORLD_H / toK) / 2;
   const t0 = performance.now();
   const step = (t) => {
-    const u = Math.min(1, (t - t0) / 450);
+    const u = Math.min(1, (t - t0) / 420);
     const e = 1 - Math.pow(1 - u, 3);
     state.view.k = fromK + (toK - fromK) * e;
     state.view.x = fromX + (toX - fromX) * e;
     state.view.y = fromY + (toY - fromY) * e;
     applyView();
     if (u < 1) requestAnimationFrame(step);
-    else declutterLabels();
+    else { declutterLabels(); if (after) after(); }
   };
   requestAnimationFrame(step);
 }
 
-async function expandNode(nodeId) {
+function viewFor(entries, pad) {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const p of entries) {
+    minX = Math.min(minX, p.x - p.r); maxX = Math.max(maxX, p.x + p.r);
+    minY = Math.min(minY, p.y - p.r); maxY = Math.max(maxY, p.y + p.r);
+  }
+  if (!Number.isFinite(minX)) return null;
+  const w = maxX - minX + pad * 2, h = maxY - minY + pad * 2;
+  const k = Math.min(3.4, Math.max(0.55, Math.min(WORLD_W / w, WORLD_H / h)));
+  return {
+    k,
+    x: (minX + maxX) / 2 - (WORLD_W / k) / 2,
+    y: (minY + maxY) / 2 - (WORLD_H / k) / 2,
+  };
+}
+
+// ---- isolation: one node and its one-hop links take the stage --------------
+// Clicking a node hides the rest of the constellation, lays its neighbours in
+// a ring around it, and opens its card. Clicking any neighbour re-isolates on
+// that neighbour; dismissing the card restores the full constellation exactly
+// as it was.
+async function isolateNode(id) {
+  const entry = state.nodes.get(id);
+  if (!entry) return;
+  state.simRunning = false; state.alpha = 0;
+  // entering from the constellation: remember every position for the way back
+  if (!state.isolated) {
+    state.savedPositions = new Map(
+      [...state.nodes.entries()].map(([nid, p]) => [nid, { x: p.x, y: p.y }]));
+    state.savedView = { ...state.view };
+  }
+  state.isolated = id;
+  state.selected = id;
+  // live packs complete the one-hop picture before showing it
+  if (!state.sample && !entry.expanded) await expandNode(id, { silent: true });
+  if (!entry.detail) entry.detail = await loadNode(id);
+
+  // the one-hop set, via edges incident to the centre
+  const spokes = [];
+  const seen = new Set([id]);
+  for (const key of state.adjacency.get(id) || []) {
+    const e = state.edges.get(key);
+    const other = e.from === id ? e.to : e.from;
+    if (seen.has(other)) continue;
+    seen.add(other);
+    const nb = state.nodes.get(other);
+    if (nb) spokes.push({ id: other, entry: nb, edge: e });
+  }
+  // group spokes by relation so families of links sit together on the ring
+  spokes.sort((a, b) => a.edge.relation.localeCompare(b.edge.relation)
+    || (b.edge.records || 0) - (a.edge.records || 0));
+
+  // visibility: centre + spokes only; only edges incident to the centre
+  for (const [nid, g] of state.nodeEls) {
+    g.classList.toggle('is-hidden', !seen.has(nid));
+    g.classList.toggle('is-isolated-centre', nid === id);
+  }
+  for (const [key, lineEl] of state.edgeEls) {
+    const e = state.edges.get(key);
+    lineEl.classList.toggle('is-hidden', !(e.from === id || e.to === id));
+    lineEl.classList.remove('is-lit', 'is-dim');
+  }
+
+  // concentric rings around the centre, each filled to its comfortable
+  // capacity so the ego view stays compact enough to read
+  const targets = new Map();
+  targets.set(id, { x: entry.x, y: entry.y });
+  let ringR = 240, placed = 0, ringStart = 0;
+  let capacity = Math.floor((2 * Math.PI * ringR) / 100);
+  spokes.forEach((s, i) => {
+    if (placed >= capacity) {
+      ringR += 135; ringStart = i; placed = 0;
+      capacity = Math.floor((2 * Math.PI * ringR) / 100);
+    }
+    const inRing = Math.min(capacity, spokes.length - ringStart);
+    const angle = ((i - ringStart) / Math.max(1, inRing)) * Math.PI * 2
+      - Math.PI / 2 + (ringR / 500); // slight per-ring twist
+    targets.set(s.id, {
+      x: entry.x + Math.cos(angle) * ringR,
+      y: entry.y + Math.sin(angle) * ringR * 0.82,
+    });
+    placed += 1;
+  });
+  animatePositions(targets, 340);
+  const rect = viewFor([...seen].map((nid) => {
+    const t = targets.get(nid) || state.nodes.get(nid);
+    return { x: t.x, y: t.y, r: state.nodes.get(nid).r };
+  }), 90);
+  if (rect) animateView(rect.x, rect.y, rect.k);
+
+  // in the ego view every visible thing is labelled
+  refreshAllNodeClasses();
+  for (const nid of seen) {
+    const g = state.nodeEls.get(nid);
+    if (g) g.classList.add('is-labelled');
+  }
+  renderStatus();
+  renderDetail(id, entry.detail || null);
+}
+
+function exitIsolation() {
+  if (!state.isolated) return;
+  state.isolated = null;
+  state.selected = null;
+  for (const g of state.nodeEls.values()) g.classList.remove('is-hidden', 'is-isolated-centre');
+  for (const lineEl of state.edgeEls.values()) lineEl.classList.remove('is-hidden');
+  if (state.savedPositions) {
+    animatePositions(state.savedPositions, 340);
+  }
+  if (state.savedView) {
+    animateView(state.savedView.x, state.savedView.y, state.savedView.k);
+  }
+  const panel = atlasEl.querySelector('.eco-atlas-detail');
+  if (panel) panel.hidden = true;
+  refreshAllNodeClasses();
+  refreshHover();
+  renderStatus();
+}
+
+// Lerp node positions to targets; the sim stays paused while animating.
+function animatePositions(targets, ms) {
+  const starts = new Map();
+  for (const [nid, to] of targets) {
+    const p = state.nodes.get(nid);
+    if (p) starts.set(nid, { x: p.x, y: p.y, tx: to.x, ty: to.y });
+  }
+  const t0 = performance.now();
+  const step = (t) => {
+    const u = Math.min(1, (t - t0) / ms);
+    const e = 1 - Math.pow(1 - u, 3);
+    for (const [nid, s] of starts) {
+      const p = state.nodes.get(nid);
+      if (!p) continue;
+      p.x = s.x + (s.tx - s.x) * e;
+      p.y = s.y + (s.ty - s.y) * e;
+    }
+    paint();
+    if (u < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+async function expandNode(nodeId, opts) {
   const entry = state.nodes.get(nodeId);
   if (!entry) return;
-  if (state.anchors.size && entry.hop >= MAX_HOP) {
-    refreshAllNodeClasses();
-    renderDetail(nodeId, entry.detail || null,
-      'Three hops from your search — make it a focus to keep walking.');
-    return;
-  }
   const detail = await loadNode(nodeId);
   entry.expanded = true;
-  if (!state.anchors.size) { state.anchors.add(nodeId); entry.hop = 0; }
   if (detail) {
     entry.node = { ...entry.node, ...detail.node };
     for (const rel of detail.relations || []) {
@@ -326,11 +453,13 @@ async function expandNode(nodeId) {
   }
   rebuildAdjacency();
   recomputeHops();
-  refreshAllNodeClasses();
   renderLegend();
-  renderStatus();
-  renderDetail(nodeId, entry.detail || null);
-  startSim(0.6);
+  if (!(opts && opts.silent)) {
+    refreshAllNodeClasses();
+    renderStatus();
+    renderDetail(nodeId, entry.detail || null);
+    startSim(0.6);
+  }
 }
 
 // ---- static frame ----------------------------------------------------------
@@ -640,7 +769,12 @@ function nodeClasses(id, entry) {
   const cls = ['eco-atlas-dot', `kind-${entry.node.kind}`];
   if (state.anchors.has(id)) cls.push('is-anchor');
   if (state.selected === id) cls.push('is-selected');
-  if (state.anchors.size && entry.hop >= MAX_HOP && !state.anchors.has(id)) cls.push('is-far');
+  if (state.isolated === id) cls.push('is-isolated-centre');
+  if (state.isolated) {
+    const visible = id === state.isolated || (state.adjacency.get(state.isolated) || [])
+      .some((k) => { const e = state.edges.get(k); return e.from === id || e.to === id; });
+    if (!visible) cls.push('is-hidden');
+  }
   const rank = state.labelRankCache;
   if ((rank && rank.has(id)) || state.anchors.has(id) || state.selected === id) cls.push('is-labelled');
   return cls.join(' ');
@@ -662,7 +796,7 @@ function refreshAllNodeClasses() {
     const g = state.nodeEls.get(id);
     if (!g) continue;
     g.setAttribute('class', nodeClasses(id, entry));
-    const r = entry.r;
+    const r = state.isolated === id ? Math.max(entry.r, 16) : entry.r;
     const core = g.querySelector('.eco-atlas-dot-core');
     if (core) core.setAttribute('r', r);
     const halo = g.querySelector('.eco-atlas-dot-halo');
@@ -674,7 +808,7 @@ function refreshAllNodeClasses() {
 }
 
 function refreshHover() {
-  const id = state.hovered || state.spotlight;
+  const id = state.hovered;
   for (const [key, lineEl] of state.edgeEls) {
     const e = state.edges.get(key);
     const hit = id && (e.from === id || e.to === id);
@@ -819,6 +953,12 @@ function renderLegend() {
 function renderStatus() {
   const status = atlasEl.querySelector('.eco-atlas-status');
   if (!status) return;
+  if (state.isolated) {
+    const entry = state.nodes.get(state.isolated);
+    const n = (state.adjacency.get(state.isolated) || []).length;
+    status.textContent = `Showing ${cleanText(entry.node.label)} and its ${n} connection${n === 1 ? '' : 's'} — close the card to return to the full map`;
+    return;
+  }
   const bits = [`${state.nodes.size} things · ${state.edges.size} connections on the canvas`];
   const omitted = ((state.start.more || {}).subject || {}).omitted;
   if (omitted && state.sample) {
@@ -834,11 +974,7 @@ function renderStatus() {
 
 // ---- detail card -----------------------------------------------------------
 async function selectNode(id) {
-  state.selected = id;
-  refreshAllNodeClasses();
-  const entry = state.nodes.get(id);
-  if (entry && !entry.detail) entry.detail = await loadNode(id);
-  renderDetail(id, entry ? entry.detail : null);
+  await isolateNode(id);
 }
 
 // A node with no producer detail still has its on-canvas edges — group those.
@@ -875,10 +1011,7 @@ function renderDetail(id, detail, note) {
   const head = el('div', 'eco-atlas-detail-head');
   head.appendChild(el('span', 'eco-atlas-detail-title', cleanText(node.label)));
   const x = el('button', 'viz-panel-close', '×');
-  x.addEventListener('click', () => {
-    panel.hidden = true; state.selected = null; state.spotlight = null;
-    refreshAllNodeClasses(); refreshHover();
-  });
+  x.addEventListener('click', () => exitIsolation());
   head.appendChild(x);
   panel.appendChild(head);
   panel.appendChild(el('div', 'eco-atlas-detail-kind',
@@ -886,28 +1019,8 @@ function renderDetail(id, detail, note) {
     + (Number.isFinite(node.sources) ? ` · ${node.sources} source${node.sources === 1 ? '' : 's'}` : '')));
   if (note) panel.appendChild(el('p', 'eco-atlas-detail-note', note));
 
-  const moves = el('div', 'eco-atlas-detail-moves');
-  // Sticky version of the hover highlight: dim everything not connected.
-  const spot = el('button', 'eco-atlas-move-primary',
-    state.spotlight === id ? 'Clear spotlight' : 'Spotlight connections');
-  spot.type = 'button';
-  spot.addEventListener('click', () => {
-    state.spotlight = state.spotlight === id ? null : id;
-    refreshHover();
-    renderDetail(id, detail, note);
-  });
-  moves.appendChild(spot);
-  // More neighbours exist only on a live pack (the sample shows all it has).
-  const moreKnown = ((detail && detail.relations) || [])
-    .reduce((s, r) => s + (r.omitted || 0), 0);
-  if (!state.sample && (!entry.expanded || moreKnown) && (!state.anchors.size || entry.hop < MAX_HOP)) {
-    const ex = el('button', 'eco-atlas-move-secondary',
-      moreKnown ? `Load ${formatNumber(moreKnown)} more connections` : 'Load its full neighbourhood');
-    ex.type = 'button';
-    ex.addEventListener('click', () => expandNode(id));
-    moves.appendChild(ex);
-  }
-  panel.appendChild(moves);
+  panel.appendChild(el('p', 'eco-atlas-detail-note',
+    'Click any connection to move there. Close this card to return to the full map.'));
 
   for (const rel of src.relations || []) {
     const sec = el('div', 'eco-atlas-detail-rel');

@@ -825,6 +825,17 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 .eco-atlas-dot.is-neighbor .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 55%, var(--paper)); }
 .eco-atlas-dot.is-far { opacity: 0.3; }
 
+/* isolation: one node and its one-hop ring; the rest of the field is gone */
+.eco-atlas-dot.is-hidden { display: none; }
+.eco-atlas-fil.is-hidden { display: none; }
+.eco-atlas-dot.is-isolated-centre .eco-atlas-dot-core {
+  fill: var(--pine);
+  stroke: color-mix(in srgb, var(--pine) 30%, var(--paper)); stroke-width: 3;
+}
+.eco-atlas-dot.is-isolated-centre .eco-atlas-dot-label {
+  opacity: 1; font-family: var(--font-display); font-weight: 600;
+}
+
 /* names: landmarks stay labelled, everything else speaks on hover */
 .eco-atlas-dot-label {
   font-family: var(--font-ui); font-weight: 600;
