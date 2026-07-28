@@ -141,6 +141,7 @@ export async function openAtlas(endpointId, openExplorerFn) {
     omittedByBudget: 0,
     selected: null,
     hovered: null,
+    kindsOff: new Set(),
     view: { x: 0, y: 0, k: 1 },
     alpha: 0,
     simRunning: false,
@@ -152,6 +153,28 @@ export async function openAtlas(endpointId, openExplorerFn) {
   seedAmbient();
   renderShell();
   startSim(1);
+}
+
+function kindOff(node) {
+  return state.kindsOff.has(node.kind);
+}
+
+// Constellation-level visibility from the legend filters: a node shows only
+// when its kind is on; an edge only when both its ends show.
+function applyKindFilter() {
+  if (state.isolated) exitIsolation();
+  for (const [id, entry] of state.nodes) {
+    const g = state.nodeEls.get(id);
+    if (g) g.classList.toggle('is-koff', kindOff(entry.node));
+  }
+  for (const [key, lineEl] of state.edgeEls) {
+    const e = state.edges.get(key);
+    const a = state.nodes.get(e.from), b = state.nodes.get(e.to);
+    lineEl.classList.toggle('is-koff', !a || !b || kindOff(a.node) || kindOff(b.node));
+  }
+  renderLegend();
+  renderStatus();
+  scheduleDeclutter();
 }
 
 function kindLabel(kind, plural) {
@@ -255,6 +278,10 @@ function mergeNode(node, near) {
 async function anchorNode(node) {
   const entry = state.nodes.get(node.id) || mergeNode(node, null);
   if (!entry) return;
+  if (state.kindsOff.has(node.kind)) {
+    state.kindsOff.delete(node.kind); // you searched for it; turn its kind back on
+    applyKindFilter();
+  }
   state.anchors.add(node.id); // a memory of where you searched, kept as a tint
   await isolateNode(node.id);
 }
@@ -321,9 +348,10 @@ async function isolateNode(id) {
     const e = state.edges.get(key);
     const other = e.from === id ? e.to : e.from;
     if (seen.has(other)) continue;
-    seen.add(other);
     const nb = state.nodes.get(other);
-    if (nb) spokes.push({ id: other, entry: nb, edge: e });
+    if (!nb || kindOff(nb.node)) continue; // the legend filter shapes the ring
+    seen.add(other);
+    spokes.push({ id: other, entry: nb, edge: e });
   }
   // group spokes by relation so families of links sit together on the ring
   spokes.sort((a, b) => a.edge.relation.localeCompare(b.edge.relation)
@@ -336,7 +364,9 @@ async function isolateNode(id) {
   }
   for (const [key, lineEl] of state.edgeEls) {
     const e = state.edges.get(key);
-    lineEl.classList.toggle('is-hidden', !(e.from === id || e.to === id));
+    const visible = (e.from === id || e.to === id)
+      && seen.has(e.from) && seen.has(e.to);
+    lineEl.classList.toggle('is-hidden', !visible);
     lineEl.classList.remove('is-lit', 'is-dim');
   }
 
@@ -374,7 +404,11 @@ async function isolateNode(id) {
     if (g) g.classList.add('is-labelled');
   }
   renderStatus();
-  renderDetail(id, entry.detail || null);
+  renderDetail(id, entry.detail || null,
+    spokes.length === 0 && state.kindsOff.size
+      ? 'Nothing here connects directly to the kinds currently shown — '
+        + 'turn more kinds on in the legend to see how this links through them.'
+      : null);
 }
 
 function exitIsolation() {
@@ -659,6 +693,7 @@ function positionLabel(entry, g) {
 function declutterLabels() {
   const candidates = [];
   for (const [id, entry] of state.nodes) {
+    if (kindOff(entry.node)) continue;
     const isAnchor = state.anchors.has(id);
     const isSelected = state.selected === id;
     const isLandmark = state.labelRankCache && state.labelRankCache.has(id);
@@ -785,6 +820,7 @@ function addNodeEl(id, entry) {
 
 function nodeClasses(id, entry) {
   const cls = ['eco-atlas-dot', `kind-${entry.node.kind}`];
+  if (kindOff(entry.node)) cls.push('is-koff');
   if (state.anchors.has(id)) cls.push('is-anchor');
   if (state.selected === id) cls.push('is-selected');
   if (state.isolated === id) cls.push('is-isolated-centre');
@@ -941,22 +977,50 @@ function paint() {
 }
 
 // ---- legend & status -------------------------------------------------------
+// The legend is the filter: click a kind to hide or show it, double-click to
+// see only that kind. The canvas and the isolation ring both obey it.
 function renderLegend() {
   const legend = atlasEl.querySelector('#eco-atlas-legend');
   if (!legend) return;
   legend.replaceChildren();
   const kinds = (state.start.node_kinds || []);
   for (const k of kinds) {
-    const item = el('span', 'eco-atlas-legend-item');
+    const item = el('button', 'eco-atlas-legend-item');
+    item.type = 'button';
+    item.title = 'Click to hide/show · double-click to show only these';
+    if (state.kindsOff.has(k.kind)) item.classList.add('is-off');
     const dot = el('span', `eco-atlas-legend-dot kind-${k.kind}`);
     item.appendChild(dot);
     item.appendChild(el('span', 'eco-atlas-legend-label',
       `${k.label}${Number.isFinite(k.count) ? ` · ${formatNumber(k.count)}` : ''}`));
+    let clickT = null;
+    item.addEventListener('click', () => {
+      clearTimeout(clickT);
+      clickT = setTimeout(() => {
+        if (state.kindsOff.has(k.kind)) state.kindsOff.delete(k.kind);
+        else state.kindsOff.add(k.kind);
+        applyKindFilter();
+      }, 180);
+    });
+    item.addEventListener('dblclick', () => {
+      clearTimeout(clickT);
+      state.kindsOff = new Set(kinds.map((x) => x.kind).filter((x) => x !== k.kind));
+      applyKindFilter();
+    });
     legend.appendChild(item);
+  }
+  if (state.kindsOff.size) {
+    const reset = el('button', 'eco-atlas-legend-reset', 'Show everything');
+    reset.type = 'button';
+    reset.addEventListener('click', () => {
+      state.kindsOff.clear();
+      applyKindFilter();
+    });
+    legend.appendChild(reset);
   }
   for (const [, style] of state.relationStyles) {
     if (style.basis !== 'derived') continue;
-    const item = el('span', 'eco-atlas-legend-item');
+    const item = el('span', 'eco-atlas-legend-item is-static');
     const key = el('span', 'eco-atlas-legend-key basis-derived');
     item.appendChild(key);
     item.appendChild(el('span', 'eco-atlas-legend-label', `${cleanText(style.label)} (derived)`));
@@ -975,6 +1039,11 @@ function renderStatus() {
     return;
   }
   const bits = [`${state.nodes.size} things · ${state.edges.size} connections on the canvas`];
+  if (state.kindsOff.size) {
+    const on = (state.start.node_kinds || [])
+      .filter((k) => !state.kindsOff.has(k.kind)).map((k) => k.label.toLowerCase());
+    bits.push(`showing only ${on.join(', ')} — click the legend to change`);
+  }
   const omitted = ((state.start.more || {}).subject || {}).omitted;
   if (omitted && state.sample) {
     bits.push(`${formatNumber(omitted)} more recorded names omitted from this ambient sample — searchable once the live graph is connected`);

@@ -813,14 +813,22 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   opacity: 0;
   transition: opacity 160ms ease;
 }
-/* kinds: tones within the theme, named in the legend and card — never colour alone */
-.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
-.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
-.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+/* kinds: the validated categorical trio (subject blue, measurement orange,
+   place aqua) plus tone/shape for the rest — named in the legend and card,
+   never colour alone */
+body.eco-shell { --atlas-subject: #2a78d6; --atlas-measurement: #eb6834; --atlas-place: #1baf7a; }
+body.eco-shell.eco-dark { --atlas-subject: #3987e5; --atlas-measurement: #d95926; --atlas-place: #199e70; }
+.eco-atlas-dot.kind-subject .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-subject) 78%, var(--paper)); }
+.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-measurement) 80%, var(--paper)); }
+.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--atlas-place) 72%, var(--paper)); }
+.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 78%, var(--paper)); }
 .eco-atlas-dot.kind-group .eco-atlas-dot-core {
   fill: var(--paper);
   stroke: color-mix(in srgb, var(--ink) 55%, var(--paper)); stroke-width: 2;
 }
+/* the legend filter: a kind that's off leaves the canvas entirely */
+.eco-atlas-dot.is-koff { display: none; }
+.eco-atlas-fil.is-koff { display: none; }
 .eco-atlas-dot.is-anchor .eco-atlas-dot-core {
   fill: var(--pine);
   stroke: color-mix(in srgb, var(--pine) 35%, var(--paper)); stroke-width: 2.5;
@@ -873,13 +881,30 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   background: color-mix(in srgb, var(--ink) 42%, var(--paper));
   border: 1px solid var(--paper);
 }
-.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
-.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
-.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+.eco-atlas-legend-dot.kind-subject { background: color-mix(in srgb, var(--atlas-subject) 78%, var(--paper)); }
+.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 78%, var(--paper)); }
+.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--atlas-measurement) 80%, var(--paper)); }
+.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--atlas-place) 72%, var(--paper)); }
 .eco-atlas-legend-dot.kind-group {
   background: var(--paper);
   border: 2px solid color-mix(in srgb, var(--ink) 55%, var(--paper));
 }
+#eco-atlas .eco-atlas-legend-item {
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 4px 8px; border-radius: 999px;
+  transition: background 130ms ease, opacity 130ms ease;
+}
+#eco-atlas .eco-atlas-legend-item:hover { background: var(--pine-wash); }
+#eco-atlas .eco-atlas-legend-item.is-static { cursor: default; }
+#eco-atlas .eco-atlas-legend-item.is-static:hover { background: none; }
+#eco-atlas .eco-atlas-legend-item.is-off { opacity: 0.38; }
+#eco-atlas .eco-atlas-legend-item.is-off .eco-atlas-legend-label { text-decoration: line-through; }
+#eco-atlas .eco-atlas-legend-reset {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 11.5px var(--font-ui); color: var(--pine);
+  padding: 4px 12px; border-radius: 999px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-legend-reset:hover { background: var(--pine-wash); }
 .eco-atlas-legend-key.basis-derived { border-top-style: dashed; border-top-color: color-mix(in srgb, var(--ink) 22%, transparent); }
 .eco-atlas-legend-label { font-size: 11.5px; color: var(--ink-soft); }
 .eco-atlas-status { margin-top: 10px; font-size: 12px; color: var(--ink-faint); min-height: 16px; }
