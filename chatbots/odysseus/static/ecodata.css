@@ -791,8 +791,16 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   stroke: color-mix(in srgb, var(--ink) 13%, transparent);
   stroke-dasharray: 5 5;
 }
-.eco-atlas-fil.is-lit { stroke: color-mix(in srgb, var(--pine) 70%, transparent); }
-.eco-atlas-fil.is-dim { opacity: 0.16; }
+.eco-atlas-world { will-change: transform; }
+/* hover dims the whole field via one world class; the neighbourhood re-lights */
+.eco-atlas-world.is-hovering .eco-atlas-fil { opacity: 0.14; }
+.eco-atlas-world.is-hovering .eco-atlas-dot { opacity: 0.3; }
+.eco-atlas-world.is-hovering .eco-atlas-dot .eco-atlas-dot-label { opacity: 0; }
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-hovered,
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-neighbor { opacity: 1; }
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-hovered .eco-atlas-dot-label,
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-neighbor.is-labelled .eco-atlas-dot-label { opacity: 1; }
+.eco-atlas-fil.is-lit { stroke: color-mix(in srgb, var(--pine) 70%, transparent); opacity: 1 !important; }
 
 .eco-atlas-dot { cursor: pointer; outline: none; }
 .eco-atlas-dot-core {
@@ -821,7 +829,6 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 .eco-atlas-dot.is-hovered .eco-atlas-dot-halo,
 .eco-atlas-dot:focus-visible .eco-atlas-dot-halo { opacity: 1; }
 .eco-atlas-dot.is-hovered .eco-atlas-dot-core { fill: var(--pine); }
-.eco-atlas-dot.is-bg { opacity: 0.35; }
 .eco-atlas-dot.is-neighbor .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 55%, var(--paper)); }
 .eco-atlas-dot.is-far { opacity: 0.3; }
 
@@ -853,7 +860,6 @@ body.eco-atlas-open #viz-context-rail { display: none; }
 .eco-atlas-dot.is-anchor .eco-atlas-dot-label {
   opacity: 1; font-family: var(--font-display); font-weight: 600;
 }
-.eco-atlas-dot.is-bg .eco-atlas-dot-label { opacity: 0; }
 
 /* relation legend */
 .eco-atlas-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 12px 4px 0; }

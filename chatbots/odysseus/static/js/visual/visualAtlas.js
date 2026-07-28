@@ -549,9 +549,10 @@ function buildCanvas(stage) {
   const svg = svgEl('svg', {
     class: 'eco-atlas-svg eco-atlas-svg-cosmos',
     viewBox: `0 0 ${WORLD_W} ${WORLD_H}`,
-    preserveAspectRatio: 'xMidYMid meet',
+    preserveAspectRatio: 'xMidYMid slice',
     role: 'img', 'aria-label': 'Relationship constellation',
   });
+  window.addEventListener('resize', () => { state.stageRect = null; });
   stage.appendChild(svg);
   const world = svgEl('g', { class: 'eco-atlas-world' });
   svg.appendChild(world);
@@ -585,11 +586,19 @@ function buildCanvas(stage) {
   svg.addEventListener('pointerup', () => { panning = null; });
   svg.addEventListener('wheel', (ev) => {
     ev.preventDefault();
-    const factor = ev.deltaY < 0 ? 0.88 : 1.14;
     state.userMovedView = true;
     scheduleDeclutter();
+    const factor = ev.deltaY < 0 ? 0.9 : 1.12;
     const next = Math.min(3.4, Math.max(0.55, state.view.k * factor));
+    // anchor the zoom on the cursor so the point under it stays put
+    const rect = stageRect();
+    const px = (ev.clientX - rect.x) / Math.max(1, rect.width);
+    const py = (ev.clientY - rect.y) / Math.max(1, rect.height);
+    const wx = state.view.x + px * (WORLD_W / state.view.k);
+    const wy = state.view.y + py * (WORLD_H / state.view.k);
     state.view.k = next;
+    state.view.x = wx - px * (WORLD_W / next);
+    state.view.y = wy - py * (WORLD_H / next);
     applyView();
   }, { passive: false });
   applyView();
@@ -677,9 +686,12 @@ function declutterLabels() {
   }
 }
 
+function stageRect() {
+  if (!state.stageRect) state.stageRect = state.svg.getBoundingClientRect();
+  return state.stageRect;
+}
 function worldPerPixel() {
-  const rect = state.svg.getBoundingClientRect();
-  return (WORLD_W / state.view.k) / Math.max(1, rect.width);
+  return (WORLD_W / state.view.k) / Math.max(1, stageRect().width);
 }
 function viewCentre() {
   return {
@@ -687,9 +699,15 @@ function viewCentre() {
     y: state.view.y + (WORLD_H / state.view.k) / 2,
   };
 }
+// One transform on the world group — the browser composites the pan/zoom
+// instead of re-rasterising every dot and filament per event.
 function applyView() {
-  const w = WORLD_W / state.view.k, h = WORLD_H / state.view.k;
-  state.svg.setAttribute('viewBox', `${state.view.x} ${state.view.y} ${w} ${h}`);
+  if (state._viewRaf) return;
+  state._viewRaf = requestAnimationFrame(() => {
+    state._viewRaf = null;
+    const { x, y, k } = state.view;
+    state.world.setAttribute('transform', `scale(${k}) translate(${-x} ${-y})`);
+  });
 }
 
 function addEdgeEl(key, edge) {
@@ -807,26 +825,23 @@ function refreshAllNodeClasses() {
   scheduleDeclutter();
 }
 
+// The field-dimming lives on the world group (one class); only the hovered
+// node's own neighbourhood gets element classes. O(degree), not O(graph).
 function refreshHover() {
   const id = state.hovered;
-  for (const [key, lineEl] of state.edgeEls) {
+  for (const el of state._litEls || []) el.classList.remove('is-lit', 'is-hovered', 'is-neighbor');
+  state._litEls = [];
+  state.world.classList.toggle('is-hovering', !!id && !state.isolated);
+  if (!id) return;
+  const g = state.nodeEls.get(id);
+  if (g) { g.classList.add('is-hovered'); state._litEls.push(g); }
+  for (const key of state.adjacency.get(id) || []) {
+    const lineEl = state.edgeEls.get(key);
+    if (lineEl) { lineEl.classList.add('is-lit'); state._litEls.push(lineEl); }
     const e = state.edges.get(key);
-    const hit = id && (e.from === id || e.to === id);
-    lineEl.classList.toggle('is-lit', !!hit);
-    lineEl.classList.toggle('is-dim', !!id && !hit);
-  }
-  for (const [nid, g] of state.nodeEls) {
-    g.classList.toggle('is-hovered', nid === id);
-    if (id && nid !== id) {
-      const touching = (state.adjacency.get(id) || []).some((k) => {
-        const e = state.edges.get(k);
-        return e.from === nid || e.to === nid;
-      });
-      g.classList.toggle('is-neighbor', touching);
-      g.classList.toggle('is-bg', !touching);
-    } else {
-      g.classList.remove('is-neighbor', 'is-bg');
-    }
+    const other = e.from === id ? e.to : e.from;
+    const og = state.nodeEls.get(other);
+    if (og) { og.classList.add('is-neighbor'); state._litEls.push(og); }
   }
 }
 
@@ -848,7 +863,7 @@ function startSim(alpha) {
     if (!state || !state.simRunning) return;
     simTick();
     paint();
-    state.alpha *= 0.99;
+    state.alpha *= 0.985;
     if (!state.userMovedView && (state._fitCounter = (state._fitCounter || 0) + 1) % 24 === 0) {
       fitView();
     }
