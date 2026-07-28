@@ -1,0 +1,12 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0006",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "contract_version": "idli-graph/1",
+  "summary": "Label engine reworked: candidates are priority-ordered (anchored search result, then the selected node, then landmarks by records), each label is measured (chars x font size) and lower-priority collisions are hidden, never stacked \u2014 anchors and the selection always keep their names. Labels are edge-aware: flipped below the node near the top of the stage and re-anchored near the sides. Declutter runs during settling, after class refreshes, after pan/zoom (debounced) and at glide end. Measured at the 1440x1000 acceptance viewport on the ambient fixture: 8 visible labels, 0 overlaps, 0 clipped. Fixture wording fixed: sample mode now says omitted names are 'omitted from this ambient sample \u2014 searchable once the live graph is connected'; 'live behind search' is reserved for a successful producer endpoint (and is now literally true against your shipped /v1/graph). Verified live against the real Valparai graph: hornbill search anchors Malabar Grey Hornbill with a legible top-priority label.",
+  "consumer_note": "One interaction change shipped alongside, at the product owner's direction (not part of this proposal): 'Make this the focus' is removed \u2014 a search/selection now moves the CAMERA to the node (ease ~450ms) instead of pinning the node to the centre, and 'Show its connections' became a 'Spotlight connections' toggle (sticky hover-highlight); loading more neighbours appears only when the producer reports more to give ('Load N more connections'). Payload semantics, provenance, action handoff and merge-by-stable-id expansion are unchanged.",
+  "validated_fixtures": [],
+  "producer_action_required": [],
+  "updated_at": "2026-07-28"
+}

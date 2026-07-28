@@ -251,11 +251,38 @@ async function anchorNode(node) {
   if (!entry) return;
   state.anchors.add(node.id);
   entry.hop = 0;
-  // the searched thing takes the centre of the current view
-  const centre = viewCentre();
-  entry.fx = centre.x; entry.fy = centre.y;
-  state.selected = node.id;
-  await expandNode(node.id);
+  // The camera moves to the searched thing — the graph never rearranges for
+  // a search, so anchoring adds emphasis without adding clutter.
+  state.spotlight = node.id;
+  glideTo(entry);
+  recomputeHops();
+  refreshAllNodeClasses();
+  refreshHover();
+  // Live packs load the anchor's full bounded neighbourhood; the sample
+  // already shows everything it has.
+  if (!state.sample) await expandNode(node.id);
+  else await selectNode(node.id);
+}
+
+// Ease the view toward a node over ~450ms; the person keeps control after.
+function glideTo(entry) {
+  state.userMovedView = true;
+  const fromX = state.view.x, fromY = state.view.y, fromK = state.view.k;
+  const toK = Math.max(fromK, 1.35);
+  const toX = entry.x - (WORLD_W / toK) / 2;
+  const toY = entry.y - (WORLD_H / toK) / 2;
+  const t0 = performance.now();
+  const step = (t) => {
+    const u = Math.min(1, (t - t0) / 450);
+    const e = 1 - Math.pow(1 - u, 3);
+    state.view.k = fromK + (toK - fromK) * e;
+    state.view.x = fromX + (toX - fromX) * e;
+    state.view.y = fromY + (toY - fromY) * e;
+    applyView();
+    if (u < 1) requestAnimationFrame(step);
+    else declutterLabels();
+  };
+  requestAnimationFrame(step);
 }
 
 async function expandNode(nodeId) {
@@ -421,6 +448,7 @@ function buildCanvas(stage) {
     if (!panning) return;
     const scale = worldPerPixel();
     state.userMovedView = true;
+    scheduleDeclutter();
     state.view.x = panning.vx - (ev.clientX - panning.x) * scale;
     state.view.y = panning.vy - (ev.clientY - panning.y) * scale;
     applyView();
@@ -430,6 +458,7 @@ function buildCanvas(stage) {
     ev.preventDefault();
     const factor = ev.deltaY < 0 ? 0.88 : 1.14;
     state.userMovedView = true;
+    scheduleDeclutter();
     const next = Math.min(3.4, Math.max(0.55, state.view.k * factor));
     state.view.k = next;
     applyView();
@@ -454,19 +483,68 @@ function fitView() {
   applyView();
 }
 
-// Landmark labels must not pile up in the dense middle: greedily keep the
-// heaviest, drop any whose name would sit on top of a kept one.
+// Labels must never pile up or clip (TR-VIS-0006). Priority: anchors, then
+// the selected node, then landmarks by records. A lower-priority label that
+// would sit on a kept one is hidden, never stacked; anchor/selected labels
+// are always kept. Each label is measured (chars × font size) and clamped
+// inside the stage: flipped below the node near the top edge, re-anchored
+// near the sides.
+function labelBox(entry) {
+  const fontSize = Math.max(11, Math.min(17, entry.r * 1.1));
+  const w = Math.max(40, cleanText(entry.node.label).length * fontSize * 0.6);
+  return { w, h: fontSize * 1.5, fontSize };
+}
+
+function positionLabel(entry, g) {
+  const label = g.querySelector('.eco-atlas-dot-label');
+  if (!label) return;
+  const { w, fontSize } = labelBox(entry);
+  const viewLeft = state.view.x, viewTop = state.view.y;
+  const viewRight = viewLeft + WORLD_W / state.view.k;
+  const pad = 14 / state.view.k;
+  // above by default; below when the node settles near the top of the view
+  const above = entry.y - entry.r - fontSize * 1.6 > viewTop + pad;
+  label.setAttribute('y', above ? -(entry.r + 6) : entry.r + fontSize + 4);
+  // keep the text run inside the stage horizontally
+  if (entry.x - w / 2 < viewLeft + pad) {
+    label.setAttribute('text-anchor', 'start');
+    label.setAttribute('x', -entry.r);
+  } else if (entry.x + w / 2 > viewRight - pad) {
+    label.setAttribute('text-anchor', 'end');
+    label.setAttribute('x', entry.r);
+  } else {
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('x', 0);
+  }
+}
+
 function declutterLabels() {
+  const candidates = [];
+  for (const [id, entry] of state.nodes) {
+    const isAnchor = state.anchors.has(id);
+    const isSelected = state.selected === id;
+    const isLandmark = state.labelRankCache && state.labelRankCache.has(id);
+    if (!isAnchor && !isSelected && !isLandmark) continue;
+    candidates.push({
+      id, entry,
+      priority: isAnchor ? 3 : isSelected ? 2 : 1,
+      weight: entry.node.records || 0,
+    });
+  }
+  candidates.sort((a, b) => b.priority - a.priority || b.weight - a.weight);
   const kept = [];
-  const ranked = [...state.nodes.entries()]
-    .filter(([id]) => state.labelRankCache && state.labelRankCache.has(id))
-    .sort((a, b) => (b[1].node.records || 0) - (a[1].node.records || 0));
-  for (const [id, p] of ranked) {
-    const g = state.nodeEls.get(id);
+  for (const c of candidates) {
+    const g = state.nodeEls.get(c.id);
     if (!g) continue;
-    const collide = kept.some((q) => Math.abs(q.x - p.x) < 150 && Math.abs(q.y - p.y) < 44);
-    g.classList.toggle('is-labelled', !collide);
-    if (!collide) kept.push(p);
+    const box = labelBox(c.entry);
+    const collide = kept.some((k) =>
+      Math.abs(k.entry.x - c.entry.x) < (k.box.w + box.w) / 2 + 8
+      && Math.abs(k.entry.y - c.entry.y) < (k.box.h + box.h) / 2 + 26);
+    // anchors and the selected node always keep their name (their priority
+    // ordering means anything colliding with them is what gets hidden)
+    const show = c.priority >= 2 || !collide;
+    g.classList.toggle('is-labelled', show);
+    if (show) { kept.push({ entry: c.entry, box }); positionLabel(c.entry, g); }
   }
 }
 
@@ -568,6 +646,12 @@ function nodeClasses(id, entry) {
   return cls.join(' ');
 }
 
+let _declutterT = null;
+function scheduleDeclutter() {
+  clearTimeout(_declutterT);
+  _declutterT = setTimeout(declutterLabels, 140);
+}
+
 function refreshAllNodeClasses() {
   // the heaviest nodes keep their names on — the landmarks of the constellation
   const byWeight = [...state.nodes.entries()]
@@ -578,22 +662,19 @@ function refreshAllNodeClasses() {
     const g = state.nodeEls.get(id);
     if (!g) continue;
     g.setAttribute('class', nodeClasses(id, entry));
-    // the searched thing must be unmissable, whatever its record count
-    const r = state.anchors.has(id) ? Math.max(entry.r, 15) : entry.r;
+    const r = entry.r;
     const core = g.querySelector('.eco-atlas-dot-core');
     if (core) core.setAttribute('r', r);
     const halo = g.querySelector('.eco-atlas-dot-halo');
     if (halo) halo.setAttribute('r', r + 7);
     const label = g.querySelector('.eco-atlas-dot-label');
-    if (label) {
-      label.setAttribute('y', -(r + 6));
-      label.setAttribute('font-size', Math.max(11, Math.min(17, r * 1.1)));
-    }
+    if (label) label.setAttribute('font-size', Math.max(11, Math.min(17, r * 1.1)));
   }
+  scheduleDeclutter();
 }
 
 function refreshHover() {
-  const id = state.hovered;
+  const id = state.hovered || state.spotlight;
   for (const [key, lineEl] of state.edgeEls) {
     const e = state.edges.get(key);
     const hit = id && (e.from === id || e.to === id);
@@ -637,6 +718,7 @@ function startSim(alpha) {
     if (!state.userMovedView && (state._fitCounter = (state._fitCounter || 0) + 1) % 24 === 0) {
       fitView();
     }
+    if ((state._fitCounter || 0) % 18 === 0) declutterLabels();
     if (state.alpha < 0.015 || !document.body.classList.contains('eco-atlas-open')) {
       state.simRunning = false;
       if (!state.userMovedView) fitView();
@@ -739,7 +821,11 @@ function renderStatus() {
   if (!status) return;
   const bits = [`${state.nodes.size} things · ${state.edges.size} connections on the canvas`];
   const omitted = ((state.start.more || {}).subject || {}).omitted;
-  if (omitted) bits.push(`${formatNumber(omitted)} more recorded names live behind search`);
+  if (omitted && state.sample) {
+    bits.push(`${formatNumber(omitted)} more recorded names omitted from this ambient sample — searchable once the live graph is connected`);
+  } else if (omitted) {
+    bits.push(`${formatNumber(omitted)} more recorded names live behind search`);
+  }
   if (state.omittedByBudget) {
     bits.push(`${formatNumber(state.omittedByBudget)} not added — canvas budget reached`);
   }
@@ -790,7 +876,8 @@ function renderDetail(id, detail, note) {
   head.appendChild(el('span', 'eco-atlas-detail-title', cleanText(node.label)));
   const x = el('button', 'viz-panel-close', '×');
   x.addEventListener('click', () => {
-    panel.hidden = true; state.selected = null; refreshAllNodeClasses();
+    panel.hidden = true; state.selected = null; state.spotlight = null;
+    refreshAllNodeClasses(); refreshHover();
   });
   head.appendChild(x);
   panel.appendChild(head);
@@ -800,19 +887,27 @@ function renderDetail(id, detail, note) {
   if (note) panel.appendChild(el('p', 'eco-atlas-detail-note', note));
 
   const moves = el('div', 'eco-atlas-detail-moves');
-  if (!entry.expanded && (!state.anchors.size || entry.hop < MAX_HOP)) {
-    const ex = el('button', 'eco-atlas-move-primary', 'Show its connections');
+  // Sticky version of the hover highlight: dim everything not connected.
+  const spot = el('button', 'eco-atlas-move-primary',
+    state.spotlight === id ? 'Clear spotlight' : 'Spotlight connections');
+  spot.type = 'button';
+  spot.addEventListener('click', () => {
+    state.spotlight = state.spotlight === id ? null : id;
+    refreshHover();
+    renderDetail(id, detail, note);
+  });
+  moves.appendChild(spot);
+  // More neighbours exist only on a live pack (the sample shows all it has).
+  const moreKnown = ((detail && detail.relations) || [])
+    .reduce((s, r) => s + (r.omitted || 0), 0);
+  if (!state.sample && (!entry.expanded || moreKnown) && (!state.anchors.size || entry.hop < MAX_HOP)) {
+    const ex = el('button', 'eco-atlas-move-secondary',
+      moreKnown ? `Load ${formatNumber(moreKnown)} more connections` : 'Load its full neighbourhood');
     ex.type = 'button';
     ex.addEventListener('click', () => expandNode(id));
     moves.appendChild(ex);
   }
-  if (!state.anchors.has(id)) {
-    const re = el('button', 'eco-atlas-move-secondary', 'Make this the focus');
-    re.type = 'button';
-    re.addEventListener('click', () => anchorNode(entry.node));
-    moves.appendChild(re);
-  }
-  if (moves.childElementCount) panel.appendChild(moves);
+  panel.appendChild(moves);
 
   for (const rel of src.relations || []) {
     const sec = el('div', 'eco-atlas-detail-rel');
