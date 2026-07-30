@@ -142,6 +142,7 @@ export async function openAtlas(endpointId, openExplorerFn) {
     selected: null,
     hovered: null,
     kindsOff: new Set(),
+    sizeMode: 'records', // 'records' (producer totals) | 'connections' (visible degree)
     view: { x: 0, y: 0, k: 1 },
     alpha: 0,
     simRunning: false,
@@ -173,6 +174,7 @@ function applyKindFilter() {
     lineEl.classList.toggle('is-koff', !a || !b || kindOff(a.node) || kindOff(b.node));
   }
   renderLegend();
+  if (state.sizeMode === 'connections') updateSizes();
   renderStatus();
   scheduleDeclutter();
 }
@@ -186,6 +188,36 @@ function kindLabel(kind, plural) {
 // ---- graph state -----------------------------------------------------------
 function radiusFor(records) {
   return 3 + 19 * Math.sqrt(Math.max(1, records) / state.maxRecords);
+}
+
+// TR-VIS-0007: radii either follow the producer's overall record counts
+// (default) or the number of DISTINCT VISIBLE neighbours on the current
+// bounded canvas — a view over what the kind filters retain, never a
+// complete analytical total. Presentation state only.
+function updateSizes() {
+  if (state.sizeMode === 'connections') {
+    const degree = new Map();
+    for (const e of state.edges.values()) {
+      const a = state.nodes.get(e.from), b = state.nodes.get(e.to);
+      if (!a || !b || kindOff(a.node) || kindOff(b.node)) continue;
+      if (!degree.has(e.from)) degree.set(e.from, new Set());
+      if (!degree.has(e.to)) degree.set(e.to, new Set());
+      degree.get(e.from).add(e.to);
+      degree.get(e.to).add(e.from);
+    }
+    const maxDeg = Math.max(...[...degree.values()].map((s) => s.size), 1);
+    for (const [id, entry] of state.nodes) {
+      const d = (degree.get(id) || { size: 0 }).size;
+      // nonzero floor keeps visible-but-unconnected nodes present
+      entry.r = 3 + 19 * Math.sqrt(d / maxDeg);
+    }
+  } else {
+    for (const entry of state.nodes.values()) {
+      entry.r = radiusFor(entry.node.records || 1);
+    }
+  }
+  refreshAllNodeClasses();
+  startSim(0.25); // let spacing adapt to the new radii
 }
 function edgeKey(a, b, relation) {
   return [a, b].sort().join('→') + '·' + relation;
@@ -488,6 +520,7 @@ async function expandNode(nodeId, opts) {
   rebuildAdjacency();
   recomputeHops();
   renderLegend();
+  if (state.sizeMode === 'connections') updateSizes();
   if (!(opts && opts.silent)) {
     refreshAllNodeClasses();
     renderStatus();
@@ -513,8 +546,9 @@ function renderShell() {
   }
   head.appendChild(titleRow);
   head.appendChild(el('p', 'eco-atlas-sub',
-    'Everything this pack holds, sized by its records and clustered by its real '
-    + 'connections. Hover to read a name; click for its card; search to bring the '
+    'Everything this pack holds, clustered by its real connections — size each '
+    + 'thing by its records or by how connected it is here. Hover to read a name; '
+    + 'click for its card; search to bring the '
     + 'thing you care about to the centre. Solid filaments are recorded '
     + 'relationships; dashed are derived. Drag to pan, scroll to zoom.'));
   inner.appendChild(head);
@@ -536,6 +570,32 @@ function renderShell() {
     inv.addEventListener('click', () => state.openExplorerFn());
     controls.appendChild(inv);
   }
+  // TR-VIS-0007: size-by control — producer totals or visible connections
+  const sizer = el('div', 'eco-atlas-sizer');
+  sizer.setAttribute('role', 'group');
+  sizer.setAttribute('aria-label', 'Node size');
+  sizer.appendChild(el('span', 'eco-atlas-sizer-cap', 'Size by'));
+  for (const [mode, label, title] of [
+    ['records', 'Records', 'Size every node by its overall record count'],
+    ['connections', 'Connections', 'Size by distinct visible neighbours on this bounded canvas — not complete totals'],
+  ]) {
+    const b = el('button', 'eco-atlas-sizer-btn', label);
+    b.type = 'button';
+    b.title = title;
+    b.dataset.mode = mode;
+    if (state.sizeMode === mode) b.classList.add('is-on');
+    b.addEventListener('click', () => {
+      if (state.sizeMode === mode) return;
+      state.sizeMode = mode;
+      for (const btn of sizer.querySelectorAll('.eco-atlas-sizer-btn')) {
+        btn.classList.toggle('is-on', btn.dataset.mode === mode);
+      }
+      updateSizes();
+      renderStatus();
+    });
+    sizer.appendChild(b);
+  }
+  controls.appendChild(sizer);
   inner.appendChild(controls);
 
   const body = el('div', 'eco-atlas-body');
@@ -1039,6 +1099,9 @@ function renderStatus() {
     return;
   }
   const bits = [`${state.nodes.size} things · ${state.edges.size} connections on the canvas`];
+  if (state.sizeMode === 'connections') {
+    bits.push('sizes show connections on this bounded canvas, not complete totals');
+  }
   if (state.kindsOff.size) {
     const on = (state.start.node_kinds || [])
       .filter((k) => !state.kindsOff.has(k.kind)).map((k) => k.label.toLowerCase());

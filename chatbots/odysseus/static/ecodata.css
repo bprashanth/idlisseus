@@ -822,6 +822,25 @@ body.eco-atlas-open #viz-context-rail { display: none; }
   fill: var(--paper);
   stroke: color-mix(in srgb, var(--ink) 55%, var(--paper)); stroke-width: 2;
 }
+/* TR-VIS-0007: size-by control + smooth radius rescale */
+.eco-atlas-dot-core, .eco-atlas-dot-halo { transition: r 320ms ease, fill 160ms ease; }
+.eco-atlas-sizer { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.eco-atlas-sizer-cap {
+  font: 600 10.5px var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-faint); margin-right: 4px;
+}
+#eco-atlas .eco-atlas-sizer-btn {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 12px var(--font-ui); color: var(--ink-soft);
+  padding: 5px 12px; border-radius: 999px; cursor: pointer;
+  transition: background 130ms ease, color 130ms ease, border-color 130ms ease;
+}
+#eco-atlas .eco-atlas-sizer-btn:hover { background: var(--pine-wash); }
+#eco-atlas .eco-atlas-sizer-btn.is-on {
+  background: var(--pine-wash); border-color: color-mix(in srgb, var(--pine) 45%, var(--line-strong));
+  color: var(--pine); font-weight: 600;
+}
+
 /* the legend filter: a kind that's off leaves the canvas entirely */
 .eco-atlas-dot.is-koff { display: none; }
 .eco-atlas-fil.is-koff { display: none; }

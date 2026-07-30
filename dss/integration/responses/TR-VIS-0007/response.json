@@ -1,0 +1,12 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0007",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "contract_version": "idli-graph/1",
+  "summary": "A 'Size by' segmented control (Records | Connections) now sits in the Atlas toolbar; overall records stays the default. In connections mode every visible node is rescored as its count of DISTINCT visible neighbours, computed only from producer-supplied edges already on the canvas whose two endpoints both survive the kind filters — no relationship inference, no refetch. Radii use the same scale as records mode (r = 3 + 19*sqrt(score/maxScore)) with a nonzero floor (r=3) for visible isolated nodes, rescale smoothly (320ms CSS transition on r) and the simulation is mildly reheated (alpha 0.25) so spacing adapts. Scores recompute on every kind-filter change and after neighbourhood expansion. While the mode is active the status line reads 'sizes show connections on this bounded canvas, not complete totals' and the control's tooltip carries the same caveat; the intro copy was made mode-neutral. Language is generic graph language throughout (records, connections, neighbours). Verified live against the Valparai pack (180 nodes / 593 edges) at 1440x1000: toggling issued zero new /api/visual requests and changed 179 of 180 radii; soloing one kind recomputed degree sizing over the remaining subgraph; switching back restored producer-count radii on 180 of 180 nodes; search, isolation, detail cards, provenance, actions and label decluttering unchanged.",
+  "consumer_note": "Degree is computed over the union of ambient and expanded edges currently merged into the canvas (state.edges), which is exactly the bounded graph the reader sees — consistent with the proposal's honesty framing. If the future producer extension ships complete per-node degree summaries, the consumer can add an 'exact totals' variant behind the same control without changing this contract.",
+  "validated_fixtures": [],
+  "producer_action_required": [],
+  "updated_at": "2026-07-30"
+}
