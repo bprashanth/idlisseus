@@ -1,30 +1,32 @@
-# TR-VIS-0007 — implemented
+# TR-VIS-0007 — implemented (amended: automatic, no control)
 
 Node resizing by visible connections, consumer-only, no API change.
 
 ## What shipped
 
-- **`Size by` control** in the Atlas toolbar: `Records` (default) | `Connections`.
-  Presentation state only (`state.sizeMode`), never persisted, never refetches.
-- **Connections mode**: each visible node's score = distinct visible neighbours,
-  from edges already on the canvas whose endpoints both survive the kind filters.
-  Producer edges only — no inference. Nonzero floor (r = 3) for visible isolated
-  nodes; same radius scale as records mode.
-- **Smooth rescale**: 320 ms CSS transition on `r`, plus a mild simulation reheat
-  (alpha 0.25) so collision spacing adapts to the new radii.
-- **Recompute triggers**: kind-filter toggle/solo/reset, neighbourhood expansion,
-  and mode switch.
-- **Honesty wording**: while active, the status line appends
-  *"sizes show connections on this bounded canvas, not complete totals"*; the
-  control's tooltip repeats it. Intro copy made mode-neutral.
+- **Automatic**: full graph -> producer record counts (the proposal's default).
+  Any legend kind switched off -> every remaining node re-sized by its distinct
+  visible neighbours in the retained subgraph. The two-mode control shipped
+  first but was removed at the product owner's direction — filtering *is* the
+  connections view.
+- Degree uses only producer edges already on canvas whose endpoints both
+  survive the filters. No inference, no refetch. Floor r = 3 for visible
+  isolated nodes.
+- **Perf**: the 320ms radius transition is scoped to an `is-resizing` class
+  (~400ms window) — no transitions during load or simulation settle. Mild
+  reheat (alpha 0.25) after rescale.
+- Landmark labels rank by current radius, so filtered views label their
+  actual landmarks.
+- Status line while filtered: *"sizes now rank by connections among what you
+  kept — bounded to this canvas, not complete totals"*.
 
 ## Acceptance (live Valparai pack, 1440×1000)
 
 | Criterion | Result |
 |---|---|
-| Toggle does not refetch; radii change | 0 new `/api/visual` requests; 179/180 radii changed |
-| Kind toggles update connection sizing | soloing Places recomputed over remaining 20 nodes |
-| Bounded-canvas wording present | in status line + tooltip |
+| Filtering does not refetch; radii change | 0 new `/api/visual` requests; radii re-rank on chip toggle |
+| Kind toggles update connection sizing | names×places view: mapped-square places largest, then the names at the most places |
+| Bounded-canvas wording present | in status line while any kind is off |
 | Records mode restores producer sizing | 180/180 radii restored |
 | Search / isolation / cards / labels unchanged | hornbill search → isolation → card verified |
 

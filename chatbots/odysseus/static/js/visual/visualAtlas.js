@@ -142,7 +142,6 @@ export async function openAtlas(endpointId, openExplorerFn) {
     selected: null,
     hovered: null,
     kindsOff: new Set(),
-    sizeMode: 'records', // 'records' (producer totals) | 'connections' (visible degree)
     view: { x: 0, y: 0, k: 1 },
     alpha: 0,
     simRunning: false,
@@ -174,7 +173,7 @@ function applyKindFilter() {
     lineEl.classList.toggle('is-koff', !a || !b || kindOff(a.node) || kindOff(b.node));
   }
   renderLegend();
-  if (state.sizeMode === 'connections') updateSizes();
+  updateSizes();
   renderStatus();
   scheduleDeclutter();
 }
@@ -190,12 +189,18 @@ function radiusFor(records) {
   return 3 + 19 * Math.sqrt(Math.max(1, records) / state.maxRecords);
 }
 
-// TR-VIS-0007: radii either follow the producer's overall record counts
-// (default) or the number of DISTINCT VISIBLE neighbours on the current
-// bounded canvas — a view over what the kind filters retain, never a
-// complete analytical total. Presentation state only.
+// TR-VIS-0007 (amended): sizing follows the legend chips automatically.
+// Full graph -> producer record counts. Any kind switched off -> each visible
+// node is re-sized by its DISTINCT VISIBLE neighbours in the retained
+// subgraph, so hiding a kind literally subtracts its connections from what
+// remains. Bounded to the edges on this canvas, never a complete total.
+function sizingByConnections() {
+  return state.kindsOff.size > 0;
+}
+
+let _resizeT = null;
 function updateSizes() {
-  if (state.sizeMode === 'connections') {
+  if (sizingByConnections()) {
     const degree = new Map();
     for (const e of state.edges.values()) {
       const a = state.nodes.get(e.from), b = state.nodes.get(e.to);
@@ -207,6 +212,7 @@ function updateSizes() {
     }
     const maxDeg = Math.max(...[...degree.values()].map((s) => s.size), 1);
     for (const [id, entry] of state.nodes) {
+      if (kindOff(entry.node)) continue; // hidden — radius irrelevant
       const d = (degree.get(id) || { size: 0 }).size;
       // nonzero floor keeps visible-but-unconnected nodes present
       entry.r = 3 + 19 * Math.sqrt(d / maxDeg);
@@ -215,6 +221,12 @@ function updateSizes() {
     for (const entry of state.nodes.values()) {
       entry.r = radiusFor(entry.node.records || 1);
     }
+  }
+  // the radius transition exists only for this moment — never during load/settle
+  if (state.world) {
+    state.world.classList.add('is-resizing');
+    clearTimeout(_resizeT);
+    _resizeT = setTimeout(() => state.world && state.world.classList.remove('is-resizing'), 400);
   }
   refreshAllNodeClasses();
   startSim(0.25); // let spacing adapt to the new radii
@@ -520,7 +532,7 @@ async function expandNode(nodeId, opts) {
   rebuildAdjacency();
   recomputeHops();
   renderLegend();
-  if (state.sizeMode === 'connections') updateSizes();
+  if (sizingByConnections()) updateSizes();
   if (!(opts && opts.silent)) {
     refreshAllNodeClasses();
     renderStatus();
@@ -546,11 +558,12 @@ function renderShell() {
   }
   head.appendChild(titleRow);
   head.appendChild(el('p', 'eco-atlas-sub',
-    'Everything this pack holds, clustered by its real connections — size each '
-    + 'thing by its records or by how connected it is here. Hover to read a name; '
-    + 'click for its card; search to bring the '
-    + 'thing you care about to the centre. Solid filaments are recorded '
-    + 'relationships; dashed are derived. Drag to pan, scroll to zoom.'));
+    'Everything this pack holds, sized by its records and clustered by its real '
+    + 'connections. Switch off kinds in the legend below and what remains is '
+    + 're-sized by its connections to what you kept. Hover to read a name; click '
+    + 'for its card; search to bring the thing you care about to the centre. '
+    + 'Solid filaments are recorded relationships; dashed are derived. Drag to '
+    + 'pan, scroll to zoom.'));
   inner.appendChild(head);
 
   const controls = el('div', 'eco-atlas-controls');
@@ -570,32 +583,6 @@ function renderShell() {
     inv.addEventListener('click', () => state.openExplorerFn());
     controls.appendChild(inv);
   }
-  // TR-VIS-0007: size-by control — producer totals or visible connections
-  const sizer = el('div', 'eco-atlas-sizer');
-  sizer.setAttribute('role', 'group');
-  sizer.setAttribute('aria-label', 'Node size');
-  sizer.appendChild(el('span', 'eco-atlas-sizer-cap', 'Size by'));
-  for (const [mode, label, title] of [
-    ['records', 'Records', 'Size every node by its overall record count'],
-    ['connections', 'Connections', 'Size by distinct visible neighbours on this bounded canvas — not complete totals'],
-  ]) {
-    const b = el('button', 'eco-atlas-sizer-btn', label);
-    b.type = 'button';
-    b.title = title;
-    b.dataset.mode = mode;
-    if (state.sizeMode === mode) b.classList.add('is-on');
-    b.addEventListener('click', () => {
-      if (state.sizeMode === mode) return;
-      state.sizeMode = mode;
-      for (const btn of sizer.querySelectorAll('.eco-atlas-sizer-btn')) {
-        btn.classList.toggle('is-on', btn.dataset.mode === mode);
-      }
-      updateSizes();
-      renderStatus();
-    });
-    sizer.appendChild(b);
-  }
-  controls.appendChild(sizer);
   inner.appendChild(controls);
 
   const body = el('div', 'eco-atlas-body');
@@ -901,9 +888,11 @@ function scheduleDeclutter() {
 }
 
 function refreshAllNodeClasses() {
-  // the heaviest nodes keep their names on — the landmarks of the constellation
+  // the biggest nodes keep their names on — the landmarks of the constellation.
+  // Rank by current radius so labels follow whichever sizing is active.
   const byWeight = [...state.nodes.entries()]
-    .sort((a, b) => (b[1].node.records || 0) - (a[1].node.records || 0))
+    .filter(([, entry]) => !kindOff(entry.node))
+    .sort((a, b) => b[1].r - a[1].r)
     .slice(0, ALWAYS_LABELLED);
   state.labelRankCache = new Set(byWeight.map(([id]) => id));
   for (const [id, entry] of state.nodes) {
@@ -1099,8 +1088,8 @@ function renderStatus() {
     return;
   }
   const bits = [`${state.nodes.size} things · ${state.edges.size} connections on the canvas`];
-  if (state.sizeMode === 'connections') {
-    bits.push('sizes show connections on this bounded canvas, not complete totals');
+  if (sizingByConnections()) {
+    bits.push('sizes now rank by connections among what you kept — bounded to this canvas, not complete totals');
   }
   if (state.kindsOff.size) {
     const on = (state.start.node_kinds || [])
