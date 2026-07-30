@@ -200,6 +200,11 @@ function sizingByConnections() {
 
 let _resizeT = null;
 function updateSizes() {
+  let changed = false;
+  const setR = (entry, r) => {
+    if (Math.abs(entry.r - r) > 0.4) changed = true;
+    entry.r = r;
+  };
   if (sizingByConnections()) {
     const degree = new Map();
     for (const e of state.edges.values()) {
@@ -215,13 +220,17 @@ function updateSizes() {
       if (kindOff(entry.node)) continue; // hidden — radius irrelevant
       const d = (degree.get(id) || { size: 0 }).size;
       // nonzero floor keeps visible-but-unconnected nodes present
-      entry.r = 3 + 19 * Math.sqrt(d / maxDeg);
+      setR(entry, 3 + 19 * Math.sqrt(d / maxDeg));
     }
   } else {
     for (const entry of state.nodes.values()) {
-      entry.r = radiusFor(entry.node.records || 1);
+      setR(entry, radiusFor(entry.node.records || 1));
     }
   }
+  // Nothing moved (e.g. a legend click that didn't alter the retained
+  // subgraph, or closing a card with all kinds on): no repaint, no reheat —
+  // pan/zoom right after a legend touch must stay at rest-speed.
+  if (!changed) return;
   // the radius transition exists only for this moment — never during load/settle
   if (state.world) {
     state.world.classList.add('is-resizing');
