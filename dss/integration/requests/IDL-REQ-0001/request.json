@@ -1,0 +1,32 @@
+{
+  "schema_version": "producer-consumer-request/1",
+  "request_id": "IDL-REQ-0001",
+  "title": "A capability to show a source's own rows, and a rule to read the local copy first",
+  "consumer": "idlisseus",
+  "producer": "totalrecall",
+  "created_at": "2026-07-26",
+  "priority": "high",
+  "problem": "A user asked to see the raw records behind a study and could not be shown them, although the pack holds the study's original CSV files on disk. Row-level data currently reaches a reader only as a drill-down attached to a computed result; there is no route from a source to its own rows. Lacking one, the answering model went to the publisher's website, was refused, and reported that it could not reach the data - while the files sat in the pack, checksum-verified.",
+  "evidence": [
+    "Session 18554ba7: 'show me raw data from this study' returned title, record count and distinct subjects, then 'Dryad blocked direct row access from this environment with 403 Forbidden'.",
+    "dss/sites/valparai/raw/dryad-b2rbnzsff-shade-birds/ holds teabirds.csv, sphabt.csv, dat_with_guilds.csv and Readme.txt (63 MB of raw sources across 20 datasets in this pack).",
+    "SOURCE.md for that source records DOI 10.5061/dryad.b2rbnzsff, Dryad version 131689, retrieval date, CC0-1.0 licence, and that all files match their Dryad SHA-256 manifests.",
+    "The index preserves the way home: events from that source carry source_id and source_row (1, 2, 3 ...), so every indexed row can name its line in the original file.",
+    "No capability in the pack's 19 takes a source and returns its rows; the nearest are summaries (stratified-survey-summary, matrix-profile, method-catalog)."
+  ],
+  "requested_outcome": [
+    "A `source-rows` capability: given a source_id (and optionally a file, a row range, or a filter already established in the conversation), return a sample of that source's own rows with their line numbers, the file they came from, and the source's provenance record - as a table visual plus drill-down, like any other result.",
+    "Show the reader what the pack holds verbatim: original column names alongside any humanised label, so 'how have you stored this?' is answerable.",
+    "A standing rule for the answering model: when a user asks about a source's contents, read the admitted local copy first; only reach for the publisher when the pack does not hold the file, and say which of the two was used.",
+    "Carry the licence and attribution with any rows shown, since redistribution terms differ by source.",
+    "Keep it generic: no sector or site vocabulary in the capability."
+  ],
+  "acceptance": [
+    "'Show me raw rows from <study>' returns rows from the local file, naming the file and the line numbers.",
+    "The answer names the study, its DOI and its licence.",
+    "A source whose licence forbids redistribution returns the schema and a stated boundary instead of rows.",
+    "The model does not attempt a network fetch when the pack holds the file.",
+    "A pack without raw files still answers with the schema and says the rows are not held locally."
+  ],
+  "notes": "Trust in a data product is largely the ability to look at a row. This is the shortest path from 'the system says 2,965 records' to 'I can see one'. Credentials note: the Dryad metadata API answers unauthenticated from this box (HTTP 200), but no DRYAD_CLIENT_ID/SECRET or ~/.hermes/secrets/dryad.json is present in the bridge environment now, so authorised file downloads cannot be repeated here - another reason to read the local copy."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "src:alpha",
+    "kind": "source",
+    "label": "Field survey alpha",
+    "records": 12034
+  },
+  "relations": [
+    {
+      "relation": "measures",
+      "label": "Holds measurements of",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "meas:counts",
+            "kind": "measurement",
+            "label": "counts",
+            "records": 7463
+          },
+          "records": 7463
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "records",
+      "label": "Records",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "subject",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 611
+        },
+        {
+          "node": {
+            "id": "ent:c",
+            "kind": "subject",
+            "label": "Recorded name C",
+            "records": 442
+          },
+          "records": 340
+        }
+      ],
+      "omitted": 41
+    }
+  ],
+  "provenance": [
+    "One admitted data set version; counts are its admitted rows."
+  ],
+  "actions": []
+}

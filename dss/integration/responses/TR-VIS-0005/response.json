@@ -1,0 +1,14 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0005",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "contract_version": "idli-result/1",
+  "summary": "A 'Report a problem' action sits on every result card foot, and switches to a prominent bordered affordance when the envelope is failed/blocked or carries an error-severity limitation. The dialog requires a free-form description, defaults 'Include this conversation' to on, and sends only the visible user/assistant messages (collected from the rendered chat, capped, role-filtered again by the odysseus proxy at /api/visual/{endpoint_id}/feedback/draft). The preview step shows the returned repository, public_warning, title and full body before a separate 'Publish this issue' confirmation; cancel publishes nothing. ready_for_browser_confirmation opens the pre-filled issue URL; submitted shows the public issue link. Bridge bearer tokens stay server-side in the proxy.",
+  "producer_action_required": [
+    "Repository identity before drafting: the draft response carries repository and public_warning, but the form is shown before any draft exists, so the pre-draft warning can only say 'the repository this site is configured to use'. Please expose the configured repository cheaply pre-draft \u2014 e.g. a feedback block in /v1/capabilities \u2014 so the form can name it before the reader types anything.",
+    "Session identity: the browser sends the odysseus conversation id as session_id. If bridge sessions are keyed differently, drafts will carry an audit id that does not resolve; confirm the id space or ignore unknown ids gracefully (current get_session behaviour appears to create/accept, but please confirm)."
+  ],
+  "validated_fixtures": [],
+  "updated_at": "2026-07-27"
+}

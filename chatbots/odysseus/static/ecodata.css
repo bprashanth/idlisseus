@@ -1,0 +1,1158 @@
+/* ecodata.css — the "Field journal" design system for Idlisseus.
+   One light theme for the whole product: warm paper page, white cards, ink
+   type, one pine-green accent, amber marker highlights. Display type is a
+   vendored Source Serif 4; UI is Inter; mono is reserved for identifiers.
+   Chart internals keep the validated evidence palette in visualTheme.js.
+   Design brief: dss/DESIGN_SYSTEM.md. */
+
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterVendored';
+  src: url('/static/lib/fonts/inter-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMonoVendored';
+  src: url('/static/lib/fonts/jbmono-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMonoVendored';
+  src: url('/static/lib/fonts/jbmono-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'SourceSerifVendored';
+  src: url('/static/lib/fonts/sourceserif4-var.woff2') format('woff2');
+  font-weight: 300 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'SourceSerifVendored';
+  src: url('/static/lib/fonts/sourceserif4-italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+/* ============================= tokens ============================= */
+body.theme-ecodata, body.eco-shell {
+  /* field-journal tokens */
+  --paper:        #f7f5f0;
+  --surface:      #fffdfa;
+  --surface-2:    #f2efe8;
+  --ink:          #1b1a17;
+  --ink-soft:     #52514e;
+  --ink-faint:    #8a8781;
+  --line:         #e7e3da;
+  --line-strong:  #d9d4c8;
+  --pine:         #1d5c45;
+  --pine-fill:    #1d5c45;   /* solid buttons; splits from --pine in dark mode */
+  --pine-deep:    #144533;
+  --pine-wash:    rgba(29, 92, 69, 0.08);
+  --marker:       rgba(252, 211, 77, 0.42);
+  --good:         #0ca30c;
+  --warn:         #fab219;
+  --serious:      #ec835a;
+  --critical:     #d03b3b;
+  --radius:       14px;
+  --radius-sm:    9px;
+  --measure:      780px;
+  --nav-w:        232px;
+  --shadow-1:     0 1px 2px rgba(27, 26, 23, 0.05);
+  --shadow-2:     0 6px 24px rgba(27, 26, 23, 0.08);
+  --font-ui:      'InterVendored', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'SourceSerifVendored', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-mono:    'JetBrainsMonoVendored', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* the stock app's tokens, retuned to the journal (lights every stock surface) */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --panel: var(--surface);
+  --border: var(--line);
+  --red: var(--pine);
+  --green: var(--good);
+  --accent: var(--pine);
+  --accent-primary: var(--pine);
+  --brand-color: var(--pine);
+  --send-btn-bg: var(--pine);
+  --send-btn-hover: var(--pine-deep);
+  --user-bubble-bg: var(--pine-wash);
+  --ai-bubble-bg: transparent;
+  --bubble-border: transparent;
+  --input-bg: var(--surface);
+  --input-border: var(--line-strong);
+  --sidebar-bg: var(--surface);
+  --code-bg: #f0ede6;
+  --code-fg: #35332e;
+  --toggle-active: var(--pine);
+
+  background: var(--paper) !important;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  letter-spacing: -0.004em;
+  -webkit-font-smoothing: antialiased;
+}
+body.theme-ecodata .font-mono, body.eco-shell .font-mono { font-family: var(--font-mono); }
+
+/* ============================= dark mode =============================
+   The field journal at night: same warm family, stepped for a dark page.
+   Toggled by the nav Theme button (body.eco-dark + root .light removed, so the
+   chart renderers pick their validated dark evidence palette). --pine splits:
+   the accent lightens for text/links, while solid fills keep white labels. */
+body.eco-shell.eco-dark, body.theme-ecodata.eco-dark {
+  --paper:        #16140f;
+  --surface:      #1e1c16;
+  --surface-2:    #27241d;
+  --ink:          #ece9e1;
+  --ink-soft:     #b8b4aa;
+  --ink-faint:    #8a8781;
+  --line:         #302d26;
+  --line-strong:  #403c33;
+  --pine:         #5db390;
+  --pine-fill:    #24704f;
+  --pine-deep:    #2c8560;
+  --pine-wash:    rgba(93, 179, 144, 0.13);
+  --marker:       rgba(252, 211, 77, 0.24);
+  --shadow-1:     0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2:     0 8px 28px rgba(0, 0, 0, 0.45);
+  --code-bg:      #27241d;
+  --code-fg:      #d9d5cb;
+}
+body.eco-shell.eco-dark .eco-card-tag {
+  background: rgba(250, 178, 25, 0.14);
+  color: #e6c470;
+}
+body.eco-shell.eco-dark ::selection { background: rgba(93, 179, 144, 0.28); }
+body.eco-shell.eco-dark input, body.eco-shell.eco-dark textarea, body.eco-shell.eco-dark select {
+  color-scheme: dark;
+}
+
+/* Legacy eco-* aliases still referenced by older rules/JS inline styles. */
+body.theme-ecodata, body.eco-shell {
+  --eco-surface: var(--paper);
+  --eco-container-lowest: var(--surface);
+  --eco-container-low: var(--surface-2);
+  --eco-container: #ece8df;
+  --eco-on-surface: var(--ink);
+  --eco-on-surface-variant: var(--ink-soft);
+  --eco-outline: var(--ink-faint);
+  --eco-outline-variant: var(--line-strong);
+  --eco-primary: var(--pine);
+  --eco-primary-deep: var(--pine-deep);
+  --eco-on-primary: #ffffff;
+  --eco-good: var(--good);
+  --eco-warn: var(--warn);
+  --eco-bad: var(--critical);
+}
+
+/* Neutralise the stock sheet's `:root.light button/input {background:#eaeaea}`
+   blanket (same 0,1,1 specificity; this sheet loads later, so these win ties).
+   Components below then paint their own surfaces. */
+body.eco-shell button, body.theme-ecodata button {
+  background: none;
+  color: inherit;
+  border-color: var(--line-strong);
+}
+body.eco-shell input, body.eco-shell textarea, body.eco-shell select,
+body.theme-ecodata input, body.theme-ecodata textarea, body.theme-ecodata select {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+  color-scheme: light;
+}
+
+/* ============================= nav rail ============================= */
+#eco-nav {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: var(--nav-w); z-index: 50;
+  background: var(--paper);
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 22px 16px 20px;
+  overflow-y: auto;
+  font-family: var(--font-ui);
+}
+.eco-brand { display: flex; align-items: center; gap: 10px; padding: 0 6px 2px; }
+.eco-brand-mark { width: 28px; height: 28px; flex: none; display: grid; place-items: center; }
+.eco-brand-mark svg { display: block; border-radius: 8px; }
+.eco-brand-name {
+  font: 600 18px/1 var(--font-display);
+  letter-spacing: -0.01em; color: var(--ink);
+}
+
+#eco-nav .eco-nav-site, #eco-nav .eco-site-card {
+  display: flex; flex-direction: column; gap: 2px;
+  text-align: left; width: 100%;
+  padding: 11px 12px; margin: 0; height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 140ms ease;
+}
+#eco-nav .eco-nav-site:hover, #eco-nav .eco-site-card:hover { border-color: var(--pine); }
+.eco-site-label { display: block; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.eco-site-sub { display: block; font-size: 11px; color: var(--ink-faint); line-height: 1.5; }
+
+.eco-nav-list { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+#eco-nav .eco-nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 9px 12px; height: auto;
+  border-radius: var(--radius-sm);
+  border: none; background: none;
+  color: var(--ink-soft);
+  font: 500 13.5px var(--font-ui);
+  cursor: pointer; text-align: left;
+  transition: background 130ms ease, color 130ms ease;
+}
+#eco-nav .eco-nav-item:hover { background: var(--pine-wash); color: var(--ink); }
+#eco-nav .eco-nav-item.is-active, #eco-nav .eco-nav-item.on {
+  background: var(--pine-wash); color: var(--pine); font-weight: 600;
+}
+.eco-nav-icon { width: 17px; height: 17px; flex: none; opacity: 0.85; }
+.eco-nav-spacer { flex: 1; }
+
+#eco-nav .eco-new-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 14px; height: auto;
+  border-radius: 10px; border: none;
+  background: var(--pine-fill); color: #fff;
+  font: 600 13.5px var(--font-ui); cursor: pointer;
+  transition: background 140ms ease;
+}
+#eco-nav .eco-new-btn:hover { background: var(--pine-deep); }
+#eco-nav .eco-new-btn .eco-nav-icon { width: 13px; height: 13px; opacity: 1; }
+
+/* ============================= shell frame ============================= */
+body.eco-shell .chat-container {
+  margin-left: var(--nav-w);
+  background: none;
+  position: relative; z-index: 1;
+}
+body.eco-shell .chat-input-bar { margin-left: var(--nav-w); }
+
+/* Stock sidebar becomes the "History" slide-over. The translate must clear its
+   own width AND the left offset, or it peeks out over the nav rail. */
+body.eco-shell #sidebar {
+  position: fixed; left: var(--nav-w); top: 0; bottom: 0; z-index: 55;
+  transform: translateX(calc(-100% - var(--nav-w) - 30px));
+  visibility: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  box-shadow: var(--shadow-2);
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+body.eco-shell.eco-chats-open #sidebar { transform: none; visibility: visible; }
+body.eco-shell #hamburger-btn, body.eco-shell .hamburger-btn { display: none !important; }
+
+/* chrome this product doesn't use */
+body.eco-shell .mode-toggle, body.eco-shell .mode-toggle-btn,
+body.eco-shell .model-picker-wrap, body.eco-shell .role-provider-logo,
+body.eco-shell #welcome-screen, body.eco-shell .welcome-screen { display: none !important; }
+
+/* top bar: quiet, human */
+body.eco-shell .chat-top-bar {
+  background: none; border: 0; padding: 18px 40px 0;
+  justify-content: flex-start;
+}
+body.eco-shell .chat-meta-overlay { background: none; box-shadow: none; border: 0; }
+body.eco-shell #current-meta {
+  color: var(--ink-faint); font-size: 12.5px; font-weight: 500;
+  letter-spacing: 0; text-transform: none;
+}
+body.eco-shell .chat-meta-count { color: var(--ink-faint); font-size: 11.5px; }
+body.eco-shell .export-dl-btn { color: var(--ink-faint); }
+
+/* ============================= the reading column ============================= */
+body.eco-shell .chat-history { padding: 26px 40px 190px; background: none; }
+body.eco-shell .msg, body.eco-shell .viz-inline, body.eco-shell #eco-welcome {
+  max-width: var(--measure); margin-left: auto; margin-right: auto;
+}
+body.eco-shell .msg { background: none; border: 0; padding: 4px 0 22px; }
+
+/* the answer is article prose on paper */
+body.eco-shell .msg-ai .body, body.eco-shell .msg-ai .msg-body,
+body.eco-shell .msg .body p, body.eco-shell .msg .body li {
+  color: var(--ink) !important;
+  font-size: 16px; line-height: 1.7;
+}
+body.eco-shell .msg .body p { max-width: 68ch; margin: 0 0 1em; }
+body.eco-shell .msg .body h1, body.eco-shell .msg .body h2, body.eco-shell .msg .body h3 {
+  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+body.eco-shell .msg .body strong { color: var(--ink); font-weight: 650; }
+body.eco-shell .msg .body a { color: var(--pine); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--pine) 35%, transparent); text-underline-offset: 2px; }
+body.eco-shell .msg .body a:hover { text-decoration-color: var(--pine); }
+body.eco-shell .msg .body code, body.eco-shell .msg .body pre {
+  background: var(--code-bg) !important; color: var(--code-fg) !important;
+  border: 1px solid var(--line); border-radius: 6px;
+  font-family: var(--font-mono);
+}
+body.eco-shell .msg .body table { border-collapse: collapse; }
+body.eco-shell .msg .body th { border-bottom: 1px solid var(--line-strong); }
+body.eco-shell .msg .body td { border-bottom: 1px solid var(--line); }
+
+/* speaker line: a small serif byline. Inter's sans capital I is a bare 2px
+   bar that reads as cropped at this size; the serifed face gives "Idli
+   Insights" a real letter. */
+body.eco-shell .role, body.eco-shell .role.has-logo {
+  color: var(--ink-faint) !important; background: none !important;
+  font: 600 13px var(--font-display); letter-spacing: 0.01em; text-transform: none;
+  margin-bottom: 8px;
+  overflow: visible;
+  padding-left: 1px;
+}
+body.eco-shell .role-timestamp { font-family: var(--font-ui); font-size: 11px; }
+/* one identity dot, on-palette — never the per-model hash color */
+body.eco-shell .msg .role::before { background: var(--pine) !important; }
+body.eco-shell .msg-user .role::before { background: var(--line-strong) !important; }
+body.eco-shell .role-timestamp { color: var(--ink-faint); letter-spacing: 0.02em; font-weight: 500; }
+
+/* the reader's turn: a pine-washed card, set right like a margin note */
+body.eco-shell .msg-user { display: flex; flex-direction: column; align-items: flex-end; }
+body.eco-shell .msg-user > .body {
+  background: var(--pine-wash) !important; color: var(--ink) !important;
+  border: 1px solid color-mix(in srgb, var(--pine) 16%, transparent) !important;
+  border-radius: var(--radius) !important;
+  border-top-right-radius: 4px !important;
+  padding: 12px 16px !important;
+  box-shadow: none !important;
+  font-size: 15px; line-height: 1.6;
+  max-width: 580px; min-width: 120px;
+}
+body.eco-shell .msg-user > .body p { margin: 0 0 0.6em; font-size: 15px; }
+body.eco-shell .msg-user > .body p:last-child { margin-bottom: 0; }
+body.eco-shell .msg-user * { color: var(--ink); }
+body.eco-shell .msg-user .role { align-self: flex-end; }
+body.eco-shell .msg-user .msg-footer { align-self: flex-end; }
+
+/* the marker: amber wash under the figures that matter */
+body.eco-shell mark.eco-mark, body.eco-shell .eco-mark,
+body.theme-ecodata mark.eco-mark {
+  background: linear-gradient(transparent 8%, var(--marker) 8%);
+  color: var(--ink);
+  padding: 0 3px; border-radius: 3px; font-weight: 600;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* ---- "how this was answered": closed by default, honest when open ---- */
+body.eco-shell .insight-why, body.eco-shell .insight-trace {
+  background: none !important; border: 0 !important;
+  border-left: 2px solid var(--line-strong) !important;
+  border-radius: 0; box-shadow: none;
+  padding: 2px 0 2px 14px; margin: 4px 0 12px;
+  max-width: 68ch;
+}
+body.eco-shell .insight-why summary {
+  cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px;
+  background: none !important; border: 0 !important; padding: 0 !important;
+  border-radius: 0;
+}
+body.eco-shell .insight-why summary:hover .insight-why-label { color: var(--ink-soft) !important; }
+body.eco-shell .insight-why summary::-webkit-details-marker { display: none; }
+body.eco-shell .insight-why-label {
+  color: var(--ink-faint) !important; font: 600 11px var(--font-ui);
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+body.eco-shell .insight-why-count {
+  background: none !important; border: 0 !important;
+  color: var(--ink-faint) !important; font-size: 11.5px; padding: 0;
+}
+body.eco-shell .insight-skill-list { margin: 8px 0 0; padding: 0; list-style: none; }
+body.eco-shell .insight-skill { display: flex; flex-wrap: wrap; gap: 7px; align-items: baseline; padding: 2px 0; }
+body.eco-shell .insight-skill-mark { color: var(--good); font-size: 11px; }
+body.eco-shell .insight-skill[data-status="failed"] .insight-skill-mark { color: var(--critical); }
+body.eco-shell .insight-skill code {
+  background: none; border: 0; color: var(--ink-soft);
+  font: 500 12px var(--font-mono);
+}
+body.eco-shell .insight-skill-result {
+  flex-basis: 100%;
+  color: var(--ink-faint); font-size: 12px; line-height: 1.5;
+  overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+body.eco-shell .insight-audit-id {
+  color: var(--ink-faint); font: 500 10.5px var(--font-mono);
+  margin-top: 6px; cursor: pointer;
+}
+body.eco-shell .insight-evidence { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+body.eco-shell .insight-evidence-badge, body.eco-shell .insight-badge, body.eco-shell [class*="badge"] {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--surface) !important; border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important; border-radius: 999px;
+  font-size: 11.5px; padding: 3px 10px;
+}
+
+/* clarify card */
+body.eco-shell .ask-user-card {
+  background: var(--surface) !important; border: 1px solid var(--line-strong) !important;
+  border-radius: var(--radius); box-shadow: var(--shadow-2);
+  color: var(--ink) !important; max-width: var(--measure);
+}
+body.eco-shell .ask-user-card *, body.eco-shell .ask-user-question { color: var(--ink) !important; }
+body.eco-shell .ask-user-options button, body.eco-shell .ask-user-card input {
+  background: var(--paper) !important; border: 1px solid var(--line) !important;
+  color: var(--ink) !important; border-radius: var(--radius-sm);
+}
+body.eco-shell .ask-user-options button:hover { border-color: var(--pine) !important; background: var(--pine-wash) !important; }
+
+/* ============================= composer ============================= */
+body.eco-shell .chat-input-bar {
+  position: fixed; bottom: 0; right: 0;
+  left: var(--nav-w);
+  width: auto !important; max-width: none !important;
+  margin: 0 !important; padding: 0 40px 22px; z-index: 30;
+  display: flex; flex-direction: column; align-items: center; gap: 0 !important;
+  border: 0;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--paper) 0%, transparent) 0%, var(--paper) 34%);
+}
+/* margins are zeroed above, so the side surfaces move the bar via `right` */
+body.eco-shell.viz-context-open .chat-input-bar { right: 268px; }
+body.eco-shell.viz-panel-open .chat-input-bar,
+body.eco-shell.viz-panel-open.viz-context-open .chat-input-bar { right: min(56vw, 940px); }
+body.eco-shell.eco-explorer-open .chat-input-bar { right: min(520px, 94vw); }
+@media (max-width: 1100px) {
+  body.eco-shell.viz-context-open .chat-input-bar { right: 0; }
+}
+@media (max-width: 900px) {
+  body.eco-shell.viz-panel-open .chat-input-bar { right: 0; }
+}
+body.eco-shell .chat-input-bar > div:not([class]) { display: none; }
+body.eco-shell .chat-input-bar > .chat-input-top,
+body.eco-shell .chat-input-bar > .chat-input-bottom,
+body.eco-shell .chat-input-bar > #pinned-tools-bar {
+  width: 100%; max-width: var(--measure); flex: none;
+  background: var(--surface) !important;
+  border: 1px solid var(--line-strong); box-sizing: border-box;
+}
+body.eco-shell .chat-input-bar > .chat-input-top {
+  border-radius: var(--radius) var(--radius) 0 0; border-bottom: 0; padding: 4px 10px 0;
+  box-shadow: var(--shadow-2);
+}
+body.eco-shell .chat-input-bar > #pinned-tools-bar { border-top: 0; border-bottom: 0; }
+body.eco-shell .chat-input-bar > #pinned-tools-bar:empty { display: none; }
+body.eco-shell .chat-input-bar > .chat-input-bottom {
+  border-radius: 0 0 var(--radius) var(--radius); border-top: 0; padding: 0 10px 8px;
+  margin: 0 !important;
+  display: flex; justify-content: flex-end !important; align-items: center; min-height: 0;
+  box-shadow: var(--shadow-2);
+}
+body.eco-shell .chat-input-bar:focus-within > .chat-input-top,
+body.eco-shell .chat-input-bar:focus-within > .chat-input-bottom,
+body.eco-shell .chat-input-bar:focus-within > #pinned-tools-bar {
+  border-color: color-mix(in srgb, var(--pine) 45%, var(--line-strong));
+}
+body.eco-shell #message, body.eco-shell .chat-input-top textarea {
+  background: none !important; border: 0 !important; box-shadow: none !important;
+  color: var(--ink) !important; font-size: 15.5px; line-height: 1.55;
+  font-family: var(--font-ui);
+  padding: 12px 8px 6px; min-height: 46px;
+}
+body.eco-shell #message::placeholder { color: var(--ink-faint); }
+body.eco-shell .chat-input-left { display: flex; }
+body.eco-shell .chat-input-right { margin-left: auto; gap: 6px; }
+body.eco-shell .input-icon-btn { color: var(--ink-faint); }
+body.eco-shell .input-icon-btn:hover { color: var(--pine); background: var(--pine-wash); }
+body.eco-shell .send-btn, body.eco-shell #send-btn {
+  background: var(--pine-fill) !important; color: #fff !important; border: 0 !important;
+  border-radius: 9px; width: 32px; height: 32px; display: grid; place-items: center;
+}
+body.eco-shell .send-btn:hover { background: var(--pine-deep) !important; }
+body.eco-shell .send-btn.newchat-mode {
+  background: var(--surface-2) !important; color: var(--ink-faint) !important;
+  border: 1px solid var(--line) !important;
+}
+body.eco-shell .send-btn.newchat-mode .send-btn-label { display: none; }
+
+/* attachments strip: real cards, gone when empty */
+body.eco-shell .attach-strip { max-width: var(--measure); margin: 0 auto; }
+body.eco-shell .attach-strip:empty { display: none; }
+body.eco-shell .attach-strip .attach-item, body.eco-shell .attach-preview {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+}
+
+/* ============================= landing ============================= */
+#eco-landing {
+  position: fixed;
+  left: var(--nav-w); right: 0; top: 0; bottom: 0;
+  z-index: 46;
+  display: none;
+  overflow-y: auto;
+  background: var(--paper);
+}
+body.eco-landing-open #eco-landing { display: block; }
+body.eco-landing-open #viz-context-rail { display: none; }
+body.eco-landing-open .chat-input-bar, body.eco-landing-open #chat-container { visibility: hidden; }
+body.eco-landing-open #eco-landing { visibility: visible; }
+
+.eco-landing-inner {
+  max-width: 880px; margin: 0 auto; padding: 13vh 48px 60px;
+}
+.eco-landing-head { margin-bottom: 40px; }
+.eco-landing-head h1 {
+  margin: 0 0 14px;
+  font: 600 42px/1.15 var(--font-display);
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  max-width: 18ch;
+}
+.eco-landing-head p {
+  margin: 0; max-width: 52ch;
+  font-size: 16px; line-height: 1.65;
+  color: var(--ink-soft);
+}
+.eco-site-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.eco-card {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: stretch; min-height: 170px;
+  text-align: left;
+  padding: 22px 22px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.eco-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in srgb, var(--pine) 45%, var(--line));
+}
+.eco-card-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; row-gap: 6px; }
+.eco-card-title {
+  flex: 1 1 auto; min-width: 0;
+  font: 600 21px/1.25 var(--font-display);
+  letter-spacing: -0.01em; color: var(--ink);
+}
+.eco-card-tag {
+  margin-left: auto; flex: none;
+  font: 600 10px var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px;
+  background: color-mix(in srgb, var(--warn) 16%, transparent);
+  color: #7a5300;
+}
+.eco-card-stats { display: flex; flex-direction: column; gap: 5px; }
+.eco-card-stat {
+  font-size: 13px; color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.eco-card-stat::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: color-mix(in srgb, var(--pine) 55%, transparent);
+  align-self: center; flex: none;
+}
+.eco-card-foot {
+  margin-top: auto; padding-top: 8px;
+  font: 600 13px var(--font-ui);
+  color: var(--pine); letter-spacing: 0;
+  text-transform: none;
+}
+.eco-landing-loading { font-size: 13.5px; color: var(--ink-faint); }
+
+/* ============================= site briefing ============================= */
+body.eco-shell #eco-welcome { padding: 9vh 0 0; text-align: left; }
+body.eco-shell #eco-welcome h2 {
+  margin: 0 0 12px;
+  font: 600 38px/1.15 var(--font-display);
+  letter-spacing: -0.015em; color: var(--ink);
+}
+body.eco-shell #eco-welcome p {
+  margin: 0 0 20px; max-width: 52ch;
+  font-size: 16px; line-height: 1.65; color: var(--ink-soft);
+}
+.eco-welcome-stats { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 26px; }
+.eco-welcome-stat {
+  font-size: 13.5px; color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.eco-welcome-stat::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: color-mix(in srgb, var(--pine) 55%, transparent);
+  align-self: center; flex: none;
+}
+.eco-welcome-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+body.eco-shell .eco-welcome-chip {
+  font: 500 13.5px var(--font-ui);
+  padding: 9px 16px; height: auto; border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--pine); cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+body.eco-shell .eco-welcome-chip:hover { background: var(--pine-wash); border-color: color-mix(in srgb, var(--pine) 40%, var(--line-strong)); }
+
+/* ============================= data explorer ============================= */
+#eco-explorer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(520px, 94vw);
+  z-index: 92;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  transform: translateX(102%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column;
+}
+body.eco-explorer-open #eco-explorer { transform: none; }
+.eco-explorer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px 12px;
+}
+.eco-explorer-title { font: 600 20px var(--font-display); color: var(--ink); }
+.eco-explorer-body { flex: 1; overflow-y: auto; padding: 6px 20px 26px; display: flex; flex-direction: column; gap: 12px; }
+#eco-explorer .eco-explorer-search {
+  width: 100%;
+  font: 13.5px var(--font-ui);
+  padding: 10px 14px; height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+#eco-explorer .eco-explorer-search:focus { outline: none; border-color: var(--pine); }
+.eco-explorer-caps { display: flex; flex-wrap: wrap; gap: 7px; }
+#eco-explorer .eco-explorer-cap {
+  font: 500 12.5px var(--font-ui);
+  padding: 7px 13px; height: auto;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--pine);
+  cursor: pointer; text-align: left;
+}
+#eco-explorer .eco-explorer-cap:hover { background: var(--pine-wash); }
+.eco-explorer-sources { display: flex; flex-direction: column; gap: 8px; }
+.eco-explorer-source {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+.eco-explorer-source > summary {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer; list-style: none;
+}
+.eco-explorer-source > summary::-webkit-details-marker { display: none; }
+.eco-explorer-source-name { font-size: 13.5px; font-weight: 600; color: var(--ink); flex: 1; }
+.eco-explorer-source-count { font: 500 11px var(--font-ui); color: var(--ink-faint); flex: none; font-variant-numeric: tabular-nums; }
+.eco-explorer-quantities { display: flex; flex-direction: column; padding: 0 8px 8px; }
+#eco-explorer .eco-explorer-quantity {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  text-align: left; width: 100%;
+  padding: 9px 10px; height: auto;
+  line-height: 1.4;
+  border: none; background: none; cursor: pointer;
+  border-radius: 7px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+#eco-explorer .eco-explorer-quantity:hover { background: var(--pine-wash); color: var(--pine); }
+.eco-explorer-quantity-meta { font-size: 11px; color: var(--ink-faint); }
+
+/* viz components that are <button>/<input>: sit above the stock light guard */
+body.eco-shell .viz-action-chip { background: var(--surface); height: auto; }
+body.eco-shell .viz-action-chip:hover { background: var(--pine-wash); }
+body.eco-shell .viz-inline-open { background: var(--surface); height: auto; }
+body.eco-shell .viz-inline-open:hover { background: var(--pine-wash); }
+body.eco-shell .viz-peek-btn {
+  background: rgba(20, 24, 22, 0.66); color: #fff;
+  border-color: rgba(255, 255, 255, 0.65); height: auto;
+}
+body.eco-shell .viz-peek-btn:hover { background: rgba(20, 24, 22, 0.85); }
+body.eco-shell .viz-peek-btn.on { background: var(--pine-fill); border-color: transparent; }
+body.eco-shell .viz-basemap-pick { background: color-mix(in srgb, var(--surface) 88%, transparent); height: auto; }
+body.eco-shell .viz-panel-close { background: none; color: var(--ink-faint); height: auto; }
+body.eco-shell .viz-panel-close:hover { color: var(--ink); }
+body.eco-shell .viz-rail-recent-item { background: var(--surface); height: auto; }
+body.eco-shell .viz-rail-dot { background: transparent; }
+body.eco-shell .viz-rail-dot.on { background: var(--ink); }
+body.eco-shell .viz-estimate-form input { background: var(--surface); }
+body.eco-shell .viz-support-card { background: var(--surface); height: auto; }
+body.eco-shell .viz-audit-link { background: none; height: auto; }
+body.eco-shell .welcome-chip, body.eco-shell .scroll-nav-btn { height: auto; }
+
+/* ---------- Atlas: subject-centred relationship explorer (IDL-REQ-0003) ---------- */
+#eco-atlas {
+  position: fixed;
+  left: var(--nav-w); right: 0; top: 0; bottom: 0;
+  z-index: 46;
+  display: none;
+  overflow-y: auto;
+  background: var(--paper);
+}
+body.eco-atlas-open #eco-atlas { display: block; }
+body.eco-atlas-open .chat-input-bar, body.eco-atlas-open #chat-container { visibility: hidden; }
+body.eco-atlas-open .scroll-nav-btn { display: none !important; }
+body.eco-atlas-open #viz-context-rail { display: none; }
+.eco-atlas-inner { max-width: 1320px; margin: 0 auto; padding: 5vh 48px 50px; }
+.eco-atlas-head { margin-bottom: 14px; }
+.eco-atlas-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.eco-atlas-title {
+  margin: 0 0 8px;
+  font: 600 32px/1.2 var(--font-display);
+  letter-spacing: -0.012em; color: var(--ink);
+}
+.eco-atlas-sub { margin: 0; max-width: 76ch; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.eco-atlas-controls {
+  position: relative;
+  display: flex; align-items: center; gap: 12px;
+  margin: 16px 0 6px; max-width: 620px;
+}
+#eco-atlas .eco-atlas-search { flex: 1; height: auto; }
+#eco-atlas .eco-atlas-inventory-btn {
+  flex: none; height: auto;
+  font: 500 13px var(--font-ui); color: var(--pine);
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: 999px; padding: 8px 15px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-inventory-btn:hover { background: var(--pine-wash); }
+.eco-atlas-search-results {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 5;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-2);
+  display: flex; flex-direction: column; padding: 6px; gap: 2px;
+}
+#eco-atlas .eco-atlas-search-hit {
+  display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 8px 10px; border-radius: 7px; text-align: left;
+}
+#eco-atlas .eco-atlas-search-hit:hover { background: var(--pine-wash); }
+.eco-atlas-search-hit-name { font-size: 13.5px; color: var(--ink); }
+.eco-atlas-search-hit-meta { font-size: 11.5px; color: var(--ink-faint); flex: none; }
+
+/* canvas + detail panel side by side */
+.eco-atlas-body { display: flex; gap: 18px; align-items: flex-start; margin-top: 10px; }
+.eco-atlas-stage { flex: 1; min-width: 0; }
+.eco-atlas-svg { width: 100%; height: auto; display: block; }
+
+/* empty state: search-first, seeded with real starting points */
+.eco-atlas-empty {
+  border: 1px dashed var(--line-strong); border-radius: var(--radius);
+  padding: 34px 30px 30px; background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+.eco-atlas-empty-lead { margin: 0 0 14px; font-size: 14px; color: var(--ink-soft); }
+.eco-atlas-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+#eco-atlas .eco-atlas-suggestion {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); height: auto; cursor: pointer;
+  padding: 9px 14px; text-align: left;
+  transition: border-color 130ms ease, background 130ms ease;
+}
+#eco-atlas .eco-atlas-suggestion:hover { border-color: var(--pine); background: var(--pine-wash); }
+.eco-atlas-suggestion-name { font: 600 13px var(--font-ui); color: var(--ink); }
+.eco-atlas-suggestion-meta { font-size: 10.5px; color: var(--ink-faint); }
+
+/* the constellation: filaments + dots on paper */
+.eco-atlas-cosmos { position: relative; }
+.eco-atlas-svg-cosmos {
+  height: min(66vh, 720px);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(90% 90% at 50% 42%, color-mix(in srgb, var(--surface) 65%, transparent), transparent 75%),
+    var(--paper);
+  cursor: grab;
+  touch-action: none;
+}
+.eco-atlas-svg-cosmos:active { cursor: grabbing; }
+
+.eco-atlas-fil {
+  stroke: color-mix(in srgb, var(--pine) 26%, transparent);
+  stroke-linecap: round;
+  transition: stroke 160ms ease, opacity 160ms ease;
+}
+.eco-atlas-fil.basis-derived {
+  stroke: color-mix(in srgb, var(--ink) 13%, transparent);
+  stroke-dasharray: 5 5;
+}
+.eco-atlas-world { will-change: transform; }
+/* hover dims the whole field via one world class; the neighbourhood re-lights */
+.eco-atlas-world.is-hovering .eco-atlas-fil { opacity: 0.14; }
+.eco-atlas-world.is-hovering .eco-atlas-dot { opacity: 0.3; }
+.eco-atlas-world.is-hovering .eco-atlas-dot .eco-atlas-dot-label { opacity: 0; }
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-hovered,
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-neighbor { opacity: 1; }
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-hovered .eco-atlas-dot-label,
+.eco-atlas-world.is-hovering .eco-atlas-dot.is-neighbor.is-labelled .eco-atlas-dot-label { opacity: 1; }
+.eco-atlas-fil.is-lit { stroke: color-mix(in srgb, var(--pine) 70%, transparent); opacity: 1 !important; }
+
+.eco-atlas-dot { cursor: pointer; outline: none; }
+.eco-atlas-dot-core {
+  fill: color-mix(in srgb, var(--ink) 42%, var(--paper));
+  stroke: var(--paper); stroke-width: 1.2;
+  transition: fill 160ms ease;
+}
+.eco-atlas-dot-halo {
+  fill: color-mix(in srgb, var(--pine) 14%, transparent);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+/* kinds: tones within the theme — ink for the record kinds, pine for places,
+   a ring for groups — named in the legend and card, never colour alone */
+.eco-atlas-dot.kind-source .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-dot.kind-measurement .eco-atlas-dot-core { fill: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-dot.kind-place .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+.eco-atlas-dot.kind-group .eco-atlas-dot-core {
+  fill: var(--paper);
+  stroke: color-mix(in srgb, var(--ink) 55%, var(--paper)); stroke-width: 2;
+}
+/* TR-VIS-0007 (amended): the radius transition exists only during a legend
+   rescale (.is-resizing, ~400ms) — never on load or while the sim settles. */
+.eco-atlas-world.is-resizing .eco-atlas-dot-core,
+.eco-atlas-world.is-resizing .eco-atlas-dot-halo { transition: r 320ms ease; }
+
+/* the legend filter: a kind that's off leaves the canvas entirely */
+.eco-atlas-dot.is-koff { display: none; }
+.eco-atlas-fil.is-koff { display: none; }
+.eco-atlas-dot.is-anchor .eco-atlas-dot-core {
+  fill: var(--pine);
+  stroke: color-mix(in srgb, var(--pine) 35%, var(--paper)); stroke-width: 2.5;
+}
+.eco-atlas-dot.is-selected .eco-atlas-dot-halo,
+.eco-atlas-dot.is-hovered .eco-atlas-dot-halo,
+.eco-atlas-dot:focus-visible .eco-atlas-dot-halo { opacity: 1; }
+.eco-atlas-dot.is-hovered .eco-atlas-dot-core { fill: var(--pine); }
+.eco-atlas-dot.is-neighbor .eco-atlas-dot-core { fill: color-mix(in srgb, var(--pine) 55%, var(--paper)); }
+.eco-atlas-dot.is-far { opacity: 0.3; }
+
+/* isolation: one node and its one-hop ring; the rest of the field is gone */
+.eco-atlas-dot.is-hidden { display: none; }
+.eco-atlas-fil.is-hidden { display: none; }
+.eco-atlas-dot.is-isolated-centre .eco-atlas-dot-core {
+  fill: var(--pine);
+  stroke: color-mix(in srgb, var(--pine) 30%, var(--paper)); stroke-width: 3;
+}
+.eco-atlas-dot.is-isolated-centre .eco-atlas-dot-label {
+  opacity: 1; font-family: var(--font-display); font-weight: 600;
+}
+
+/* names: landmarks stay labelled, everything else speaks on hover */
+.eco-atlas-dot-label {
+  font-family: var(--font-ui); font-weight: 600;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+.eco-atlas-dot.is-labelled .eco-atlas-dot-label { opacity: 0.85; }
+.eco-atlas-dot.is-hovered .eco-atlas-dot-label,
+.eco-atlas-dot.is-selected .eco-atlas-dot-label,
+.eco-atlas-dot:focus-visible .eco-atlas-dot-label { opacity: 1; font-weight: 700; }
+.eco-atlas-dot.is-anchor .eco-atlas-dot-label {
+  opacity: 1; font-family: var(--font-display); font-weight: 600;
+}
+
+/* relation legend */
+.eco-atlas-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 12px 4px 0; }
+.eco-atlas-legend-item { display: inline-flex; align-items: center; gap: 8px; }
+.eco-atlas-legend-key {
+  width: 22px; height: 0; display: inline-block;
+  border-top: 2.5px solid color-mix(in srgb, var(--ink) 35%, transparent);
+}
+.eco-atlas-legend-dot {
+  width: 11px; height: 11px; border-radius: 50%; display: inline-block;
+  background: color-mix(in srgb, var(--ink) 42%, var(--paper));
+  border: 1px solid var(--paper);
+}
+.eco-atlas-legend-dot.kind-source { background: color-mix(in srgb, var(--ink) 72%, var(--paper)); }
+.eco-atlas-legend-dot.kind-measurement { background: color-mix(in srgb, var(--ink) 26%, var(--paper)); }
+.eco-atlas-legend-dot.kind-place { background: color-mix(in srgb, var(--pine) 38%, var(--paper)); }
+.eco-atlas-legend-dot.kind-group {
+  background: var(--paper);
+  border: 2px solid color-mix(in srgb, var(--ink) 55%, var(--paper));
+}
+#eco-atlas .eco-atlas-legend-item {
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 4px 8px; border-radius: 999px;
+  transition: background 130ms ease, opacity 130ms ease;
+}
+#eco-atlas .eco-atlas-legend-item:hover { background: var(--pine-wash); }
+#eco-atlas .eco-atlas-legend-item.is-static { cursor: default; }
+#eco-atlas .eco-atlas-legend-item.is-static:hover { background: none; }
+#eco-atlas .eco-atlas-legend-item.is-off { opacity: 0.38; }
+#eco-atlas .eco-atlas-legend-item.is-off .eco-atlas-legend-label { text-decoration: line-through; }
+#eco-atlas .eco-atlas-legend-reset {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 11.5px var(--font-ui); color: var(--pine);
+  padding: 4px 12px; border-radius: 999px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-legend-reset:hover { background: var(--pine-wash); }
+.eco-atlas-legend-key.basis-derived { border-top-style: dashed; border-top-color: color-mix(in srgb, var(--ink) 22%, transparent); }
+.eco-atlas-legend-label { font-size: 11.5px; color: var(--ink-soft); }
+.eco-atlas-status { margin-top: 10px; font-size: 12px; color: var(--ink-faint); min-height: 16px; }
+
+/* detail panel: relationships, provenance, capability actions */
+.eco-atlas-detail[hidden] { display: none; }
+.eco-atlas-detail {
+  flex: none; width: 330px;
+  position: sticky; top: 20px;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
+  border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-2);
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  max-height: calc(100vh - 120px); overflow-y: auto;
+}
+.eco-atlas-detail-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.eco-atlas-detail-title { font: 600 19px/1.3 var(--font-display); color: var(--ink); }
+.eco-atlas-detail-kind { font-size: 12px; color: var(--ink-faint); }
+.eco-atlas-detail-note { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); }
+.eco-atlas-detail-moves { display: flex; flex-wrap: wrap; gap: 8px; }
+#eco-atlas .eco-atlas-move-primary {
+  background: var(--pine-fill); color: #fff; border: 0; height: auto;
+  font: 600 12.5px var(--font-ui);
+  padding: 8px 14px; border-radius: 9px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-move-primary:hover { background: var(--pine-deep); }
+#eco-atlas .eco-atlas-move-secondary {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 12.5px var(--font-ui); color: var(--pine);
+  padding: 8px 13px; border-radius: 9px; cursor: pointer;
+}
+#eco-atlas .eco-atlas-move-secondary:hover { background: var(--pine-wash); }
+.eco-atlas-detail-rel { display: flex; flex-direction: column; gap: 2px; }
+.eco-atlas-detail-rel-head {
+  font: 600 10.5px var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 6px 0 3px;
+}
+#eco-atlas .eco-atlas-detail-neighbor {
+  display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  background: none; border: 0; height: auto; cursor: pointer;
+  padding: 5px 8px; border-radius: 7px; text-align: left;
+}
+#eco-atlas .eco-atlas-detail-neighbor:hover { background: var(--pine-wash); }
+.eco-atlas-detail-neighbor-name { font-size: 13px; color: var(--ink); }
+.eco-atlas-detail-neighbor-count { font-size: 11.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.eco-atlas-detail-omitted { font-size: 11.5px; color: var(--ink-faint); padding: 3px 8px; }
+.eco-atlas-detail-prov-line { font-size: 12px; line-height: 1.55; color: var(--ink-soft); padding: 2px 0; }
+.eco-atlas-detail-hint { font-size: 11px; color: var(--ink-faint); }
+.eco-atlas-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+@media (max-width: 980px) {
+  #eco-atlas { left: 64px; }
+  .eco-atlas-inner { padding: 4vh 18px 40px; }
+  .eco-atlas-body { flex-direction: column; }
+  .eco-atlas-detail { position: static; width: auto; max-height: none; }
+}
+
+/* ---------- TR-VIS-0005: problem report ---------- */
+.viz-inline-foot-right { display: inline-flex; align-items: center; gap: 8px; }
+body.eco-shell .viz-report-btn {
+  font: 500 12px var(--font-ui);
+  background: none; border: 0; height: auto;
+  color: var(--ink-faint);
+  cursor: pointer; padding: 3px 6px; border-radius: 7px;
+}
+body.eco-shell .viz-report-btn:hover { color: var(--critical); background: var(--surface-2); }
+body.eco-shell .viz-report-btn.viz-report-prominent {
+  border: 1px solid color-mix(in srgb, var(--critical) 45%, var(--line-strong));
+  color: var(--critical);
+  padding: 4px 12px; border-radius: 999px;
+}
+.viz-report-overlay {
+  position: fixed; inset: 0; z-index: 120;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(27, 26, 23, 0.35);
+  backdrop-filter: blur(3px);
+}
+.viz-report-overlay.on { display: flex; }
+.viz-report-box {
+  width: min(640px, 92vw); max-height: 86vh; overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.viz-report-head { display: flex; align-items: center; justify-content: space-between; }
+.viz-report-title { font: 600 19px var(--font-display); color: var(--ink); }
+.viz-report-note { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+.viz-report-warning {
+  margin: 0; padding: 10px 14px;
+  font-size: 13px; line-height: 1.55; color: var(--ink);
+  background: color-mix(in srgb, var(--warn) 14%, transparent);
+  border-left: 3px solid var(--warn);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.viz-report-meta { font-size: 12px; color: var(--ink-faint); }
+body.eco-shell .viz-report-desc {
+  width: 100%; box-sizing: border-box;
+  font: 14px/1.55 var(--font-ui);
+  padding: 10px 13px; border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); resize: vertical; min-height: 96px;
+}
+body.eco-shell .viz-report-desc:focus { outline: none; border-color: var(--pine); }
+.viz-report-include { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); }
+body.eco-shell .viz-report-include input { width: auto; accent-color: var(--pine); }
+.viz-report-preview-title { font: 600 15px var(--font-ui); color: var(--ink); }
+.viz-report-preview-body {
+  margin: 0; padding: 12px 14px;
+  max-height: 320px; overflow: auto;
+  font: 12px/1.55 var(--font-mono);
+  background: var(--code-bg); color: var(--code-fg);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.viz-report-error { color: var(--critical); font-size: 12.5px; min-height: 0; }
+.viz-report-error:empty { display: none; }
+.viz-report-actions { display: flex; justify-content: flex-end; gap: 10px; }
+body.eco-shell .viz-report-primary {
+  background: var(--pine-fill); color: #fff; border: 0; height: auto;
+  font: 600 13.5px var(--font-ui);
+  padding: 9px 18px; border-radius: 10px; cursor: pointer;
+}
+body.eco-shell .viz-report-primary:hover { background: var(--pine-deep); }
+body.eco-shell .viz-report-primary:disabled { opacity: 0.6; cursor: default; }
+body.eco-shell .viz-report-secondary {
+  background: none; border: 1px solid var(--line-strong); height: auto;
+  font: 500 13.5px var(--font-ui); color: var(--ink-soft);
+  padding: 9px 16px; border-radius: 10px; cursor: pointer;
+}
+.viz-report-link { color: var(--pine); font-weight: 500; word-break: break-all; }
+
+/* message footer (elapsed time + copy/delete): a whisper until hovered */
+body.eco-shell .msg-footer { opacity: 0.45; transition: opacity 140ms ease; }
+body.eco-shell .msg:hover .msg-footer { opacity: 1; }
+body.eco-shell .msg-footer button {
+  background: none; border: 0; color: var(--ink-faint);
+  border-radius: 7px;
+}
+body.eco-shell .msg-footer button:hover { color: var(--ink); background: var(--surface-2); }
+
+/* the stock scroll-to-bottom arrow has no job on the landing page */
+body.eco-landing-open .scroll-nav-btn { display: none !important; }
+
+/* ---------- past conversations drawer ---------- */
+#eco-history {
+  position: fixed;
+  left: var(--nav-w); top: 0; bottom: 0;
+  width: min(340px, 86vw);
+  z-index: 56;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  transform: translateX(calc(-100% - var(--nav-w) - 30px));
+  visibility: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  display: flex; flex-direction: column;
+}
+body.eco-history-open #eco-history { transform: none; visibility: visible; }
+#eco-history .eco-history-filter { margin: 4px 16px 10px; width: auto; }
+.eco-history-list {
+  flex: 1; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 0 10px 16px;
+}
+#eco-history .eco-history-item {
+  display: flex; flex-direction: column; gap: 3px;
+  align-items: flex-start; text-align: left;
+  padding: 10px 12px; height: auto;
+  border: 0; border-radius: var(--radius-sm);
+  background: none; cursor: pointer;
+  transition: background 130ms ease;
+}
+#eco-history .eco-history-item:hover { background: var(--pine-wash); }
+.eco-history-name {
+  font: 500 13.5px/1.4 var(--font-ui); color: var(--ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.eco-history-meta { font-size: 11px; color: var(--ink-faint); }
+
+/* ---------- signed-in user ---------- */
+#eco-nav .eco-user {
+  display: flex; align-items: center; gap: 9px;
+  padding: 2px 6px; margin-top: 10px;
+  min-height: 0;
+}
+.eco-user-avatar:empty { display: none; }
+.eco-user-avatar {
+  width: 24px; height: 24px; border-radius: 50%; flex: none;
+  background: var(--pine-wash); color: var(--pine);
+  display: grid; place-items: center;
+  font: 600 11px var(--font-ui);
+}
+.eco-user-name {
+  font: 500 12.5px var(--font-ui); color: var(--ink-soft);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* sign out: a power button beside the signed-in name */
+#eco-nav .eco-signout {
+  margin-left: auto; flex: none;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  background: none; border: 0; border-radius: 8px;
+  color: var(--ink-faint); cursor: pointer;
+  transition: color 130ms ease, background 130ms ease;
+}
+#eco-nav .eco-signout:hover { color: var(--critical); background: var(--surface-2); }
+#eco-nav .eco-signout .eco-nav-icon { width: 15px; height: 15px; opacity: 1; }
+
+/* ============================= misc chrome ============================= */
+body.eco-shell .scroll-nav-btn, body.eco-shell .toast {
+  background: var(--surface) !important; color: var(--ink) !important;
+  border: 1px solid var(--line) !important; box-shadow: var(--shadow-2) !important;
+}
+body.eco-shell .scroll-nav-btn svg { color: var(--ink-soft); }
+
+body.eco-shell *::-webkit-scrollbar { width: 10px; height: 10px; }
+body.eco-shell *::-webkit-scrollbar-track { background: transparent; }
+body.eco-shell *::-webkit-scrollbar-thumb {
+  background: rgba(27, 26, 23, 0.16); border-radius: 999px; border: 3px solid transparent;
+  background-clip: content-box;
+}
+body.eco-shell *::-webkit-scrollbar-thumb:hover { background: rgba(27, 26, 23, 0.28); background-clip: content-box; }
+
+body.eco-shell ::selection { background: rgba(29, 92, 69, 0.18); }
+
+body.eco-shell:focus-visible, body.eco-shell button:focus-visible,
+body.eco-shell [role="button"]:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--pine) 60%, transparent); outline-offset: 2px;
+}
+
+/* ============================= responsive ============================= */
+@media (max-width: 980px) {
+  body.theme-ecodata, body.eco-shell { --nav-w: 64px; }
+  #eco-nav { padding: 16px 10px; gap: 12px; }
+  .eco-brand-name, .eco-nav-item span, .eco-new-btn span,
+  #eco-nav .eco-site-card, .eco-nav-site,
+  .eco-user-name { display: none; }
+  #eco-nav .eco-user { justify-content: center; padding: 2px 0; }
+  #eco-nav .eco-signout { margin-left: 0; }
+  #eco-history { left: 64px; }
+  .eco-nav-item, .eco-new-btn { justify-content: center; padding: 10px; }
+  body.eco-shell .chat-history { padding: 20px 16px 170px; }
+  body.eco-shell .chat-input-bar { padding: 0 16px 14px; }
+  .eco-landing-inner { padding: 8vh 20px 40px; }
+}

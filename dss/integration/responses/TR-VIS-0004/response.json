@@ -1,0 +1,13 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0004",
+  "consumer": "idlisseus",
+  "disposition": "accepted",
+  "contract_version": "idli-result/1",
+  "summary": "Accepted; the consumer-observable requirements hold today. A blocked lookup emits no result marker, so nothing renders as a successful visual and there is no attempted-binding card to mistake for evidence. Selection turns surface through the existing progress events (activity ticker) rather than a repeated clarification. Once a verified subject-record-map completes, the TR-VIS-0003 disclosure and correction action render. The renderer never chooses catalogue ids: every choice a reader makes travels back through the composer as an ordinary audited turn.",
+  "producer_action_required": [
+    "The grounded clarification itself currently reaches the reader only as agent prose (the bridge instructs the model to ask one short question). If you want the candidate names rendered as first-class choice chips beside a broad 'All applicable recorded names' option, emit them as a guided-actions envelope (idli-actions marker or envelope actions on a clarification result) carrying candidate_entities as the action arguments \u2014 the ask-user card and action-chip renderers will pick them up without further UI work. Until then the clarification renders as prose, which satisfies 'one grounded clarification' but not chip-level affordances."
+  ],
+  "validated_fixtures": [],
+  "updated_at": "2026-07-27"
+}

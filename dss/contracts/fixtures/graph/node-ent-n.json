@@ -1,0 +1,33 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "ent:n",
+    "kind": "subject",
+    "label": "Recorded name North",
+    "records": 130,
+    "sources": 1
+  },
+  "relations": [
+    {
+      "relation": "recorded_at",
+      "label": "Recorded at",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "plc:north",
+            "kind": "place",
+            "label": "Northern block",
+            "records": 611
+          },
+          "records": 96
+        }
+      ],
+      "omitted": 0
+    }
+  ],
+  "provenance": [
+    "Counts are admitted records."
+  ],
+  "actions": []
+}

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Idlisseus Chat</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4L16 22L6 22Z' fill='%23e06c75'/%3E%3Cpath d='M16 8L16 22L24 22Z' fill='%23e06c75' opacity='0.6'/%3E%3Cpath d='M4 24Q10 20 16 24Q22 28 28 24' stroke='%23e06c75' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <title>Idli Insights</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d5c45'/%3E%3Cellipse cx='16' cy='20' rx='9.5' ry='5' fill='%23fffdfa'/%3E%3Cpath d='M12 13c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/%3E%3Cpath d='M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M21 13c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/%3E%3C/svg%3E">
   <link rel="manifest" href="/static/manifest.json">
   <meta name="theme-color" content="#282c34">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,10 +37,7 @@
         // there during load and the bar "switches" colour once the app boots.
         var mtc = document.querySelector('meta[name="theme-color"]');
         if (mtc && c.bg) mtc.setAttribute('content', c.bg);
-        // Update favicon to match accent color
-        var ac = c.red || '#e06c75';
-        var fav = document.querySelector("link[rel='icon']");
-        if (fav) fav.href = 'data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 4L16 22L6 22Z' fill='" + ac + "'/><path d='M16 8L16 22L24 22Z' fill='" + ac + "' opacity='0.6'/><path d='M4 24Q10 20 16 24Q22 28 28 24' stroke='" + ac + "' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>");
+        // The favicon is the brand idli mark (set in <head>) — never accent-themed.
         // Derive syntax highlighting colors from theme
         function h2hsl(hex) {
           hex = hex.replace('#','');
@@ -156,14 +153,14 @@
       apple.href = href;
       // Also customize the page title so the bookmark inherits a useful name.
       var titles = {
-        '/calendar': 'Calendar — Idlisseus',
-        '/notes': 'Notes — Idlisseus',
-        '/cookbook': 'Cookbook — Idlisseus',
-        '/email': 'Email — Idlisseus',
-        '/memory': 'Memory — Idlisseus',
-        '/gallery': 'Gallery — Idlisseus',
-        '/tasks': 'Tasks — Idlisseus',
-        '/library': 'Library — Idlisseus',
+        '/calendar': 'Calendar — Idli Insights',
+        '/notes': 'Notes — Idli Insights',
+        '/cookbook': 'Cookbook — Idli Insights',
+        '/email': 'Email — Idli Insights',
+        '/memory': 'Memory — Idli Insights',
+        '/gallery': 'Gallery — Idli Insights',
+        '/tasks': 'Tasks — Idli Insights',
+        '/library': 'Library — Idli Insights',
       };
       if (titles[path]) document.title = titles[path];
       // Per-route Android home-screen icon. We swap the <link rel="manifest">
@@ -173,8 +170,8 @@
       try {
         if (inner && typeof Blob !== 'undefined') {
           var pwa = {
-            name: (titles[path] || 'Idlisseus'),
-            short_name: (titles[path] || 'Idlisseus').split('—')[0].trim(),
+            name: (titles[path] || 'Idli Insights'),
+            short_name: (titles[path] || 'Idli Insights').split('—')[0].trim(),
             start_url: path,
             scope: '/',
             display: 'standalone',
@@ -220,6 +217,9 @@
     })();
   </script>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/visual.css">
+  <link rel="stylesheet" href="/static/ecodata.css">
+  <link rel="stylesheet" href="/static/lib/leaflet/leaflet.css">
   <link rel="modulepreload" href="/static/app.js">
   <link rel="modulepreload" href="/static/js/chat.js?v=20260722-insight5">
   <link rel="modulepreload" href="/static/js/ui.js">
@@ -229,20 +229,18 @@
 </head>
 <body>
   <!-- Loading overlay — hides all flashing until app is ready -->
-  <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#282c34);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
-    <div id="loader-wave" style="color:var(--brand-color,var(--red,#e06c75));font-family:monospace;font-size:11px;opacity:.5">▁▂▃</div>
+  <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#f7f5f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
+    <div id="loader-disc" style="color:var(--brand-color,var(--red,#1d5c45));font-family:monospace;font-size:19px;line-height:1;opacity:.65">◐</div>
   </div>
   <script nonce="{{CSP_NONCE}}">
   (function(){
-    var el=document.getElementById('loader-wave');
-    if(!el)return;
-    var frames=['▁▂▃','▂▃▄','▃▄▅','▄▅▆','▅▆▅','▆▅▄','▅▄▃','▄▃▂','▃▂▁'];
+    var el=document.getElementById('loader-disc');
+    var frames=['\u25d0','\u25d3','\u25d1','\u25d2'];
     var i=0;
     var iv=setInterval(function(){
       if(!document.getElementById('app-loader')){clearInterval(iv);return}
-      el.textContent=frames[i%frames.length];
-      i++;
-    },150);
+      if(el){el.textContent=frames[++i%frames.length];}
+    },200);
     setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},5000);
   })();
   </script>
@@ -511,7 +509,7 @@
         <div class="theme-adv-group">
           <div class="theme-adv-group-label">Sidebar</div>
           <div class="theme-custom">
-            <div class="color-row"><label>Idlisseus Logo</label><input type="color" id="adv-brandColor"><button class="color-reset-btn" data-reset-adv="brandColor" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+            <div class="color-row"><label>Idli Insights Logo</label><input type="color" id="adv-brandColor"><button class="color-reset-btn" data-reset-adv="brandColor" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
             <div class="color-row"><label title="Hamburger menu"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="vertical-align:-2px;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></label><input type="color" id="adv-hamburgerColor"><button class="color-reset-btn" data-reset-adv="hamburgerColor" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
           </div>
         </div>
@@ -706,7 +704,7 @@
     <div class="sidebar-header">
       <button class="sidebar-hamburger" id="sidebar-toggle-btn" title="Toggle sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <div class="sidebar-brand" id="sidebar-brand-btn" style="cursor:pointer;" title="New chat">
-        <span class="sidebar-brand-title">Idlisseus</span>
+        <span class="sidebar-brand-title">Idli Insights</span>
       </div>
     </div>
     <div class="sidebar-inner">
@@ -952,12 +950,12 @@
          never affects layout, but always present inside the main landmark
          (the sidebar that shows the visible brand is hidden off-canvas on
          mobile) so the page always exposes a single level-1 heading. -->
-    <h1 class="a11y-visually-hidden">Idlisseus</h1>
+    <h1 class="a11y-visually-hidden">Idli Insights</h1>
     <div class="chat-top-bar">
       <button type="button" class="incognito-indicator" id="incognito-indicator" title="Nobody mode active — click to deactivate" style="display:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><line x1="8" y1="16" x2="16" y2="8"/><line x1="8" y1="8" x2="16" y2="16"/></svg></button>
-      <div class="chat-meta-overlay"><span id="current-meta">Idlisseus Chat</span><span id="current-meta-count" class="chat-meta-count" aria-hidden="true"></span><span id="session-cost-display" class="session-cost-display" style="display:none;"></span><span class="export-dropdown-wrap" id="export-dropdown-wrap"><button type="button" class="export-dl-btn" id="export-dl-btn" title="More"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="export-dropdown-menu" id="export-dropdown-menu"><div class="export-dropdown-item" id="export-rename-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></span><span>Rename</span></div><div class="export-dropdown-item" id="export-copy-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span><span>Copy Chat</span></div><div class="export-dropdown-item" id="export-pdf-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-2h2a1.5 1.5 0 0 1 0 3H9z"/></svg></span><span>PDF</span></div><div class="export-dropdown-item" id="export-doc-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span><span>Save to Documents</span></div></div></span></div>    </div>
+      <div class="chat-meta-overlay"><span id="current-meta">Idli Insights</span><span id="current-meta-count" class="chat-meta-count" aria-hidden="true"></span><span id="session-cost-display" class="session-cost-display" style="display:none;"></span><span class="export-dropdown-wrap" id="export-dropdown-wrap"><button type="button" class="export-dl-btn" id="export-dl-btn" title="More"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="export-dropdown-menu" id="export-dropdown-menu"><div class="export-dropdown-item" id="export-rename-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></span><span>Rename</span></div><div class="export-dropdown-item" id="export-copy-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span><span>Copy Chat</span></div><div class="export-dropdown-item" id="export-pdf-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-2h2a1.5 1.5 0 0 1 0 3H9z"/></svg></span><span>PDF</span></div><div class="export-dropdown-item" id="export-doc-btn"><span class="dropdown-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span><span>Save to Documents</span></div></div></span></div>    </div>
     <div id="welcome-screen">
-      <div class="welcome-name"><svg class="welcome-boat" viewBox="0 0 32 32"><path d="M16 4L16 22L6 22Z" fill="currentColor"/><path d="M16 8L16 22L24 22Z" fill="currentColor" opacity="0.6"/><path d="M4 24Q10 20 16 24Q22 28 28 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>Idlisseus</div>
+      <div class="welcome-name"><svg class="welcome-boat" viewBox="0 0 32 32"><path d="M16 4L16 22L6 22Z" fill="currentColor"/><path d="M16 8L16 22L24 22Z" fill="currentColor" opacity="0.6"/><path d="M4 24Q10 20 16 24Q22 28 28 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>Idli Insights</div>
       <div class="welcome-sub" id="welcome-sub">Welcome, <span class="setup-trigger-link" style="color:var(--accent,var(--red));font-weight:600;cursor:pointer;text-decoration:underline;" title="Click to launch setup">type /setup</span> to get started.</div>
       <div class="welcome-tip" id="welcome-tip"></div>
       <button type="button" class="incognito-btn" id="incognito-btn" title="Enable Nobody mode — no memory, no history saved">
@@ -1013,7 +1011,7 @@
     <div class="chat-input-bar">
       <div class="chat-input-top">
         <div id="message-ghost" class="ghost-text-overlay" aria-hidden="true"></div>
-        <textarea id="message" placeholder="Message Idlisseus..." required autocomplete="off" aria-label="Message input" rows="1" autofocus></textarea>
+        <textarea id="message" placeholder="Message Idli Insights..." required autocomplete="off" aria-label="Message input" rows="1" autofocus></textarea>
         <!-- Model picker (inside chatbox, top-right) -->
         <div class="model-picker-wrap" id="model-picker-wrap">
           <button type="button" class="model-picker-btn" id="model-picker-btn" title="Switch model"><span id="model-picker-label">Select model</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg></button>
@@ -2488,6 +2486,12 @@
 <script type="module" src="/static/js/settings.js"></script>
 <script type="module" src="/static/js/admin.js"></script>
 <script type="module" src="/static/js/assistant.js"></script>
+<script src="/static/lib/leaflet/leaflet.js"></script>
+<script src="/static/lib/vega/vega.min.js"></script>
+<script src="/static/lib/vega/vega-lite.min.js"></script>
+<script src="/static/lib/vega/vega-interpreter.min.js"></script>
+<script type="module" src="/static/js/visual/visualChat.js"></script>
+<script type="module" src="/static/js/visual/visualShell.js"></script>
 <script type="module" src="/static/app.js"></script>  <!-- app.js must be LAST -->
 <script type="module" src="/static/js/init.js"></script>
 <script type="module" src="/static/js/a11y.js"></script>

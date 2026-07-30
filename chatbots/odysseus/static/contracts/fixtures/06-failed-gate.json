@@ -1,0 +1,170 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-failed-gate",
+  "request_id": "fixture-request-failed-gate",
+  "revision": 1,
+  "status": "partial",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37",
+    "synthetic": true
+  },
+  "question": {
+    "original": "Can surrounding data be transferred here?",
+    "resolved": "Run the registered transfer model and retain valid donor evidence if a gate fails.",
+    "bindings": {
+      "aoi_ids": [
+        "target"
+      ],
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "The transfer gate failed; observed donor coverage remains available.",
+    "detail": "Synthetic renderer fixture; not evidence about a real place.",
+    "evidence_classes": [
+      "observed",
+      "missing"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "failed-gate-map",
+      "visual_type": "map",
+      "view": "donor-target-gates",
+      "title": "Donor coverage and failed transfer gate",
+      "priority": "primary",
+      "status": "partial",
+      "scope": {
+        "aoi_ids": [
+          "target",
+          "context"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "failed-donor-records",
+          "evidence_class": "observed",
+          "geometry_type": "point",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "failed-donor-records",
+            "media_type": "application/geo+json",
+            "digest": "sha256:8e9b00928bfe50824d03ecc4f99217cc058da1ea95a4ae12e06a8ffb402fb3dd"
+          },
+          "legend": {
+            "label": "Donor observations"
+          },
+          "style_hint": {
+            "palette_role": "observed"
+          }
+        },
+        {
+          "layer_id": "unsupported-target",
+          "evidence_class": "missing",
+          "geometry_type": "cell",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "unsupported-target",
+            "media_type": "application/geo+json",
+            "digest": "sha256:beb835db5b2c319cce95b6140054062e5ec6eb192cd797bbf12d7895e98ed2f0"
+          },
+          "legend": {
+            "label": "Unsupported target cells"
+          },
+          "style_hint": {
+            "palette_role": "missing"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "Observed donor records remain visible, but the estimate was blocked.",
+        "denominators": {
+          "donor_records": 19,
+          "supported_target_fraction": 0.31
+        }
+      },
+      "drilldowns": [
+        {
+          "action_id": "inspect-failed-gate-map",
+          "label": "Inspect source rows",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "failed-gate-map-rows",
+            "media_type": "application/json",
+            "digest": "sha256:4bad7143e1b927d2fc77303217aab883cb608ece947703e351687c24f3ab14da"
+          }
+        }
+      ],
+      "limitations": [
+        {
+          "code": "transfer-gate-failed",
+          "severity": "error",
+          "message": "Environmental support did not cover enough of the target; no estimate is shown.",
+          "affects": [
+            "failed-gate-map",
+            "answer"
+          ],
+          "details_ref": null
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "code": "synthetic-data",
+      "severity": "info",
+      "message": "This result uses synthetic test data and is not evidence about a real place.",
+      "affects": [
+        "answer"
+      ],
+      "details_ref": null
+    },
+    {
+      "code": "transfer-gate-failed",
+      "severity": "error",
+      "message": "Environmental support did not cover enough of the target; no estimate is shown.",
+      "affects": [
+        "failed-gate-map",
+        "answer"
+      ],
+      "details_ref": null
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "request-model",
+      "kind": "request_model",
+      "label": "Request a model for this target",
+      "capability_id": "request-model",
+      "arguments": {
+        "failed_gate": "environmental-support"
+      },
+      "requires_confirmation": true
+    }
+  ],
+  "audit": {
+    "audit_id": "fixture-audit-failed-gate",
+    "source_versions": [
+      {
+        "source_id": "synthetic-fixture-source",
+        "version": "1",
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb",
+        "synthetic": true
+      }
+    ],
+    "capability_runs": [
+      {
+        "capability_id": "gated-transfer",
+        "version": "1.0.0",
+        "status": "partial"
+      }
+    ],
+    "query_hash": "sha256:d0c37b6485a237608b198b92486c769c79893900d860420719955d8458d659f4"
+  }
+}

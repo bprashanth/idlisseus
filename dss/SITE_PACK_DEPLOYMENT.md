@@ -9,6 +9,10 @@ education, conservation, infrastructure, and public-service delivery. A â€œsiteâ
 village, district, facility catchment, programme area, comparison region, or other declared
 analysis scope.
 
+Pack authoring for a new sector (exact manifest schemas, adapter kinds, build/verify steps) is
+documented benchmark-side in `totalrecall/dss/SITE_PACK_AUTHORING.md`, with
+`totalrecall/dss/sites/valparai_livelihoods/` as the synthetic reference pack.
+
 Idlisseus owns conversation, presentation, endpoint registration, sessions, and audit UX. It does
 not own benchmark source data. Each benchmark repository owns its site packs, ingestion adapters,
 indexes, connectors, skills, model inputs, and derived evidence.

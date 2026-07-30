@@ -4,16 +4,35 @@
  * ASCII Spinner Module for AI thinking/processing status
  */
 
+
+// The loop pool: rotating disc, orbiting arc, braille spinner, spark,
+// corner orbit, survey ping. Arrows deliberately excluded.
+const WAVE_POOL = [
+  { frames: ['\u25d0', '\u25d3', '\u25d1', '\u25d2'], speed: 200 },
+  { frames: ['\u25dc', '\u25dd', '\u25de', '\u25df'], speed: 200 },
+  { frames: ['\u280b', '\u2819', '\u2839', '\u2838', '\u283c', '\u2834', '\u2826', '\u2827', '\u2807', '\u280f'], speed: 90 },
+  { frames: ['\u00b7', '\u2722', '\u2733', '\u2736', '\u2733', '\u2722'], speed: 240 },
+  { frames: ['\u2596', '\u2598', '\u259d', '\u2597'], speed: 220 },
+  { frames: ['\u00b7', '\u2218', '\u25cb', '\u25ce', '\u25c9', '\u25ce', '\u25cb', '\u2218'], speed: 240 },
+];
+
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // Different animation frames
+    // "wave" is the chat thinking indicator. Each spinner instance draws one
+    // plain-text loop at random from the pool — so every message thinks with
+    // its own little instrument. All glyphs are single-width, no color.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
-      wave: ['▁▂▃', '▂▃▄', '▃▄▅', '▄▅▆', '▅▆▅', '▆▅▄', '▅▄▃', '▄▃▂', '▃▂▁']
     };
 
     this.animation = animation;
-    this.frames = this.animations[animation] || this.animations.spinner;
+    if (animation === 'wave') {
+      const pick = WAVE_POOL[Math.floor(Math.random() * WAVE_POOL.length)];
+      this.frames = pick.frames;
+      this.frameSpeed = pick.speed;
+    } else {
+      this.frames = this.animations[animation] || this.animations.spinner;
+    }
     this.message = message;
     this.style = style; // "left", "right", or "clean"
     this.isRunning = false;
@@ -35,7 +54,9 @@ class Spinner {
     }
     const span = document.createElement('span');
     span.className = 'ai-spinner';
-    span.style.cssText = 'font-family: monospace; white-space: pre;';
+    // Inherit the theme's UI face — the label should read like the app, not a
+    // terminal. Inline-flex centres the ping glyph against the label's text.
+    span.style.cssText = 'font-family: inherit; display: inline-flex; align-items: center; gap: 7px;';
     this.element = span;
     this.updateDisplay();
     return span;
@@ -267,22 +288,31 @@ class Spinner {
 
     const frame = this.frames[this.currentFrame % this.frames.length];
 
-    let display = '';
-    if (this.style === "left") {
-      display = `${frame} ${this.message}`;
-    } else if (this.style === "right") {
-      display = `${this.message} ${frame}`;
+    // The label wears the theme face; only the glyph frame is monospace so
+    // every frame occupies the same width and the loop doesn't shimmy.
+    this.element.textContent = '';
+    const frameSpan = document.createElement('span');
+    // Fixed 1ch mono box: every frame occupies the same width, so the loop
+    // is still; line-height 1 keeps the glyph on the label's optical centre.
+    frameSpan.style.cssText = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace;'
+      + 'width: 1.1ch; text-align: center; line-height: 1;';
+    frameSpan.textContent = frame;
+    if (this.style === 'left') {
+      this.element.appendChild(frameSpan);
+      this.element.appendChild(document.createTextNode(this.message));
+    } else if (this.style === 'right') {
+      this.element.appendChild(document.createTextNode(this.message));
+      this.element.appendChild(frameSpan);
     } else { // clean
-      display = this.message;
+      this.element.textContent = this.message;
     }
-
-    this.element.innerHTML = display;
   }
 
   /**
    * Start the spinner animation
    */
-  start(speed = 150) {
+  start(speed) {
+    speed = speed || this.frameSpeed || 200;
     if (this.isRunning) return;
     this.isRunning = true;
 
@@ -299,6 +329,7 @@ class Spinner {
     }
 
     this.currentFrame = 0;
+    if (this.frames.length <= 1) { this.updateDisplay(); return; }
     this.intervalId = setInterval(() => {
       this.currentFrame++;
       this.updateDisplay();

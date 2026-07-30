@@ -32,7 +32,7 @@ def test_idli_insight_live_handler_uses_compact_event_not_generic_tool_cards():
     assert "json.type === 'insight_skill'" in chat
     assert "spinner.updateMessage(`Using ${skillName}`)" in chat
     assert "const compatMarkers" in chat
-    assert ".matchAll(/<!--\\s*idli-(progress|skill|actions|evidence):" in chat
+    assert ".matchAll(/<!--\\s*idli-(progress|skill|actions|evidence|result):" in chat
     assert "appendInsightActivity" in chat
     assert "chatRenderer.renderAskUserCard(payload)" in chat
 

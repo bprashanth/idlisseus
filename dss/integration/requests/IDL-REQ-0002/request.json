@@ -1,0 +1,38 @@
+{
+  "schema_version": "producer-consumer-request/1",
+  "request_id": "IDL-REQ-0002",
+  "title": "Resolve a subject the way a person says it: widen deterministically, then let the model choose from real candidates",
+  "consumer": "idlisseus",
+  "producer": "totalrecall",
+  "created_at": "2026-07-26",
+  "priority": "high",
+  "problem": "Subject resolution is exact equality at all three stages - alias key, event type, hierarchy rank - over a string that is only case-folded and whitespace-collapsed. An ordinary English question therefore fails on two counts at once: a plural ('elephants') misses an alias that exists in the singular, and a common group word ('hornbills') misses because no entity carries that name and the only thing grouping those birds is the Latin family. The user is left needing to know which of their words happens to be an indexed string.",
+  "evidence": [
+    "Live against runs/insight-valparai: 'elephant' resolves to Elephant; 'elephants' NO MATCH; 'hornbill' NO MATCH; 'hornbills' NO MATCH; 'Bucerotidae' matches only at stage 3 as a family (2 entities).",
+    "The pack does hold them: aliases matching %hornbill% are Great Hornbill, Malabar Grey Hornbill, Malabar Gray Hornbill, Great Hornbill (Great Pied Hornbill).",
+    "The working co-occurrence map was built from the exact strings 'Elephant' and 'Bucerotidae', which is why the same question phrased in English now fails.",
+    "Deterministic widening already answers most of it: substring + plural-stripping on 'hornbill' returns 3 entities whose single shared family is Bucerotidae, and on 'elephants' returns 1 entity. No model needed for either.",
+    "It does not answer everything: 'raptor' and 'shade tree' return 0 entities by substring, because those groupings are not substrings of any recorded name.",
+    "AMENDED after measuring: the hierarchy is partial. 828 of 1145 entities carry a family; the rest carry none.",
+    "Every raptor in this pack has an EMPTY hierarchy - Black Eagle, Legge's Hawk-Eagle, Crested Serpent-Eagle, Black-shouldered Kite, Brahminy Kite, Black Kite, Peregrine Falcon, Common Buzzard, Oriental Honey-Buzzard. They come from common-name survey sheets, not from a taxonomic backbone. So the shared-ancestor path is structurally unavailable for exactly the case that motivated this request.",
+    "Substring widening over-reaches: %falcon% matches 'Falconeria insignis', a plant in Euphorbiaceae.",
+    "Handing the model the whole entity list is affordable at this scale: 1145 entities is roughly 7.2k tokens; the family vocabulary alone is 175 values and roughly 0.8k tokens but is absent where it is most needed."
+  ],
+  "requested_outcome": [
+    "Stage 1 - widen deterministically: singular/plural variants, then substring both ways over aliases and rank values. Catches 'elephants' and narrows 'hornbill'.",
+    "Stage 2 - THE GENERAL MECHANISM: when widening does not settle it, give the model the site's own entity list (names and ids) and ask it to choose the members of the asked-for group. It may return many, and it must return only ids from the list it was given. Membership is verified before use. This works whether or not a taxonomy exists, which matters because most group words people use ('raptors', 'shade trees', 'invasives') are not substrings of any recorded name and their entities often carry no hierarchy at all.",
+    "Stage 3 - shared ancestor as PRESENTATION, not resolution: if the chosen entities happen to agree on one value at some rank, name it ('read as the family Bucerotidae, 3 recorded birds'). Where no hierarchy exists, name the members instead ('read as these 9 birds: ...'). Never let the absence of a taxonomy block the answer.",
+    "Always show the reader how the word was read, and let them correct it. A group the model assembled is a judgement, and it should look like one.",
+    "Chunk the entity list for packs too large to send at once, and cache per (site, term).",
+    "Keep it sector-neutral: the same mechanism reads 'casual labour' or 'kharif crops' in another pack."
+  ],
+  "acceptance": [
+    "'Where were elephants and hornbills both recorded?' returns the same map as the exact-string question, and names how each word was read.",
+    "'raptors' resolves to the birds of prey this site actually records, despite none of them carrying a family, and the answer lists which birds it used.",
+    "A model-returned id that was not in the supplied candidate list is rejected.",
+    "Substring over-reach is caught: a plant is not returned for 'falcon'.",
+    "A word that matches nothing fails honestly and says what it tried.",
+    "A pack with a complete taxonomy still gets the tighter 'family Bucerotidae' phrasing through stage 3."
+  ],
+  "notes": "The consumer asked whether to use embeddings. Recommendation is still no, but the reasoning has shifted: the deciding factor is not that the vocabulary is bounded, it is that the answer must be verifiable and reviewable. A model choosing from an enumerated list returns ids you can check against the index and show to the reader; a nearest-neighbour search returns a ranked blur whose errors look exactly like its successes, and it would still not know that 'raptors' means nine particular birds in a pack where none of them carries a family. Embeddings earned their place in this project on discovery over an unbounded literature corpus, which is a different job."
+}

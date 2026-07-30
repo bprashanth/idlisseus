@@ -34,9 +34,14 @@ export const THEMES = {
                 advanced: { brandColor: '#ec4899', brandMixTo: '#8a2be2',
                             sendBtnBg: '#ec4899', sendBtnHover: '#be185d',
                             accentPrimary: '#ec4899' } },
+  // Scientific-minimal field-data theme (Eco-Data Narrative inspiration)
+  ecodata:    { bg:'#f7f9fb', fg:'#191c1e', panel:'#ffffff', border:'#d8dde0', red:'#064e3b',
+                advanced: { brandColor: '#064e3b', brandMixTo: '#2b6954',
+                            sendBtnBg: '#064e3b', sendBtnHover: '#003527',
+                            accentPrimary: '#0b7a5c' } },
 };
 
-const DEFAULT_THEME = 'idlisseus';
+const DEFAULT_THEME = 'ecodata';
 const LS_KEY = 'idlisseus-theme';
 const CUSTOM_THEMES_KEY = 'idlisseus-custom-themes';
 
@@ -189,7 +194,7 @@ const ADV_KEYS = [
   { key: 'aiBubbleBg',         css: '--ai-bubble-bg',      label: 'AI Chat Bubble',   group: 'Chat Bubbles' },
   { key: 'bubbleBorder',       css: '--bubble-border',     label: 'Border Chat Bubble', group: 'Chat Bubbles' },
   { key: 'sidebarBg',          css: '--sidebar-bg',        label: 'Sidebar Bg',       group: 'Sidebar' },
-  { key: 'brandColor',         css: '--brand-color',       label: 'Idlisseus Logo',    group: 'Sidebar' },
+  { key: 'brandColor',         css: '--brand-color',       label: 'Idli Insights Logo',    group: 'Sidebar' },
   { key: 'brandMixTo',         css: '--brand-mix-to',      label: 'Logo Gradient End', group: 'Sidebar' },
   { key: 'hamburgerColor',     css: '--hamburger-color',   label: 'Hamburger Menu',   group: 'Sidebar' },
   { key: 'inputBg',            css: '--input-bg',          label: 'Input Bg',         group: 'Chat Input / Prompt Area' },
@@ -341,7 +346,8 @@ function _updateFavicon(fg) {
   if (routeShape) {
     svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>${routeShape.split('__C__').join(fg)}</svg>`;
   } else {
-    svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 4L16 22L6 22Z' fill='${fg}'/><path d='M16 8L16 22L24 22Z' fill='${fg}' opacity='0.6'/><path d='M4 24Q10 20 16 24Q22 28 28 24' stroke='${fg}' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>`;
+    // Root path keeps the brand idli mark, never accent-tinted.
+    svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#1d5c45'/><ellipse cx='16' cy='20' rx='9.5' ry='5' fill='#fffdfa'/><path d='M12 13c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/><path d='M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.55'/><path d='M21 13c-1.4-1.2-.2-2.6 0-3.8' stroke='#fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/></svg>";
   }
   const href = 'data:image/svg+xml,' + encodeURIComponent(svg);
   let link = document.querySelector("link[rel='icon']");

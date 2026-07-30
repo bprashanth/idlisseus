@@ -578,7 +578,9 @@ const INSIGHT_MODEL = 'idli-insight';
 
 export function isInsightModel(name) {
   const value = modelValue(name).toLowerCase();
-  return value === INSIGHT_MODEL || value === 'gpt-5.4-codex-native-skills';
+  // Per-site bridges use ids like idli-insight-<site> (one endpoint per site).
+  return value === INSIGHT_MODEL || value.startsWith(INSIGHT_MODEL + '-')
+    || value === 'gpt-5.4-codex-native-skills';
 }
 
 function modelValue(name) {
@@ -597,7 +599,8 @@ export function sameModelName(left, right) {
 export function modelRouteLabel(requestedModel, actualModel) {
   const requested = modelValue(requestedModel);
   const actual = modelValue(actualModel) || requested;
-  if (isInsightModel(requested) || isInsightModel(actual)) return INSIGHT_MODEL;
+  // Readers see the product's name, not the routing id (idli-insight-<site>).
+  if (isInsightModel(requested) || isInsightModel(actual)) return 'Idli Insights';
   if (!requested || sameModelName(requested, actual)) return shortModel(actual || requested);
   return shortModel(requested) + ' -> ' + shortModel(actual);
 }
@@ -682,6 +685,104 @@ function _normaliseInsightEvidence(evidence) {
  * and a small structured audit summary. This makes existing Idli Insight chats
  * readable without rewriting their stored history.
  */
+// Inline visual slots: one placeholder per idli-result marker in the message.
+// static/js/visual/visualChat.js hydrates them into compact visual cards.
+export function renderInlineVisualSlots(container, visualResults) {
+  for (const v of visualResults || []) {
+    if (!v || !v.result_id) continue;
+    if (container.querySelector(`.viz-inline[data-result-id="${v.result_id}"]`)) continue;
+    const slot = document.createElement('div');
+    slot.className = 'viz-inline';
+    slot.dataset.resultId = v.result_id;
+    if (v.revision) slot.dataset.revision = String(v.revision);
+    container.appendChild(slot);
+  }
+}
+
+// The controller can append raw machine failure text ("Execution stopped with
+// site pack capability not parameterised…"). Users should never read that: keep
+// the fact, drop the vocabulary.
+const MACHINE_FAILURE_PATTERNS = [
+  /Execution stopped with[\s\S]*?(?=\n\n|$)/gi,
+  /Parameterise this capability with[\s\S]*?(?=\n\n|$)/gi,
+  /\bsite pack capability not parameterised\b[^\n]*/gi,
+];
+
+// Last-resort presentation safety net: machine phrases that occasionally slip
+// into prose get said the way a person would. The producers are being fixed;
+// this stops the leak reaching a reader in the meantime.
+const MACHINE_PHRASES = [
+  [/\btarget cells\b/gi, "squares inside this site's boundary"],
+  [/\btarget map squares\b/gi, "squares inside this site's boundary"],
+  [/\btarget squares\b/gi, "squares inside this site's boundary"],
+  [/\bthe target cell\b/gi, 'that square'],
+  [/\bthe onboarded site records\b/gi, 'the records this site holds'],
+  [/\bonboarded site records\b/gi, 'records this site holds'],
+];
+
+export function humaniseMachinePhrases(text) {
+  let out = String(text || '');
+  for (const [re, plain] of MACHINE_PHRASES) out = out.replace(re, plain);
+  return out;
+}
+
+export function stripMachineFailureText(text) {
+  let out = String(text || '');
+  let hit = false;
+  for (const re of MACHINE_FAILURE_PATTERNS) {
+    if (re.test(out)) { hit = true; out = out.replace(re, ''); }
+  }
+  if (hit) {
+    out = out.trimEnd() + '\n\n_That step needed more detail before it could run — '
+      + 'tell me which one you want and I will run it._';
+  }
+  return out;
+}
+
+
+// The marker. An answer usually turns on one or two figures; highlighting them
+// makes the sentence scannable without restating it. Text nodes only, never
+// inside code, links or tables, and capped so it stays a marker rather than a
+// wash. Nothing is added or reworded — this only wraps text already written.
+const FIGURE_RE = /\b\d[\d,]*(?:\.\d+)?\s*(?:%|km²|km2|km|m|ha|°[NSEW]?)?(?:\s+(?:records?|squares?|sites?|visits?|species|detections?|plots?|surveys?|observations?|rows?|years?))?/g;
+const HL_SKIP = new Set(['CODE', 'PRE', 'A', 'MARK', 'TABLE', 'THEAD', 'TBODY', 'TH', 'TD', 'SCRIPT', 'STYLE', 'BUTTON']);
+
+export function highlightKeyFigures(root, limit = 3) {
+  if (!root || !document.body.classList.contains('eco-shell')) return;
+  let left = limit;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      for (let p = node.parentElement; p && p !== root; p = p.parentElement) {
+        if (HL_SKIP.has(p.tagName) || p.classList.contains('viz-inline')) return NodeFilter.FILTER_REJECT;
+      }
+      return /\d/.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const targets = [];
+  while (walker.nextNode() && targets.length < 40) targets.push(walker.currentNode);
+  for (const node of targets) {
+    if (left <= 0) break;
+    const text = node.nodeValue;
+    FIGURE_RE.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let cursor = 0, m, used = false;
+    while ((m = FIGURE_RE.exec(text)) && left > 0) {
+      const raw = m[0].trimEnd();
+      if (!raw || !/\d/.test(raw)) continue;
+      frag.appendChild(document.createTextNode(text.slice(cursor, m.index)));
+      const mark = document.createElement('mark');
+      mark.className = 'eco-mark';
+      mark.textContent = raw;
+      frag.appendChild(mark);
+      cursor = m.index + raw.length;
+      left -= 1; used = true;
+    }
+    if (!used) continue;
+    frag.appendChild(document.createTextNode(text.slice(cursor)));
+    node.parentNode.replaceChild(frag, node);
+  }
+}
+
 export function parseInsightResponse(content, modelName, metadata) {
   const source = String(content || '');
   const envelope = source.match(/<!--\s*idli-insight:([\s\S]*?)-->/i);
@@ -689,6 +790,7 @@ export function parseInsightResponse(content, modelName, metadata) {
   const progressEnvelopes = Array.from(source.matchAll(/<!--\s*idli-progress:([\s\S]*?)-->/gi));
   const actionEnvelopes = Array.from(source.matchAll(/<!--\s*idli-actions:([\s\S]*?)-->/gi));
   const evidenceEnvelopes = Array.from(source.matchAll(/<!--\s*idli-evidence:([\s\S]*?)-->/gi));
+  const resultEnvelopes = Array.from(source.matchAll(/<!--\s*idli-result:([\s\S]*?)-->/gi));
   const legacy = source.match(/<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>([\s\S]*?)<\/details>\s*/i);
   const legacyStart = legacy ? null : source.match(
     /<details\b[^>]*>\s*<summary>\s*(?:Codex CLI\s*·\s*native skill trace|Why\s*·\s*\d+\s*skills?\s*used)\s*<\/summary>/i,
@@ -702,6 +804,7 @@ export function parseInsightResponse(content, modelName, metadata) {
     || progressEnvelopes.length > 0
     || actionEnvelopes.length > 0
     || evidenceEnvelopes.length > 0
+    || resultEnvelopes.length > 0
     || !!metadata?.insight_trace
     || !!metadata?.insight_actions
     || !!metadata?.insight_evidence;
@@ -709,9 +812,23 @@ export function parseInsightResponse(content, modelName, metadata) {
     return { content: source, trace: null, actions: null, evidence: null, isInsight: false };
   }
 
-  let clean = source;
+  let clean = humaniseMachinePhrases(stripMachineFailureText(source));
   if (progressEnvelopes.length) {
     clean = clean.replace(/<!--\s*idli-progress:[\s\S]*?-->/gi, '').trim();
+  }
+  const visualResults = [];
+  if (resultEnvelopes.length) {
+    for (const match of resultEnvelopes) {
+      try {
+        const payload = JSON.parse(match[1]);
+        if (payload && payload.result_id) {
+          visualResults.push(payload);
+          // History and final renders re-announce results; the stage dedups by id.
+          window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
+        }
+      } catch (_) { /* malformed marker is simply hidden */ }
+    }
+    clean = clean.replace(/<!--\s*idli-result:[\s\S]*?-->/gi, '').trim();
   }
   let trace = _normaliseInsightTrace(metadata?.insight_trace || {});
   let actions = _normaliseInsightActions(metadata?.insight_actions);
@@ -791,7 +908,7 @@ export function parseInsightResponse(content, modelName, metadata) {
       ? (source.slice(0, legacy.index) + source.slice(legacy.index + legacy[0].length)).trim()
       : source.slice(0, legacyStart.index).trim();
   }
-  return { content: clean, trace, actions, evidence, isInsight: true };
+  return { content: clean, trace, actions, evidence, visualResults, isInsight: true };
 }
 
 /** Render controller-verified evidence classes without adding tags to answer prose. */
@@ -855,15 +972,18 @@ export function renderInsightTrace(messageElement, trace) {
     else messageElement.appendChild(panel);
   }
   panel.textContent = '';
-  panel.open = existed ? wasOpen : true;
+  // Closed by default: the answer reads first; the working stays one click away.
+  panel.open = existed ? wasOpen : false;
 
   const summary = document.createElement('summary');
   const label = document.createElement('span');
   label.className = 'insight-why-label';
-  label.textContent = 'Why';
+  label.textContent = 'How this was answered';
   const count = document.createElement('span');
   count.className = 'insight-why-count';
-  count.textContent = `${normal.skills.length} ${normal.skills.length === 1 ? 'skill' : 'skills'}`;
+  const failed = normal.skills.filter((s) => s.status === 'failed').length;
+  count.textContent = `${normal.skills.length} ${normal.skills.length === 1 ? 'step' : 'steps'}`
+    + (failed ? ` · ${failed} did not finish` : '');
   summary.append(label, count);
   panel.appendChild(summary);
 
@@ -883,7 +1003,17 @@ export function renderInsightTrace(messageElement, trace) {
     if (skill.summary) {
       const result = document.createElement('div');
       result.className = 'insight-skill-result';
-      result.textContent = skill.summary;
+      // Machine internals (tracebacks, stack paths) never render in the reading
+      // line — the step is summarised in plain words; the full detail stays in
+      // the producer's audit record.
+      let text = String(skill.summary);
+      if (/Traceback \(most recent call last\)|^\s*File "|urllib|stack trace/im.test(text)) {
+        const status = text.match(/HTTP\s+(\d{3})/);
+        text = 'This step stopped before returning a result'
+          + (status ? ` (HTTP ${status[1]})` : '') + '.';
+      }
+      if (text.length > 220) text = text.slice(0, 217).trimEnd() + '…';
+      result.textContent = text;
       item.appendChild(result);
     }
     list.appendChild(item);
@@ -2844,9 +2974,12 @@ export function addMessage(role, content, modelName, metadata) {
     wrap.appendChild(r);
     wrap.appendChild(b);
     if (role === 'assistant' && insightResponse.isInsight) {
+      highlightKeyFigures(b);
       renderInsightTrace(wrap, metadata?.insight_trace);
       renderInsightEvidence(wrap, metadata?.insight_evidence);
       renderT4GCModelRequest(wrap, textRaw, metadata?.insight_trace);
+      renderInlineVisualSlots(wrap, insightResponse.visualResults?.length
+        ? insightResponse.visualResults : metadata?._visualResults);
     }
 
     // Add stopped indicator + continue button for messages that were stopped by user
@@ -3016,6 +3149,8 @@ export function addMessage(role, content, modelName, metadata) {
 }
 
 const chatRenderer = {
+  renderInlineVisualSlots,
+  highlightKeyFigures,
   shortModel,
   isInsightModel,
   sameModelName,

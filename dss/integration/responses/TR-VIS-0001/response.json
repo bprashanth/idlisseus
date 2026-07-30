@@ -1,0 +1,15 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0001",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "consumer_commit": "a26e76d",
+  "contract_version": "idli-result/1",
+  "summary": "renderMatrix now reads facet_field/x_field/y_field/value_field/coverage_field from layer.style_hint; row/col/value conventions retained as fallback; declared facets render as small multiples on one shared quantile scale; numeric axes sort numerically; coverage_field and unit surface in tooltips/footnote. Verified against the attached sector-neutral fixture (2 facets, 36 cells) and the existing row/col fixtures (no regressions).",
+  "producer_action_required": [],
+  "validated_fixtures": [
+    "fixtures/field-matrix.json",
+    "fixtures/field-matrix-cells.json"
+  ],
+  "updated_at": "2026-07-25"
+}

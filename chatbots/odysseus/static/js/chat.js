@@ -559,6 +559,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
 
     // Declare accumulated outside try block so it's accessible in catch
     let accumulated = '';
+    let _vizMarkers = []; // idli-result payloads seen mid-stream, flushed at final render
     // Are we currently inside an unclosed <think> block? Toggled per think/answer
     // cycle so a multi-round agent response (one reasoning phase PER round) wraps each
     // round's reasoning in its own <think>…</think> instead of leaking rounds 2+ as text.
@@ -1151,7 +1152,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         _thinkBody.className = 'body';
         const _ts = spinnerModule.create(label || 'Thinking', 'right', 'wave');
         _thinkBody.appendChild(_ts.createElement());
-        _ts.start(120);
+        _ts.start();
         _thinkMsg._spinner = _ts;
         _thinkMsg.appendChild(_thinkBody);
         document.getElementById('chat-history').appendChild(_thinkMsg);
@@ -1463,7 +1464,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 // Consume every complete marker, not just a single anchored marker.
                 const compatDelta = String(json.delta);
                 const compatMarkers = Array.from(
-                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions|evidence):([\s\S]*?)-->/gi),
+                  compatDelta.matchAll(/<!--\s*idli-(progress|skill|actions|evidence|result):([\s\S]*?)-->/gi),
                 );
                 if (compatMarkers.length) {
                   for (const marker of compatMarkers) {
@@ -1485,6 +1486,22 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                     if (kind === 'evidence') {
                       holder._insightEvidence = payload;
+                      continue;
+                    }
+                    if (kind === 'result') {
+                      // Visual result marker (stripped from the visible stream, so the
+                      // final-render parse never sees it). The bubble may not exist yet
+                      // at this point in the stream — buffer, insert if possible, and
+                      // flush the rest at final render.
+                      _vizMarkers.push(payload);
+                      try {
+                        const _vizTarget = (typeof roundHolder !== 'undefined' && roundHolder)
+                          || (typeof holder !== 'undefined' && holder) || null;
+                        if (_vizTarget) chatRenderer.renderInlineVisualSlots(_vizTarget, [payload]);
+                      } catch (_) { /* flushed at final render instead */ }
+                      try {
+                        window.dispatchEvent(new CustomEvent('idli-visual-result', { detail: payload }));
+                      } catch (_) { /* hydrator absent */ }
                       continue;
                     }
                     const skillName = String(payload?.skill || '').trim();
@@ -1513,7 +1530,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     }
                   }
                   const visibleDelta = compatDelta.replace(
-                    /<!--\s*idli-(?:progress|skill|actions|evidence):[\s\S]*?-->/gi, '',
+                    /<!--\s*idli-(?:progress|skill|actions|evidence|result):[\s\S]*?-->/gi, '',
                   );
                   if (!visibleDelta.trim()) continue;
                   json.delta = visibleDelta;
@@ -2174,6 +2191,13 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 if (_isBg) continue;
                 if (currentHolder && json.id) currentHolder.dataset.dbId = json.id;
 
+              } else if (json.type === 'insight_answer_check') {
+                // Producer's own audit of the answer: mark required statements
+                // the prose failed to make, without rewriting the prose.
+                try {
+                  window.dispatchEvent(new CustomEvent('idli-answer-check', { detail: json }));
+                } catch (_) { /* nothing rendered if the stage is absent */ }
+                continue;
               } else if (json.type === 'tool_start') {
                 if (_isBg) continue;
                 _cancelThinkingTimer();
@@ -2685,6 +2709,15 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             holder._insightEvidence = finalInsight.evidence;
             chatRenderer.renderInsightEvidence(holder, holder._insightEvidence);
           }
+          if (finalInsight.visualResults?.length || _vizMarkers.length) {
+            try {
+              chatRenderer.renderInlineVisualSlots(roundHolder || holder,
+                [..._vizMarkers, ...(finalInsight.visualResults || [])]);
+            } catch (e) {
+              console.warn('inline visual slot flush failed', e);
+            }
+            _vizMarkers = [];
+          }
           holder.dataset.raw = finalDisplay;
         }
         if (finalDisplay.trim()) {
@@ -2773,6 +2806,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
           if (guidedActions) {
             chatRenderer.renderAskUserCard(guidedActions);
           }
+          // Live turns take this finalize path, not addMessage — mark the key
+          // figures here too so streamed answers match reloaded history.
+          const finalBody = roundHolder.querySelector('.body');
+          if (finalBody) chatRenderer.highlightKeyFigures(finalBody);
         }
 
 
@@ -3141,7 +3178,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             if (_box && sessionModule.getCurrentSessionId() === _timeoutSessionId) {
               var _timeoutMsg = document.createElement('div');
               _timeoutMsg.className = 'msg msg-ai';
-              _timeoutMsg.innerHTML = '<div class="role">Idlisseus</div><div class="body" style="opacity:0.6;font-style:italic;">Research clarification timed out. Toggle research again to start over.</div>';
+              _timeoutMsg.innerHTML = '<div class="role">Idli Insights</div><div class="body" style="opacity:0.6;font-style:italic;">Research clarification timed out. Toggle research again to start over.</div>';
               _box.appendChild(_timeoutMsg);
               uiModule.scrollHistory();
             }

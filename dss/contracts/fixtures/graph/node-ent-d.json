@@ -1,0 +1,33 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "ent:d",
+    "kind": "subject",
+    "label": "Recorded name D",
+    "records": 310,
+    "sources": 1
+  },
+  "relations": [
+    {
+      "relation": "member_of",
+      "label": "Belongs to the group",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "grp:one",
+            "kind": "group",
+            "label": "Group One",
+            "records": 1240
+          },
+          "records": 310
+        }
+      ],
+      "omitted": 0
+    }
+  ],
+  "provenance": [
+    "Counts are admitted records."
+  ],
+  "actions": []
+}

@@ -7,7 +7,7 @@
 //   - Other static assets (images/fonts/libs): cache-first with bg refresh.
 //   - API / non-GET: never cached.
 // Bump CACHE_NAME whenever the precache list or SW logic changes.
-const CACHE_NAME = 'odysseus-v331';
+const CACHE_NAME = 'odysseus-v339';
 
 // Core shell precached on install so repeat opens are instant without any
 // network wait. Keep this list in sync with the <script type="module"> tags
@@ -15,6 +15,24 @@ const CACHE_NAME = 'odysseus-v331';
 const PRECACHE = [
   '/',
   '/static/style.css',
+  '/static/visual.css',
+  '/static/ecodata.css',
+  '/static/js/visual/visualTheme.js',
+  '/static/js/visual/visualMap.js',
+  '/static/js/visual/visualChart.js',
+  '/static/js/visual/visualRenderers.js',
+  '/static/js/visual/visualStage.js',
+  '/static/js/visual/visualData.js',
+  '/static/js/visual/visualChat.js',
+  '/static/js/visual/visualShell.js',
+  '/static/js/visual/visualExplorer.js',
+  '/static/js/visual/visualVega.js',
+  '/static/lib/leaflet/leaflet.js',
+  '/static/lib/leaflet/leaflet.css',
+  '/static/js/visual/visualLeaflet.js',
+  '/static/lib/vega/vega.min.js',
+  '/static/lib/vega/vega-lite.min.js',
+  '/static/lib/vega/vega-interpreter.min.js',
   '/static/app.js',
   '/static/js/storage.js',
   '/static/js/ui.js',
@@ -99,14 +117,17 @@ self.addEventListener('fetch', (e) => {
   // go to the network/static handlers below; otherwise every navigation was
   // served the app index, replacing the page the user actually asked for.
   if (e.request.mode === 'navigate' && url.pathname === '/') {
+    // Network-first: a deploy must show up on the next reload. The cached
+    // shell is only the offline fallback, never preferred over the network.
     e.respondWith(
       caches.open(CACHE_NAME).then(async cache => {
-        const cached = await cache.match('/');
-        const network = fetch(e.request).then(res => {
+        try {
+          const res = await fetch(e.request);
           if (res && res.ok) cache.put('/', res.clone());
           return res;
-        }).catch(() => cached);
-        return cached || network;
+        } catch {
+          return (await cache.match('/')) || Response.error();
+        }
       })
     );
     return;

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual lab — idli-result renderers</title>
+<link rel="stylesheet" href="./visual.css">
+<style>
+  /* Field-journal tokens (dss/DESIGN_SYSTEM.md) so the lab previews match the
+     product. The light/dark button still exercises the dark chart palette. */
+  :root {
+    --bg: #f7f5f0; --fg: #1b1a17; --panel: #fffdfa; --border: #e7e3da;
+    --paper: #f7f5f0; --surface: #fffdfa; --surface-2: #f2efe8;
+    --ink: #1b1a17; --ink-soft: #52514e; --ink-faint: #8a8781;
+    --line: #e7e3da; --line-strong: #d9d4c8;
+    --pine: #1d5c45; --pine-deep: #144533; --pine-wash: rgba(29, 92, 69, 0.08);
+    --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
+    --shadow-1: 0 1px 2px rgba(27, 26, 23, 0.05);
+    --shadow-2: 0 6px 24px rgba(27, 26, 23, 0.08);
+    --font-ui: 'InterVendored', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'SourceSerifVendored', 'Iowan Old Style', Georgia, serif;
+    --font-mono: 'JetBrainsMonoVendored', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  :root:not(.light) {
+    --bg: #121211; --fg: #f2f1ec; --panel: #1e1e1c; --border: #34332f;
+    --paper: #121211; --surface: #1e1e1c; --surface-2: #262624;
+    --ink: #f2f1ec; --ink-soft: #c3c2b7; --ink-faint: #898781;
+    --line: #34332f; --line-strong: #45443f;
+    --pine-wash: rgba(74, 160, 124, 0.14);
+  }
+  @font-face {
+    font-family: 'InterVendored';
+    src: url('/static/lib/fonts/inter-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'InterVendored';
+    src: url('/static/lib/fonts/inter-600.woff2') format('woff2');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SourceSerifVendored';
+    src: url('/static/lib/fonts/sourceserif4-var.woff2') format('woff2');
+    font-weight: 300 900; font-style: normal; font-display: swap;
+  }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-ui);
+    display: flex;
+    flex-direction: column;
+  }
+  header.lab-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  header.lab-bar select, header.lab-bar button {
+    font: inherit;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--fg);
+    cursor: pointer;
+  }
+  #lab-host { flex: 1; min-height: 0; display: flex; position: relative; }
+  .lab-status { font-size: 12px; opacity: 0.6; margin-left: auto; }
+</style>
+</head>
+<body>
+<header class="lab-bar">
+  <strong>Visual lab</strong>
+  <select id="fixture-select" aria-label="Fixture"></select>
+  <button id="prev-btn">‹ prev</button>
+  <button id="next-btn">next ›</button>
+  <button id="theme-btn">light/dark</button>
+  <button id="all-btn">render all</button>
+  <span class="lab-status" id="lab-status"></span>
+</header>
+<main id="lab-host"></main>
+<script src="./lib/vega/vega.min.js"></script>
+<script src="./lib/vega/vega-lite.min.js"></script>
+<script src="./lib/vega/vega-interpreter.min.js"></script>
+<script type="module" src="./js/visual/visualLab.js"></script>
+</body>
+</html>

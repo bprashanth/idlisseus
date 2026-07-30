@@ -1,7 +1,6 @@
 # Idlisseus — AI Assistant for NGO Teams
 
-Self-hosted LLM stack on a DGX Spark GB10. Chatbot + agentic data science workflows,
-accessible to the whole team at **https://chat.idli.cc** — no VPN, no install.
+Self-hosted LLM stack on a DGX Spark GB10. Chatbot + agentic data science workflows.
 
 ## Quickstart
 

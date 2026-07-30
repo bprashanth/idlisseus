@@ -1,0 +1,70 @@
+{
+  "schema_version": "idli-graph/1",
+  "nodes": [
+    {
+      "id": "ent:a",
+      "kind": "subject",
+      "label": "Recorded name A",
+      "aliases": [
+        "name a",
+        "alpha name"
+      ],
+      "records": 903
+    },
+    {
+      "id": "ent:c",
+      "kind": "subject",
+      "label": "Recorded name C",
+      "aliases": [],
+      "records": 442
+    },
+    {
+      "id": "ent:d",
+      "kind": "subject",
+      "label": "Recorded name D",
+      "aliases": [],
+      "records": 310
+    },
+    {
+      "id": "ent:n",
+      "kind": "subject",
+      "label": "Recorded name North",
+      "aliases": [
+        "northling"
+      ],
+      "records": 130
+    },
+    {
+      "id": "plc:north",
+      "kind": "place",
+      "label": "Northern block",
+      "aliases": [
+        "north block"
+      ],
+      "records": 611
+    },
+    {
+      "id": "grp:one",
+      "kind": "group",
+      "label": "Group One",
+      "aliases": [
+        "the ones"
+      ],
+      "records": 1240
+    },
+    {
+      "id": "src:alpha",
+      "kind": "source",
+      "label": "Field survey alpha",
+      "aliases": [],
+      "records": 12034
+    },
+    {
+      "id": "meas:counts",
+      "kind": "measurement",
+      "label": "counts",
+      "aliases": [],
+      "records": 7463
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "idli-result/1",
+  "result_id": "fixture-site-orientation",
+  "request_id": "fixture-request-site-orientation",
+  "revision": 1,
+  "status": "complete",
+  "site": {
+    "site_id": "synthetic-fixture-site",
+    "label": "Synthetic fixture site",
+    "pack_digest": "sha256:441c3029758f973949785465b634ad35ed1fcc82c96eeb9414f5840bf7520d37",
+    "synthetic": true
+  },
+  "question": {
+    "original": "Tell me about this site.",
+    "resolved": "Orient the user to the declared AOI and indexed source coverage.",
+    "bindings": {
+      "aoi_ids": [
+        "target"
+      ],
+      "fixture": true
+    }
+  },
+  "answer": {
+    "headline": "The site has records in 12 indexed cells.",
+    "detail": "Synthetic renderer fixture; not evidence about a real place.",
+    "evidence_classes": [
+      "reported",
+      "derived"
+    ]
+  },
+  "visuals": [
+    {
+      "visual_id": "orientation-map",
+      "visual_type": "map",
+      "view": "site-orientation",
+      "title": "Site and observed coverage",
+      "priority": "primary",
+      "status": "ready",
+      "scope": {
+        "aoi_ids": [
+          "target",
+          "context"
+        ],
+        "time": {
+          "start": null,
+          "end": null
+        }
+      },
+      "layers": [
+        {
+          "layer_id": "declared-aoi",
+          "evidence_class": "reported",
+          "geometry_type": "polygon",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "declared-aoi",
+            "media_type": "application/geo+json",
+            "digest": "sha256:1999b72498ebf110ef5b96058a68e3347b696be983b74f725886eb82ce15b97a"
+          },
+          "legend": {
+            "label": "Declared analysis area"
+          },
+          "style_hint": {
+            "palette_role": "reported"
+          }
+        },
+        {
+          "layer_id": "event-density",
+          "evidence_class": "derived",
+          "geometry_type": "cell",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "event-density",
+            "media_type": "application/geo+json",
+            "digest": "sha256:560869e59b23d7558dcc6514b6b321f980d886f2cf1eba2e3961892897d06698"
+          },
+          "legend": {
+            "label": "Indexed record density"
+          },
+          "style_hint": {
+            "palette_role": "derived"
+          }
+        }
+      ],
+      "summary": {
+        "headline": "The declared area contains records in 12 indexed cells.",
+        "denominators": {
+          "indexed_cells": 12,
+          "records": 148
+        }
+      },
+      "drilldowns": [
+        {
+          "action_id": "inspect-orientation-map",
+          "label": "Inspect source rows",
+          "data_ref": {
+            "kind": "result_data",
+            "handle": "orientation-map-rows",
+            "media_type": "application/json",
+            "digest": "sha256:7c4cf17d0ad1213d136a64a2d0268644a6a29acddfbb240c0534b70c989e11bf"
+          }
+        }
+      ],
+      "limitations": []
+    }
+  ],
+  "limitations": [
+    {
+      "code": "synthetic-data",
+      "severity": "info",
+      "message": "This result uses synthetic test data and is not evidence about a real place.",
+      "affects": [
+        "answer"
+      ],
+      "details_ref": null
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "inspect-coverage",
+      "kind": "drilldown",
+      "label": "Inspect source coverage",
+      "capability_id": "source-coverage",
+      "arguments": {},
+      "requires_confirmation": true
+    }
+  ],
+  "audit": {
+    "audit_id": "fixture-audit-site-orientation",
+    "source_versions": [
+      {
+        "source_id": "synthetic-fixture-source",
+        "version": "1",
+        "digest": "sha256:2cd8e78358496ffb42513a6fa0602aa9b5710a910ba18cdbec043722d00ca2fb",
+        "synthetic": true
+      }
+    ],
+    "capability_runs": [
+      {
+        "capability_id": "site-orientation",
+        "version": "1.0.0",
+        "status": "complete"
+      }
+    ],
+    "query_hash": "sha256:57ff4fa730f004b2ee54b50beb8eeaaea73061e8dbad19f5827dea1e9c06c55e"
+  }
+}

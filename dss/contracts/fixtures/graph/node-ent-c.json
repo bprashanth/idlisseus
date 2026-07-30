@@ -1,0 +1,77 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "ent:c",
+    "kind": "subject",
+    "label": "Recorded name C",
+    "records": 442,
+    "sources": 2
+  },
+  "relations": [
+    {
+      "relation": "recorded_with",
+      "label": "Recorded together with",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "subject",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 118
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "member_of",
+      "label": "Belongs to the group",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "grp:one",
+            "kind": "group",
+            "label": "Group One",
+            "records": 1240
+          },
+          "records": 442
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "recorded_in",
+      "label": "Recorded in",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "src:alpha",
+            "kind": "source",
+            "label": "Field survey alpha",
+            "records": 12034
+          },
+          "records": 340
+        }
+      ],
+      "omitted": 0
+    }
+  ],
+  "provenance": [
+    "Counts are admitted records."
+  ],
+  "actions": [
+    {
+      "action_id": "map-ent-c",
+      "kind": "follow_up",
+      "label": "Map records for Recorded name C",
+      "capability_id": "entity-record-map",
+      "arguments": {
+        "entity": "Recorded name C"
+      }
+    }
+  ]
+}

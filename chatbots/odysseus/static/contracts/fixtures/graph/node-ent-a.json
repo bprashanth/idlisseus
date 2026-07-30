@@ -1,0 +1,121 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "ent:a",
+    "kind": "subject",
+    "label": "Recorded name A",
+    "records": 903,
+    "sources": 3
+  },
+  "relations": [
+    {
+      "relation": "recorded_with",
+      "label": "Recorded together with",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:c",
+            "kind": "subject",
+            "label": "Recorded name C",
+            "records": 442
+          },
+          "records": 118
+        },
+        {
+          "node": {
+            "id": "ent:n",
+            "kind": "subject",
+            "label": "Recorded name North",
+            "records": 130
+          },
+          "records": 22
+        }
+      ],
+      "omitted": 3
+    },
+    {
+      "relation": "member_of",
+      "label": "Belongs to the group",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "grp:one",
+            "kind": "group",
+            "label": "Group One",
+            "records": 1240
+          },
+          "records": 903
+        }
+      ],
+      "omitted": 0
+    },
+    {
+      "relation": "recorded_at",
+      "label": "Recorded at",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "plc:north",
+            "kind": "place",
+            "label": "Northern block",
+            "records": 611
+          },
+          "records": 611
+        }
+      ],
+      "omitted": 4
+    },
+    {
+      "relation": "recorded_in",
+      "label": "Recorded in",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "src:alpha",
+            "kind": "source",
+            "label": "Field survey alpha",
+            "records": 12034
+          },
+          "records": 611
+        }
+      ],
+      "omitted": 2
+    },
+    {
+      "relation": "shared_source",
+      "label": "Appears in the same data set as",
+      "basis": "derived",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:d",
+            "kind": "subject",
+            "label": "Recorded name D",
+            "records": 310
+          },
+          "records": 310
+        }
+      ],
+      "omitted": 11
+    }
+  ],
+  "provenance": [
+    "Counts are admitted records; the same audit basis as the site totals.",
+    "Solid links are producer-recorded relationships; dashed links are derived from a shared data set or place."
+  ],
+  "actions": [
+    {
+      "action_id": "map-ent-a",
+      "kind": "follow_up",
+      "label": "Map records for Recorded name A",
+      "capability_id": "entity-record-map",
+      "arguments": {
+        "entity": "Recorded name A"
+      }
+    }
+  ]
+}

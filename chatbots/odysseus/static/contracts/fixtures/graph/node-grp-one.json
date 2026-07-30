@@ -1,0 +1,60 @@
+{
+  "schema_version": "idli-graph/1",
+  "node": {
+    "id": "grp:one",
+    "kind": "group",
+    "label": "Group One",
+    "records": 1240
+  },
+  "relations": [
+    {
+      "relation": "members",
+      "label": "Its recorded members",
+      "basis": "recorded",
+      "neighbors": [
+        {
+          "node": {
+            "id": "ent:a",
+            "kind": "subject",
+            "label": "Recorded name A",
+            "records": 903
+          },
+          "records": 903
+        },
+        {
+          "node": {
+            "id": "ent:c",
+            "kind": "subject",
+            "label": "Recorded name C",
+            "records": 442
+          },
+          "records": 442
+        },
+        {
+          "node": {
+            "id": "ent:d",
+            "kind": "subject",
+            "label": "Recorded name D",
+            "records": 310
+          },
+          "records": 310
+        }
+      ],
+      "omitted": 6
+    }
+  ],
+  "provenance": [
+    "A source-declared group: membership comes from the data set, not from the assistant."
+  ],
+  "actions": [
+    {
+      "action_id": "map-grp-one",
+      "kind": "follow_up",
+      "label": "Map records for Group One",
+      "capability_id": "entity-record-map",
+      "arguments": {
+        "entity": "Group One"
+      }
+    }
+  ]
+}
