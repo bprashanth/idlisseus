@@ -267,6 +267,14 @@ function renderConsultedList() {
   }
 }
 
+// A new question is in flight: the rail must stop showing the previous
+// answer's streams. The next hydrated envelope refills it; a text-only
+// answer (no visual, so no envelope) leaves it honestly empty.
+function noteNewQuestion() {
+  consulted.sources = [];
+  renderConsultedList();
+}
+
 function noteConsultedSources(slot, envelope) {
   const all = [...document.querySelectorAll('.viz-inline[data-result-id]')];
   const idx = all.indexOf(slot);
@@ -594,6 +602,7 @@ const observer = new MutationObserver((mutations) => {
     for (const node of m.addedNodes) {
       if (node.nodeType !== 1) continue;
       if (node.matches && node.matches('.viz-inline')) hydrateSlot(node);
+      else if (node.matches && node.matches('.msg.msg-user')) noteNewQuestion();
       else if (node.querySelectorAll) scanForSlots(node);
     }
   }

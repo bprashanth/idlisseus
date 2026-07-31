@@ -166,13 +166,14 @@ view, nor while the landing is open — the URL's own hash is what survives a
 real mid-chat reload). The
 232px nav rail (Chat / Maps / Data / History / Sites / Theme + pine "New
 analysis" and a quiet Sign out) exists only inside a chosen site, where the
-empty chat says just "Ask me something about <site>" — and the composer
-placeholder says the same (per active site, surviving app.js's resize
+empty chat is blank — the composer placeholder carries the invitation, "Ask
+me something about <site>" (per active site, surviving app.js's resize
 rewrite via `window._idliComposerPlaceholder`). The right context rail is one
 section, "Data streams": the streams the latest answer's envelope cites
-(`audit.source_versions`, linking out when the producer provides a URL/DOI),
-updating per question, empty until the first answer; stat tiles and Recent
-visuals are gone. The chat meta strip is a single "Settings" button (no
+(`audit.source_versions`, linking out when the producer provides a URL/DOI).
+It clears the moment a new question is sent and refills from that answer's
+envelope — a text-only answer leaves it honestly empty; stat tiles and
+Recent visuals are gone. The chat meta strip is a single "Settings" button (no
 title/count/caret) whose menu is Rename / Copy Chat / PDF. Scrollbars are
 theme-colored everywhere; the scroll-to-bottom pill is off. The data explorer and the figure panel are mutually exclusive right-hand
 surfaces, and the composer shifts with whichever is open. Machine voice is gone from the

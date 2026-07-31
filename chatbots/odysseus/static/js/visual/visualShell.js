@@ -563,19 +563,11 @@ async function openSite(site) {
   setTimeout(() => document.getElementById('message')?.focus(), 400);
 }
 
-// The empty chat asks one thing of you — everything else about the site
-// already lives on the landing card you just came from.
-async function renderSiteWelcome(site) {
-  const host = document.getElementById('chat-history') || document.querySelector('.chat-history');
-  if (!host) return;
+// The composer placeholder already says "Ask me something about <site>" —
+// a header repeating it was noise. This only clears any older welcome node.
+async function renderSiteWelcome() {
   const old = document.getElementById('eco-welcome');
   if (old) old.remove();
-  const wrap = document.createElement('div');
-  wrap.id = 'eco-welcome';
-  const h = document.createElement('h2');
-  h.textContent = `Ask me something about ${site.label}`;
-  wrap.appendChild(h);
-  host.appendChild(wrap);
 }
 
 // The stock app titles direct-chat sessions with the machine model id
