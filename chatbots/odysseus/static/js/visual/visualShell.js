@@ -424,6 +424,13 @@ function toggleHistory() {
 
 export function setActiveSite(site) {
   ensureNav();
+  // The composer asks about the place, not the product. app.js's resize
+  // handler reads the same global, so the copy survives width changes.
+  window._idliComposerPlaceholder = site ? `Ask me something about ${site.label}` : '';
+  const input = document.getElementById('message');
+  if (input && site && input.getAttribute('placeholder')) {
+    input.setAttribute('placeholder', window._idliComposerPlaceholder);
+  }
   const card = document.getElementById('eco-site-card');
   if (!card) return;
   if (!site) { card.hidden = true; return; }
@@ -622,6 +629,10 @@ async function boot() {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   }
+  // The chat meta strip is one plain "Settings" button — the CSS hides the
+  // title/count/caret; the stock click handler on this id opens the menu.
+  const dl = document.getElementById('export-dl-btn');
+  if (dl) { dl.textContent = 'Settings'; dl.title = 'Chat settings'; }
   // The view is decided: from here on the session layer may stamp the URL
   // hash again (outside the landing) — see the guard in sessions.js.
   window._ecoShellBooted = true;

@@ -2114,9 +2114,11 @@ function initializeEventListeners() {
       const w = inputTop.clientWidth;
       // Hide model picker
       pickerWrap.classList.toggle('picker-auto-hidden', w < PICKER_HIDE_WIDTH);
-      // Hide placeholder text
+      // Hide placeholder text. The visual shell overrides the copy per active
+      // site ("Ask me something about <site>") via _idliComposerPlaceholder.
       if (textarea) {
-        textarea.setAttribute('placeholder', w < PLACEHOLDER_HIDE_WIDTH ? '' : 'Message Idli Insights...');
+        const ph = window._idliComposerPlaceholder || 'Message Idli Insights...';
+        textarea.setAttribute('placeholder', w < PLACEHOLDER_HIDE_WIDTH ? '' : ph);
       }
       // Hide entire bottom toolbar (tools, mode toggle) — only send button remains
       if (inputBottom) {

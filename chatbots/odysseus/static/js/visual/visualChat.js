@@ -185,7 +185,6 @@ async function ensureContextRail() {
   // call this often; the skeleton and site name don't change between answers).
   if (contextRail && contextRail.dataset.built === '1') {
     renderConsultedList();
-    renderRecentList();
     return;
   }
   if (!contextRail) {
@@ -213,23 +212,13 @@ async function ensureContextRail() {
     }
     const sh = document.createElement('div');
     sh.className = 'viz-rail-heading';
-    sh.textContent = 'Consulted for this answer';
+    sh.textContent = 'Data streams';
     contextRail.appendChild(sh);
     const streams = document.createElement('div');
     streams.className = 'viz-rail-streams';
     streams.id = 'viz-rail-consulted';
     contextRail.appendChild(streams);
     renderConsultedList();
-
-    const rh = document.createElement('div');
-    rh.className = 'viz-rail-heading';
-    rh.textContent = 'Recent visuals';
-    contextRail.appendChild(rh);
-    const list = document.createElement('div');
-    list.className = 'viz-rail-recent';
-    list.id = 'viz-rail-recent';
-    contextRail.appendChild(list);
-    renderRecentList();
   } catch {
     removeContextRail(); // endpoint has no visual plane
   }
@@ -249,13 +238,8 @@ function renderConsultedList() {
   const streams = document.getElementById('viz-rail-consulted');
   if (!streams) return;
   streams.replaceChildren();
-  if (consulted.idx < 0 || !consulted.sources.length) {
-    const hint = document.createElement('div');
-    hint.className = 'viz-rail-consulted-hint';
-    hint.textContent = 'Ask a question — the data streams behind the answer appear here.';
-    streams.appendChild(hint);
-    return;
-  }
+  // Before the first answer the section sits quietly empty — no hint copy.
+  if (consulted.idx < 0 || !consulted.sources.length) return;
   const seen = new Set();
   for (const s of consulted.sources) {
     const raw = typeof s === 'string' ? s : (s.title || s.source_id || '');

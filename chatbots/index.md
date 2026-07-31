@@ -166,12 +166,15 @@ view, nor while the landing is open — the URL's own hash is what survives a
 real mid-chat reload). The
 232px nav rail (Chat / Maps / Data / History / Sites / Theme + pine "New
 analysis" and a quiet Sign out) exists only inside a chosen site, where the
-empty chat says just "Ask me something about <site>". The right context rail
-follows the conversation: "Consulted for this answer" lists the data streams
-the latest answer's envelope cites (`audit.source_versions`, linking out when
-the producer provides a URL/DOI), plus Recent visuals; the site stat tiles are
-gone. Scrollbars are theme-colored everywhere; the scroll-to-bottom pill is
-off. The data explorer and the figure panel are mutually exclusive right-hand
+empty chat says just "Ask me something about <site>" — and the composer
+placeholder says the same (per active site, surviving app.js's resize
+rewrite via `window._idliComposerPlaceholder`). The right context rail is one
+section, "Data streams": the streams the latest answer's envelope cites
+(`audit.source_versions`, linking out when the producer provides a URL/DOI),
+updating per question, empty until the first answer; stat tiles and Recent
+visuals are gone. The chat meta strip is a single "Settings" button (no
+title/count/caret) whose menu is Rename / Copy Chat / PDF. Scrollbars are
+theme-colored everywhere; the scroll-to-bottom pill is off. The data explorer and the figure panel are mutually exclusive right-hand
 surfaces, and the composer shifts with whichever is open. Machine voice is gone from the
 reading line: role labels say "Idli Insights" (never `idli-insight-*`), session
 titles are prettified to the site name, the Why panel ("How this was answered")
