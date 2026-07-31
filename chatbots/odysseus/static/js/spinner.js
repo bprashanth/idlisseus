@@ -5,31 +5,25 @@
  */
 
 
-// The loop pool: rotating disc, orbiting arc, braille spinner, spark,
-// corner orbit, survey ping. Arrows deliberately excluded.
-const WAVE_POOL = [
-  { frames: ['\u25d0', '\u25d3', '\u25d1', '\u25d2'], speed: 200 },
-  { frames: ['\u25dc', '\u25dd', '\u25de', '\u25df'], speed: 200 },
-  { frames: ['\u280b', '\u2819', '\u2839', '\u2838', '\u283c', '\u2834', '\u2826', '\u2827', '\u2807', '\u280f'], speed: 90 },
-  { frames: ['\u00b7', '\u2722', '\u2733', '\u2736', '\u2733', '\u2722'], speed: 240 },
-  { frames: ['\u2596', '\u2598', '\u259d', '\u2597'], speed: 220 },
-  { frames: ['\u00b7', '\u2218', '\u25cb', '\u25ce', '\u25c9', '\u25ce', '\u25cb', '\u2218'], speed: 240 },
-];
+// The braille loop won the spinner bake-off: every loading state uses it now
+// (the page loader in index.html carries the same frames at the same speed).
+const BRAILLE_LOOP = {
+  frames: ['\u280b', '\u2819', '\u2839', '\u2838', '\u283c', '\u2834', '\u2826', '\u2827', '\u2807', '\u280f'],
+  speed: 90,
+};
 
 class Spinner {
   constructor(message = "AI is processing", style = "right", animation = "spinner") {
-    // "wave" is the chat thinking indicator. Each spinner instance draws one
-    // plain-text loop at random from the pool — so every message thinks with
-    // its own little instrument. All glyphs are single-width, no color.
+    // "wave" is the chat thinking indicator: always the braille loop. All
+    // glyphs are single-width, no color.
     this.animations = {
       spinner: ['|', '/', '-', '\\'],
     };
 
     this.animation = animation;
     if (animation === 'wave') {
-      const pick = WAVE_POOL[Math.floor(Math.random() * WAVE_POOL.length)];
-      this.frames = pick.frames;
-      this.frameSpeed = pick.speed;
+      this.frames = BRAILLE_LOOP.frames;
+      this.frameSpeed = BRAILLE_LOOP.speed;
     } else {
       this.frames = this.animations[animation] || this.animations.spinner;
     }

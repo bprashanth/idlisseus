@@ -7,9 +7,10 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
 **Conversation**
 - Multi-user with per-user chat history and settings
 - Session persistence (SQLite, `data/app.db`)
-- A hard page load always opens the **New Analysis** landing stage. Persisted conversations are
-  not deleted or rewritten; History and in-app session navigation reopen them. This keeps a
-  copied or stale URL from making an old analysis look like the application's starting state.
+- A plain visit lands on the **site-selection** page; a refresh mid-conversation
+  (a `#<session-id>` URL) returns to that conversation. Clicking the brand mark
+  also opens site selection. History and in-app session navigation reopen
+  persisted conversations.
 - Agent mode: model executes tool calls in a loop (see `../agents/`)
 - Streaming responses with per-token SSE
 
@@ -125,8 +126,9 @@ Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 ### Visual shell — "Field journal" (2026-07-27)
 
 The product is branded **Idli Insights** (display only; `idli-insight-*` routing
-ids are unchanged), with an idli mark — steamed disc, three steam wisps — as the
-favicon and logo. The whole product — login, shell, chat, cards, charts, maps,
+ids are unchanged). The favicon keeps the idli mark (steamed disc, three steam
+wisps); the nav-rail logo is the Idlistack heart in its pink-to-violet gradient
+(`#ec4899` → `#8a2be2`) and is a button that opens site selection. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures
@@ -139,8 +141,9 @@ surface; the relief rule is satisfied by legends + row tables on every card).
 
 A dark mode (nav Theme toggle, persisted) re-steps the same family for night:
 `#16140f` page, mint-pine `#5db390` accent, `--pine-fill` keeping solid buttons
-readable; charts flip to their validated dark palette automatically. The chat
-thinking indicator is an otter strolling off with paw prints, in the UI face.
+readable; charts flip to their validated dark palette automatically. Every
+loading state — the page-load overlay and the chat thinking indicator — uses
+the braille spinner loop (⠋⠙⠹… at 90 ms).
 
 Shell: a 232px nav rail (Chat / Maps / Data / Sites / Theme + pine "New
 analysis" and a quiet Sign out) with active states; the stock sidebar slide-over

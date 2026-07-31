@@ -126,13 +126,13 @@ const ICONS = {
   plus: ['M12 5v14', 'M5 12h14'],
 };
 
-// The brand mark: an idli on a pine tile — a soft steamed disc with rising steam.
-const IDLI_MARK_SVG = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">'
-  + '<rect width="32" height="32" rx="8" fill="#1d5c45"/>'
-  + '<ellipse cx="16" cy="20" rx="9.5" ry="5" fill="#fffdfa"/>'
-  + '<path d="M12 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/>'
-  + '<path d="M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>'
-  + '<path d="M21 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/>'
+// The brand mark: the Idlistack heart (same path as the provider identity in
+// providers.js), in the idlisseus theme's pink-to-violet brand gradient.
+const IDLI_MARK_SVG = '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">'
+  + '<defs><linearGradient id="idli-heart-grad" x1="0" y1="0" x2="1" y2="1">'
+  + '<stop offset="0" stop-color="#ec4899"/><stop offset="1" stop-color="#8a2be2"/>'
+  + '</linearGradient></defs>'
+  + '<path d="M12 21.1 10.55 19.8C5.4 15.15 2 12.05 2 8.25 2 5.15 4.45 2.75 7.55 2.75c1.75 0 3.45.82 4.45 2.1 1-1.28 2.7-2.1 4.45-2.1C19.55 2.75 22 5.15 22 8.25c0 3.8-3.4 6.9-8.55 11.55L12 21.1Z" fill="url(#idli-heart-grad)"/>'
   + '</svg>';
 
 function setActiveNav(name) {
@@ -163,8 +163,10 @@ function ensureNav() {
   navEl.id = 'eco-nav';
   navEl.setAttribute('aria-label', 'Main');
 
-  const brand = document.createElement('div');
+  const brand = document.createElement('button');
+  brand.type = 'button';
   brand.className = 'eco-brand';
+  brand.title = 'Sites';
   const mark = document.createElement('span');
   mark.className = 'eco-brand-mark';
   mark.innerHTML = IDLI_MARK_SVG;
@@ -173,6 +175,7 @@ function ensureNav() {
   name.className = 'eco-brand-name';
   name.textContent = 'Idli Insights';
   brand.appendChild(name);
+  brand.addEventListener('click', () => { hideAtlas(); showLanding(true); setActiveNav('research'); });
   navEl.appendChild(brand);
 
   const siteCard = document.createElement('button');
@@ -632,13 +635,20 @@ async function syncActiveSite() {
 async function boot() {
   ensureNav();
   await syncActiveSite();
-  // A browser load always begins at New Analysis, including when the URL still
-  // names a saved conversation. The stock session layer may restore that chat
-  // behind the landing page, so nothing is deleted and History can reopen it.
-  // In-app session clicks still enter chat immediately through the delegated
-  // click handler below.
-  showLanding(true);
-  setActiveNav('research');
+  // A refresh mid-chat returns to that chat; every other arrival lands on
+  // site selection. The hash alone can't tell the two apart — the stock
+  // session layer restores the last conversation and writes its #<session-id>
+  // even on a fresh visit — so the hash only counts on an actual reload.
+  const deepLink = /^#[0-9a-f][0-9a-f-]{7,}$/i.test(window.location.hash || '');
+  let navType = 'navigate';
+  try { navType = (performance.getEntriesByType('navigation')[0] || {}).type || 'navigate'; } catch { /* old browsers land on sites */ }
+  if (deepLink && navType === 'reload') {
+    hideLanding();
+    setActiveNav('chat');
+  } else {
+    showLanding(true);
+    setActiveNav('research');
+  }
   prettifyMeta();
 }
 

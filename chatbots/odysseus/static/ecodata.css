@@ -184,7 +184,14 @@ body.theme-ecodata input, body.theme-ecodata textarea, body.theme-ecodata select
   overflow-y: auto;
   font-family: var(--font-ui);
 }
-.eco-brand { display: flex; align-items: center; gap: 10px; padding: 0 6px 2px; }
+/* The brand is a way home: clicking it opens site selection. The #eco-nav
+   prefix outranks the stock sheet's `:root.light button` grey blanket. */
+#eco-nav .eco-brand {
+  display: flex; align-items: center; gap: 10px; padding: 0 6px 2px;
+  background: none; border: 0; font: inherit; text-align: left;
+  color: inherit; cursor: pointer; appearance: none;
+}
+#eco-nav .eco-brand:hover .eco-brand-name { color: var(--pine, var(--ink)); }
 .eco-brand-mark { width: 28px; height: 28px; flex: none; display: grid; place-items: center; }
 .eco-brand-mark svg { display: block; border-radius: 8px; }
 .eco-brand-name {
