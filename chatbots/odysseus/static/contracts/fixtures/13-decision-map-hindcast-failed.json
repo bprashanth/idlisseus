@@ -1,0 +1,652 @@
+{
+ "schema_version": "idli-result/1",
+ "result_id": "result-09b8847b91e74ac405edfc2d",
+ "request_id": "req-b2dd9309ed874863",
+ "revision": 1,
+ "status": "partial",
+ "site": {
+  "site_id": "valparai",
+  "label": "Valparai",
+  "pack_digest": "sha256:adeedd055fbcc6e407c8b4eb597c138f6b4199cafc78eba89f49ffdcab08fc53"
+ },
+ "question": {
+  "original": "Where should we restart roadkill monitoring?",
+  "resolved": "Run Where to restart road wildlife monitoring and apply its declared validation before recommending action.",
+  "bindings": {
+   "recipe_id": "roadkill-surveillance",
+   "taxon_group": "all",
+   "budget_cells": 8
+  }
+ },
+ "answer": {
+  "headline": "The 2011→2012 all roadkill hindcast did not pass all declared checks; 0 road cells are selected for renewed monitoring.",
+  "detail": "The highest-scoring 20% of surveyed road cells contained 34.8% of withheld 2012 roadkill individuals. This tests historical persistence across the source's monsoon-to-summer split and does not establish current risk.",
+  "evidence_classes": [
+   "observed",
+   "derived",
+   "modelled"
+  ],
+  "validation": {
+   "kind": "temporal-hindcast",
+   "status": "failed",
+   "training_period": {
+    "start": "2011-01-01",
+    "end": "2011-12-31"
+   },
+   "validation_period": {
+    "start": "2012-01-01",
+    "end": "2012-12-31"
+   },
+   "split_rule": "calendar-year holdout",
+   "training_season": "source-declared monsoon surveys",
+   "validation_season": "source-declared summer surveys",
+   "effort_allocation": "Route visits allocated to cells in proportion to the route's sampled habitat points",
+   "taxon_group": "all",
+   "surveyed_validation_cells": 147,
+   "cells_with_validation_events": 127,
+   "metrics": {
+    "auc": 0.47716535433070867,
+    "top_20_percent_capture": 0.3481675392670157,
+    "top_20_percent_cells": 30,
+    "training_events": 2251,
+    "validation_events": 764
+   },
+   "checks": {
+    "training_events": {
+     "value": 2251,
+     "operator": ">=",
+     "threshold": 30,
+     "passed": true
+    },
+    "validation_events": {
+     "value": 764,
+     "operator": ">=",
+     "threshold": 30,
+     "passed": true
+    },
+    "auc": {
+     "value": 0.47716535433070867,
+     "operator": ">=",
+     "threshold": 0.55,
+     "passed": false
+    },
+    "top_20_percent_capture": {
+     "value": 0.3481675392670157,
+     "operator": ">=",
+     "threshold": 0.3,
+     "passed": true
+    }
+   },
+   "claim": "Show the historical observations but do not recommend priority sections."
+  }
+ },
+ "visuals": [
+  {
+   "visual_id": "decision-map",
+   "visual_type": "map",
+   "view": "validated-decision-map",
+   "title": "Where to restart road wildlife monitoring",
+   "priority": "primary",
+   "status": "partial",
+   "scope": {
+    "aoi_ids": [
+     "target",
+     "context"
+    ],
+    "time": {
+     "start": "2011-01-01",
+     "end": "2012-12-31"
+    }
+   },
+   "layers": [
+    {
+     "layer_id": "historical-road-risk",
+     "evidence_class": "modelled",
+     "geometry_type": "polygon",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-road-cells",
+      "media_type": "application/geo+json",
+      "digest": "sha256:e9da1982c2b2d14166e4886c296d3cf1a7a19dfd581122511a578719a4e8eda2"
+     },
+     "legend": {
+      "label": "Historical risk learned from 2011"
+     },
+     "style_hint": {
+      "palette_role": "modelled",
+      "value_field": "historical_risk_score",
+      "rank_field": "rank",
+      "selected_field": "selected_for_budget"
+     }
+    },
+    {
+     "layer_id": "roadkill-training-points",
+     "evidence_class": "observed",
+     "geometry_type": "point",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-roadkill-training",
+      "media_type": "application/geo+json",
+      "digest": "sha256:c2b79c42dd5e1053fef9babfa848115f6b374de15031ffc052d9d4e38495ee7a"
+     },
+     "legend": {
+      "label": "2011 observations used to fit the ranking"
+     },
+     "style_hint": {
+      "palette_role": "observed",
+      "size_field": "count"
+     }
+    },
+    {
+     "layer_id": "roadkill-withheld-validation-points",
+     "evidence_class": "observed",
+     "geometry_type": "point",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-roadkill-validation",
+      "media_type": "application/geo+json",
+      "digest": "sha256:f2765e36a86616cc18f57cc85addbb20a46bb9cfdc6f0e5fd19be2975cd6fe2b"
+     },
+     "legend": {
+      "label": "2012 observations withheld for the test"
+     },
+     "style_hint": {
+      "palette_role": "validation",
+      "size_field": "count"
+     }
+    },
+    {
+     "layer_id": "decision-target-boundary",
+     "evidence_class": "reported",
+     "geometry_type": "line",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-target-boundary",
+      "media_type": "application/geo+json",
+      "digest": "sha256:042a26102914883d97d9c426ed8922c0395acd1a8466f21c17b078996c5b36fe"
+     },
+     "legend": {
+      "label": "Declared analysis area"
+     },
+     "style_hint": {
+      "palette_role": "reported"
+     }
+    }
+   ],
+   "summary": {
+    "headline": "The 2011→2012 all roadkill hindcast did not pass all declared checks; 0 road cells are selected for renewed monitoring.",
+    "denominators": {
+     "training_events": 2251,
+     "validation_events": 764,
+     "surveyed_validation_cells": 147,
+     "selected_cells": 0
+    }
+   },
+   "drilldowns": [
+    {
+     "action_id": "inspect-road-hindcast",
+     "label": "Inspect every surveyed cell and withheld observation",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-road-cells",
+      "media_type": "application/geo+json",
+      "digest": "sha256:e9da1982c2b2d14166e4886c296d3cf1a7a19dfd581122511a578719a4e8eda2"
+     }
+    }
+   ],
+   "limitations": [
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "The survey records roadkill, not successful crossings or animal abundance.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "A passed 2011 monsoon-to-2012 summer hindcast does not establish current 2026 risk.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Road-cell effort is allocated from each route's sampled habitat points rather than a continuous GPS effort trace.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Recommendations remain on the routes represented by the admitted survey.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "validation-failed-no-deployment-recommendation",
+     "severity": "error",
+     "message": "Show the historical observations but do not recommend priority sections.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    }
+   ],
+   "validation": {
+    "kind": "temporal-hindcast",
+    "status": "failed",
+    "training_period": {
+     "start": "2011-01-01",
+     "end": "2011-12-31"
+    },
+    "validation_period": {
+     "start": "2012-01-01",
+     "end": "2012-12-31"
+    },
+    "split_rule": "calendar-year holdout",
+    "training_season": "source-declared monsoon surveys",
+    "validation_season": "source-declared summer surveys",
+    "effort_allocation": "Route visits allocated to cells in proportion to the route's sampled habitat points",
+    "taxon_group": "all",
+    "surveyed_validation_cells": 147,
+    "cells_with_validation_events": 127,
+    "metrics": {
+     "auc": 0.47716535433070867,
+     "top_20_percent_capture": 0.3481675392670157,
+     "top_20_percent_cells": 30,
+     "training_events": 2251,
+     "validation_events": 764
+    },
+    "checks": {
+     "training_events": {
+      "value": 2251,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "validation_events": {
+      "value": 764,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "auc": {
+      "value": 0.47716535433070867,
+      "operator": ">=",
+      "threshold": 0.55,
+      "passed": false
+     },
+     "top_20_percent_capture": {
+      "value": 0.3481675392670157,
+      "operator": ">=",
+      "threshold": 0.3,
+      "passed": true
+     }
+    },
+    "claim": "Show the historical observations but do not recommend priority sections."
+   }
+  },
+  {
+   "visual_id": "validation-summary",
+   "visual_type": "table",
+   "view": "validation-summary",
+   "title": "How this map was tested",
+   "priority": "supporting",
+   "status": "partial",
+   "scope": {
+    "aoi_ids": [
+     "target",
+     "context"
+    ],
+    "time": {
+     "start": "2011-01-01",
+     "end": "2012-12-31"
+    }
+   },
+   "layers": [
+    {
+     "layer_id": "validation-summary",
+     "evidence_class": "derived",
+     "geometry_type": "table",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-validation-summary",
+      "media_type": "application/json",
+      "digest": "sha256:65f1257627434934d2efcb550c8e0a07e06f74eb8b6c365a8d1fccf47a876c4e"
+     },
+     "legend": {
+      "label": "Withheld test, metrics and thresholds"
+     },
+     "style_hint": {
+      "palette_role": "validation",
+      "status_field": "status",
+      "checks_field": "checks"
+     }
+    }
+   ],
+   "summary": {
+    "headline": "Show the historical observations but do not recommend priority sections.",
+    "denominators": {
+     "training_events": 2251,
+     "validation_events": 764,
+     "surveyed_validation_cells": 147,
+     "selected_cells": 0
+    }
+   },
+   "drilldowns": [
+    {
+     "action_id": "inspect-validation",
+     "label": "Inspect the withheld test and every threshold",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-validation-summary",
+      "media_type": "application/json",
+      "digest": "sha256:65f1257627434934d2efcb550c8e0a07e06f74eb8b6c365a8d1fccf47a876c4e"
+     }
+    }
+   ],
+   "limitations": [
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "The survey records roadkill, not successful crossings or animal abundance.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "A passed 2011 monsoon-to-2012 summer hindcast does not establish current 2026 risk.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Road-cell effort is allocated from each route's sampled habitat points rather than a continuous GPS effort trace.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Recommendations remain on the routes represented by the admitted survey.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "validation-failed-no-deployment-recommendation",
+     "severity": "error",
+     "message": "Show the historical observations but do not recommend priority sections.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    }
+   ],
+   "validation": {
+    "kind": "temporal-hindcast",
+    "status": "failed",
+    "training_period": {
+     "start": "2011-01-01",
+     "end": "2011-12-31"
+    },
+    "validation_period": {
+     "start": "2012-01-01",
+     "end": "2012-12-31"
+    },
+    "split_rule": "calendar-year holdout",
+    "training_season": "source-declared monsoon surveys",
+    "validation_season": "source-declared summer surveys",
+    "effort_allocation": "Route visits allocated to cells in proportion to the route's sampled habitat points",
+    "taxon_group": "all",
+    "surveyed_validation_cells": 147,
+    "cells_with_validation_events": 127,
+    "metrics": {
+     "auc": 0.47716535433070867,
+     "top_20_percent_capture": 0.3481675392670157,
+     "top_20_percent_cells": 30,
+     "training_events": 2251,
+     "validation_events": 764
+    },
+    "checks": {
+     "training_events": {
+      "value": 2251,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "validation_events": {
+      "value": 764,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "auc": {
+      "value": 0.47716535433070867,
+      "operator": ">=",
+      "threshold": 0.55,
+      "passed": false
+     },
+     "top_20_percent_capture": {
+      "value": 0.3481675392670157,
+      "operator": ">=",
+      "threshold": 0.3,
+      "passed": true
+     }
+    },
+    "claim": "Show the historical observations but do not recommend priority sections."
+   }
+  }
+ ],
+ "limitations": [
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "The survey records roadkill, not successful crossings or animal abundance.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "A passed 2011 monsoon-to-2012 summer hindcast does not establish current 2026 risk.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "Road-cell effort is allocated from each route's sampled habitat points rather than a continuous GPS effort trace.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "Recommendations remain on the routes represented by the admitted survey.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "validation-failed-no-deployment-recommendation",
+   "severity": "error",
+   "message": "Show the historical observations but do not recommend priority sections.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  }
+ ],
+ "actions": [
+  {
+   "action_id": "rerun-roadkill-surveillance",
+   "kind": "filter",
+   "label": "Change subject, outcome or budget",
+   "capability_id": "validated-decision-map",
+   "arguments": {
+    "recipe_id": "roadkill-surveillance",
+    "available_arguments": {
+     "taxon_group": [
+      "all",
+      "amphibia",
+      "reptilia",
+      "mammalia"
+     ],
+     "budget_cells": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 8
+     }
+    }
+   },
+   "requires_confirmation": true
+  }
+ ],
+ "audit": {
+  "audit_id": "result-09b8847b91e74ac405edfc2d/1",
+  "source_versions": [
+   {
+    "source_id": "zenodo-7060430",
+    "title": "Seasonal road-event survey",
+    "doi": "10.5281/zenodo.7060430",
+    "url": "https://zenodo.org/records/7060430",
+    "publisher": "Nature Conservation Foundation",
+    "license": "CC-BY-4.0",
+    "version": null,
+    "digest": "sha256:80b254095722058a3e8a0314dc3ce8243b1b91334f0b90ba7edda6dad1956d8f",
+    "synthetic": false
+   }
+  ],
+  "capability_runs": [
+   {
+    "capability_id": "validated-decision-map",
+    "version": "1.0.0",
+    "status": "partial"
+   }
+  ],
+  "query_hash": "sha256:ad3fc357c432efd14f806d252c688a56077ca60866fd7f49b6cfae0b41cfc485",
+  "validation_runs": [
+   {
+    "kind": "temporal-hindcast",
+    "status": "failed",
+    "training_period": {
+     "start": "2011-01-01",
+     "end": "2011-12-31"
+    },
+    "validation_period": {
+     "start": "2012-01-01",
+     "end": "2012-12-31"
+    },
+    "split_rule": "calendar-year holdout",
+    "training_season": "source-declared monsoon surveys",
+    "validation_season": "source-declared summer surveys",
+    "effort_allocation": "Route visits allocated to cells in proportion to the route's sampled habitat points",
+    "taxon_group": "all",
+    "surveyed_validation_cells": 147,
+    "cells_with_validation_events": 127,
+    "metrics": {
+     "auc": 0.47716535433070867,
+     "top_20_percent_capture": 0.3481675392670157,
+     "top_20_percent_cells": 30,
+     "training_events": 2251,
+     "validation_events": 764
+    },
+    "checks": {
+     "training_events": {
+      "value": 2251,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "validation_events": {
+      "value": 764,
+      "operator": ">=",
+      "threshold": 30,
+      "passed": true
+     },
+     "auc": {
+      "value": 0.47716535433070867,
+      "operator": ">=",
+      "threshold": 0.55,
+      "passed": false
+     },
+     "top_20_percent_capture": {
+      "value": 0.3481675392670157,
+      "operator": ">=",
+      "threshold": 0.3,
+      "passed": true
+     }
+    },
+    "claim": "Show the historical observations but do not recommend priority sections."
+   }
+  ]
+ },
+ "required_statements": [
+  {
+   "id": "name-the-survey",
+   "statement": "Name the survey each figure came from: Seasonal road-event survey.",
+   "must_include": [
+    "seasonal",
+    "road-event"
+   ],
+   "why": "A real count attributed to the wrong survey sends someone to the wrong plots.",
+   "audience": "model"
+  }
+ ]
+}

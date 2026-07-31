@@ -1,0 +1,646 @@
+{
+ "schema_version": "idli-result/1",
+ "result_id": "result-a707107041b4cac9a5aeff69",
+ "request_id": "req-f183a32b666127c7",
+ "revision": 1,
+ "status": "complete",
+ "site": {
+  "site_id": "valparai",
+  "label": "Valparai",
+  "pack_digest": "sha256:adeedd055fbcc6e407c8b4eb597c138f6b4199cafc78eba89f49ffdcab08fc53"
+ },
+ "question": {
+  "original": "With money for eight plots, where will another survey teach us most?",
+  "resolved": "Run Where another forest-recovery visit will add the most knowledge and apply its declared validation before recommending action.",
+  "bindings": {
+   "recipe_id": "forest-recovery-monitoring",
+   "outcome": "regeneration_tree_species_richness",
+   "budget_plots": 8
+  }
+ },
+ "answer": {
+  "headline": "The whole-landscape holdout for regenerating tree species richness passed; 8 existing plots are selected for a knowledge-focused resurvey.",
+  "detail": "Held-out mean absolute error was 4.93 species per 0.04 ha plot versus 6.06 for the training-mean baseline (18.6% better). Large errors identify where the simple model needs learning, not where restoration failed.",
+  "evidence_classes": [
+   "observed",
+   "derived",
+   "modelled"
+  ],
+  "validation": {
+   "kind": "spatial-holdout",
+   "status": "passed",
+   "split_rule": "leave-one-named-landscape-out",
+   "outcome": "regeneration_tree_species_richness",
+   "predictors": [
+    "canopy_cover_percent",
+    "distance_to_protected_area_m",
+    "adult_tree_count_per_0.04ha_plot",
+    "adult_tree_species_richness",
+    "adult_old_growth_species_richness",
+    "adult_threatened_or_endemic_species_richness",
+    "adult_medium_large_animal_dispersed_species_richness",
+    "adult_basal_area_per_ha",
+    "adult_aboveground_carbon_per_ha",
+    "adult_mean_wood_density",
+    "adult_mean_height"
+   ],
+   "model": "distance-weighted nearest neighbours after fold-specific standardisation; neighbour count selected by an inner whole-landscape validation",
+   "candidate_neighbour_counts": [
+    3,
+    5,
+    7,
+    9,
+    12,
+    15
+   ],
+   "selected_neighbour_counts": {
+    "9": 3,
+    "15": 3,
+    "3": 2,
+    "12": 2,
+    "5": 4,
+    "7": 3
+   },
+   "metrics": {
+    "plots": 123,
+    "landscapes": 17,
+    "mean_absolute_error": 4.930413518821744,
+    "baseline_mean_absolute_error": 6.057896740423474,
+    "mae_improvement_over_baseline": 0.18611793332134507
+   },
+   "checks": {
+    "plots": {
+     "value": 123,
+     "operator": ">=",
+     "threshold": 80,
+     "passed": true
+    },
+    "landscapes": {
+     "value": 17,
+     "operator": ">=",
+     "threshold": 10,
+     "passed": true
+    },
+    "mae_improvement_over_baseline": {
+     "value": 0.18611793332134507,
+     "operator": ">=",
+     "threshold": 0.1,
+     "passed": true
+    }
+   },
+   "claim": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures."
+  }
+ },
+ "visuals": [
+  {
+   "visual_id": "decision-map",
+   "visual_type": "map",
+   "view": "validated-decision-map",
+   "title": "Where another forest-recovery visit will add the most knowledge",
+   "priority": "primary",
+   "status": "ready",
+   "scope": {
+    "aoi_ids": [
+     "target",
+     "context"
+    ],
+    "time": {
+     "start": null,
+     "end": null
+    }
+   },
+   "layers": [
+    {
+     "layer_id": "measured-recovery-plots",
+     "evidence_class": "observed",
+     "geometry_type": "point",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-recovery-plots",
+      "media_type": "application/geo+json",
+      "digest": "sha256:958fbeb95268d5dd5ebc860a31384f74995a6c9bb4ccb67b503d88bdf4b1c31c"
+     },
+     "legend": {
+      "label": "Measured regeneration at fixed plots"
+     },
+     "style_hint": {
+      "palette_role": "observed",
+      "category_field": "comparison_class",
+      "value_field": "observed"
+     }
+    },
+    {
+     "layer_id": "held-out-model-errors",
+     "evidence_class": "modelled",
+     "geometry_type": "point",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-recovery-plots",
+      "media_type": "application/geo+json",
+      "digest": "sha256:958fbeb95268d5dd5ebc860a31384f74995a6c9bb4ccb67b503d88bdf4b1c31c"
+     },
+     "legend": {
+      "label": "Whole-landscape held-out prediction error"
+     },
+     "style_hint": {
+      "palette_role": "modelled",
+      "size_field": "absolute_error",
+      "selected_field": "selected_for_budget",
+      "rank_field": "priority_rank"
+     }
+    },
+    {
+     "layer_id": "decision-target-boundary",
+     "evidence_class": "reported",
+     "geometry_type": "line",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-target-boundary",
+      "media_type": "application/geo+json",
+      "digest": "sha256:042a26102914883d97d9c426ed8922c0395acd1a8466f21c17b078996c5b36fe"
+     },
+     "legend": {
+      "label": "Declared analysis area"
+     },
+     "style_hint": {
+      "palette_role": "reported"
+     }
+    }
+   ],
+   "summary": {
+    "headline": "The whole-landscape holdout for regenerating tree species richness passed; 8 existing plots are selected for a knowledge-focused resurvey.",
+    "denominators": {
+     "plots": 123,
+     "landscapes": 17,
+     "selected_plots": 8
+    }
+   },
+   "drilldowns": [
+    {
+     "action_id": "inspect-recovery-holdouts",
+     "label": "Inspect observed and held-out values",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-recovery-validation",
+      "media_type": "application/json",
+      "digest": "sha256:e76678b49015a4e294abd5ca689ea4038d39bdf62736630223fea0d51488e222"
+     }
+    }
+   ],
+   "limitations": [
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "This prioritises learning at existing plots; it does not extrapolate recovery across the whole plateau.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "The comparison is predictive and descriptive, not a causal estimate of restoration treatment.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Plots in the same named landscape are withheld together, but landscapes may still differ in unmeasured ways.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "validation-passed-with-bounded-claim",
+     "severity": "info",
+     "message": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    }
+   ],
+   "validation": {
+    "kind": "spatial-holdout",
+    "status": "passed",
+    "split_rule": "leave-one-named-landscape-out",
+    "outcome": "regeneration_tree_species_richness",
+    "predictors": [
+     "canopy_cover_percent",
+     "distance_to_protected_area_m",
+     "adult_tree_count_per_0.04ha_plot",
+     "adult_tree_species_richness",
+     "adult_old_growth_species_richness",
+     "adult_threatened_or_endemic_species_richness",
+     "adult_medium_large_animal_dispersed_species_richness",
+     "adult_basal_area_per_ha",
+     "adult_aboveground_carbon_per_ha",
+     "adult_mean_wood_density",
+     "adult_mean_height"
+    ],
+    "model": "distance-weighted nearest neighbours after fold-specific standardisation; neighbour count selected by an inner whole-landscape validation",
+    "candidate_neighbour_counts": [
+     3,
+     5,
+     7,
+     9,
+     12,
+     15
+    ],
+    "selected_neighbour_counts": {
+     "9": 3,
+     "15": 3,
+     "3": 2,
+     "12": 2,
+     "5": 4,
+     "7": 3
+    },
+    "metrics": {
+     "plots": 123,
+     "landscapes": 17,
+     "mean_absolute_error": 4.930413518821744,
+     "baseline_mean_absolute_error": 6.057896740423474,
+     "mae_improvement_over_baseline": 0.18611793332134507
+    },
+    "checks": {
+     "plots": {
+      "value": 123,
+      "operator": ">=",
+      "threshold": 80,
+      "passed": true
+     },
+     "landscapes": {
+      "value": 17,
+      "operator": ">=",
+      "threshold": 10,
+      "passed": true
+     },
+     "mae_improvement_over_baseline": {
+      "value": 0.18611793332134507,
+      "operator": ">=",
+      "threshold": 0.1,
+      "passed": true
+     }
+    },
+    "claim": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures."
+   }
+  },
+  {
+   "visual_id": "validation-summary",
+   "visual_type": "table",
+   "view": "validation-summary",
+   "title": "How this map was tested",
+   "priority": "supporting",
+   "status": "ready",
+   "scope": {
+    "aoi_ids": [
+     "target",
+     "context"
+    ],
+    "time": {
+     "start": null,
+     "end": null
+    }
+   },
+   "layers": [
+    {
+     "layer_id": "validation-summary",
+     "evidence_class": "derived",
+     "geometry_type": "table",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-validation-summary",
+      "media_type": "application/json",
+      "digest": "sha256:4807dde9599be182929147c4a3f4cd7c832a31b9b213525e4ad01832e04f5823"
+     },
+     "legend": {
+      "label": "Withheld test, metrics and thresholds"
+     },
+     "style_hint": {
+      "palette_role": "validation",
+      "status_field": "status",
+      "checks_field": "checks"
+     }
+    }
+   ],
+   "summary": {
+    "headline": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures.",
+    "denominators": {
+     "plots": 123,
+     "landscapes": 17,
+     "selected_plots": 8
+    }
+   },
+   "drilldowns": [
+    {
+     "action_id": "inspect-validation",
+     "label": "Inspect the withheld test and every threshold",
+     "data_ref": {
+      "kind": "result_data",
+      "handle": "decision-validation-summary",
+      "media_type": "application/json",
+      "digest": "sha256:4807dde9599be182929147c4a3f4cd7c832a31b9b213525e4ad01832e04f5823"
+     }
+    }
+   ],
+   "limitations": [
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "This prioritises learning at existing plots; it does not extrapolate recovery across the whole plateau.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "The comparison is predictive and descriptive, not a causal estimate of restoration treatment.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "decision-map-claim-boundary",
+     "severity": "warning",
+     "message": "Plots in the same named landscape are withheld together, but landscapes may still differ in unmeasured ways.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    },
+    {
+     "code": "validation-passed-with-bounded-claim",
+     "severity": "info",
+     "message": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures.",
+     "affects": [
+      "answer",
+      "decision-map",
+      "validation-summary"
+     ],
+     "details_ref": null
+    }
+   ],
+   "validation": {
+    "kind": "spatial-holdout",
+    "status": "passed",
+    "split_rule": "leave-one-named-landscape-out",
+    "outcome": "regeneration_tree_species_richness",
+    "predictors": [
+     "canopy_cover_percent",
+     "distance_to_protected_area_m",
+     "adult_tree_count_per_0.04ha_plot",
+     "adult_tree_species_richness",
+     "adult_old_growth_species_richness",
+     "adult_threatened_or_endemic_species_richness",
+     "adult_medium_large_animal_dispersed_species_richness",
+     "adult_basal_area_per_ha",
+     "adult_aboveground_carbon_per_ha",
+     "adult_mean_wood_density",
+     "adult_mean_height"
+    ],
+    "model": "distance-weighted nearest neighbours after fold-specific standardisation; neighbour count selected by an inner whole-landscape validation",
+    "candidate_neighbour_counts": [
+     3,
+     5,
+     7,
+     9,
+     12,
+     15
+    ],
+    "selected_neighbour_counts": {
+     "9": 3,
+     "15": 3,
+     "3": 2,
+     "12": 2,
+     "5": 4,
+     "7": 3
+    },
+    "metrics": {
+     "plots": 123,
+     "landscapes": 17,
+     "mean_absolute_error": 4.930413518821744,
+     "baseline_mean_absolute_error": 6.057896740423474,
+     "mae_improvement_over_baseline": 0.18611793332134507
+    },
+    "checks": {
+     "plots": {
+      "value": 123,
+      "operator": ">=",
+      "threshold": 80,
+      "passed": true
+     },
+     "landscapes": {
+      "value": 17,
+      "operator": ">=",
+      "threshold": 10,
+      "passed": true
+     },
+     "mae_improvement_over_baseline": {
+      "value": 0.18611793332134507,
+      "operator": ">=",
+      "threshold": 0.1,
+      "passed": true
+     }
+    },
+    "claim": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures."
+   }
+  }
+ ],
+ "limitations": [
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "This prioritises learning at existing plots; it does not extrapolate recovery across the whole plateau.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "The comparison is predictive and descriptive, not a causal estimate of restoration treatment.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "decision-map-claim-boundary",
+   "severity": "warning",
+   "message": "Plots in the same named landscape are withheld together, but landscapes may still differ in unmeasured ways.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  },
+  {
+   "code": "validation-passed-with-bounded-claim",
+   "severity": "info",
+   "message": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures.",
+   "affects": [
+    "answer",
+    "decision-map",
+    "validation-summary"
+   ],
+   "details_ref": null
+  }
+ ],
+ "actions": [
+  {
+   "action_id": "rerun-forest-recovery-monitoring",
+   "kind": "filter",
+   "label": "Change subject, outcome or budget",
+   "capability_id": "validated-decision-map",
+   "arguments": {
+    "recipe_id": "forest-recovery-monitoring",
+    "available_arguments": {
+     "outcome": [
+      "regeneration_tree_species_richness",
+      "regeneration_old_growth_species_richness",
+      "regeneration_threatened_or_endemic_species_richness",
+      "regeneration_medium_large_animal_dispersed_species_richness"
+     ],
+     "budget_plots": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 8
+     }
+    }
+   },
+   "requires_confirmation": true
+  }
+ ],
+ "audit": {
+  "audit_id": "result-a707107041b4cac9a5aeff69/1",
+  "source_versions": [
+   {
+    "source_id": "derived-restoration-plot-indicators-v1",
+    "title": "Source-linked restoration plot indicators, version 1",
+    "doi": "10.5061/dryad.8kprr4xvb",
+    "url": "https://doi.org/10.5061/dryad.8kprr4xvb",
+    "publisher": "Derived locally from Dryad observations using admitted Zenodo methods",
+    "license": "CC0-1.0 data; MIT method code",
+    "version": null,
+    "digest": "sha256:b3f5d00f661a4d1e4306ef1b8bf078db90609707b0cb2acaa69d090e3f30c696",
+    "synthetic": false
+   }
+  ],
+  "capability_runs": [
+   {
+    "capability_id": "validated-decision-map",
+    "version": "1.0.0",
+    "status": "complete"
+   }
+  ],
+  "query_hash": "sha256:75ddfd0bc51c7ed071ce26a965063d6dd432319cf9a128d81817192617fd6e57",
+  "validation_runs": [
+   {
+    "kind": "spatial-holdout",
+    "status": "passed",
+    "split_rule": "leave-one-named-landscape-out",
+    "outcome": "regeneration_tree_species_richness",
+    "predictors": [
+     "canopy_cover_percent",
+     "distance_to_protected_area_m",
+     "adult_tree_count_per_0.04ha_plot",
+     "adult_tree_species_richness",
+     "adult_old_growth_species_richness",
+     "adult_threatened_or_endemic_species_richness",
+     "adult_medium_large_animal_dispersed_species_richness",
+     "adult_basal_area_per_ha",
+     "adult_aboveground_carbon_per_ha",
+     "adult_mean_wood_density",
+     "adult_mean_height"
+    ],
+    "model": "distance-weighted nearest neighbours after fold-specific standardisation; neighbour count selected by an inner whole-landscape validation",
+    "candidate_neighbour_counts": [
+     3,
+     5,
+     7,
+     9,
+     12,
+     15
+    ],
+    "selected_neighbour_counts": {
+     "9": 3,
+     "15": 3,
+     "3": 2,
+     "12": 2,
+     "5": 4,
+     "7": 3
+    },
+    "metrics": {
+     "plots": 123,
+     "landscapes": 17,
+     "mean_absolute_error": 4.930413518821744,
+     "baseline_mean_absolute_error": 6.057896740423474,
+     "mae_improvement_over_baseline": 0.18611793332134507
+    },
+    "checks": {
+     "plots": {
+      "value": 123,
+      "operator": ">=",
+      "threshold": 80,
+      "passed": true
+     },
+     "landscapes": {
+      "value": 17,
+      "operator": ">=",
+      "threshold": 10,
+      "passed": true
+     },
+     "mae_improvement_over_baseline": {
+      "value": 0.18611793332134507,
+      "operator": ">=",
+      "threshold": 0.1,
+      "passed": true
+     }
+    },
+    "claim": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures."
+   }
+  ]
+ },
+ "required_statements": [
+  {
+   "id": "name-the-survey",
+   "statement": "Name the survey each figure came from: Source-linked restoration plot indicators, version 1.",
+   "must_include": [
+    "source-linked",
+    "restoration",
+    "plot",
+    "indicators"
+   ],
+   "why": "A real count attributed to the wrong survey sends someone to the wrong plots.",
+   "audience": "model"
+  }
+ ]
+}

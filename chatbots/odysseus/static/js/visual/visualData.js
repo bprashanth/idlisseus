@@ -105,6 +105,14 @@ export class VisualClient {
     return res.json();
   }
 
+  // TR-VIS-0008: the catalogue of validated decision maps this pack publishes.
+  // Packs predating the contract answer 404 — the caller shows an empty centre.
+  async decisionMaps() {
+    const res = await fetch(`${this.base}/decision-maps`);
+    if (!res.ok) throw new Error(`decision-maps ${res.status}`);
+    return res.json();
+  }
+
   // Deterministic computation lineage for a result (optionally one mark of one layer).
   async explain(resultId, layerId, mark) {
     const params = new URLSearchParams();

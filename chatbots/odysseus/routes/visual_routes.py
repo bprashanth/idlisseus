@@ -10,6 +10,7 @@ behind a registered ModelEndpoint. This proxy:
 
 Routes (auth enforced by the global AuthMiddleware like every /api route):
   GET  /api/visual/{endpoint_id}/capabilities
+  GET  /api/visual/{endpoint_id}/decision-maps
   POST /api/visual/{endpoint_id}/query
   GET  /api/visual/{endpoint_id}/results/{result_id}
   GET  /api/visual/{endpoint_id}/results/{result_id}/data/{handle}
@@ -131,6 +132,16 @@ def setup_visual_routes():
     @router.get("/{endpoint_id}/capabilities")
     def capabilities(endpoint_id: str):
         return _get(endpoint_id, "/v1/capabilities")
+
+    @router.get("/{endpoint_id}/decision-maps")
+    def decision_maps(endpoint_id: str):
+        """TR-VIS-0008: the producer's catalogue of validated decision maps.
+
+        A catalogue of current products, not a history of maps mentioned in
+        chats. Packs without the endpoint answer 404, which the Maps centre
+        renders as "this pack publishes no decision maps".
+        """
+        return _get(endpoint_id, "/v1/decision-maps")
 
     @router.get("/{endpoint_id}/results/{result_id}")
     def result(endpoint_id: str, result_id: str):

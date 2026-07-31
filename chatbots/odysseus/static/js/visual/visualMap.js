@@ -250,6 +250,16 @@ export function renderMap(container, visual, layerData, hooks) {
     const color = evidenceColor(cls);
     const g = el('g', { class: `viz-layer viz-layer-${cls}`, 'data-layer': layer.layer_id });
     world.appendChild(g);
+    // TR-VIS-0008 style roles. `validation` marks observations the producer
+    // withheld to test with; `selected_field` names the property that flags a
+    // location chosen inside the declared budget. Both are producer-declared —
+    // nothing is inferred from field names.
+    const styleHint = layer.style_hint || {};
+    const validationRole = styleHint.palette_role === 'validation';
+    // A selection may only be drawn behind a passed test; the caller decides.
+    const selectedField = (hooks && hooks.suppressSelection) ? null : (styleHint.selected_field || null);
+    let selectedCells = 0;
+    let selectedMarks = 0;
 
     if (layer.geometry_type === 'polygon' && cls === 'reported') {
       // Declared boundary: outlined, never filled solid.
@@ -358,12 +368,33 @@ export function renderMap(container, visual, layerData, hooks) {
             d, fill: `url(#${agreementOverlay.id})`, 'pointer-events': 'none',
           }));
         }
+        // TR-VIS-0008: a location chosen inside the declared budget wears a
+        // heavy ink collar — a mark, not a hue, so the budget stays legible in
+        // greyscale and over any ramp step. Drawn only when the producer's
+        // test passed (selectedField is null otherwise).
+        if (selectedField && props[selectedField]) {
+          selectedCells += 1;
+          g.appendChild(el('path', {
+            d, fill: 'none', stroke: p.surface,
+            'stroke-width': 5.5, 'stroke-linejoin': 'round', 'pointer-events': 'none',
+          }));
+          g.appendChild(el('path', {
+            d, fill: 'none', stroke: p.inkPrimary,
+            'stroke-width': 2.5, 'stroke-linejoin': 'round', 'pointer-events': 'none',
+          }));
+        }
       }
       legendEntries.push({
         swatch: 'ramp', ramp: q.colors || [], min: q.min, max: q.max,
         label: layer.legend?.label || evidenceLabel(cls),
         hatched: cls === 'modelled',
       });
+      if (selectedCells) {
+        legendEntries.push({
+          swatch: 'outline', color: p.inkPrimary,
+          label: `chosen within the declared budget (${selectedCells})`,
+        });
+      }
       if (agreementOverlay) {
         legendEntries.push({ swatch: 'hatch', color: p.inkPrimary, label: agreementOverlay.label });
       }
@@ -440,6 +471,21 @@ export function renderMap(container, visual, layerData, hooks) {
             d: `M ${x} ${y - r} L ${x + r} ${y} L ${x} ${y + r} L ${x - r} ${y} Z`,
             fill: color, stroke: p.surface, 'stroke-width': 2,
           });
+        } else if (validationRole) {
+          // TR-VIS-0008: observations withheld to TEST the model share the
+          // observed evidence class with the observations used to FIT it, so
+          // colour cannot separate them. A hollow ring crossed by a bar is the
+          // mandatory secondary encoding — it survives greyscale.
+          const ring = el('g');
+          ring.appendChild(el('circle', {
+            cx: x, cy: y, r, fill: p.surface, 'fill-opacity': 0.55,
+            stroke: color, 'stroke-width': 2.2,
+          }));
+          ring.appendChild(el('line', {
+            x1: x - r * 0.72, y1: y + r * 0.72, x2: x + r * 0.72, y2: y - r * 0.72,
+            stroke: color, 'stroke-width': 2.2, 'stroke-linecap': 'round',
+          }));
+          mark = ring;
         } else {
           mark = el('circle', {
             cx: x, cy: y, r,
@@ -458,6 +504,16 @@ export function renderMap(container, visual, layerData, hooks) {
             }));
           }
         }
+        // TR-VIS-0008: a place chosen inside the declared budget wears a heavy
+        // ink collar — a mark, not a hue. Selections arrive as cells on some
+        // recipes and as points on others; both must read the same way.
+        if (selectedField && props[selectedField]) {
+          selectedMarks += 1;
+          g.appendChild(el('circle', {
+            cx: x, cy: y, r: r + 4.5, fill: 'none',
+            stroke: p.inkPrimary, 'stroke-width': 2.2, 'pointer-events': 'none',
+          }));
+        }
         // Oversized transparent hit target (≥24px) so hover is reliable.
         const hit = el('circle', {
           cx: x, cy: y, r: Math.max(r + 6, 14), fill: 'transparent',
@@ -468,8 +524,14 @@ export function renderMap(container, visual, layerData, hooks) {
         g.appendChild(mark);
         g.appendChild(hit);
       }
+      if (selectedMarks) {
+        legendEntries.push({
+          swatch: 'outline', color: p.inkPrimary,
+          label: `chosen within the declared budget (${selectedMarks})`,
+        });
+      }
       legendEntries.push({
-        swatch: cls === 'designed' ? 'diamond' : 'dot', color,
+        swatch: cls === 'designed' ? 'diamond' : (validationRole ? 'ring' : 'dot'), color,
         label: layer.legend?.label || evidenceLabel(cls),
       });
     }

@@ -437,7 +437,15 @@ const RENDERERS = {
 // Render one visual object into container. layerData: Map(layer_id -> parsed payload).
 // hooks: {onDrill(feature, layer)} — tooltip added here.
 export function renderVisual(container, visual, layerData, hooks) {
-  const h = { tooltip: tooltip(), onDrill: hooks && hooks.onDrill, rawUrl: hooks && hooks.rawUrl, preferLeaflet: hooks && hooks.preferLeaflet };
+  const h = {
+    tooltip: tooltip(),
+    onDrill: hooks && hooks.onDrill,
+    rawUrl: hooks && hooks.rawUrl,
+    preferLeaflet: hooks && hooks.preferLeaflet,
+    // TR-VIS-0008: refuse to style any place as chosen when the producer's
+    // declared test did not pass.
+    suppressSelection: hooks && hooks.suppressSelection,
+  };
   const status = visual.status || 'ready';
   const frame = document.createElement('figure');
   frame.className = `viz-figure viz-status-${status}`;

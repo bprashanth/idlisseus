@@ -72,6 +72,8 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
   const focusBounds = L.latLngBounds([]);  // non-context features
   const emphasisBounds = L.latLngBounds([]); // the layer the answer is about
   const overlays = {};
+  // producer layer_id -> leaflet object (TR-VIS-0008 toggle bar)
+  const layerObjects = {};
 
   // A feature is "context" when the producer says so (donor/comparison/context
   // roles). Those inform, but they must not dictate the viewport.
@@ -117,6 +119,13 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     const cls = layer.evidence_class || 'observed';
     const color = evidenceColor(cls);
     const label = layer.legend?.label || evidenceLabel(cls);
+    // TR-VIS-0008 producer style roles: `validation` marks observations
+    // withheld to test with (same evidence class as the ones used to fit, so
+    // colour cannot separate them), `selected_field` names the property that
+    // flags a location chosen inside the declared budget.
+    const styleHint = layer.style_hint || {};
+    const validationRole = styleHint.palette_role === 'validation';
+    const selectedField = hooks.suppressSelection ? null : (styleHint.selected_field || null);
 
     if (layer.geometry_type === 'raster_image' && Array.isArray(layer.bounds)) {
       const url = hooks.rawUrl && hooks.rawUrl(layer.data_ref);
@@ -126,6 +135,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
         opacity: (layer.style_hint && layer.style_hint.opacity) || 0.75,
       }).addTo(map);
       overlays[label] = img;
+      layerObjects[layer.layer_id] = img;
       bounds.extend([[s, w], [n, e]]);
       continue;
     }
@@ -148,6 +158,16 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
             return { color: p.inkMuted, weight: 1, dashArray: '4 3', fillColor: p.inkMuted, fillOpacity: 0.12 };
           }
           const v = magnitudeOf(f.properties || {}).value;
+          // A place chosen inside the declared budget wears a heavy ink
+          // collar — a mark, not a hue, so the budget survives greyscale and
+          // reads over any ramp step. Only drawn behind a passed test.
+          if (selectedField && (f.properties || {})[selectedField]) {
+            return {
+              color: p.inkPrimary, weight: 3.5, opacity: 1,
+              fillColor: q.colorFor(v) || p.inkMuted,
+              fillOpacity: cls === 'modelled' ? 0.62 : 0.72,
+            };
+          }
           return {
             color: '#ffffff', weight: 1.2,
             fillColor: q.colorFor(v) || p.inkMuted,
@@ -164,6 +184,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
         },
       }).addTo(map);
       overlays[label] = gj;
+      layerObjects[layer.layer_id] = gj;
       if (gj.getBounds().isValid()) bounds.extend(gj.getBounds());
       if (!isBoundary) extendFocus(fc, layer);
     } else if (layer.geometry_type === 'point') {
@@ -174,16 +195,47 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
         const [lon, lat] = f.geometry.coordinates;
         const { value } = magnitudeOf(f.properties || {});
         const r = 4 + 8 * Math.sqrt((value || 1) / maxCount);
-        const marker = L.circleMarker([lat, lon], {
-          radius: r, color: '#ffffff', weight: 2,
-          fillColor: color, fillOpacity: cls === 'modelled' ? 0.55 : 0.9,
-        });
+        let marker;
+        if (validationRole) {
+          // Withheld test observations: a crossed ring. Shape is the mandatory
+          // secondary encoding — these share an evidence class (and therefore a
+          // hue) with the observations used to fit the model.
+          const d = Math.ceil(r * 2 + 6);
+          const c = d / 2;
+          const rr = r;
+          marker = L.marker([lat, lon], {
+            icon: L.divIcon({
+              className: 'viz-withheld-mark',
+              iconSize: [d, d],
+              iconAnchor: [c, c],
+              html: `<svg width="${d}" height="${d}" viewBox="0 0 ${d} ${d}" aria-hidden="true">`
+                + `<circle cx="${c}" cy="${c}" r="${rr}" fill="#ffffff" fill-opacity="0.5" `
+                + `stroke="${color}" stroke-width="2.4"/>`
+                + `<line x1="${c - rr * 0.72}" y1="${c + rr * 0.72}" x2="${c + rr * 0.72}" `
+                + `y2="${c - rr * 0.72}" stroke="${color}" stroke-width="2.4" stroke-linecap="round"/>`
+                + '</svg>',
+            }),
+          });
+        } else if (selectedField && (f.properties || {})[selectedField]) {
+          // Chosen inside the declared budget: a heavy ink collar around the
+          // mark — shape weight, not a different hue.
+          marker = L.circleMarker([lat, lon], {
+            radius: r, color: p.inkPrimary, weight: 3.5,
+            fillColor: color, fillOpacity: cls === 'modelled' ? 0.75 : 0.95,
+          });
+        } else {
+          marker = L.circleMarker([lat, lon], {
+            radius: r, color: '#ffffff', weight: 2,
+            fillColor: color, fillOpacity: cls === 'modelled' ? 0.55 : 0.9,
+          });
+        }
         marker.bindTooltip(tooltipNode(featureRows(layer, f.properties)), { sticky: true, opacity: 0.96 });
         marker.on('click', () => hooks.onDrill && hooks.onDrill(f, layer, { lat, lon }));
         group.addLayer(marker);
       }
       group.addTo(map);
       overlays[label] = group;
+      layerObjects[layer.layer_id] = group;
       if (group.getBounds().isValid()) bounds.extend(group.getBounds());
       extendFocus(fc, layer);
     } else if (layer.geometry_type === 'line') {
@@ -195,6 +247,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
         },
       }).addTo(map);
       overlays[label] = gj;
+      layerObjects[layer.layer_id] = gj;
       if (gj.getBounds().isValid()) bounds.extend(gj.getBounds());
     }
   }
@@ -204,6 +257,12 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     overlays,
     { collapsed: true, position: 'topright' }
   ).addTo(map);
+
+  // TR-VIS-0008: expose the overlays by producer layer id so an out-of-map
+  // toggle bar can show/hide the same objects this control drives. Toggling
+  // adds or removes drawn marks only — no producer value is touched.
+  root._vizLeafletLayers = layerObjects;
+  root._vizLeafletMap = map;
 
   // ---- ground truth: peek at the bare imagery.
   // Hold the button (or toggle it) to fade every data layer away, so the field

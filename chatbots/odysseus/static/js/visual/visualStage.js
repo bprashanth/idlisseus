@@ -7,6 +7,9 @@
 
 import { renderVisual, renderTable, tooltip, renderSubjectDisclosure } from './visualRenderers.js';
 import { evidenceColor, evidenceLabel, formatNumber, cleanText } from './visualTheme.js';
+import {
+  isDecisionMapVisual, renderValidationPanel, renderLayerToggles, selectionAllowed,
+} from './visualDecisionMap.js';
 
 export class VisualStage {
   // host: element the stage mounts into. opts.fetchData(ref) -> Promise<parsed payload>
@@ -183,6 +186,10 @@ class Chapter {
     }
     // TR-VIS-0003: disclose a model-read subject in the panel caption too.
     renderSubjectDisclosure(this.caption, env);
+    // TR-VIS-0008: on a decision map the test comes immediately after the
+    // claim it qualifies — before chips, limitations and provenance, so a
+    // reader meets "how this was tested" without scrolling past the answer.
+    renderValidationPanel(this.caption, env, {});
     // evidence chips
     const chips = document.createElement('div');
     chips.className = 'viz-chip-row';
@@ -243,12 +250,29 @@ class Chapter {
         this.node.classList.add('viz-primary-map');
       }
       const layerData = await this._loadLayers(primary, fetchData);
+      // TR-VIS-0008: a place is styled as chosen only behind a passed test.
+      const decisionMap = isDecisionMapVisual(primary);
+      const suppressSelection = decisionMap && !selectionAllowed(env);
       const frame = renderVisual(this.canvas, primary, layerData, {
         onDrill: (feature, layer, centroid) => this._openDrill(primary, feature, layer, centroid),
         rawUrl: (ref) => this.stage.opts.rawUrl && this.stage.opts.rawUrl(ref, this.envelope),
         preferLeaflet: this.stage.opts.preferLeaflet,
+        suppressSelection,
       });
       frame.classList.add('viz-enter');
+      if (decisionMap) {
+        // The test travels with the map: toggles inside the figure (the canvas
+        // is a flex row — a sibling there would squeeze the map), then "How
+        // this map was tested" in the caption column, the same treatment the
+        // chat card gets, so one recipe reads identically from either route.
+        const toggleHost = document.createElement('div');
+        toggleHost.className = 'viz-stage-toggles';
+        frame.appendChild(toggleHost);
+        renderLayerToggles(toggleHost, primary, frame, {});
+        // The validation summary is already in the caption (above); it must
+        // not also sit in the supporting rail as a card to click.
+        supporting = supporting.filter((v) => v.view !== 'validation-summary');
+      }
       if (alt) {
         this.node.classList.add('viz-chapter-split');
         const altData = await this._loadLayers(alt, fetchData);

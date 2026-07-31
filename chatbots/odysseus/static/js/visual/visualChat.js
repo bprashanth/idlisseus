@@ -10,6 +10,10 @@ import { VisualStage } from './visualStage.js';
 import { VisualClient } from './visualData.js';
 import { renderVisual, renderTable, renderSubjectDisclosure, subjectActionLabel } from './visualRenderers.js';
 import { cleanText } from './visualTheme.js';
+import {
+  isDecisionMapVisual, renderValidationPanel, renderLayerToggles,
+  selectionAllowed, validationOf,
+} from './visualDecisionMap.js';
 
 let client = null;
 let clientEndpointUrl = null;
@@ -331,6 +335,8 @@ const KIND_LABELS = {
   hierarchy: 'Breakdown', matrix: 'Matrix', table: 'Records',
   dashboard: 'Dashboard', chart: 'Chart', summary: 'Summary',
   result: 'Figure',
+  // TR-VIS-0008: reading words, like every other kind label.
+  validated_decision_map: 'Decision map', validation_summary: 'How this was tested',
 };
 function humanKind(kind) {
   const key = String(kind || '').toLowerCase().replace(/-/g, '_');
@@ -415,7 +421,11 @@ async function hydrateSlot(slot) {
         if (parsed) layerData.set(layer.layer_id, parsed);
       } catch { /* partial inline render is fine; the panel retries */ }
     }));
-    renderVisual(canvas, primary, layerData, {
+    // TR-VIS-0008: on a decision map, a selection may only be drawn behind a
+    // passed test. The producer still ships the layer; we refuse to style it.
+    const decisionMap = isDecisionMapVisual(primary);
+    const suppressSelection = decisionMap && !selectionAllowed(envelope);
+    const frame = renderVisual(canvas, primary, layerData, {
       rawUrl: (ref) => {
         if (ref && ref.kind === 'result_data' && ref.handle) {
           return `${c.base}/results/${encodeURIComponent(envelope.result_id)}/data/${encodeURIComponent(ref.handle)}`;
@@ -424,7 +434,22 @@ async function hydrateSlot(slot) {
       },
       // Inline cards are previews: clicks open the panel rather than drilling.
       onDrill: () => openInPanel(resultId),
+      suppressSelection,
     });
+    if (decisionMap) {
+      // Toggles hide marks only — no recomputation, no producer value changes,
+      // and the validation panel below is never hidden by them.
+      const toggleHost = document.createElement('div');
+      toggleHost.className = 'viz-inline-toggles';
+      card.appendChild(toggleHost);
+      // Every producer layer stays toggleable — on a failed test the evidence
+      // is exactly what must remain readable; it is the *selection styling*
+      // that is withheld (suppressSelection above), not the values.
+      renderLayerToggles(toggleHost, primary, frame, {});
+      // "How this map was tested" sits with the map, in the reading flow —
+      // not behind the audit link, not inside an accordion.
+      renderValidationPanel(card, envelope, { compact: true });
+    }
   }
 
   // Rows are the evidence: show the first few under the answer rather than

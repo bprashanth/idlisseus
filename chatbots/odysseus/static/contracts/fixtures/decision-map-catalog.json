@@ -1,0 +1,434 @@
+{
+ "schema_version": "idli-decision-map-catalog/1",
+ "site": {
+  "site_id": "valparai",
+  "label": "Valparai",
+  "pack_digest": "sha256:adeedd055fbcc6e407c8b4eb597c138f6b4199cafc78eba89f49ffdcab08fc53"
+ },
+ "capability_id": "validated-decision-map",
+ "recipes": [
+  {
+   "recipe_id": "roadkill-surveillance",
+   "version": "1.0.0",
+   "title": "Where to restart road wildlife monitoring",
+   "theme": "protect",
+   "decision": "Choose a small set of previously surveyed road sections for renewed monitoring before spending on mitigation or camera deployment.",
+   "status": "ready",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Where should we restart roadkill monitoring?",
+    "Which road sections were repeatedly dangerous for mammals?",
+    "Where should I put a few cameras to check present road-crossing risk?"
+   ],
+   "required_inputs": [
+    {
+     "role": "earlier observations",
+     "description": "Dated 2011 roadkill records on repeatedly surveyed routes.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-7060430"
+     ]
+    },
+    {
+     "role": "later withheld observations",
+     "description": "Dated 2012 roadkill records retained only for hindcast evaluation.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-7060430"
+     ]
+    },
+    {
+     "role": "survey exposure",
+     "description": "Route visits, route length and sampled road habitat points.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-7060430"
+     ]
+    }
+   ],
+   "product": {
+    "observed": "Earlier roadkill points, surveyed road cells and withheld later roadkill points.",
+    "modelled": "An effort-adjusted historical risk ranking learned only from the earlier year.",
+    "decision_output": "A budget-sized set of road cells for renewed monitoring, emitted only when the hindcast passes."
+   },
+   "validation": {
+    "kind": "temporal-hindcast",
+    "status": "runtime",
+    "method": "Fit effort-adjusted cell rates from the 2011 monsoon surveys and test their ranking against the withheld 2012 summer surveys.",
+    "claim_if_passed": "The highlighted sections retained predictive signal one year later and are defensible places to begin a present-day validation survey.",
+    "claim_if_failed": "Show the historical observations but do not recommend priority sections.",
+    "thresholds": {
+     "minimum_training_events": 30,
+     "minimum_validation_events": 30,
+     "minimum_auc": 0.55,
+     "minimum_top_20_percent_capture": 0.3
+    }
+   },
+   "invocation": {
+    "arguments": {
+     "taxon_group": [
+      "all",
+      "amphibia",
+      "reptilia",
+      "mammalia"
+     ],
+     "budget_cells": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 8
+     }
+    },
+    "agent_rule": "Invoke after the user identifies road wildlife, roadkill, crossings or a limited monitoring budget. Explain that the test is historical and present-day mitigation still requires a renewed survey."
+   },
+   "limitations": [
+    "The survey records roadkill, not successful crossings or animal abundance.",
+    "A passed 2011 monsoon-to-2012 summer hindcast does not establish current 2026 risk.",
+    "Road-cell effort is allocated from each route's sampled habitat points rather than a continuous GPS effort trace.",
+    "Recommendations remain on the routes represented by the admitted survey."
+   ]
+  },
+  {
+   "recipe_id": "forest-recovery-monitoring",
+   "version": "1.0.0",
+   "title": "Where another forest-recovery visit will add the most knowledge",
+   "theme": "restore",
+   "decision": "Prioritise a limited resurvey of existing plots where adult forest structure least reliably predicts regeneration recovery.",
+   "status": "ready",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Which restoration plots should we revisit first?",
+    "Where does regeneration differ from what the adult trees would lead us to expect?",
+    "With money for ten plots, where will another survey improve the recovery model most?"
+   ],
+   "required_inputs": [
+    {
+     "role": "ground truth outcome",
+     "description": "Comparable 0.04 ha plot measurements of regenerating tree richness.",
+     "status": "available",
+     "source_ids": [
+      "derived-restoration-plot-indicators-v1"
+     ]
+    },
+    {
+     "role": "predictors available at resurvey planning time",
+     "description": "Adult tree structure, canopy cover and distance to protected forest from the same fixed plots.",
+     "status": "available",
+     "source_ids": [
+      "derived-restoration-plot-indicators-v1"
+     ]
+    },
+    {
+     "role": "independent spatial groups",
+     "description": "Named landscapes withheld together so neighbouring plots cannot leak into validation.",
+     "status": "available",
+     "source_ids": [
+      "dryad-8kprr4xvb-restoration-opportunities"
+     ]
+    }
+   ],
+   "product": {
+    "observed": "Measured adult and regeneration indicators at fixed plots.",
+    "modelled": "A transparent nearest-neighbour estimate evaluated with whole-landscape holdouts.",
+    "decision_output": "Existing plots with the largest honest held-out errors, spread across landscapes, for targeted remeasurement."
+   },
+   "validation": {
+    "kind": "spatial-holdout",
+    "status": "runtime",
+    "method": "Withhold every plot from one named landscape, choose the neighbour count using a second whole-landscape validation inside the remaining data, estimate the untouched landscape, and compare against a training-mean baseline.",
+    "claim_if_passed": "The model generalises better than the baseline across held-out landscapes; its largest errors identify useful resurvey locations, not restoration failures.",
+    "claim_if_failed": "Retain the measured plot map but do not turn prediction error into a resurvey ranking.",
+    "thresholds": {
+     "minimum_plots": 80,
+     "minimum_landscapes": 10,
+     "minimum_mae_improvement_over_baseline": 0.1
+    }
+   },
+   "invocation": {
+    "arguments": {
+     "outcome": [
+      "regeneration_tree_species_richness",
+      "regeneration_old_growth_species_richness",
+      "regeneration_threatened_or_endemic_species_richness",
+      "regeneration_medium_large_animal_dispersed_species_richness"
+     ],
+     "budget_plots": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 8
+     }
+    },
+    "agent_rule": "Invoke for bounded restoration resurvey or model-learning questions. Do not describe large residuals as poor restoration outcomes."
+   },
+   "limitations": [
+    "This prioritises learning at existing plots; it does not extrapolate recovery across the whole plateau.",
+    "The comparison is predictive and descriptive, not a causal estimate of restoration treatment.",
+    "Plots in the same named landscape are withheld together, but landscapes may still differ in unmeasured ways."
+   ]
+  },
+  {
+   "recipe_id": "mother-tree-protection",
+   "version": "0.1.0",
+   "title": "Large fruiting trees worth checking and protecting",
+   "theme": "protect",
+   "decision": "Locate individually verified mature native trees that support seed collection or animal visitation.",
+   "status": "awaiting-validation-data",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Which mother trees should we protect?",
+    "Where could we collect seed without narrowing genetic diversity?"
+   ],
+   "required_inputs": [
+    {
+     "role": "plot tree measurements",
+     "description": "Tree height, girth, species, dispersal traits and visitation evidence.",
+     "status": "available",
+     "source_ids": [
+      "dryad-8kprr4xvb-restoration-opportunities",
+      "dryad-5x69p8d0r-frugivory"
+     ]
+    },
+    {
+     "role": "crown-scale ground truth",
+     "description": "Georeferenced stems or crowns accurate enough to match an individual canopy crown.",
+     "status": "missing"
+    },
+    {
+     "role": "repeat canopy imagery",
+     "description": "Two co-registered, dated high-resolution canopy-height surfaces for hindcasting crown persistence and emergence.",
+     "status": "missing"
+    }
+   ],
+   "product": {
+    "observed": "Verified trees and visitation records.",
+    "modelled": "Upper-canopy crown candidates matched to verified stems.",
+    "decision_output": "Trees for protection or seed-collection checks, with genetic and phenology caveats."
+   },
+   "validation": {
+    "kind": "field-ground-truth",
+    "status": "pending",
+    "method": "Withhold positioned field trees and test crown detection, height error and repeated crown identity.",
+    "claim_if_passed": "Highlight candidate upper-canopy trees for field confirmation.",
+    "claim_if_failed": "Remain at plot-level tree evidence and do not name individual crowns."
+   },
+   "invocation": {
+    "arguments": {},
+    "agent_rule": "Return the missing crown-registration requirements; use plot-level tree maps in the meantime."
+   },
+   "limitations": [
+    "A plot centroid cannot validate an individual crown.",
+    "A newly visible crown is not automatically a newly recruited tree."
+   ]
+  },
+  {
+   "recipe_id": "forest-rhythm",
+   "version": "0.1.0",
+   "title": "Leaves, flowers and fruit through the year",
+   "theme": "anticipate",
+   "decision": "Choose when and where to revisit trees for fruit, seed, flowering or animal-resource monitoring.",
+   "status": "awaiting-validation-data",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "What is fruiting now?",
+    "When should we revisit these trails for seed or hornbill food trees?"
+   ],
+   "required_inputs": [
+    {
+     "role": "dated phenology observations",
+     "description": "Tree-numbered leaf, flower and fruit scores from hand-completed trail forms.",
+     "status": "needs-review"
+    },
+    {
+     "role": "repeat annual coverage",
+     "description": "Enough visits to the same tree identities across the seasonal cycle, with blanks distinguished from zero.",
+     "status": "missing"
+    },
+    {
+     "role": "weather context",
+     "description": "Rain and temperature series used as explanatory context rather than phenology labels.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-18646715"
+     ]
+    }
+   ],
+   "product": {
+    "observed": "Dated tree and trail phenophase scores.",
+    "modelled": "A cyclic seasonal curve only after repeated-tree validation.",
+    "decision_output": "Dates and trails for a bounded revisit or seed-collection check."
+   },
+   "validation": {
+    "kind": "temporal-hindcast",
+    "status": "pending",
+    "method": "Fit earlier dates and trees, then predict withheld later visits and withheld trees.",
+    "claim_if_passed": "Show a seasonal timing estimate with uncertainty and observation coverage.",
+    "claim_if_failed": "Show dated snapshots only; do not call satellite greenness flowering or fruiting."
+   },
+   "invocation": {
+    "arguments": {},
+    "agent_rule": "Use only the observed snapshot until repeated forms are admitted and checked."
+   },
+   "limitations": [
+    "The currently inspected phenology PDF contains two trail visits, not a full annual series.",
+    "Satellite greenness is explanatory context, not proof of flowering or fruiting."
+   ]
+  },
+  {
+   "recipe_id": "soundscape-deployment",
+   "version": "0.1.0",
+   "title": "Where another recorder will add the most information",
+   "theme": "listen",
+   "decision": "Place a limited number of acoustic recorders where they test an explicit uncertainty or under-sampled environmental condition.",
+   "status": "awaiting-validation-data",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Where should we put five recorders?",
+    "Which restoration conditions are missing from the soundscape survey?"
+   ],
+   "required_inputs": [
+    {
+     "role": "acoustic ground truth",
+     "description": "Validated station-level acoustic and bird-detection summaries with recorder effort.",
+     "status": "available",
+     "source_ids": [
+      "github-acoustics-restoration-v1"
+     ]
+    },
+    {
+     "role": "time-matched environmental predictors",
+     "description": "Environmental surfaces from the acoustic survey period, not only a later annual composite.",
+     "status": "missing"
+    },
+    {
+     "role": "held-out station validation",
+     "description": "Whole-station holdouts testing whether the proposed model predicts acoustic outcomes better than a baseline.",
+     "status": "missing"
+    }
+   ],
+   "product": {
+    "observed": "Recorder stations, effort and validated summaries.",
+    "modelled": "Uncertainty or expected information gain across environmentally supported cells.",
+    "decision_output": "Budget-sized recorder locations that test the largest supported uncertainty."
+   },
+   "validation": {
+    "kind": "spatial-holdout",
+    "status": "pending",
+    "method": "Withhold whole recorder stations and compare prediction and uncertainty calibration against a simple baseline.",
+    "claim_if_passed": "Recommend new recorder cells inside the environmental support of the training stations.",
+    "claim_if_failed": "Map existing station coverage and environmental gaps only."
+   },
+   "invocation": {
+    "arguments": {},
+    "agent_rule": "Do not recommend new stations from environmental novelty alone; wait for the station-level outcome hindcast."
+   },
+   "limitations": [
+    "Environmental novelty is not automatically biodiversity value.",
+    "Recorder outages and unequal duration must remain visible."
+   ]
+  },
+  {
+   "recipe_id": "canopy-corridor-validation",
+   "version": "0.1.0",
+   "title": "Connections animals may use—and where to test them",
+   "theme": "reconnect",
+   "decision": "Choose candidate crossing or movement locations for cameras, canopy checks or other validation.",
+   "status": "awaiting-validation-data",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Where might canopy connections matter for this species?",
+    "Where should we verify a possible corridor?"
+   ],
+   "required_inputs": [
+    {
+     "role": "landscape resistance inputs",
+     "description": "Canopy, land cover, roads, streams, settlements and topography.",
+     "status": "available",
+     "source_ids": [
+      "earth-engine-feature-cube-2024"
+     ]
+    },
+    {
+     "role": "species-specific movement ground truth",
+     "description": "Crossings, telemetry, camera sequences or another defensible movement response.",
+     "status": "missing"
+    },
+    {
+     "role": "held-out corridor validation",
+     "description": "Movement observations withheld from resistance fitting.",
+     "status": "missing"
+    }
+   ],
+   "product": {
+    "observed": "Movement or crossing evidence.",
+    "modelled": "Species-specific permeability and several plausible routes.",
+    "decision_output": "Locations where a bounded validation deployment most clearly discriminates among routes."
+   },
+   "validation": {
+    "kind": "field-ground-truth",
+    "status": "pending",
+    "method": "Withhold crossings or movement tracks and test whether they occur more often in predicted high-permeability areas than matched alternatives.",
+    "claim_if_passed": "Show plausible connections and targeted validation locations.",
+    "claim_if_failed": "Show landscape structure but do not call it a corridor."
+   },
+   "invocation": {
+    "arguments": {},
+    "agent_rule": "Require a named subject and movement evidence; occurrence proximity alone is not a corridor."
+   },
+   "limitations": [
+    "Resistance weights must be subject-specific.",
+    "Occurrence points are not movement paths."
+   ]
+  },
+  {
+   "recipe_id": "invasive-front-surveillance",
+   "version": "0.1.0",
+   "title": "Where an invasive front should be checked next",
+   "theme": "anticipate",
+   "decision": "Allocate repeat surveys where an observed invasive extent and a tested spread model disagree or remain uncertain.",
+   "status": "awaiting-validation-data",
+   "capability_id": "validated-decision-map",
+   "questions": [
+    "Where is this invasive spreading?",
+    "Where should we check before control work?"
+   ],
+   "required_inputs": [
+    {
+     "role": "dated invasive observations",
+     "description": "Presence or abundance with explicit survey effort and repeat dates.",
+     "status": "missing"
+    },
+    {
+     "role": "spread predictors",
+     "description": "Road, edge, canopy, disturbance and land-cover context.",
+     "status": "available",
+     "source_ids": [
+      "earth-engine-feature-cube-2024"
+     ]
+    },
+    {
+     "role": "later withheld observations",
+     "description": "A later survey wave used only to test the predicted front.",
+     "status": "missing"
+    }
+   ],
+   "product": {
+    "observed": "Observed extent and survey coverage.",
+    "modelled": "A temporally hindcast spread surface.",
+    "decision_output": "Survey cells that most reduce uncertainty before treatment."
+   },
+   "validation": {
+    "kind": "temporal-hindcast",
+    "status": "pending",
+    "method": "Fit records up to one date and predict the next independent survey wave with effort-aware evaluation.",
+    "claim_if_passed": "Show a probable front and survey priorities.",
+    "claim_if_failed": "Show only observed presence and where repeat surveys are absent."
+   },
+   "invocation": {
+    "arguments": {},
+    "agent_rule": "Do not infer spread from a one-date distribution."
+   },
+   "limitations": [
+    "A spatial pattern from one survey is not a spreading front."
+   ]
+  }
+ ]
+}

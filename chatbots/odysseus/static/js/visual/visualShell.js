@@ -7,6 +7,7 @@
 import { openInPanel, refreshContext, noteSessionSwitch } from './visualChat.js';
 import { openExplorer } from './visualExplorer.js';
 import { openAtlas, hideAtlas } from './visualAtlas.js';
+import { openMapsCentre, hideMapsCentre } from './visualMapsCentre.js';
 
 const SHELL_CLASS = 'eco-shell';
 let landingEl = null;
@@ -185,11 +186,11 @@ function ensureNav() {
   const list = document.createElement('div');
   list.className = 'eco-nav-list';
   const items = [
-    ['chat', 'Chat', () => { hideLanding(); hideAtlas(); }],
-    ['map', 'Maps', () => { hideAtlas(); openLatestVisual(); }],
-    ['data', 'Data', () => openDataExplorer()],
+    ['chat', 'Chat', () => { hideLanding(); hideAtlas(); hideMapsCentre(); }],
+    ['map', 'Maps', () => { hideAtlas(); openMaps(); }],
+    ['data', 'Data', () => { hideMapsCentre(); openDataExplorer(); }],
     ['history', 'History', () => toggleHistory()],
-    ['research', 'Sites', () => { hideAtlas(); showLanding(true); }],
+    ['research', 'Sites', () => { hideAtlas(); hideMapsCentre(); showLanding(true); }],
   ];
   for (const [ic, label, fn] of items) {
     const b = document.createElement('button');
@@ -274,24 +275,14 @@ function ensureNav() {
   return navEl;
 }
 
-async function openLatestVisual() {
-  const els = [...document.querySelectorAll('.viz-inline[data-result-id]')];
-  const last = els[els.length - 1];
-  if (last) { openInPanel(last.dataset.resultId); return; }
-  // Nothing on screen yet: orient on the site's own map.
+// TR-VIS-0008: Maps opens the producer's catalogue of decision maps, not the
+// last figure that happened to appear in the conversation. A result opened
+// from here goes through the same panel as one opened from a chat card.
+async function openMaps() {
   const active = await syncActiveSite();
   if (!active) { showLanding(true); return; }
-  try {
-    const r = await fetch(`/api/visual/${encodeURIComponent(active.endpointId)}/query`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ capability_id: 'site-orientation', arguments: {}, question: '' }),
-    });
-    if (r.ok) {
-      const env = await r.json();
-      if (env.result_id) openInPanel(env.result_id);
-    }
-  } catch { /* leave the chat as it is */ }
+  hideLanding();
+  openMapsCentre(active.endpointId, { onResult: (resultId) => openInPanel(resultId) });
 }
 
 async function openDataExplorer() {
@@ -450,6 +441,7 @@ export function setActiveSite(site) {
 export async function showLanding(force) {
   ensureNav();
   hideAtlas();
+  hideMapsCentre();
   if (!landingEl) {
     landingEl = document.createElement('div');
     landingEl.id = 'eco-landing';

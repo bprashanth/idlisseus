@@ -80,6 +80,34 @@ adjacency — and prefers-reduced-motion settles instantly. Live from
 `/v1/graph*` when Codex ships; the sector-neutral fixtures render as a
 labelled sample until then.
 
+## Maps centre — validated decision maps (TR-VIS-0008, 2026-08-01)
+
+The Maps nav opens the producer's catalogue (`GET /v1/decision-maps` via
+`/api/visual/{endpoint_id}/decision-maps`), not the last figure a chat
+mentioned. Cards group by the producer's `theme` and show title, decision,
+readiness and freshness. A **ready** card runs `validated-decision-map` with
+only the arguments the recipe advertises, clamped to its declared bounds; a
+**waiting** card lists the exact missing `required_inputs` and offers no run
+affordance, so the centre can never imply a map exists.
+
+Every decision map arrives with its test. "How this map was tested" renders in
+the reading flow — under the map in a chat card, and in the panel caption
+right after the claim — never behind the audit link or an accordion. It states
+the validation kind, split rule, periods, sample sizes and each declared check
+as value-against-threshold, with pass state as a word *and* a mark (`✓ met` /
+`✗ not met`), plus the producer's bounded claim verbatim. Observations withheld
+for testing share the *observed* evidence class with those used to fit, so they
+carry their own mark — a crossed ring — in both the SVG and Leaflet renderers;
+a location flagged by the declared `selected_field` wears a heavy ink collar
+("chosen within the declared budget"). **A failed test keeps its evidence and
+loses its recommendation**: `selectionAllowed()` gates on
+`answer.validation.status === 'passed'`, so nothing can be styled as chosen
+without a pass, and the panel says plainly that no place is marked for action.
+Layer toggles show and hide drawn marks only — no recomputation, no producer
+values touched, validation never hidden. Fixtures 12–14 plus
+`decision-map-catalog.json` are real producer output with payloads committed,
+so the visual lab renders the whole treatment with no backend running.
+
 ## Citation status
 
 Currently **Level 1** — prompt-only:

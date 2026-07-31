@@ -11,6 +11,10 @@ const FIXTURES = [
   '04-empty-target-surrounding', '05-modelled-passing-gates', '06-failed-gate',
   '07-data-request', '08-time-series', '09-partial-source-outage', '10-dashboard',
   '11-model-selected-subject',
+  // TR-VIS-0008 — captured from the live Valparai producer, payloads included,
+  // so the validated-decision-map treatment renders with no backend running.
+  '12-decision-map-hindcast-passed', '13-decision-map-hindcast-failed',
+  '14-decision-map-spatial-holdout',
 ];
 
 const host = document.getElementById('lab-host');

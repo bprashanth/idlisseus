@@ -28,6 +28,11 @@ secrets.env.*
 data/
 !services/hwfit/data/
 !services/hwfit/data/hf_models.json
+# …except contract fixture payloads: they are producer output committed on
+# purpose, so the visual lab renders every fixture from a fresh clone with no
+# backend running (TR-VIS-0008 asked for exactly this).
+!static/contracts/fixtures/data/
+!static/contracts/fixtures/data/**
 logs/
 *.log
 *.db
