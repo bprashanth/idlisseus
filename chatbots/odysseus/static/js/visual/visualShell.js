@@ -144,7 +144,7 @@ function applyEcoTheme(mode) {
   document.body.classList.toggle('eco-dark', dark);
   // Charts key their palette off the root: .light class + --bg luminance.
   document.documentElement.classList.toggle('light', !dark);
-  document.documentElement.style.setProperty('--bg', dark ? '#16140f' : '#f7f5f0');
+  document.documentElement.style.setProperty('--bg', dark ? '#10141b' : '#f7f5f0');
   try { localStorage.setItem('idli-theme', mode); } catch { /* private mode */ }
 }
 function storedEcoTheme() {

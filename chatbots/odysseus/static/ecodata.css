@@ -107,34 +107,36 @@ body.theme-ecodata, body.eco-shell {
 body.theme-ecodata .font-mono, body.eco-shell .font-mono { font-family: var(--font-mono); }
 
 /* ============================= dark mode =============================
-   The field journal at night: same warm family, stepped for a dark page.
-   Toggled by the nav Theme button (body.eco-dark + root .light removed, so the
-   chart renderers pick their validated dark evidence palette). --pine splits:
-   the accent lightens for text/links, while solid fills keep white labels. */
+   The field journal by moonlight: a cool night sky instead of the warm
+   charcoal — slate-blue surfaces, silver ink, a moonbeam accent, and the
+   marker wash gone pale moon-gold. Toggled by the nav Theme button
+   (body.eco-dark + root .light removed, so the chart renderers pick their
+   validated dark evidence palette). --pine splits: the accent lightens for
+   text/links, while solid fills keep white labels. */
 body.eco-shell.eco-dark, body.theme-ecodata.eco-dark {
-  --paper:        #16140f;
-  --surface:      #1e1c16;
-  --surface-2:    #27241d;
-  --ink:          #ece9e1;
-  --ink-soft:     #b8b4aa;
-  --ink-faint:    #8a8781;
-  --line:         #302d26;
-  --line-strong:  #403c33;
-  --pine:         #5db390;
-  --pine-fill:    #24704f;
-  --pine-deep:    #2c8560;
-  --pine-wash:    rgba(93, 179, 144, 0.13);
-  --marker:       rgba(252, 211, 77, 0.24);
-  --shadow-1:     0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-2:     0 8px 28px rgba(0, 0, 0, 0.45);
-  --code-bg:      #27241d;
-  --code-fg:      #d9d5cb;
+  --paper:        #10141b;
+  --surface:      #171c25;
+  --surface-2:    #1f2530;
+  --ink:          #e6eaf2;
+  --ink-soft:     #a9b2c2;
+  --ink-faint:    #7d8698;
+  --line:         #262e3b;
+  --line-strong:  #333d4d;
+  --pine:         #9db8d8;
+  --pine-fill:    #3b5375;
+  --pine-deep:    #4a678f;
+  --pine-wash:    rgba(157, 184, 216, 0.13);
+  --marker:       rgba(226, 218, 190, 0.22);
+  --shadow-1:     0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2:     0 8px 28px rgba(0, 0, 0, 0.5);
+  --code-bg:      #1f2530;
+  --code-fg:      #d3d9e4;
 }
 body.eco-shell.eco-dark .eco-card-tag {
-  background: rgba(250, 178, 25, 0.14);
-  color: #e6c470;
+  background: rgba(226, 218, 190, 0.14);
+  color: #d9cfa8;
 }
-body.eco-shell.eco-dark ::selection { background: rgba(93, 179, 144, 0.28); }
+body.eco-shell.eco-dark ::selection { background: rgba(157, 184, 216, 0.28); }
 body.eco-shell.eco-dark input, body.eco-shell.eco-dark textarea, body.eco-shell.eco-dark select {
   color-scheme: dark;
 }
