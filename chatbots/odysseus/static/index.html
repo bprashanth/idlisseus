@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Idli Insights</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d5c45'/%3E%3Cellipse cx='16' cy='20' rx='9.5' ry='5' fill='%23fffdfa'/%3E%3Cpath d='M12 13c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/%3E%3Cpath d='M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M21 13c-1.4-1.2-.2-2.6 0-3.8' stroke='%23fffdfa' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='0.75'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="/static/icons/moonsights-favicon.png">
   <link rel="manifest" href="/static/manifest.json">
   <meta name="theme-color" content="#282c34">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -228,6 +228,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content, viewport-fit=cover" />
 </head>
 <body>
+  <script nonce="{{CSP_NONCE}}">
+  // The field-journal shell must own the first paint. visualShell applies
+  // these same classes when it boots (~1.5s in); doing it here too stops the
+  // stock theme — whatever localStorage last held, e.g. the old pink brand —
+  // from flashing before the redesign lands on a (hard) refresh. The flag
+  // tells app.js to leave the loading overlay up until the shell has booted.
+  (function(){
+    try {
+      window._ecoShellWillBoot = true;
+      var dark = false;
+      try { dark = localStorage.getItem('idli-theme') === 'dark'; } catch(e){}
+      document.body.classList.add('eco-shell');
+      if (dark) document.body.classList.add('eco-dark');
+      document.documentElement.classList.toggle('light', !dark);
+      document.documentElement.style.setProperty('--bg', dark ? '#16140f' : '#f7f5f0');
+    } catch(e){}
+  })();
+  </script>
   <!-- Loading overlay — hides all flashing until app is ready -->
   <div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#f7f5f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;transition:opacity .3s">
     <div id="loader-disc" style="color:var(--brand-color,var(--red,#1d5c45));font-family:monospace;font-size:19px;line-height:1;opacity:.65">⠋</div>

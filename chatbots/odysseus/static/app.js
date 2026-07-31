@@ -3910,12 +3910,17 @@ function startOdysseusApp() {
       scrollHistory: uiModule.scrollHistoryInstant
     });
 
-    // Load sessions first (critical path) — remove loader when done
+    // Load sessions first (critical path) — remove loader when done. When the
+    // eco shell is booting (flag set by the index.html body script) it removes
+    // the loader itself after it has taken over the page, so the stock UI
+    // never flashes underneath; the 5s fallback in index.html still guards.
     sessionModule.loadSessions()
       .catch(e => console.warn('loadSessions error:', e))
       .finally(() => {
-        const loader = document.getElementById('app-loader');
-        if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 300); }
+        if (!window._ecoShellWillBoot) {
+          const loader = document.getElementById('app-loader');
+          if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 300); }
+        }
         // Fire any URL route opener now that sessions + module wiring are
         // ready. Deferred from up top of init for exactly this reason.
         if (window._odysseusRouteOpener) {

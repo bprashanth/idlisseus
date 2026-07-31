@@ -646,6 +646,10 @@ async function boot() {
     showLanding(true);
     setActiveNav('research');
   }
+  // The shell owns the page now — drop the boot overlay (app.js leaves it up
+  // for us; the index.html 5s fallback covers a boot that never gets here).
+  const loader = document.getElementById('app-loader');
+  if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 300); }
   prettifyMeta();
 }
 

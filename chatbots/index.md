@@ -126,13 +126,18 @@ Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 ### Visual shell — "Field journal" (2026-07-27)
 
 The product is branded **Idli Insights** (display only; `idli-insight-*` routing
-ids are unchanged). The favicon keeps the idli mark (steamed disc, three steam
-wisps); the nav-rail logo is the **moonsights** sketch — a hand-drawn crescent
+ids are unchanged). The favicon and the nav-rail logo are both the
+**moonsights** sketch — a hand-drawn crescent
 cradling a rising spark (moon + insights; the pun is that a moon and an idli
-are the same soft pale disc). The PNG (`static/icons/moonsights.png`) carries
-only the ink as alpha and is painted with the theme's ink via CSS mask, so it
-follows light/dark automatically. The mark is a button that opens site
-selection. The whole product — login, shell, chat, cards, charts, maps,
+are the same soft pale disc). The rail PNG (`static/icons/moonsights.png`)
+carries only the ink as alpha and is painted with the theme's ink via CSS
+mask, so it follows light/dark automatically; the favicon
+(`static/icons/moonsights-favicon.png`) bakes the ink on a rounded paper tile
+so it reads on any tab chrome. Both regenerate from the source drawing with
+`odysseus/assets/make_moonsights.py`. The mark is a button that opens site
+selection. A first-paint script in `index.html` applies the shell classes and
+holds the boot overlay until the shell boots, so a (hard) refresh never
+flashes the stock theme. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures

@@ -73,6 +73,10 @@ output.txt.txt
 # …except shipped static assets
 !static/icons/*.png
 
+# …except brand-mark source art (regenerated into static/icons/ by
+# assets/make_moonsights.py; kept out of static/ so it isn't served).
+!assets/*.png
+
 # …except shipped demo assets in docs/ that the README links to.
 !docs/*.jpg
 !docs/*.jpeg
