@@ -7,6 +7,9 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
 **Conversation**
 - Multi-user with per-user chat history and settings
 - Session persistence (SQLite, `data/app.db`)
+- A hard page load always opens the **New Analysis** landing stage. Persisted conversations are
+  not deleted or rewritten; History and in-app session navigation reopen them. This keeps a
+  copied or stale URL from making an old analysis look like the application's starting state.
 - Agent mode: model executes tool calls in a loop (see `../agents/`)
 - Streaming responses with per-token SSE
 

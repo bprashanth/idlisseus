@@ -632,16 +632,13 @@ async function syncActiveSite() {
 async function boot() {
   ensureNav();
   await syncActiveSite();
-  // A #<session-id> URL is a deep link into a conversation (the stock app
-  // restores it): honour it. Everything else opens on the site-selection page.
-  const deepLink = /^#[0-9a-f][0-9a-f-]{7,}$/i.test(window.location.hash || '');
-  if (deepLink) {
-    hideLanding();
-    setActiveNav('chat');
-  } else {
-    showLanding(true);
-    setActiveNav('research');
-  }
+  // A browser load always begins at New Analysis, including when the URL still
+  // names a saved conversation. The stock session layer may restore that chat
+  // behind the landing page, so nothing is deleted and History can reopen it.
+  // In-app session clicks still enter chat immediately through the delegated
+  // click handler below.
+  showLanding(true);
+  setActiveNav('research');
   prettifyMeta();
 }
 
