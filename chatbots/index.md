@@ -127,10 +127,12 @@ Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 
 The product is branded **Idli Insights** (display only; `idli-insight-*` routing
 ids are unchanged). The favicon keeps the idli mark (steamed disc, three steam
-wisps); the nav-rail logo is the **idli-moon** — a real moon photograph on the
-shell's pine tile (`static/icons/idli-moon.png`, rounded corners; the pun is
-that a full moon and a steamed idli are the same soft pale disc) — and is a
-button that opens site selection. The whole product — login, shell, chat, cards, charts, maps,
+wisps); the nav-rail logo is the **moonsights** sketch — a hand-drawn crescent
+cradling a rising spark (moon + insights; the pun is that a moon and an idli
+are the same soft pale disc). The PNG (`static/icons/moonsights.png`) carries
+only the ink as alpha and is painted with the theme's ink via CSS mask, so it
+follows light/dark automatically. The mark is a button that opens site
+selection. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures

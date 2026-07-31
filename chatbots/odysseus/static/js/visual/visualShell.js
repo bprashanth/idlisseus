@@ -126,10 +126,11 @@ const ICONS = {
   plus: ['M12 5v14', 'M5 12h14'],
 };
 
-// The brand mark: the idli-moon — a moon photograph on the shell's pine tile
-// (static/icons/idli-moon.png, built from a real moon shot; the pun is that a
-// full moon and a steamed idli are the same soft pale disc).
-const IDLI_MARK_HTML = '<img src="/static/icons/idli-moon.png" width="28" height="28" alt="" aria-hidden="true">';
+// The brand mark: the moonsights sketch — a hand-drawn crescent cradling a
+// rising spark (moon + insights; the pun is that a moon and an idli are the
+// same soft pale disc). The PNG carries only the ink as alpha; the CSS mask
+// paints it in the theme's ink, so it works on every theme.
+const IDLI_MARK_HTML = '<span class="eco-brand-ink" aria-hidden="true"></span>';
 
 function setActiveNav(name) {
   for (const b of document.querySelectorAll('#eco-nav .eco-nav-item')) {
