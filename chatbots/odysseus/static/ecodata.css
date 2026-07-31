@@ -1248,3 +1248,77 @@ body.eco-shell [role="button"]:focus-visible {
   body.eco-shell .chat-input-bar { padding: 0 16px 14px; }
   .eco-landing-inner { padding: 8vh 20px 40px; }
 }
+
+/* ================= EXPERIMENT: minimal blackboard =================
+   One revertable unit (together with the rail toggle + welcome removal in
+   visualShell.js and the slate dark --bg in the two boot scripts): both
+   rails collapse, the empty chat is a bare chalk prompt, and dark mode
+   trades the lunar blue for blackboard slate. Revert the commit that
+   introduced this block to restore the previous shell. */
+
+/* 1) The nav rail becomes a drawer: closed by default, opened by the
+   pull-out toggle. --nav-w: 0 collapses every offset that keyed on it
+   (chat column, composer, history slide-overs, atlas). */
+body.eco-shell { --nav-w: 0px; }
+#eco-nav {
+  width: 232px;
+  transform: translateX(calc(-100% - 30px));
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.eco-rail-open #eco-nav { transform: none; box-shadow: var(--shadow-2); }
+#eco-rail-toggle {
+  position: fixed; top: 12px; left: 12px; z-index: 62;
+  width: 36px; height: 36px; border-radius: 9px;
+  display: grid; place-items: center;
+  background: none; border: 0; color: var(--ink-faint); cursor: pointer;
+}
+#eco-rail-toggle:hover { color: var(--pine); background: var(--pine-wash); }
+#eco-rail-toggle .eco-nav-icon { width: 18px; height: 18px; }
+body.eco-landing-open #eco-rail-toggle { display: none; }
+body.eco-rail-open #eco-rail-toggle { left: 244px; color: var(--ink-soft); transition: left 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* 2) The right context rail stays collapsed; a visual click still opens the
+   figure panel (its own surface). Neutralise the offsets the rail claimed —
+   but not when the figure panel or explorer is the thing holding space. */
+body.eco-shell #viz-context-rail { display: none; }
+body.eco-shell.viz-context-open:not(.viz-panel-open) .chat-container { margin-right: 0 !important; }
+body.eco-shell.viz-context-open:not(.viz-panel-open):not(.eco-explorer-open) .chat-input-bar { right: 0; margin-right: 0 !important; }
+
+/* 3) The empty board is just a chalk prompt: no card chrome, a ">" in the
+   margin, the caret blinking after it. Enter sends; the button row is gone. */
+body.eco-shell .chat-input-bar > .chat-input-top {
+  background: none !important; border: 0 !important; box-shadow: none !important;
+  display: flex; align-items: flex-start; padding: 0;
+}
+body.eco-shell .chat-input-bar > .chat-input-top::before {
+  content: '>';
+  font: 600 19px/1 var(--font-mono);
+  color: var(--ink-soft);
+  padding: 14px 4px 0 0;
+}
+body.eco-shell .chat-input-bar > .chat-input-top textarea { flex: 1; }
+body.eco-shell .chat-input-bar > .chat-input-bottom,
+body.eco-shell .chat-input-bar > #pinned-tools-bar { display: none !important; }
+body.eco-shell .chat-input-bar:focus-within > .chat-input-top { border-color: transparent; }
+body.eco-shell #message { caret-color: var(--ink); }
+body.eco-shell #message::placeholder { color: transparent; }
+
+/* 4) Blackboard slate: the dark theme's night sky goes neutral slate-green,
+   chalk ink, chalk-green accent. (Later block, same specificity — wins.) */
+body.eco-shell.eco-dark, body.theme-ecodata.eco-dark {
+  --paper:        #232927;
+  --surface:      #2b3230;
+  --surface-2:    #333b39;
+  --ink:          #e9ecea;
+  --ink-soft:     #b4bcb8;
+  --ink-faint:    #87908c;
+  --line:         #39423f;
+  --line-strong:  #475350;
+  --pine:         #a9cbbb;
+  --pine-fill:    #40584e;
+  --pine-deep:    #4e6b5f;
+  --pine-wash:    rgba(169, 203, 187, 0.13);
+  --code-bg:      #333b39;
+  --code-fg:      #d6dcd8;
+}
+body.eco-shell.eco-dark ::selection { background: rgba(169, 203, 187, 0.28); }
