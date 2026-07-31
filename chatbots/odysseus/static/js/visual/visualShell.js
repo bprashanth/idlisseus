@@ -459,113 +459,84 @@ export async function showLanding(force) {
   inner.className = 'eco-landing-inner';
   landingEl.appendChild(inner);
 
-  // The landing is the front door — it carries the brand itself (the nav
-  // rail, which normally does, only exists inside a chosen site).
+  // The landing is the front door: the hand-lettered wordmark, then the
+  // sites as quiet line entries. No headings — the lettering says it all.
   const brandRow = document.createElement('div');
   brandRow.className = 'eco-landing-brand';
-  const brandInk = document.createElement('span');
-  brandInk.className = 'eco-brand-ink';
-  brandInk.setAttribute('aria-hidden', 'true');
-  brandRow.appendChild(brandInk);
-  const brandName = document.createElement('span');
-  brandName.className = 'eco-landing-brand-name';
-  brandName.textContent = 'Idli Insights';
-  brandRow.appendChild(brandName);
+  const wm = document.createElement('div');
+  wm.className = 'eco-wordmark';
+  wm.setAttribute('role', 'img');
+  wm.setAttribute('aria-label', 'Idli Insights');
+  brandRow.appendChild(wm);
   inner.appendChild(brandRow);
 
-  const head = document.createElement('header');
-  head.className = 'eco-landing-head';
-  const h1 = document.createElement('h1');
-  h1.textContent = 'Choose a site to ask a question.';
-  head.appendChild(h1);
-  const sub = document.createElement('p');
-  sub.textContent = 'Idli Insights lets you explore your data visually, in plain conversation.';
-  head.appendChild(sub);
-  inner.appendChild(head);
-
-  const grid = document.createElement('div');
-  grid.className = 'eco-site-grid';
-  inner.appendChild(grid);
+  const list = document.createElement('div');
+  list.className = 'eco-site-list';
+  inner.appendChild(list);
 
   const loading = document.createElement('div');
   loading.className = 'eco-landing-loading';
   loading.textContent = 'Looking for available sites…';
-  grid.appendChild(loading);
+  list.appendChild(loading);
 
   const sites = await discoverSites(force);
-  grid.replaceChildren();
+  list.replaceChildren();
   if (!sites.length) {
     const none = document.createElement('div');
     none.className = 'eco-landing-loading';
     none.textContent = 'No site packs are available on this account yet.';
-    grid.appendChild(none);
+    list.appendChild(none);
   }
   for (const site of sites) {
-    const card = document.createElement('div');
-    card.className = 'eco-card';
-    card.setAttribute('role', 'button');
-    card.tabIndex = 0;
-    const top = document.createElement('div');
-    top.className = 'eco-card-top';
-    const title = document.createElement('span');
-    title.className = 'eco-card-title';
-    title.textContent = site.label;
-    top.appendChild(title);
+    const row = document.createElement('div');
+    row.className = 'eco-site-row';
+    row.setAttribute('role', 'button');
+    row.tabIndex = 0;
+    const name = document.createElement('span');
+    name.className = 'eco-site-row-name';
+    name.textContent = site.label;
+    row.appendChild(name);
     if (site.synthetic) {
       const tag = document.createElement('span');
       tag.className = 'eco-card-tag';
       tag.textContent = 'Test data';
-      top.appendChild(tag);
+      row.appendChild(tag);
     }
-    card.appendChild(top);
+    const stats = document.createElement('span');
+    stats.className = 'eco-site-row-stats';
+    row.appendChild(stats);
+    const arrow = document.createElement('span');
+    arrow.className = 'eco-site-row-arrow';
+    arrow.textContent = '→';
+    row.appendChild(arrow);
 
-    const stats = document.createElement('div');
-    stats.className = 'eco-card-stats';
-    stats.textContent = 'Loading…';
-    card.appendChild(stats);
-
-    const foot = document.createElement('div');
-    foot.className = 'eco-card-foot';
-    foot.textContent = 'Open site →';
-    card.appendChild(foot);
-
-    card.addEventListener('click', () => openSite(site));
-    card.addEventListener('keydown', (ev) => {
+    row.addEventListener('click', () => openSite(site));
+    row.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openSite(site); }
     });
-    grid.appendChild(card);
+    list.appendChild(row);
 
     siteBlurb(site).then((lines) => {
-      stats.replaceChildren();
-      if (!lines.length) { stats.textContent = 'Ready'; return; }
-      for (const line of lines) {
-        const row = document.createElement('span');
-        row.className = 'eco-card-stat';
-        row.textContent = line;
-        stats.appendChild(row);
-      }
+      stats.textContent = lines.length ? lines.join(' · ') : '';
     });
   }
 
   // Placeholder for bringing your own data — not wired up yet.
-  const addCard = document.createElement('div');
-  addCard.className = 'eco-card eco-card-add';
-  const addTop = document.createElement('div');
-  addTop.className = 'eco-card-top';
-  const addTitle = document.createElement('span');
-  addTitle.className = 'eco-card-title';
-  addTitle.textContent = 'Add a site';
-  addTop.appendChild(addTitle);
-  addCard.appendChild(addTop);
-  const addStats = document.createElement('div');
-  addStats.className = 'eco-card-stats';
-  addStats.textContent = 'Bring your own data pack.';
-  addCard.appendChild(addStats);
-  const addFoot = document.createElement('div');
-  addFoot.className = 'eco-card-foot';
+  const addRow = document.createElement('div');
+  addRow.className = 'eco-site-row eco-site-row-add';
+  const addName = document.createElement('span');
+  addName.className = 'eco-site-row-name';
+  addName.textContent = 'Add a site';
+  addRow.appendChild(addName);
+  const addStats = document.createElement('span');
+  addStats.className = 'eco-site-row-stats';
+  addStats.textContent = 'Bring your own data pack';
+  addRow.appendChild(addStats);
+  const addFoot = document.createElement('span');
+  addFoot.className = 'eco-site-row-arrow';
   addFoot.textContent = 'Coming soon';
-  addCard.appendChild(addFoot);
-  grid.appendChild(addCard);
+  addRow.appendChild(addFoot);
+  list.appendChild(addRow);
 
   landingEl.dataset.built = '1';
 }
@@ -651,6 +622,9 @@ async function boot() {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   }
+  // The view is decided: from here on the session layer may stamp the URL
+  // hash again (outside the landing) — see the guard in sessions.js.
+  window._ecoShellBooted = true;
   // The shell owns the page now — drop the boot overlay (app.js leaves it up
   // for us; the index.html 20s fallback covers a boot that never gets here).
   const loader = document.getElementById('app-loader');

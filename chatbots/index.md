@@ -156,10 +156,14 @@ readable; charts flip to their validated dark palette automatically. Every
 loading state — the page-load overlay and the chat thinking indicator — uses
 the braille spinner loop (⠋⠙⠹… at 90 ms).
 
-Shell: the landing is a **solo page** — brand (drawn moon + Caveat wordmark),
-"Choose a site to ask a question", the site cards, and an "Add a site"
-placeholder (coming soon); no nav rail and a clean URL (the background session
-restore is barred from stamping `#session-id` while the landing is open). The
+Shell: the landing is a **solo page** — the hand-lettered "idli insights"
+wordmark (`static/icons/idli-wordmark.png`, ink-as-alpha painted with the
+theme ink, from `assets/idliinsights-src.png`) as the hero, then the sites as
+line entries (names in Caveat, inline stats, hover arrow) and an "Add a site"
+placeholder row (coming soon); no headings, no nav rail, and a clean URL (the
+session layer cannot stamp `#session-id` before the shell has decided the
+view, nor while the landing is open — the URL's own hash is what survives a
+real mid-chat reload). The
 232px nav rail (Chat / Maps / Data / History / Sites / Theme + pine "New
 analysis" and a quiet Sign out) exists only inside a chosen site, where the
 empty chat says just "Ask me something about <site>". The right context rail
