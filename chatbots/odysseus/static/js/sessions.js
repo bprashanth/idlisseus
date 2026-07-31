@@ -1513,8 +1513,11 @@ export async function selectSession(id, { keepSidebar = false } = {}) {
     const _isTransientChat = !!_meta && (_meta.folder === 'Assistant' || _meta.folder === 'Tasks');
     if (!_isTransientChat) {
       Storage.set('lastSessionId', id);
-      // Update URL hash without triggering hashchange handler
-      if (window.location.hash !== '#' + id) {
+      // Update URL hash without triggering hashchange handler. While the
+      // eco landing page is the view, keep the URL clean — the background
+      // session restore must not make chat.idli.cc read as a deep link.
+      if (!document.body.classList.contains('eco-landing-open')
+          && window.location.hash !== '#' + id) {
         history.replaceState(null, '', '#' + id);
       }
     }

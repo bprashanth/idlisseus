@@ -459,6 +459,20 @@ export async function showLanding(force) {
   inner.className = 'eco-landing-inner';
   landingEl.appendChild(inner);
 
+  // The landing is the front door — it carries the brand itself (the nav
+  // rail, which normally does, only exists inside a chosen site).
+  const brandRow = document.createElement('div');
+  brandRow.className = 'eco-landing-brand';
+  const brandInk = document.createElement('span');
+  brandInk.className = 'eco-brand-ink';
+  brandInk.setAttribute('aria-hidden', 'true');
+  brandRow.appendChild(brandInk);
+  const brandName = document.createElement('span');
+  brandName.className = 'eco-landing-brand-name';
+  brandName.textContent = 'Idli Insights';
+  brandRow.appendChild(brandName);
+  inner.appendChild(brandRow);
+
   const head = document.createElement('header');
   head.className = 'eco-landing-head';
   const h1 = document.createElement('h1');
@@ -532,6 +546,27 @@ export async function showLanding(force) {
       }
     });
   }
+
+  // Placeholder for bringing your own data — not wired up yet.
+  const addCard = document.createElement('div');
+  addCard.className = 'eco-card eco-card-add';
+  const addTop = document.createElement('div');
+  addTop.className = 'eco-card-top';
+  const addTitle = document.createElement('span');
+  addTitle.className = 'eco-card-title';
+  addTitle.textContent = 'Add a site';
+  addTop.appendChild(addTitle);
+  addCard.appendChild(addTop);
+  const addStats = document.createElement('div');
+  addStats.className = 'eco-card-stats';
+  addStats.textContent = 'Bring your own data pack.';
+  addCard.appendChild(addStats);
+  const addFoot = document.createElement('div');
+  addFoot.className = 'eco-card-foot';
+  addFoot.textContent = 'Coming soon';
+  addCard.appendChild(addFoot);
+  grid.appendChild(addCard);
+
   landingEl.dataset.built = '1';
 }
 
@@ -550,8 +585,8 @@ async function openSite(site) {
   setTimeout(() => document.getElementById('message')?.focus(), 400);
 }
 
-// A site briefing replaces the generic product welcome, so an empty chat still
-// tells you what this site holds and what you can ask of it.
+// The empty chat asks one thing of you — everything else about the site
+// already lives on the landing card you just came from.
 async function renderSiteWelcome(site) {
   const host = document.getElementById('chat-history') || document.querySelector('.chat-history');
   if (!host) return;
@@ -560,45 +595,9 @@ async function renderSiteWelcome(site) {
   const wrap = document.createElement('div');
   wrap.id = 'eco-welcome';
   const h = document.createElement('h2');
-  h.textContent = site.label;
+  h.textContent = `Ask me something about ${site.label}`;
   wrap.appendChild(h);
-  const p = document.createElement('p');
-  p.textContent = site.synthetic
-    ? 'A synthetic test pack. Numbers here are made up for testing, but every one of them can be traced.'
-    : 'Ask about this place in plain words. Every answer comes with a visual you can open and trace to its records.';
-  wrap.appendChild(p);
-  const stats = document.createElement('div');
-  stats.className = 'eco-welcome-stats';
-  wrap.appendChild(stats);
-  const chips = document.createElement('div');
-  chips.className = 'eco-welcome-chips';
-  for (const q of [
-    'What data do you have for this place?',
-    'Where are records concentrated?',
-    'What is missing here?',
-  ]) {
-    const chip = document.createElement('button');
-    chip.className = 'eco-welcome-chip';
-    chip.textContent = q;
-    chip.addEventListener('click', () => {
-      const input = document.getElementById('message');
-      if (!input) return;
-      input.value = q;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.focus();
-    });
-    chips.appendChild(chip);
-  }
-  wrap.appendChild(chips);
   host.appendChild(wrap);
-  siteBlurb(site).then((lines) => {
-    for (const line of lines) {
-      const s2 = document.createElement('span');
-      s2.className = 'eco-welcome-stat';
-      s2.textContent = line;
-      stats.appendChild(s2);
-    }
-  });
 }
 
 // The stock app titles direct-chat sessions with the machine model id
@@ -645,9 +644,15 @@ async function boot() {
   } else {
     showLanding(true);
     setActiveNav('research');
+    // The stock restore may already have stamped a session hash before we
+    // got here; the landing URL must read clean. (sessions.js also skips the
+    // stamp while the landing is open.)
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   }
   // The shell owns the page now — drop the boot overlay (app.js leaves it up
-  // for us; the index.html 5s fallback covers a boot that never gets here).
+  // for us; the index.html 20s fallback covers a boot that never gets here).
   const loader = document.getElementById('app-loader');
   if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 300); }
   prettifyMeta();

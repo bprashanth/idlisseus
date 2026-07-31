@@ -960,6 +960,13 @@ body.viz-panel-open.viz-context-open .chat-input-bar { margin-right: min(56vw, 9
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   color: var(--ink-soft, currentColor);
 }
+/* A consulted source that links out to its original document. */
+a.viz-rail-stream-name { text-decoration: none; }
+a.viz-rail-stream-name:hover { color: var(--pine, currentColor); text-decoration: underline; }
+.viz-rail-consulted-hint {
+  font-size: 12.5px; line-height: 1.55;
+  color: var(--ink-faint, currentColor);
+}
 .viz-rail-stream-state {
   margin-left: auto; flex: none;
   font: 500 10px var(--font-ui, system-ui, sans-serif);

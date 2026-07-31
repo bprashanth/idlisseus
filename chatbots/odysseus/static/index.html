@@ -260,7 +260,10 @@
       if(!document.getElementById('app-loader')){clearInterval(iv);return}
       if(el){el.textContent=frames[++i%frames.length];}
     },90);
-    setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},5000);
+    // Fallback only — visualShell removes the loader when it boots. 20s (not
+    // 5s) because on a slow cold load the module graph takes longer than 5s
+    // and the fallback was un-curtaining the stock app mid-assembly.
+    setTimeout(function(){var l=document.getElementById('app-loader');if(l){l.style.opacity='0';setTimeout(function(){l.remove()},300)}},20000);
   })();
   </script>
   <!-- Memory Management Modal -->

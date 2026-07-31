@@ -135,9 +135,11 @@ mask, so it follows light/dark automatically; the favicon
 (`static/icons/moonsights-favicon.png`) bakes the ink on a rounded paper tile
 so it reads on any tab chrome. Both regenerate from the source drawing with
 `odysseus/assets/make_moonsights.py`. The mark is a button that opens site
-selection. A first-paint script in `index.html` applies the shell classes and
-holds the boot overlay until the shell boots, so a (hard) refresh never
-flashes the stock theme. The whole product — login, shell, chat, cards, charts, maps,
+selection. The wordmark "Idli Insights" is set in a vendored Caveat (OFL) so
+it shares the sketch's hand. A first-paint script in `index.html` applies the
+shell classes and holds the boot overlay until the shell boots (20s fallback),
+and the stock icon rail is display:none under the shell — so a (hard) refresh
+never flashes the stock theme or its chrome. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures
@@ -154,13 +156,19 @@ readable; charts flip to their validated dark palette automatically. Every
 loading state — the page-load overlay and the chat thinking indicator — uses
 the braille spinner loop (⠋⠙⠹… at 90 ms).
 
-Shell: a 232px nav rail (Chat / Maps / Data / Sites / Theme + pine "New
-analysis" and a quiet Sign out) with active states; the stock sidebar slide-over
-is retired (History removed — the app always opens on the site-selection page,
-and the current conversation is one Chat click away); the
-right context rail (site stat tiles, data streams, recent visuals) is back; the
-data explorer and the figure panel are mutually exclusive right-hand surfaces,
-and the composer shifts with whichever is open. Machine voice is gone from the
+Shell: the landing is a **solo page** — brand (drawn moon + Caveat wordmark),
+"Choose a site to ask a question", the site cards, and an "Add a site"
+placeholder (coming soon); no nav rail and a clean URL (the background session
+restore is barred from stamping `#session-id` while the landing is open). The
+232px nav rail (Chat / Maps / Data / History / Sites / Theme + pine "New
+analysis" and a quiet Sign out) exists only inside a chosen site, where the
+empty chat says just "Ask me something about <site>". The right context rail
+follows the conversation: "Consulted for this answer" lists the data streams
+the latest answer's envelope cites (`audit.source_versions`, linking out when
+the producer provides a URL/DOI), plus Recent visuals; the site stat tiles are
+gone. Scrollbars are theme-colored everywhere; the scroll-to-bottom pill is
+off. The data explorer and the figure panel are mutually exclusive right-hand
+surfaces, and the composer shifts with whichever is open. Machine voice is gone from the
 reading line: role labels say "Idli Insights" (never `idli-insight-*`), session
 titles are prettified to the site name, the Why panel ("How this was answered")
 defaults closed and replaces tracebacks with a plain sentence, and card kind

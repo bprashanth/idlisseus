@@ -167,102 +167,59 @@ export async function openInPanel(resultId) {
   await chapter.setEnvelope(envelope);
 }
 
-// ---- right context rail (EcoData "Current Context" inspiration) ------------
+// ---- right context rail: what THIS answer consulted ------------------------
+// The rail follows the conversation, not the site: each answered question
+// replaces the list with the data streams its envelope actually cites
+// (audit.source_versions). Site-level stat tiles lived here before and were
+// static noise — the numbers never changed between questions.
 let contextRail = null;
 const recentVisuals = [];
+// Guard against a late hydration of an older slot overwriting the newest
+// answer's sources: only a slot at or past the last rendered DOM position wins.
+const consulted = { idx: -1, sources: [] };
 
 async function ensureContextRail() {
   const c = await resolveClient();
   if (!c) { removeContextRail(); return; }
+  // Already built for this endpoint: the lists re-render in place (hydrations
+  // call this often; the skeleton and site name don't change between answers).
+  if (contextRail && contextRail.dataset.built === '1') {
+    renderConsultedList();
+    renderRecentList();
+    return;
+  }
   if (!contextRail) {
     contextRail = document.createElement('aside');
     contextRail.id = 'viz-context-rail';
-    contextRail.setAttribute('aria-label', 'Site context');
+    contextRail.setAttribute('aria-label', 'Answer sources');
     document.body.appendChild(contextRail);
     document.body.classList.add('viz-context-open');
   }
-  let human = null;
   try {
-    const hr = await fetch(`${c.base}/headline-stats`);
-    if (hr.ok) human = await hr.json();
-  } catch { /* optional: packs may not publish plain-worded stats */ }
-  try {
-    const env = await c.query('site-orientation', {}, '');
+    contextRail.dataset.built = '1';
+    const r = await fetch(`${c.base}/capabilities`);
+    if (!r.ok) throw new Error('no capabilities');
+    const caps = await r.json();
     contextRail.replaceChildren();
-    const h = document.createElement('div');
-    h.className = 'viz-rail-heading';
-    h.textContent = 'Current context';
-    contextRail.appendChild(h);
     const site = document.createElement('div');
     site.className = 'viz-rail-site';
-    site.textContent = (env.site && env.site.label) || '';
+    site.textContent = caps.label || '';
     contextRail.appendChild(site);
-    if (env.site && env.site.synthetic) {
+    if (caps.synthetic) {
       const ribbon = document.createElement('span');
       ribbon.className = 'viz-synthetic-ribbon';
       ribbon.textContent = 'Synthetic test data';
       contextRail.appendChild(ribbon);
     }
-    const primary = (env.visuals || [])[0] || {};
-    const denoms = (primary.summary && primary.summary.denominators) || {};
-    const tiles = document.createElement('div');
-    tiles.className = 'viz-rail-tiles';
-    let entries;
-    let details = null;
-    if (human && Array.isArray(human.stats) && human.stats.length) {
-      entries = human.stats.slice(0, 4).map((s) => [s.label, s.value]);
-      details = new Map(human.stats.slice(0, 4).map((s) => [s.label, s.detail || '']));
-    } else {
-      entries = Object.entries(denoms).slice(0, 3);
-      if (!denoms.sources && !denoms.source_versions) {
-        entries.push(['sources', ((env.audit || {}).source_versions || []).length]);
-      }
-    }
-    // No meter bars: the tiles hold unlike quantities, and a shared scale would
-    // imply a comparison the numbers don't support.
-    for (const [k, v] of entries) {
-      const tile = document.createElement('div');
-      tile.className = 'viz-rail-tile';
-      const val = document.createElement('div');
-      val.className = 'viz-rail-tile-value';
-      val.textContent = typeof v === 'number' ? v.toLocaleString('en-IN') : String(v);
-      tile.appendChild(val);
-      const lab = document.createElement('div');
-      lab.className = 'viz-rail-tile-label';
-      lab.textContent = String(k).replace(/_/g, ' ');
-      if (details && details.get(k)) lab.title = details.get(k);
-      tile.appendChild(lab);
-      tiles.appendChild(tile);
-    }
-    contextRail.appendChild(tiles);
-    // Data streams — which sources this site is actually reading (mockup's
-    // "connected sensors", but honest: it lists real source versions).
-    const sources = (env.audit || {}).source_versions || [];
-    if (sources.length) {
-      const sh = document.createElement('div');
-      sh.className = 'viz-rail-heading';
-      sh.textContent = 'Data streams';
-      contextRail.appendChild(sh);
-      const streams = document.createElement('div');
-      streams.className = 'viz-rail-streams';
-      for (const s of sources.slice(0, 6)) {
-        const row = document.createElement('div');
-        row.className = 'viz-rail-stream';
-        const dot = document.createElement('span');
-        dot.className = 'viz-rail-stream-dot';
-        row.appendChild(dot);
-        const name = document.createElement('span');
-        name.className = 'viz-rail-stream-name';
-        const raw = typeof s === 'string' ? s : (s.title || s.source_id || '');
-        name.textContent = String(raw).replace(/^syn-/, '').replace(/[-_]/g, ' ');
-        name.title = String(raw);
-        row.appendChild(name);
-        // Every listed stream is indexed by definition; the dot says so without
-        // repeating the same word down the column.
-        streams.appendChild(row);
-      }
-      contextRail.appendChild(streams);
-    }
+    const sh = document.createElement('div');
+    sh.className = 'viz-rail-heading';
+    sh.textContent = 'Consulted for this answer';
+    contextRail.appendChild(sh);
+    const streams = document.createElement('div');
+    streams.className = 'viz-rail-streams';
+    streams.id = 'viz-rail-consulted';
+    contextRail.appendChild(streams);
+    renderConsultedList();
 
     const rh = document.createElement('div');
     rh.className = 'viz-rail-heading';
@@ -278,9 +235,67 @@ async function ensureContextRail() {
   }
 }
 
+// A source row links out when the producer gives us anywhere to go (a URL or
+// a DOI); otherwise the honest fallback is the name alone.
+function sourceHref(s) {
+  if (!s || typeof s === 'string') return null;
+  const direct = s.url || s.uri || s.href || s.landing_url || s.landing_page;
+  if (direct && /^https?:\/\//i.test(String(direct))) return String(direct);
+  if (s.doi) return `https://doi.org/${String(s.doi).replace(/^doi:/i, '')}`;
+  return null;
+}
+
+function renderConsultedList() {
+  const streams = document.getElementById('viz-rail-consulted');
+  if (!streams) return;
+  streams.replaceChildren();
+  if (consulted.idx < 0 || !consulted.sources.length) {
+    const hint = document.createElement('div');
+    hint.className = 'viz-rail-consulted-hint';
+    hint.textContent = 'Ask a question — the data streams behind the answer appear here.';
+    streams.appendChild(hint);
+    return;
+  }
+  const seen = new Set();
+  for (const s of consulted.sources) {
+    const raw = typeof s === 'string' ? s : (s.title || s.source_id || '');
+    const key = typeof s === 'string' ? s : `${s.source_id || raw}@${s.version || ''}`;
+    if (!raw || seen.has(key)) continue;
+    seen.add(key);
+    if (seen.size > 10) break;
+    const row = document.createElement('div');
+    row.className = 'viz-rail-stream';
+    const dot = document.createElement('span');
+    dot.className = 'viz-rail-stream-dot';
+    row.appendChild(dot);
+    const href = sourceHref(s);
+    const name = document.createElement(href ? 'a' : 'span');
+    name.className = 'viz-rail-stream-name';
+    name.textContent = String(raw).replace(/^syn-/, '').replace(/[-_]/g, ' ');
+    name.title = String(raw) + (typeof s === 'object' && s.version ? ` (v${s.version})` : '');
+    if (href) {
+      name.href = href;
+      name.target = '_blank';
+      name.rel = 'noopener noreferrer';
+    }
+    row.appendChild(name);
+    streams.appendChild(row);
+  }
+}
+
+function noteConsultedSources(slot, envelope) {
+  const all = [...document.querySelectorAll('.viz-inline[data-result-id]')];
+  const idx = all.indexOf(slot);
+  if (idx < consulted.idx) return; // an older answer finished hydrating late
+  consulted.idx = idx;
+  consulted.sources = ((envelope && envelope.audit) || {}).source_versions || [];
+  renderConsultedList();
+}
+
 export function refreshContext() {
   client = null; clientEndpointUrl = null;
   recentVisuals.length = 0;
+  consulted.idx = -1; consulted.sources = [];
   removeContextRail();
   setTimeout(() => ensureContextRail(), 600);
 }
@@ -579,6 +594,7 @@ async function hydrateSlot(slot) {
   });
   slot.appendChild(card);
   noteRecentVisual(resultId, cleanText((envelope.answer && envelope.answer.headline) || ''));
+  noteConsultedSources(slot, envelope);
   ensureContextRail();
 }
 
@@ -615,6 +631,8 @@ setTimeout(() => { scanForSlots(document); ensureContextRail(); }, 3000);
 export function noteSessionSwitch() {
   client = null; clientEndpointUrl = null;
   recentVisuals.length = 0;
+  consulted.idx = -1; consulted.sources = [];
+  removeContextRail(); // rebuilt against the new session's endpoint
   const sweep = () => {
     // Slots that failed against the previous endpoint get another chance.
     for (const el of document.querySelectorAll('.viz-inline.viz-inline-unavailable')) {

@@ -45,6 +45,13 @@
   src: url('/static/lib/fonts/sourceserif4-italic.woff2') format('woff2');
   font-weight: 400; font-style: italic; font-display: swap;
 }
+/* The hand of the moonsights sketch: Caveat (OFL), used only for the
+   "Idli Insights" wordmark beside the drawn moon. */
+@font-face {
+  font-family: 'CaveatVendored';
+  src: url('/static/lib/fonts/caveat-var.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap;
+}
 
 /* ============================= tokens ============================= */
 body.theme-ecodata, body.eco-shell {
@@ -205,8 +212,10 @@ body.theme-ecodata input, body.theme-ecodata textarea, body.theme-ecodata select
   mask: url('/static/icons/moonsights.png') center / contain no-repeat;
 }
 .eco-brand-name {
-  font: 600 18px/1 var(--font-display);
-  letter-spacing: -0.01em; color: var(--ink);
+  /* The wordmark shares the sketch's hand — Caveat, sized up because the
+     script face runs small on the cap height. */
+  font: 600 24px/1 'CaveatVendored', cursive;
+  letter-spacing: 0.01em; color: var(--ink);
 }
 
 #eco-nav .eco-nav-site, #eco-nav .eco-site-card {
@@ -273,6 +282,28 @@ body.eco-shell #sidebar {
 }
 body.eco-shell.eco-chats-open #sidebar { transform: none; visibility: visible; }
 body.eco-shell #hamburger-btn, body.eco-shell .hamburger-btn { display: none !important; }
+/* The stock icon rail is dead chrome here — post-boot it merely sat covered
+   by the nav rail, and on a slow cold load it flashed before boot. */
+body.eco-shell #icon-rail { display: none !important; }
+
+/* The scroll-to-bottom pill is off for now — the reading column scrolls. */
+body.eco-shell .scroll-nav-btn { display: none !important; }
+
+/* Scrollbars wear the theme, every scroller, both modes. scrollbar-color is
+   the modern path (Chrome 121+, Firefox); the -webkit rules cover Safari. */
+body.eco-shell, body.eco-shell * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+body.eco-shell ::-webkit-scrollbar { width: 10px; height: 10px; }
+body.eco-shell ::-webkit-scrollbar-track { background: transparent; }
+body.eco-shell ::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+body.eco-shell ::-webkit-scrollbar-thumb:hover { background-color: var(--ink-faint); }
 
 /* chrome this product doesn't use */
 body.eco-shell .mode-toggle, body.eco-shell .mode-toggle-btn,
@@ -506,13 +537,33 @@ body.eco-shell .attach-strip .attach-item, body.eco-shell .attach-preview {
 /* ============================= landing ============================= */
 #eco-landing {
   position: fixed;
-  left: var(--nav-w); right: 0; top: 0; bottom: 0;
+  left: 0; right: 0; top: 0; bottom: 0;
   z-index: 46;
   display: none;
   overflow-y: auto;
   background: var(--paper);
 }
 body.eco-landing-open #eco-landing { display: block; }
+/* The landing is a solo page — the nav rail belongs to a chosen site, so it
+   only exists once you're inside one. */
+body.eco-landing-open #eco-nav { display: none; }
+
+/* Landing brand: the drawn moon with the drawn wordmark. */
+.eco-landing-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 46px; }
+.eco-landing-brand .eco-brand-ink { width: 46px; height: 46px; }
+.eco-landing-brand-name {
+  font: 600 36px/1 'CaveatVendored', cursive;
+  letter-spacing: 0.01em; color: var(--ink);
+}
+
+/* "Add a site" placeholder: an invitation, not yet a door. */
+.eco-card-add {
+  border-style: dashed; border-color: var(--line-strong);
+  background: transparent; box-shadow: none; cursor: default;
+}
+.eco-card-add:hover { transform: none; box-shadow: none; border-color: var(--line-strong); }
+.eco-card-add .eco-card-title { color: var(--ink-soft); }
+.eco-card-add .eco-card-foot { color: var(--ink-faint); }
 body.eco-landing-open #viz-context-rail { display: none; }
 body.eco-landing-open .chat-input-bar, body.eco-landing-open #chat-container { visibility: hidden; }
 body.eco-landing-open #eco-landing { visibility: visible; }
