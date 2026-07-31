@@ -126,14 +126,10 @@ const ICONS = {
   plus: ['M12 5v14', 'M5 12h14'],
 };
 
-// The brand mark: the Idlistack heart (same path as the provider identity in
-// providers.js), in the idlisseus theme's pink-to-violet brand gradient.
-const IDLI_MARK_SVG = '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">'
-  + '<defs><linearGradient id="idli-heart-grad" x1="0" y1="0" x2="1" y2="1">'
-  + '<stop offset="0" stop-color="#ec4899"/><stop offset="1" stop-color="#8a2be2"/>'
-  + '</linearGradient></defs>'
-  + '<path d="M12 21.1 10.55 19.8C5.4 15.15 2 12.05 2 8.25 2 5.15 4.45 2.75 7.55 2.75c1.75 0 3.45.82 4.45 2.1 1-1.28 2.7-2.1 4.45-2.1C19.55 2.75 22 5.15 22 8.25c0 3.8-3.4 6.9-8.55 11.55L12 21.1Z" fill="url(#idli-heart-grad)"/>'
-  + '</svg>';
+// The brand mark: the idli-moon — a moon photograph on the shell's pine tile
+// (static/icons/idli-moon.png, built from a real moon shot; the pun is that a
+// full moon and a steamed idli are the same soft pale disc).
+const IDLI_MARK_HTML = '<img src="/static/icons/idli-moon.png" width="28" height="28" alt="" aria-hidden="true">';
 
 function setActiveNav(name) {
   for (const b of document.querySelectorAll('#eco-nav .eco-nav-item')) {
@@ -169,7 +165,7 @@ function ensureNav() {
   brand.title = 'Sites';
   const mark = document.createElement('span');
   mark.className = 'eco-brand-mark';
-  mark.innerHTML = IDLI_MARK_SVG;
+  mark.innerHTML = IDLI_MARK_HTML;
   brand.appendChild(mark);
   const name = document.createElement('span');
   name.className = 'eco-brand-name';

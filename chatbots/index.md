@@ -127,8 +127,10 @@ Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 
 The product is branded **Idli Insights** (display only; `idli-insight-*` routing
 ids are unchanged). The favicon keeps the idli mark (steamed disc, three steam
-wisps); the nav-rail logo is the Idlistack heart in its pink-to-violet gradient
-(`#ec4899` → `#8a2be2`) and is a button that opens site selection. The whole product — login, shell, chat, cards, charts, maps,
+wisps); the nav-rail logo is the **idli-moon** — a real moon photograph on the
+shell's pine tile (`static/icons/idli-moon.png`, rounded corners; the pun is
+that a full moon and a steamed idli are the same soft pale disc) — and is a
+button that opens site selection. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures

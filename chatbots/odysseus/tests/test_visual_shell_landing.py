@@ -17,9 +17,9 @@ def test_boot_lands_on_sites_but_honours_an_open_conversation():
     assert "setActiveNav('chat');" in boot
 
 
-def test_brand_mark_is_the_idlistack_heart_and_opens_sites():
+def test_brand_mark_is_the_idli_moon_and_opens_sites():
     shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
-    assert "idli-heart-grad" in shell
-    assert "#ec4899" in shell
+    assert "idli-moon.png" in shell
+    assert (ROOT / "static/icons/idli-moon.png").is_file()
     brand = shell.split("const brand = document.createElement", 1)[1].split("navEl.appendChild(brand);", 1)[0]
     assert "showLanding(true);" in brand
