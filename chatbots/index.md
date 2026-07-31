@@ -156,13 +156,6 @@ readable; charts flip to their validated dark palette automatically. Every
 loading state — the page-load overlay and the chat thinking indicator — uses
 the braille spinner loop (⠋⠙⠹… at 90 ms).
 
-**Experiment — minimal blackboard (2026-07-31, one revertable commit):** both
-rails collapse (nav is a drawer behind a top-left pull-out; the context rail
-stays hidden — a visual click opens the figure panel), the empty chat is a
-bare `>` chalk prompt (Enter sends; button row hidden), and dark mode trades
-the lunar blue for blackboard slate (`#232927`) with a chalk-green accent.
-Revert that commit to restore the shell described below.
-
 Shell: the landing is a **solo page** — the hand-lettered "idli insights"
 wordmark (`static/icons/idli-wordmark.png`, ink-as-alpha painted with the
 theme ink, from `assets/idliinsights-src.png`) as the hero, then the sites as

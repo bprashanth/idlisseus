@@ -144,7 +144,7 @@ function applyEcoTheme(mode) {
   document.body.classList.toggle('eco-dark', dark);
   // Charts key their palette off the root: .light class + --bg luminance.
   document.documentElement.classList.toggle('light', !dark);
-  document.documentElement.style.setProperty('--bg', dark ? '#232927' : '#f7f5f0');
+  document.documentElement.style.setProperty('--bg', dark ? '#10141b' : '#f7f5f0');
   try { localStorage.setItem('idli-theme', mode); } catch { /* private mode */ }
 }
 function storedEcoTheme() {
@@ -269,23 +269,6 @@ function ensureNav() {
   });
 
   document.body.appendChild(navEl);
-
-  // EXPERIMENT minimal blackboard: the rail is a drawer; this pull-out opens
-  // it. Any press inside the rail closes it again — you came for one thing.
-  const railToggle = document.createElement('button');
-  railToggle.id = 'eco-rail-toggle';
-  railToggle.title = 'Menu';
-  railToggle.setAttribute('aria-label', 'Toggle navigation');
-  railToggle.appendChild(icon(['M4 6h16', 'M4 12h16', 'M4 18h16']));
-  railToggle.addEventListener('click', () => document.body.classList.toggle('eco-rail-open'));
-  document.body.appendChild(railToggle);
-  navEl.addEventListener('click', (ev) => {
-    if (ev.target.closest('button')) document.body.classList.remove('eco-rail-open');
-  });
-  document.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape') document.body.classList.remove('eco-rail-open');
-  });
-
   document.body.classList.add(SHELL_CLASS);
   applyEcoTheme(storedEcoTheme());
   return navEl;
@@ -573,11 +556,19 @@ async function openSite(site) {
   setTimeout(() => document.getElementById('message')?.focus(), 400);
 }
 
-// EXPERIMENT minimal blackboard: the empty board says nothing at all — the
-// chalk prompt is the whole invitation. This only clears any older welcome.
-async function renderSiteWelcome() {
+// The empty chat asks one thing of you — everything else about the site
+// already lives on the landing card you just came from.
+async function renderSiteWelcome(site) {
+  const host = document.getElementById('chat-history') || document.querySelector('.chat-history');
+  if (!host) return;
   const old = document.getElementById('eco-welcome');
   if (old) old.remove();
+  const wrap = document.createElement('div');
+  wrap.id = 'eco-welcome';
+  const h = document.createElement('h2');
+  h.textContent = `Ask me something about ${site.label}`;
+  wrap.appendChild(h);
+  host.appendChild(wrap);
 }
 
 // The stock app titles direct-chat sessions with the machine model id
