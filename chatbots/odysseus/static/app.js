@@ -2115,7 +2115,7 @@ function initializeEventListeners() {
       // Hide model picker
       pickerWrap.classList.toggle('picker-auto-hidden', w < PICKER_HIDE_WIDTH);
       // Hide placeholder text. The visual shell overrides the copy per active
-      // site ("Ask me something about <site>") via _idliComposerPlaceholder.
+      // site ("ready when you are…") via _idliComposerPlaceholder.
       if (textarea) {
         const ph = window._idliComposerPlaceholder || 'Message Idli Insights...';
         textarea.setAttribute('placeholder', w < PLACEHOLDER_HIDE_WIDTH ? '' : ph);

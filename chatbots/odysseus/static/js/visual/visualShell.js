@@ -428,7 +428,7 @@ export function setActiveSite(site) {
   ensureNav();
   // The composer asks about the place, not the product. app.js's resize
   // handler reads the same global, so the copy survives width changes.
-  window._idliComposerPlaceholder = site ? `Ask me something about ${site.label}` : '';
+  window._idliComposerPlaceholder = site ? 'ready when you are…' : '';
   const input = document.getElementById('message');
   if (input && site && input.getAttribute('placeholder')) {
     input.setAttribute('placeholder', window._idliComposerPlaceholder);
@@ -483,25 +483,6 @@ export async function showLanding(force) {
   brandRow.appendChild(name);
   inner.appendChild(brandRow);
 
-  // Two experiments live side by side while we choose between them; the
-  // pick is remembered so a reader is not re-surprised each visit.
-  const modes = [
-    ['lights', 'Lights'],
-    ['map', 'Lit map'],
-    ['contributors', 'Contributors'],
-  ];
-  const picker = document.createElement('div');
-  picker.className = 'eco-sky-modes';
-  for (const [id, label] of modes) {
-    const b = document.createElement('button');
-    b.className = 'eco-sky-mode';
-    b.textContent = label;
-    b.dataset.mode = id;
-    b.addEventListener('click', () => { setLandingMode(id); showLanding(true); });
-    picker.appendChild(b);
-  }
-  brandRow.appendChild(picker);
-
   const field = document.createElement('div');
   field.className = 'eco-sky';
   inner.appendChild(field);
@@ -519,20 +500,10 @@ export async function showLanding(force) {
     landingEl.dataset.built = '1';
     return;
   }
-  const mode = landingMode();
-  for (const b of picker.querySelectorAll('.eco-sky-mode')) {
-    b.classList.toggle('is-on', b.dataset.mode === mode);
-  }
-  renderSky(field, sites, mode);
+  renderSky(field, sites);
   landingEl.dataset.built = '1';
 }
 
-function landingMode() {
-  try { return localStorage.getItem('idli-landing-mode') || 'lights'; } catch { return 'lights'; }
-}
-function setLandingMode(mode) {
-  try { localStorage.setItem('idli-landing-mode', mode); } catch { /* private mode */ }
-}
 
 // ---- the sky: one light per pack -------------------------------------------
 // Reach is weight: a pack holding more records throws more light. Position is
@@ -545,7 +516,7 @@ const SKY_SPOTS = [
   [0.16, 0.68], [0.58, 0.18], [0.86, 0.70], [0.34, 0.52],
 ];
 
-function renderSky(field, sites, mode) {
+function renderSky(field, sites) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('class', 'eco-sky-svg');
   // `meet`, never `slice`: a slice crops whichever light sits nearest an edge,
@@ -577,13 +548,6 @@ function renderSky(field, sites, mode) {
     }));
   }
   svg.appendChild(dust);
-
-  // EXPERIMENT (map): real tiles under the sky, mostly swallowed by a scrim
-  // that each light cuts a hole in — so a story literally lights the ground
-  // beneath it. The tiles are the pack's own declared area, proxied
-  // same-origin like every other basemap; positions of the lights are still
-  // composition, so this is atmosphere, not a claim about where things are.
-  if (mode === 'map') renderMapUnderlay(svg, defs, ns, sites);
 
   // Weight per pack drives the radius; until every blurb lands we draw a
   // provisional radius and grow it in place.
@@ -637,47 +601,6 @@ function renderSky(field, sites, mode) {
     return { site, cx, cy, halo, ring, core, motes, label, sub, sub2, i };
   });
 
-  if (mode === 'contributors') {
-    // EXPERIMENT (contributors): one dot per data set standing behind the
-    // story, all the same size — this is about who showed up, not how much
-    // they brought. Hovering names it. The producer publishes no author
-    // names yet (IDL-REQ-0004), so a dot is a source, and the note says so.
-    for (const e of entries) {
-      e.halo.setAttribute('opacity', '0.5');
-      e.ring.setAttribute('r', '96');
-      e.halo.setAttribute('r', '128');
-      e.core.setAttribute('r', '4');
-      e.label.setAttribute('y', (e.cy + 96 + 26).toFixed(1));
-      e.sub.setAttribute('y', (e.cy + 96 + 46).toFixed(1));
-      e.sub2.setAttribute('y', (e.cy + 96 + 64).toFixed(1));
-      siteSources(e.site).then((names) => {
-        e.sub.textContent = names.length
-          ? `${names.length} data sets behind this story` : '';
-        e.motes.replaceChildren();
-        names.forEach((name, k) => {
-          // Phyllotaxis: even spacing without a grid, and stable across loads.
-          const a = k * 2.399963;
-          const rad = 88 * Math.sqrt((k + 0.5) / Math.max(names.length, 1));
-          const dot = ns('circle', {
-            cx: (e.cx + Math.cos(a) * rad).toFixed(1),
-            cy: (e.cy + Math.sin(a) * rad).toFixed(1),
-            r: 4.2, class: 'eco-contrib-dot', tabindex: '0',
-          });
-          const t = ns('title');
-          t.textContent = name;
-          dot.appendChild(t);
-          const show = (ev) => showTip(field, name, ev);
-          dot.addEventListener('mouseenter', show);
-          dot.addEventListener('focus', show);
-          dot.addEventListener('mouseleave', () => hideTip(field));
-          dot.addEventListener('blur', () => hideTip(field));
-          e.motes.appendChild(dot);
-        });
-      });
-    }
-    return;
-  }
-
   // Grow each light to its weight once the pack's own numbers arrive.
   Promise.all(entries.map((e) => siteBlurb(e.site).then((lines) => {
     e.sub2.textContent = lines.length ? lines[0] : '';
@@ -696,19 +619,35 @@ function renderSky(field, sites, mode) {
       e.sub.textContent = weights[idx] > 0 ? `${fmt(weights[idx])} records` : '';
       const tag = e.label.parentNode.querySelector('.eco-spot-tag');
       if (tag) tag.setAttribute('y', (e.cy - r * 0.66 - 12).toFixed(1));
-      // Motes scale with the reach so a bigger pack looks busier inside.
+      // Each mote is a person credited with the data behind this story, named
+      // on hover. They stay small — the light is the story, the motes are who
+      // made it. Until the names arrive the ring is simply empty.
       e.motes.replaceChildren();
-      const n = Math.round(6 + 26 * (w / max));
-      for (let k = 0; k < n; k++) {
-        const a = (k * 2.399963) % (Math.PI * 2);
-        const rad = r * 0.62 * Math.sqrt(((k * 37) % 100) / 100);
-        e.motes.appendChild(ns('circle', {
-          cx: (e.cx + Math.cos(a) * rad).toFixed(1),
-          cy: (e.cy + Math.sin(a) * rad).toFixed(1),
-          r: (0.9 + ((k * 13) % 5) * 0.32).toFixed(2),
-          class: 'eco-spot-mote',
-        }));
-      }
+      siteContributors(e.site).then((people) => {
+        e.motes.replaceChildren();
+        people.forEach((person, k) => {
+          // Phyllotaxis: even spacing without a grid, stable across loads.
+          const a = k * 2.399963;
+          const rad = r * 0.60 * Math.sqrt((k + 0.5) / Math.max(people.length, 1));
+          const dot = ns('circle', {
+            cx: (e.cx + Math.cos(a) * rad).toFixed(1),
+            cy: (e.cy + Math.sin(a) * rad).toFixed(1),
+            r: 1.9, class: 'eco-spot-mote is-person', tabindex: '0',
+          });
+          const label = person.affiliation
+            ? `${person.name} · ${person.affiliation}` : person.name;
+          const t = ns('title');
+          t.textContent = label;
+          dot.appendChild(t);
+          const show = (ev) => showTip(field, label, ev);
+          dot.addEventListener('mouseenter', show);
+          dot.addEventListener('focus', show);
+          dot.addEventListener('mouseleave', () => hideTip(field));
+          dot.addEventListener('blur', () => hideTip(field));
+          e.motes.appendChild(dot);
+        });
+        if (people.length) e.sub2.textContent = `${people.length} people contributed`;
+      });
     });
   });
 
@@ -745,77 +684,6 @@ function hideTip(field) {
   if (tip) tip.classList.remove('is-on');
 }
 
-// Tiles beneath the sky, centred on a pack's own declared area. Web Mercator,
-// one tile pixel to one viewBox unit; every tile goes through the same-origin
-// proxy. If no pack publishes a polygon we can read, there is no underlay —
-// an invented location would be worse than none.
-async function renderMapUnderlay(svg, defs, ns, sites) {
-  let centre = null;
-  for (const site of sites) {
-    centre = await siteCentroid(site);
-    if (centre) break;
-  }
-  if (!centre) return;
-  const Z = 11, TILE = 256, N = 2 ** Z;
-  const px = ((centre.lon + 180) / 360) * N * TILE;
-  const rad = centre.lat * Math.PI / 180;
-  const py = (1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2 * N * TILE;
-  const originX = px - 500, originY = py - 310;
-
-  // Tiles overhang the viewBox on every side; clip them to it or the ground
-  // outside the scrim's reach shows at full brightness.
-  const clip = ns('clipPath', { id: 'eco-sky-clip' });
-  clip.appendChild(ns('rect', { x: 0, y: 0, width: 1000, height: 620 }));
-  defs.appendChild(clip);
-  const g = ns('g', { class: 'eco-sky-map', 'clip-path': 'url(#eco-sky-clip)' });
-  for (let x = Math.floor(originX / TILE); x <= Math.ceil((originX + 1000) / TILE); x++) {
-    for (let y = Math.floor(originY / TILE); y <= Math.ceil((originY + 620) / TILE); y++) {
-      if (y < 0 || y >= N) continue;
-      const img = ns('image', {
-        x: (x * TILE - originX).toFixed(1), y: (y * TILE - originY).toFixed(1),
-        width: TILE, height: TILE, preserveAspectRatio: 'none',
-      });
-      img.setAttribute('href', `/api/visual/tiles/osm/${Z}/${((x % N) + N) % N}/${y}.png`);
-      g.appendChild(img);
-    }
-  }
-  svg.insertBefore(g, svg.querySelector('.eco-sky-dust'));
-
-  // The scrim: dark everywhere except where a light falls. Mask luminance —
-  // black hides the scrim, so each hole reveals the ground at full brightness.
-  const mask = ns('mask', { id: 'eco-sky-scrim' });
-  mask.appendChild(ns('rect', { x: 0, y: 0, width: 1000, height: 620, fill: '#fff' }));
-  [...svg.querySelectorAll('.eco-spot')].forEach((spot, i) => {
-    const halo = spot.querySelector('.eco-spot-halo');
-    if (!halo) return;
-    const grad = ns('radialGradient', { id: `eco-hole-${i}` });
-    grad.appendChild(ns('stop', { offset: '0%', 'stop-color': '#000' }));
-    grad.appendChild(ns('stop', { offset: '62%', 'stop-color': '#5a5a5a' }));
-    grad.appendChild(ns('stop', { offset: '100%', 'stop-color': '#fff' }));
-    defs.appendChild(grad);
-    const hole = ns('circle', {
-      cx: halo.getAttribute('cx'), cy: halo.getAttribute('cy'),
-      r: halo.getAttribute('r'), fill: `url(#eco-hole-${i})`,
-      class: 'eco-sky-hole', 'data-spot': i,
-    });
-    mask.appendChild(hole);
-    // The hole grows with its light when the weights land.
-    const grow = new MutationObserver(() => hole.setAttribute('r', halo.getAttribute('r')));
-    grow.observe(halo, { attributes: true, attributeFilter: ['r'] });
-  });
-  defs.appendChild(mask);
-  const scrim = ns('rect', {
-    x: 0, y: 0, width: 1000, height: 620,
-    class: 'eco-sky-scrim', mask: 'url(#eco-sky-scrim)',
-  });
-  svg.insertBefore(scrim, svg.querySelector('.eco-sky-dust'));
-
-  const attrib = document.createElement('div');
-  attrib.className = 'eco-sky-attrib';
-  attrib.textContent = '© OpenStreetMap contributors';
-  svg.parentNode.appendChild(attrib);
-}
-
 // One site-orientation call per pack, shared by everything that needs it:
 // the weight that sizes a light, the sources behind a story, and the declared
 // area that anchors the map underlay. Fetching it three times would be three
@@ -832,39 +700,32 @@ function orientation(site) {
   return pr;
 }
 
-// The data sets standing behind a story. The producer publishes no author
-// names yet (asked for in IDL-REQ-0004), so these are the sources themselves —
-// named as such, never dressed up as people.
-async function siteSources(site) {
+// The people credited with the data behind a story. The producer publishes
+// each source's DOI but not its authors (IDL-REQ-0004 asks for them), so the
+// names come from the public registries that minted those DOIs, through a
+// cached same-origin route. A source whose authors cannot be resolved simply
+// contributes nobody — an invented name would be worse than a missing one.
+async function siteContributors(site) {
   const env = await orientation(site);
-  const sv = ((env || {}).audit || {}).source_versions || [];
-  return sv.map((s) => (typeof s === 'string' ? s : (s.title || s.source_id || '')))
-    .filter(Boolean);
-}
-
-// The pack's own declared area, for centring the map underlay. Read from the
-// smallest polygon layer the orientation result carries; no coordinates are
-// invented and nothing is hardcoded per site.
-async function siteCentroid(site) {
-  const env = await orientation(site);
-  const visual = ((env || {}).visuals || [])[0];
-  const layer = (((visual || {}).layers) || []).find((l) => l.geometry_type === 'polygon' && l.data_ref);
-  if (!layer || !env) return null;
-  try {
-    const r = await fetch(`/api/visual/${encodeURIComponent(site.endpointId)}/results/`
-      + `${encodeURIComponent(env.result_id)}/data/${encodeURIComponent(layer.data_ref.handle)}`);
-    if (!r.ok) return null;
-    const fc = await r.json();
-    let n = 0, sx = 0, sy = 0;
-    const walk = (c) => {
-      if (typeof c[0] === 'number') { sx += c[0]; sy += c[1]; n += 1; return; }
-      for (const inner of c) walk(inner);
-    };
-    for (const f of fc.features || []) if (f.geometry) walk(f.geometry.coordinates);
-    return n ? { lon: sx / n, lat: sy / n } : null;
-  } catch {
-    return null;
+  const sources = ((env || {}).audit || {}).source_versions || [];
+  const dois = [...new Set(sources.map((s) => (s && s.doi) || '').filter(Boolean))];
+  const lists = await Promise.all(dois.map(async (doi) => {
+    try {
+      const r = await fetch(`/api/visual/doi-authors?doi=${encodeURIComponent(doi)}`);
+      if (!r.ok) return [];
+      return (await r.json()).people || [];
+    } catch {
+      return [];
+    }
+  }));
+  // One dot per person, however many sources they contributed to.
+  const seen = new Map();
+  for (const person of lists.flat()) {
+    const key = (person.name || '').toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.set(key, person);
   }
+  return [...seen.values()];
 }
 
 // How much a pack holds, for the size of its light. This must be ONE measure
@@ -906,7 +767,7 @@ async function openSite(site) {
   setTimeout(() => document.getElementById('message')?.focus(), 400);
 }
 
-// The composer placeholder already says "Ask me something about <site>" —
+// The composer placeholder is the whole invitation ("ready when you are…") —
 // a header repeating it was noise. This only clears any older welcome node.
 async function renderSiteWelcome() {
   const old = document.getElementById('eco-welcome');
@@ -951,6 +812,17 @@ function slimComposer() {
     ev.stopPropagation();
     document.getElementById('overflow-attach-btn')?.click();
   }, true);
+
+  // One line means one row: attach and send move into the text row itself, so
+  // they sit inside the box beside what you type rather than floating past its
+  // right edge. Handlers are bound to the elements, not their parents, so
+  // moving them changes nothing about how they behave.
+  const top = document.querySelector('.chat-input-bar > .chat-input-top');
+  const send = document.querySelector('.chat-input-bar .send-btn');
+  if (top) {
+    top.appendChild(plus);
+    if (send) top.appendChild(send);
+  }
 }
 
 // ---- boot ------------------------------------------------------------------

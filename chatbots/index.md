@@ -5,9 +5,11 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
 ## Idli Insights features
 
 **Conversation**
-- The composer carries one affordance: attach. Shell access is never offered
-  (there is nothing behind it to reach), web search belongs to the site pack,
-  and the empty-state "+" duplicated the rail's New analysis button.
+- The composer is one line: a `>` prompt, what you type, and an attach button
+  (with send appearing beside it once there is text). Shell access is never
+  offered (there is nothing behind it to reach), web search belongs to the site
+  pack, and the empty-state "+" duplicated the rail's New analysis button. The
+  placeholder is "ready when you are…".
 - Multi-user with per-user chat history and settings
 - Session persistence (SQLite, `data/app.db`)
 - A plain visit lands on the **site-selection** page; a refresh mid-conversation
@@ -205,14 +207,13 @@ one comparable measure across packs (the admitted record count from
 site-orientation), because sizing one pack by persondays and another by bird
 detections would be a lie. Position is composition, not geography, and the page
 says so: no endpoint publishes pack coordinates yet (asked for in
-IDL-REQ-0004). **Two experiments sit behind a mode toggle** (Lights / Lit map /
-Contributors, remembered per reader) so one can be chosen and the other
-discarded: *Lit map* puts real proxied tiles under the sky, centred on a pack's
-own declared area, and lets each light cut a hole in a dark scrim so a story
-lights the ground beneath it; *Contributors* draws one dot per data set behind
-a story, all the same size, naming it on hover — they are data sets rather than
-people only because source author names are not published yet (also asked for
-in IDL-REQ-0004). No nav rail and a clean URL (the session layer cannot stamp
+IDL-REQ-0004). Inside each light are small motes, one per **person** credited with the data
+behind that story, named on hover. The producer publishes each source's DOI but
+not its authors (IDL-REQ-0004 asks for them), so the names are resolved from
+the public registries that minted those DOIs through a cached, allowlisted
+same-origin route (`/api/visual/doi-authors`) — a source that resolves to
+nobody contributes nobody, because an invented name would be worse than a
+missing one. No nav rail and a clean URL (the session layer cannot stamp
 `#session-id` before the shell has decided the view, nor while the landing is
 open — the URL's own hash is what survives a real mid-chat reload). The
 232px nav rail (Chat / Themes / Data / History / Sites / Theme + pine "New

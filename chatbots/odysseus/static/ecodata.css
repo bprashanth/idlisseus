@@ -1432,41 +1432,63 @@ body.eco-shell #bash-toggle-btn,
 body.eco-shell #web-toggle-btn,
 body.eco-shell #overflow-menu,
 body.eco-shell .send-btn.newchat-mode { display: none !important; }
+
+/* One line: a prompt mark, what you type, and the way to attach something.
+   The two stacked rows collapse into a single bar — the bottom row now holds
+   nothing but the attach button, so it sits inside the top row instead. */
+body.eco-shell .chat-input-bar > .chat-input-top {
+  display: flex; align-items: center; gap: 8px;
+  border-radius: var(--radius); border: 1px solid var(--line-strong);
+  padding: 2px 10px 2px 14px;
+}
+body.eco-shell .chat-input-bar > .chat-input-top::before {
+  content: '>';
+  font: 500 15px/1 var(--font-mono);
+  color: var(--ink-faint); flex: none;
+  transform: translateY(1px);
+}
+/* The old bottom row is empty once attach and send move up into the text
+   row; hiding it keeps the bar exactly one line tall. */
+body.eco-shell .chat-input-bar > .chat-input-bottom { display: none !important; }
+body.eco-shell .chat-input-top > .send-btn,
+body.eco-shell .chat-input-top > #overflow-plus-btn { flex: none; align-self: center; }
+body.eco-shell #message, body.eco-shell .chat-input-top textarea {
+  flex: 1; min-width: 0; padding: 11px 0; min-height: 0;
+}
+body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 16px; height: 16px; }
+
+/* A mote is a person credited with the data behind a story. Small on
+   purpose — the light is the story; these are who made it. */
+.eco-spot-mote.is-person { cursor: pointer; outline: none; transition: r 0.12s ease, opacity 0.12s ease; }
+.eco-spot-mote.is-person:hover, .eco-spot-mote.is-person:focus-visible {
+  fill: #ffe0b0; opacity: 1; r: 3.4;
+}
+.eco-sky-tip {
+  position: absolute; z-index: 3; pointer-events: none; opacity: 0;
+  transform: translate(14px, -50%);
+  max-width: 300px; padding: 7px 11px; border-radius: 8px;
+  background: rgba(12, 13, 17, 0.94); border: 1px solid rgba(255, 255, 255, 0.10);
+  font: 400 12.5px/1.45 var(--font-ui); color: var(--sky-ink);
+  transition: opacity 0.12s ease;
+}
+.eco-sky-tip.is-on { opacity: 1; }
+
+.eco-spot-sub2 {
+  fill: var(--sky-faint); text-anchor: middle; opacity: 0.72;
+  font: 400 11px/1 var(--font-ui);
+}
+
+/* ===== the composer, slimmed ===========================================
+   One affordance: attach. This product never offers a shell, so that toggle
+   is not merely hidden here — there is nothing behind it to reach. Web search
+   belongs to the site pack, not to the composer. The empty-state "+" started
+   a new chat, which the rail's New analysis button already does. */
+body.eco-shell #bash-toggle-btn,
+body.eco-shell #web-toggle-btn,
+body.eco-shell #overflow-menu,
+body.eco-shell .send-btn.newchat-mode { display: none !important; }
 body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 17px; height: 17px; }
 
-/* ===== landing experiments: lit map, and contributors ==================
-   Two ideas held side by side behind the mode toggle, so they can be
-   compared and one discarded. Revert the commit that adds this block and
-   the plain sky remains. */
-#eco-landing .eco-sky-modes {
-  margin-left: auto; display: flex; gap: 2px; padding: 3px;
-  border-radius: 999px; background: rgba(255, 255, 255, 0.06);
-}
-/* #id specificity: the stock sheet's `:root.light button {background:#eaeaea}`
-   would otherwise paint these pills solid on the light theme. */
-#eco-landing .eco-sky-mode {
-  font: 500 11.5px var(--font-ui); padding: 6px 13px; height: auto;
-  border: 0; border-radius: 999px; background: none; cursor: pointer;
-  color: var(--sky-faint);
-}
-#eco-landing .eco-sky-mode:hover { color: var(--sky-ink); background: rgba(255, 255, 255, 0.05); }
-#eco-landing .eco-sky-mode.is-on { background: rgba(255, 255, 255, 0.12); color: var(--sky-ink); }
-
-/* The ground beneath the sky: desaturated and dark, so only the holes read. */
-.eco-sky-map { filter: grayscale(0.9) brightness(0.92) contrast(0.95); }
-.eco-sky-scrim { fill: #12141a; opacity: 0.94; }
-.eco-sky-attrib {
-  position: absolute; right: 8px; top: 8px; z-index: 2;
-  font: 400 10px var(--font-ui); color: rgba(230, 230, 235, 0.45);
-  background: rgba(10, 11, 14, 0.5); padding: 3px 7px; border-radius: 5px;
-}
-
-/* One dot per data set behind a story — all the same size on purpose. */
-.eco-contrib-dot {
-  fill: #ffc074; opacity: 0.8; cursor: pointer; outline: none;
-  transition: r 0.12s ease, opacity 0.12s ease;
-}
-.eco-contrib-dot:hover, .eco-contrib-dot:focus-visible { fill: #ffd79a; opacity: 1; r: 6.4; }
 .eco-sky-tip {
   position: absolute; z-index: 3; pointer-events: none; opacity: 0;
   transform: translate(14px, -50%);

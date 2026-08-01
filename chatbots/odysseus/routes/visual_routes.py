@@ -16,6 +16,7 @@ Routes (auth enforced by the global AuthMiddleware like every /api route):
   GET  /api/visual/{endpoint_id}/results/{result_id}/data/{handle}
 """
 
+import json
 import pathlib
 import re
 
@@ -67,6 +68,18 @@ TILE_SOURCES = {
 }
 TILE_CACHE = pathlib.Path("data/tile-cache")
 TILE_MAX_ZOOM = 15
+
+# Public DOI metadata registries, for turning a source's DOI into the people
+# credited with it (IDL-REQ-0004 asks the producer to publish these directly;
+# until it does, they are resolvable from the DOIs the producer already ships).
+# No API key is involved and no other host may be reached from here.
+DOI_REGISTRIES = (
+    ("datacite", "https://api.datacite.org/dois/{doi}"),
+    ("crossref", "https://api.crossref.org/works/{doi}"),
+)
+DOI_CACHE = pathlib.Path("data/doi-authors")
+_SAFE_DOI = re.compile(r"^10\.[0-9]{4,9}/[A-Za-z0-9._;()/:+-]{1,180}$")
+_DOI_UA = "idli-insights/1.0 (+https://chat.idli.cc)"
 
 
 def setup_visual_routes():
@@ -128,6 +141,69 @@ def setup_visual_routes():
         finally:
             db.close()
         raise HTTPException(status_code=404, detail="no registered endpoint for that URL")
+
+    @router.get("/doi-authors")
+    def doi_authors(doi: str):
+        """People credited with a DOI, for the site-selection view.
+
+        The producer publishes each source's DOI but not its authors, and a
+        contributor view that invented names would be worse than no view at
+        all — so the names come from the public registries that mint those
+        DOIs, cached on disk. Names, affiliations and ORCIDs only; an
+        unresolvable DOI answers with an empty list, never a guess.
+        """
+        doi = (doi or "").strip().lower().removeprefix("https://doi.org/").removeprefix("doi:")
+        if not _SAFE_DOI.fullmatch(doi):
+            raise HTTPException(status_code=400, detail="bad doi")
+        cached = DOI_CACHE / f"{doi.replace('/', '_')}.json"
+        if cached.is_file():
+            return Response(cached.read_text(), media_type="application/json",
+                            headers={"Cache-Control": "public, max-age=604800"})
+        people: list[dict] = []
+        for kind, template in DOI_REGISTRIES:
+            try:
+                r = httpx.get(template.format(doi=doi), timeout=_TIMEOUT,
+                              headers={"User-Agent": _DOI_UA, "Accept": "application/json"})
+                if r.status_code != 200:
+                    continue
+                body = r.json()
+            except Exception:
+                continue
+            if kind == "datacite":
+                raw = ((body.get("data") or {}).get("attributes") or {}).get("creators") or []
+            else:
+                raw = (body.get("message") or {}).get("author") or []
+            for c in raw:
+                name = (c.get("name")
+                        or " ".join(x for x in (c.get("given"), c.get("family")) if x)).strip()
+                if not name:
+                    continue
+                # Registries store "Family, Given"; people read "Given Family".
+                if "," in name and c.get("nameType", "Personal") == "Personal":
+                    family, _, given = name.partition(",")
+                    name = f"{given.strip()} {family.strip()}".strip()
+                affiliation = c.get("affiliation")
+                if isinstance(affiliation, list):
+                    affiliation = next(
+                        (a.get("name") if isinstance(a, dict) else str(a)) for a in affiliation
+                    ) if affiliation else None
+                orcid = None
+                for ident in c.get("nameIdentifiers") or []:
+                    if "orcid" in str(ident.get("nameIdentifierScheme", "")).lower():
+                        orcid = ident.get("nameIdentifier")
+                people.append({k: v for k, v in
+                               {"name": name, "affiliation": affiliation, "orcid": orcid}.items()
+                               if v})
+            if people:
+                break
+        payload = json.dumps({"doi": doi, "people": people})
+        try:
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            cached.write_text(payload)
+        except OSError:
+            pass  # a read-only cache is a slow path, not a failure
+        return Response(payload, media_type="application/json",
+                        headers={"Cache-Control": "public, max-age=604800"})
 
     @router.get("/{endpoint_id}/capabilities")
     def capabilities(endpoint_id: str):

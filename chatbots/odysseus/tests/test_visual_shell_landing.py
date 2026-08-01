@@ -68,20 +68,29 @@ def test_composer_offers_only_attach():
     assert "Attach a file" in shell
 
 
-def test_landing_offers_both_experiments_behind_one_toggle():
-    """Two landing ideas are held side by side so one can be chosen and the
-    other discarded; the pick is remembered."""
+def test_landing_dots_are_people_never_invented():
+    """Each mote is a person credited with the data. The producer publishes
+    DOIs but not authors, so the names are resolved from the public registries
+    that minted them — and a source that resolves to nobody contributes
+    nobody, because an invented name is worse than a missing one."""
     shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
-    assert "idli-landing-mode" in shell
-    for mode in ("'lights'", "'map'", "'contributors'"):
-        assert mode in shell
-    # The map underlay is real tiles through the same-origin proxy, clipped,
-    # and it never invents a location.
-    under = shell.split("async function renderMapUnderlay(", 1)[1].split("\n// One site-orientation", 1)[0]
-    assert "/api/visual/tiles/" in under
-    assert "https://" not in under
-    assert "clipPath" in under
-    assert "if (!centre) return;" in under
-    # Contributor dots are data sets until the producer publishes people.
-    assert "data sets behind this story" in shell
-    assert "siteSources" in shell
+    routes = (ROOT / "routes/visual_routes.py").read_text(encoding="utf-8")
+    assert "async function siteContributors(" in shell
+    assert "doi-authors" in shell and "is-person" in shell
+    # No landing experiment toggle survives; Lights is the landing.
+    assert "idli-landing-mode" not in shell
+    assert "renderMapUnderlay" not in shell
+    # The resolver is allowlisted, cached, and answers empty rather than guessing.
+    assert "api.datacite.org" in routes and "api.crossref.org" in routes
+    assert "_SAFE_DOI" in routes
+    assert '"people": people' in routes or "'people': people" in routes
+    fn = routes.split("def doi_authors(", 1)[1].split("\n    @router", 1)[0]
+    assert "people: list[dict] = []" in fn
+
+
+def test_composer_is_one_line_with_a_prompt_and_attach():
+    css = (ROOT / "static/ecodata.css").read_text(encoding="utf-8")
+    shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
+    bar = css.split("the composer, slimmed", 1)[1]
+    assert "content: '>'" in bar
+    assert "ready when you are" in shell
