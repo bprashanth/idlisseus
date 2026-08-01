@@ -136,9 +136,8 @@ function header(catalogue) {
   const head = el('header', 'eco-themes-head');
   head.appendChild(el('h1', null, 'Themes'));
   head.appendChild(el('p', null,
-    'Questions that keep coming back in conversations here — and what people '
-    + 'have published to answer them. Open one to read the analysis, then take '
-    + 'the question into your own chat.'));
+    'Thematic problems that keep coming up across users of this site. Open one '
+    + 'to read the analysis, then take the question into your own chat.'));
   const site = catalogue && catalogue.site;
   if (site && site.label) head.appendChild(el('p', 'eco-themes-site', site.label));
   return head;

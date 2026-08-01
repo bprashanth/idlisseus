@@ -1234,6 +1234,10 @@ body.eco-history-open #eco-history { transform: none; visibility: visible; }
 /* sign out: a power button beside the signed-in name */
 #eco-nav .eco-signout {
   margin-left: auto; flex: none;
+  /* The stock button padding (0 10px) leaves an 8px content box that a 15px
+     icon overflows, and an overflowing grid item falls back to start
+     alignment — which is why the glyph sat off-centre. */
+  padding: 0;
   width: 28px; height: 28px;
   display: grid; place-items: center;
   background: none; border: 0; border-radius: 8px;
