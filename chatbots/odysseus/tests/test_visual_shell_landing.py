@@ -112,3 +112,21 @@ def test_contributor_specks_blend_into_the_sky_and_carry_names():
     assert "function surname(" in shell
     # Institutions are not people and are left out rather than mangled.
     assert 'startswith("organiz")' in routes
+
+
+def test_nav_leads_with_themes_and_has_one_theme_control():
+    """Two entries named Theme(s) — the centre and the light/dark flip — read as
+    the same thing twice. The flip belongs with the other switch, sign-out."""
+    shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
+    items = shell.split("const items = [", 1)[1].split("];", 1)[0]
+    order = [line.split("'")[1] for line in items.strip().splitlines() if line.strip().startswith("['")]
+    assert order[0] == "themes", "themes lead the rail"
+    assert "theme" not in order, "the light/dark flip is not a destination"
+    # It lives in the user row instead, and it is not styled as destructive.
+    assert "user.appendChild(themeBtn)" in shell
+    assert "eco-theme-flip" in (ROOT / "static/ecodata.css").read_text(encoding="utf-8")
+    # Glyphs: a book for stories, a pin for places.
+    icons = shell.split("const ICONS = {", 1)[1].split("};", 1)[0]
+    assert "themes:" in icons and "M12 7v14" in icons
+    research = icons.split("research:", 1)[1].split("],", 1)[0]
+    assert "8 8 0 0 1 16 0z" in research, "sites should be a location pin"

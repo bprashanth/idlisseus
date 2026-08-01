@@ -119,10 +119,15 @@ function icon(paths) {
 
 const ICONS = {
   chat: ['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
-  map: ['M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z', 'M9 3v15', 'M15 6v15'],
+  // Themes are stories people have written down, so: an open book. (The old
+  // folded-map glyph belonged to the Maps centre this replaced.)
+  themes: ['M12 7v14',
+    'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'],
   data: ['M3 5c0-1.1 4-2 9-2s9 .9 9 2-4 2-9 2-9-.9-9-2z', 'M3 5v14c0 1.1 4 2 9 2s9-.9 9-2V5', 'M3 12c0 1.1 4 2 9 2s9-.9 9-2'],
   history: ['M12 8v4l3 3', 'M3.05 11a9 9 0 1 1 .5 4', 'M3 5v6h6'],
-  research: ['M3 3v18h18', 'M7 15l4-5 3 3 5-7'],
+  // Sites are places: a pin, not a rising line.
+  research: ['M20 10c0 6.5-8 12-8 12s-8-5.5-8-12a8 8 0 0 1 16 0z',
+    'M15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'],
   theme: ['M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'],
   plus: ['M12 5v14', 'M5 12h14'],
 };
@@ -186,8 +191,9 @@ function ensureNav() {
   const list = document.createElement('div');
   list.className = 'eco-nav-list';
   const items = [
+    // Themes lead: the questions come before the conversation about them.
+    ['themes', 'Themes', () => { hideAtlas(); openThemesCentre(); }],
     ['chat', 'Chat', () => { hideLanding(); hideAtlas(); hideThemes(); }],
-    ['map', 'Themes', () => { hideAtlas(); openThemesCentre(); }],
     ['data', 'Data', () => { hideThemes(); openDataExplorer(); }],
     ['history', 'History', () => toggleHistory()],
     ['research', 'Sites', () => { hideAtlas(); hideThemes(); showLanding(true); }],
@@ -203,16 +209,6 @@ function ensureNav() {
     b.addEventListener('click', () => { setActiveNav(ic); fn(); });
     list.appendChild(b);
   }
-  // Theme is a mode flip, not a destination — no active state.
-  const themeBtn = document.createElement('button');
-  themeBtn.className = 'eco-nav-item';
-  themeBtn.dataset.nav = 'theme';
-  themeBtn.appendChild(icon(ICONS.theme));
-  const tl = document.createElement('span');
-  tl.textContent = 'Theme';
-  themeBtn.appendChild(tl);
-  themeBtn.addEventListener('click', toggleEcoTheme);
-  list.appendChild(themeBtn);
   navEl.appendChild(list);
 
   const spacer = document.createElement('div');
@@ -245,6 +241,17 @@ function ensureNav() {
     uname.textContent = d.username;
     uname.title = `Signed in as ${d.username}`;
   }).catch(() => { /* the rail works without a name */ });
+
+  // Light or dark is a switch, not a destination: it lives with the other
+  // switch, down beside signing out. Two "Theme" entries in one rail — the
+  // centre and this flip — read as the same thing twice.
+  const themeBtn = document.createElement('button');
+  themeBtn.className = 'eco-signout eco-theme-flip';
+  themeBtn.title = 'Light or dark';
+  themeBtn.setAttribute('aria-label', 'Switch between light and dark');
+  themeBtn.appendChild(icon(ICONS.theme));
+  themeBtn.addEventListener('click', toggleEcoTheme);
+  user.appendChild(themeBtn);
 
   const signOut = document.createElement('button');
   signOut.className = 'eco-signout';

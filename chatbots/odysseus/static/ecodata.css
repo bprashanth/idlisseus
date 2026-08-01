@@ -1241,6 +1241,7 @@ body.eco-history-open #eco-history { transform: none; visibility: visible; }
   transition: color 130ms ease, background 130ms ease;
 }
 #eco-nav .eco-signout:hover { color: var(--critical); background: var(--surface-2); }
+#eco-nav .eco-theme-flip:hover { color: var(--pine); background: var(--surface-2); }
 #eco-nav .eco-signout .eco-nav-icon { width: 15px; height: 15px; opacity: 1; }
 
 /* ============================= misc chrome ============================= */
@@ -1422,6 +1423,11 @@ body.eco-themes-open #viz-context-rail { display: none; }
   fill: var(--sky-faint); text-anchor: middle; opacity: 0.72;
   font: 400 11px/1 var(--font-ui);
 }
+
+/* The light/dark flip sits with sign-out: both are switches, not places. */
+#eco-nav .eco-user { gap: 2px; }
+#eco-nav .eco-theme-flip { margin-left: auto; }
+#eco-nav .eco-theme-flip + .eco-signout { margin-left: 0; }
 
 /* ===== the composer, slimmed ===========================================
    One affordance: attach. This product never offers a shell, so that toggle

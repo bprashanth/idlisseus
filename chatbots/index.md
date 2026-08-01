@@ -220,8 +220,10 @@ nobody contributes nobody, because an invented name would be worse than a
 missing one. No nav rail and a clean URL (the session layer cannot stamp
 `#session-id` before the shell has decided the view, nor while the landing is
 open — the URL's own hash is what survives a real mid-chat reload). The
-232px nav rail (Chat / Themes / Data / History / Sites / Theme + pine "New
-analysis" and a quiet Sign out) exists only inside a chosen site, where the
+232px nav rail (Themes / Chat / Data / History / Sites + pine "New analysis";
+light-or-dark is a moon beside Sign out, not a sixth destination — two entries
+named Theme read as the same thing twice. Themes wears an open book, Sites a
+location pin) exists only inside a chosen site, where the
 empty chat is blank — the composer placeholder carries the invitation, "Ask
 me something about <site>" (per active site, surviving app.js's resize
 rewrite via `window._idliComposerPlaceholder`). The right context rail is one
