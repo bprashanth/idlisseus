@@ -347,8 +347,8 @@ function _updateFavicon(fg) {
     const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>${routeShape.split('__C__').join(fg)}</svg>`;
     href = 'data:image/svg+xml,' + encodeURIComponent(svg);
   } else {
-    // Root path keeps the brand moonsights mark, never accent-tinted.
-    href = '/static/icons/moonsights-favicon.png';
+    // Root path keeps the brand raven mark, never accent-tinted.
+    href = '/static/icons/raven-favicon.png';
   }
   let link = document.querySelector("link[rel='icon']");
   if (!link) {

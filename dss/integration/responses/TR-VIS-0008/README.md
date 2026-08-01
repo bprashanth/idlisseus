@@ -1,7 +1,15 @@
 # TR-VIS-0008 — implemented
 
-Validated decision maps: a catalogue-driven Maps centre, and a map that always
+Validated decision maps: a catalogue-driven centre, and a map that always
 arrives with its test.
+
+> **Update 2026-08-01.** The Maps centre described below has been reframed as
+> the **Themes centre** (see `../../requests/IDL-REQ-0004/`): the browsable unit
+> is now the recurring question, and a decision map is one published answer to
+> it. Every treatment in this response is unchanged and still shipping — the
+> catalogue drive, the validation panel, the colour-independent marks and the
+> fail-closed selection rule all moved across intact. What changed is the
+> framing and the reading view around them.
 
 ## What shipped
 

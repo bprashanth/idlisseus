@@ -7,7 +7,7 @@
 import { openInPanel, refreshContext, noteSessionSwitch } from './visualChat.js';
 import { openExplorer } from './visualExplorer.js';
 import { openAtlas, hideAtlas } from './visualAtlas.js';
-import { openMapsCentre, hideMapsCentre } from './visualMapsCentre.js';
+import { openThemes, hideThemes } from './visualThemes.js';
 
 const SHELL_CLASS = 'eco-shell';
 let landingEl = null;
@@ -127,10 +127,10 @@ const ICONS = {
   plus: ['M12 5v14', 'M5 12h14'],
 };
 
-// The brand mark: the moonsights sketch — a hand-drawn crescent cradling a
-// rising spark (moon + insights; the pun is that a moon and an idli are the
-// same soft pale disc). The PNG carries only the ink as alpha; the CSS mask
-// paints it in the theme's ink, so it works on every theme.
+// The brand mark: a raven, deliberately cryptic. The PNG carries only the ink
+// as alpha and the CSS mask paints it in the theme's ink, so one asset works
+// on every theme. The landing shows the same bird resolved out of data points
+// — the form only appears once there is enough of it.
 const IDLI_MARK_HTML = '<span class="eco-brand-ink" aria-hidden="true"></span>';
 
 function setActiveNav(name) {
@@ -145,7 +145,7 @@ function applyEcoTheme(mode) {
   document.body.classList.toggle('eco-dark', dark);
   // Charts key their palette off the root: .light class + --bg luminance.
   document.documentElement.classList.toggle('light', !dark);
-  document.documentElement.style.setProperty('--bg', dark ? '#10141b' : '#f7f5f0');
+  document.documentElement.style.setProperty('--bg', dark ? '#212329' : '#f7f5f0');
   try { localStorage.setItem('idli-theme', mode); } catch { /* private mode */ }
 }
 function storedEcoTheme() {
@@ -186,11 +186,11 @@ function ensureNav() {
   const list = document.createElement('div');
   list.className = 'eco-nav-list';
   const items = [
-    ['chat', 'Chat', () => { hideLanding(); hideAtlas(); hideMapsCentre(); }],
-    ['map', 'Maps', () => { hideAtlas(); openMaps(); }],
-    ['data', 'Data', () => { hideMapsCentre(); openDataExplorer(); }],
+    ['chat', 'Chat', () => { hideLanding(); hideAtlas(); hideThemes(); }],
+    ['map', 'Themes', () => { hideAtlas(); openThemesCentre(); }],
+    ['data', 'Data', () => { hideThemes(); openDataExplorer(); }],
     ['history', 'History', () => toggleHistory()],
-    ['research', 'Sites', () => { hideAtlas(); hideMapsCentre(); showLanding(true); }],
+    ['research', 'Sites', () => { hideAtlas(); hideThemes(); showLanding(true); }],
   ];
   for (const [ic, label, fn] of items) {
     const b = document.createElement('button');
@@ -275,14 +275,25 @@ function ensureNav() {
   return navEl;
 }
 
-// TR-VIS-0008: Maps opens the producer's catalogue of decision maps, not the
-// last figure that happened to appear in the conversation. A result opened
-// from here goes through the same panel as one opened from a chat card.
-async function openMaps() {
+// IDL-REQ-0004: Themes opens the recurring questions this pack answers, and
+// what has been published against them — not the last figure a conversation
+// happened to mention. "Open in chat" carries a theme's question back into
+// the composer so it can meet everything else the site knows; it is never
+// sent for the reader.
+async function openThemesCentre() {
   const active = await syncActiveSite();
   if (!active) { showLanding(true); return; }
   hideLanding();
-  openMapsCentre(active.endpointId, { onResult: (resultId) => openInPanel(resultId) });
+  openThemes(active.endpointId, {
+    onOpenInChat: (question) => {
+      const input = document.getElementById('message');
+      if (!input || !question) return;
+      input.value = question;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      setActiveNav('chat');
+      input.focus();
+    },
+  });
 }
 
 async function openDataExplorer() {
@@ -441,7 +452,7 @@ export function setActiveSite(site) {
 export async function showLanding(force) {
   ensureNav();
   hideAtlas();
-  hideMapsCentre();
+  hideThemes();
   if (!landingEl) {
     landingEl = document.createElement('div');
     landingEl.id = 'eco-landing';
@@ -458,86 +469,213 @@ export async function showLanding(force) {
   inner.className = 'eco-landing-inner';
   landingEl.appendChild(inner);
 
-  // The landing is the front door: the hand-lettered wordmark, then the
-  // sites as quiet line entries. No headings — the lettering says it all.
+  // The front door: the mark, the name, and every pack as a light whose
+  // reach is how much it holds.
   const brandRow = document.createElement('div');
   brandRow.className = 'eco-landing-brand';
-  const wm = document.createElement('div');
-  wm.className = 'eco-wordmark';
-  wm.setAttribute('role', 'img');
-  wm.setAttribute('aria-label', 'Idli Insights');
-  brandRow.appendChild(wm);
+  const mark = document.createElement('span');
+  mark.className = 'eco-landing-mark';
+  mark.setAttribute('aria-hidden', 'true');
+  brandRow.appendChild(mark);
+  const name = document.createElement('span');
+  name.className = 'eco-landing-name';
+  name.textContent = 'Idli Insights';
+  brandRow.appendChild(name);
   inner.appendChild(brandRow);
 
-  const list = document.createElement('div');
-  list.className = 'eco-site-list';
-  inner.appendChild(list);
-
-  const loading = document.createElement('div');
-  loading.className = 'eco-landing-loading';
-  loading.textContent = 'Looking for available sites…';
-  list.appendChild(loading);
+  const field = document.createElement('div');
+  field.className = 'eco-sky';
+  inner.appendChild(field);
+  field.appendChild(Object.assign(document.createElement('div'), {
+    className: 'eco-landing-loading', textContent: 'Looking for available sites…',
+  }));
 
   const sites = await discoverSites(force);
-  list.replaceChildren();
+  field.replaceChildren();
   if (!sites.length) {
-    const none = document.createElement('div');
-    none.className = 'eco-landing-loading';
-    none.textContent = 'No site packs are available on this account yet.';
-    list.appendChild(none);
+    field.appendChild(Object.assign(document.createElement('div'), {
+      className: 'eco-landing-loading',
+      textContent: 'No site packs are available on this account yet.',
+    }));
+    landingEl.dataset.built = '1';
+    return;
   }
-  for (const site of sites) {
-    const row = document.createElement('div');
-    row.className = 'eco-site-row';
-    row.setAttribute('role', 'button');
-    row.tabIndex = 0;
-    const name = document.createElement('span');
-    name.className = 'eco-site-row-name';
-    name.textContent = site.label;
-    row.appendChild(name);
-    if (site.synthetic) {
-      const tag = document.createElement('span');
-      tag.className = 'eco-card-tag';
-      tag.textContent = 'Test data';
-      row.appendChild(tag);
-    }
-    const stats = document.createElement('span');
-    stats.className = 'eco-site-row-stats';
-    row.appendChild(stats);
-    const arrow = document.createElement('span');
-    arrow.className = 'eco-site-row-arrow';
-    arrow.textContent = '→';
-    row.appendChild(arrow);
+  renderSky(field, sites);
+  landingEl.dataset.built = '1';
+}
 
-    row.addEventListener('click', () => openSite(site));
-    row.addEventListener('keydown', (ev) => {
+// ---- the sky: one light per pack -------------------------------------------
+// Reach is weight: a pack holding more records throws more light. Position is
+// composition, not geography — the packs' own endpoints publish no coordinates
+// (asked for in IDL-REQ-0004), so the layout says so out loud rather than
+// implying a place.
+const SKY_SPOTS = [
+  // x, y in fractions of the field; a loose scatter that reads as sky.
+  [0.26, 0.34], [0.66, 0.52], [0.44, 0.74], [0.80, 0.26],
+  [0.16, 0.68], [0.58, 0.18], [0.86, 0.70], [0.34, 0.52],
+];
+
+function renderSky(field, sites) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'eco-sky-svg');
+  // `meet`, never `slice`: a slice crops whichever light sits nearest an edge,
+  // and a pack you cannot see is a pack you cannot open.
+  svg.setAttribute('viewBox', '0 0 1000 620');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  svg.appendChild(defs);
+  field.appendChild(svg);
+
+  const ns = (tag, attrs) => {
+    const n = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (const k in attrs || {}) n.setAttribute(k, attrs[k]);
+    return n;
+  };
+
+  // A deterministic dust of faint points, so the field reads as a night sky
+  // rather than a flat panel. Decorative: carries no data, and says nothing.
+  const dust = ns('g', { class: 'eco-sky-dust' });
+  let seed = 20260801;
+  const rand = () => {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+  for (let i = 0; i < 190; i++) {
+    dust.appendChild(ns('circle', {
+      cx: (rand() * 1000).toFixed(1), cy: (rand() * 620).toFixed(1),
+      r: (0.5 + rand() * 1.2).toFixed(2), opacity: (0.10 + rand() * 0.28).toFixed(2),
+    }));
+  }
+  svg.appendChild(dust);
+
+  // Weight per pack drives the radius; until every blurb lands we draw a
+  // provisional radius and grow it in place.
+  const maxR = 168, minR = 62;
+  const entries = sites.map((site, i) => {
+    const [fx, fy] = SKY_SPOTS[i % SKY_SPOTS.length];
+    const cx = fx * 1000, cy = fy * 620;
+    const grad = ns('radialGradient', { id: `eco-glow-${i}`, cx: '50%', cy: '50%', r: '50%' });
+    grad.appendChild(ns('stop', { offset: '0%', 'stop-color': 'var(--glow-core)', 'stop-opacity': '0.85' }));
+    grad.appendChild(ns('stop', { offset: '32%', 'stop-color': 'var(--glow-mid)', 'stop-opacity': '0.34' }));
+    grad.appendChild(ns('stop', { offset: '100%', 'stop-color': 'var(--glow-mid)', 'stop-opacity': '0' }));
+    defs.appendChild(grad);
+
+    const g = ns('g', { class: 'eco-spot', tabindex: '0', role: 'button' });
+    g.setAttribute('aria-label', `Open ${site.label}`);
+    const halo = ns('circle', { cx, cy, r: minR, fill: `url(#eco-glow-${i})`, class: 'eco-spot-halo' });
+    const ring = ns('circle', { cx, cy, r: minR * 0.66, class: 'eco-spot-ring' });
+    const core = ns('circle', { cx, cy, r: 7, class: 'eco-spot-core' });
+    g.appendChild(halo);
+    g.appendChild(ring);
+    // A few motes inside the reach, echoing the records the pack holds.
+    const motes = ns('g', { class: 'eco-spot-motes' });
+    g.appendChild(motes);
+    g.appendChild(core);
+
+    const label = ns('text', { x: cx, y: cy + minR * 0.66 + 26, class: 'eco-spot-label' });
+    // SVG text does not wrap; a long pack name would run off the field. Clip
+    // it in the label and keep the whole name in the accessible name + title.
+    label.textContent = site.label.length > 26 ? `${site.label.slice(0, 25)}…` : site.label;
+    const full = ns('title');
+    full.textContent = site.label;
+    label.appendChild(full);
+    // Two lines: the measure that sets this light's size, then what the pack
+    // is about. Showing only the second invites "why is that one bigger?".
+    const sub = ns('text', { x: cx, y: cy + minR * 0.66 + 46, class: 'eco-spot-sub' });
+    const sub2 = ns('text', { x: cx, y: cy + minR * 0.66 + 64, class: 'eco-spot-sub2' });
+    g.appendChild(label);
+    g.appendChild(sub);
+    g.appendChild(sub2);
+    if (site.synthetic) {
+      const tag = ns('text', { x: cx, y: cy - minR * 0.66 - 12, class: 'eco-spot-tag' });
+      tag.textContent = 'TEST DATA';
+      g.appendChild(tag);
+    }
+
+    g.addEventListener('click', () => openSite(site));
+    g.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openSite(site); }
     });
-    list.appendChild(row);
+    svg.appendChild(g);
+    return { site, cx, cy, halo, ring, core, motes, label, sub, sub2, i };
+  });
 
-    siteBlurb(site).then((lines) => {
-      stats.textContent = lines.length ? lines.join(' · ') : '';
+  // Grow each light to its weight once the pack's own numbers arrive.
+  Promise.all(entries.map((e) => siteBlurb(e.site).then((lines) => {
+    e.sub2.textContent = lines.length ? lines[0] : '';
+    return siteWeight(e.site);
+  }).catch(() => 0))).then((weights) => {
+    const max = Math.max(...weights.filter((w) => Number.isFinite(w) && w > 0), 1);
+    entries.forEach((e, idx) => {
+      const w = weights[idx] > 0 ? weights[idx] : max * 0.25;
+      const r = minR + (maxR - minR) * Math.sqrt(w / max);
+      e.halo.setAttribute('r', r.toFixed(1));
+      e.ring.setAttribute('r', (r * 0.66).toFixed(1));
+      e.core.setAttribute('r', (6 + 5 * Math.sqrt(w / max)).toFixed(1));
+      e.label.setAttribute('y', (e.cy + r * 0.66 + 26).toFixed(1));
+      e.sub.setAttribute('y', (e.cy + r * 0.66 + 46).toFixed(1));
+      e.sub2.setAttribute('y', (e.cy + r * 0.66 + 64).toFixed(1));
+      e.sub.textContent = weights[idx] > 0 ? `${fmt(weights[idx])} records` : '';
+      const tag = e.label.parentNode.querySelector('.eco-spot-tag');
+      if (tag) tag.setAttribute('y', (e.cy - r * 0.66 - 12).toFixed(1));
+      // Motes scale with the reach so a bigger pack looks busier inside.
+      e.motes.replaceChildren();
+      const n = Math.round(6 + 26 * (w / max));
+      for (let k = 0; k < n; k++) {
+        const a = (k * 2.399963) % (Math.PI * 2);
+        const rad = r * 0.62 * Math.sqrt(((k * 37) % 100) / 100);
+        e.motes.appendChild(ns('circle', {
+          cx: (e.cx + Math.cos(a) * rad).toFixed(1),
+          cy: (e.cy + Math.sin(a) * rad).toFixed(1),
+          r: (0.9 + ((k * 13) % 5) * 0.32).toFixed(2),
+          class: 'eco-spot-mote',
+        }));
+      }
     });
-  }
+  });
 
-  // Placeholder for bringing your own data — not wired up yet.
-  const addRow = document.createElement('div');
-  addRow.className = 'eco-site-row eco-site-row-add';
-  const addName = document.createElement('span');
-  addName.className = 'eco-site-row-name';
-  addName.textContent = 'Add a site';
-  addRow.appendChild(addName);
-  const addStats = document.createElement('span');
-  addStats.className = 'eco-site-row-stats';
-  addStats.textContent = 'Bring your own data pack';
-  addRow.appendChild(addStats);
-  const addFoot = document.createElement('span');
-  addFoot.className = 'eco-site-row-arrow';
-  addFoot.textContent = 'Coming soon';
-  addRow.appendChild(addFoot);
-  list.appendChild(addRow);
+  // Bringing your own pack — a dark node with no light in it yet.
+  const addWrap = document.createElement('div');
+  addWrap.className = 'eco-sky-add';
+  addWrap.textContent = 'Add a site — coming soon';
+  field.appendChild(addWrap);
 
-  landingEl.dataset.built = '1';
+  const note = document.createElement('p');
+  note.className = 'eco-sky-note';
+  note.textContent = 'Each light is a site pack; its reach is how much that pack holds. '
+    + 'Positions are composition, not geography.';
+  field.appendChild(note);
+}
+
+// How much a pack holds, for the size of its light. This must be ONE measure
+// across packs or the comparison is a lie: a pack counting persondays would
+// outshine a pack counting bird detections for no reason anyone means. The
+// admitted record count is the measure every pack shares; headline stats are
+// only a last resort, and then the sizes are merely indicative.
+async function siteWeight(site) {
+  try {
+    const q = await fetch(`/api/visual/${encodeURIComponent(site.endpointId)}/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ capability_id: 'site-orientation', arguments: {}, question: '' }),
+    });
+    if (q.ok) {
+      const env = await q.json();
+      const d = ((env.visuals || [])[0]?.summary?.denominators) || {};
+      for (const k of ['records', 'events', 'observations']) {
+        if (typeof d[k] === 'number' && d[k] > 0) return d[k];
+      }
+    }
+  } catch { /* fall through */ }
+  try {
+    const r = await fetch(`/api/visual/${encodeURIComponent(site.endpointId)}/headline-stats`);
+    if (r.ok) {
+      const d = await r.json();
+      const nums = (d.stats || []).map((s) => s.value).filter((v) => typeof v === 'number');
+      if (nums.length) return Math.max(...nums);
+    }
+  } catch { /* a pack with no numbers gets the floor radius */ }
+  return 0;
 }
 
 export function hideLanding() {

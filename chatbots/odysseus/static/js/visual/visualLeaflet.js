@@ -10,9 +10,12 @@ import {
 } from './visualTheme.js';
 import { magnitudeOf } from './visualMap.js';
 
+// The basemaps this consumer can serve, all through the same-origin tile
+// proxy. A producer/author declares one of these ids (IDL-REQ-0004).
 const BASES = {
   imagery: { label: 'Imagery', attrib: '© Esri — Source: Esri, Maxar, Earthstar Geographics', maxZoom: 15 },
   osm: { label: 'Streets', attrib: '© OpenStreetMap contributors', maxZoom: 15 },
+  terrain: { label: 'Terrain', attrib: '© OpenStreetMap contributors · © OpenTopoMap (CC-BY-SA)', maxZoom: 15 },
 };
 
 function tooltipNode(rows) {
@@ -54,18 +57,30 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
   const map = L.map(root, { zoomSnap: 0.5, attributionControl: true });
   map.attributionControl.setPrefix(false);
 
-  const savedBase = localStorage.getItem('viz-basemap-leaflet') || 'imagery';
   const baseLayers = {};
   for (const [id, cfg] of Object.entries(BASES)) {
     baseLayers[cfg.label] = L.tileLayer(`/api/visual/tiles/${id}/{z}/{x}/{y}.png`, {
       attribution: cfg.attrib, maxNativeZoom: cfg.maxZoom, maxZoom: 17,
     });
   }
-  const initial = BASES[savedBase] ? BASES[savedBase].label : 'Imagery';
-  baseLayers[initial].addTo(map);
+  // IDL-REQ-0004: when the author who published this analysis declared a
+  // basemap, their choice is part of the work and wins over the reader's
+  // global preference — for this figure only, and without overwriting it. An
+  // id this consumer does not know degrades to the default rather than
+  // failing the render, and every tile still goes through the same-origin
+  // proxy (the browser never calls a third-party host).
+  const declared = hooks.basemap ? String(hooks.basemap).toLowerCase() : null;
+  const savedBase = localStorage.getItem('viz-basemap-leaflet') || 'imagery';
+  let initial = BASES[savedBase] ? BASES[savedBase].label : 'Imagery';
+  let authored = false;
+  if (declared && declared !== 'none') {
+    if (BASES[declared]) { initial = BASES[declared].label; authored = true; }
+  }
+  if (declared !== 'none') baseLayers[initial].addTo(map);
   map.on('baselayerchange', (ev) => {
     const id = Object.entries(BASES).find(([, c]) => c.label === ev.name)?.[0];
-    if (id) localStorage.setItem('viz-basemap-leaflet', id);
+    // Changing the base on an authored figure is a look, not a new preference.
+    if (id && !authored) localStorage.setItem('viz-basemap-leaflet', id);
   });
 
   const bounds = L.latLngBounds([]);       // everything drawn

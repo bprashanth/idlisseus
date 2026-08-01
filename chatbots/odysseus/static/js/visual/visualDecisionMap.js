@@ -249,8 +249,10 @@ export function renderValidationPanel(container, envelope, opts) {
     panel.appendChild(warn);
   }
 
-  // Limitations that the producer attached to the validation itself.
-  const lims = ((envelope || {}).limitations || [])
+  // Limitations that the producer attached to the validation itself. A host
+  // that already gives them their own section (the Themes reading view) asks
+  // to omit them rather than print the same sentences twice.
+  const lims = (opts && opts.omitLimitations) ? [] : ((envelope || {}).limitations || [])
     .filter((l) => l && Array.isArray(l.affects) && l.affects.includes('validation-summary'))
     .map((l) => l.message)
     .filter(Boolean);

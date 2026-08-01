@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-visual">
 <title>Idli Insights — Sign in</title>
-<link rel="icon" type="image/png" href="/static/icons/moonsights-favicon.png">
+<link rel="icon" type="image/png" href="/static/icons/raven-favicon.png">
 <link rel="manifest" href="/static/manifest.json">
 <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
 <!-- Login is deterministic brand chrome: no stored-theme or background-effect bootstrap. -->
@@ -126,7 +126,13 @@
     background: var(--pine);
   }
   .remember-toggle:hover .remember-dot { border-color: var(--ink-faint); }
-  .logo-mark { width: 2rem; height: 2rem; margin-right: 0.5rem; vertical-align: -0.35em; }
+  .logo-mark {
+    display: inline-block; width: 2rem; height: 2rem;
+    margin-right: 0.5rem; vertical-align: -0.35em;
+    background: var(--ink);
+    -webkit-mask: url('/static/icons/raven.png') center / contain no-repeat;
+    mask: url('/static/icons/raven.png') center / contain no-repeat;
+  }
   .version-label {
     position: fixed; bottom: 12px; right: 16px;
     font-size: 0.7rem; opacity: 0.35; color: var(--ink-faint);
@@ -147,7 +153,7 @@
 <body>
 <main class="card">
   <h1 class="logo">
-    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#1d5c45"/><ellipse cx="16" cy="20" rx="9.5" ry="5" fill="#fffdfa"/><path d="M12 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/><path d="M16.5 12.4c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/><path d="M21 13c-1.4-1.2-.2-2.6 0-3.8" stroke="#fffdfa" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.75"/></svg><span>Idli Insights</span>
+    <span class="logo-mark" aria-hidden="true"></span><span>Idli Insights</span>
   </h1>
   <p class="login-sub">Explore your data visually, in plain conversation.</p>
   <p class="setup-note" id="setupNote" style="display:none"></p>

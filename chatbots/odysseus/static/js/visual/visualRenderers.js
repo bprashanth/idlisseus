@@ -445,6 +445,8 @@ export function renderVisual(container, visual, layerData, hooks) {
     // TR-VIS-0008: refuse to style any place as chosen when the producer's
     // declared test did not pass.
     suppressSelection: hooks && hooks.suppressSelection,
+    // IDL-REQ-0004: the basemap the publishing author declared, if any.
+    basemap: hooks && hooks.basemap,
   };
   const status = visual.status || 'ready';
   const frame = document.createElement('figure');

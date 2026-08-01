@@ -1,4 +1,4 @@
-"""TR-VIS-0008 — validated decision maps, consumer side.
+"""TR-VIS-0008 + IDL-REQ-0004 — validated decision maps and the Themes centre.
 
 These are contract tests against the shipped fixtures and the modules that
 render them. They do not need the producer to be running: the fixtures are
@@ -155,20 +155,66 @@ def test_failed_state_says_plainly_that_nothing_is_recommended():
     assert "viz-validation-failnote" in mod
 
 
-def test_maps_centre_is_catalogue_driven_and_waiting_cards_cannot_run():
-    src = read("static/js/visual/visualMapsCentre.js")
+def test_themes_centre_is_catalogue_driven_and_unready_themes_cannot_run():
+    """IDL-REQ-0004: Themes replaced Maps. A theme is a question; only a ready
+    one offers a published answer, and an open one names what is missing."""
+    src = read("static/js/visual/visualThemes.js")
     assert "decisionMaps()" in src, "the centre must read the producer catalogue"
-    # Within the card builder, a run affordance exists only on the ready branch;
-    # the waiting branch names the missing inputs instead.
-    card_fn = src.split("function card(", 1)[1].split("\nfunction ", 1)[0]
-    ready_branch, waiting_branch = card_fn.split("if (recipe.status === 'ready')", 1)[1].split("} else {", 1)
-    assert "runRow(recipe" in ready_branch
-    assert "runRow(" not in waiting_branch
-    assert "eco-maps-run" not in waiting_branch
-    assert "eco-maps-missing" in waiting_branch, "waiting cards must name what is missing"
+    row = src.split("function themeRow(", 1)[1].split("\nfunction ", 1)[0]
+    ready_branch, open_branch = row.split("if (recipe.status === 'ready')", 1)[1].split("} else {", 1)
+    assert "eco-theme-open" in ready_branch
+    assert "eco-theme-open" not in open_branch
+    assert "eco-theme-missing" in open_branch, "an open question must say what is missing"
     # Grouping comes from the producer's generic theme field, never a recipe id.
     assert "r.theme" in src or "recipe.theme" in src
     assert "recipe_id ===" not in src, "the centre must not dispatch on a recipe id"
+    # The consumer neither mines nor ranks: no sort by any invented score.
+    assert "sort((a, b) => b." not in src
+
+
+def test_themes_show_the_recurring_question_not_a_map_name():
+    src = read("static/js/visual/visualThemes.js")
+    row = src.split("function themeRow(", 1)[1].split("\nfunction ", 1)[0]
+    # The heading is the producer's first question, with the recipe title only
+    # as a fallback.
+    assert "questions[0] || recipe.title" in row
+    assert "eco-theme-alt" in row, "the other phrasings evidence that it recurs"
+
+
+def test_solution_writeup_is_labelled_as_the_packs_own_words():
+    """No author prose exists yet (IDL-REQ-0004); the consumer must not pass
+    the pack's contract sentences off as somebody's analysis."""
+    src = read("static/js/visual/visualThemes.js")
+    assert "Author write-ups are not published by this pack yet." in src
+    assert "eco-solution-src" in src
+    # No byline is fabricated: nothing reads an author field that the contract
+    # does not carry yet, and the credit line says where the words came from.
+    assert ".author" not in src
+    assert "Published in this site pack" in src
+
+
+def test_open_in_chat_fills_the_composer_and_never_sends():
+    shell = read("static/js/visual/visualShell.js")
+    hook = shell.split("onOpenInChat:", 1)[1].split("});", 1)[0]
+    assert "input.value = question" in hook
+    assert "input.focus()" in hook
+    assert "send" not in hook.lower(), "a theme must never auto-send a question"
+
+
+def test_author_declared_basemap_is_honoured_through_the_proxy():
+    """IDL-REQ-0004: the publishing author's basemap survives, an unknown id
+    degrades to the default, and tiles never leave the same-origin proxy."""
+    leaflet = read("static/js/visual/visualLeaflet.js")
+    assert "hooks.basemap" in leaflet
+    assert "declared !== 'none'" in leaflet
+    # Unknown ids fall through to the reader/default base rather than throwing.
+    assert "if (BASES[declared])" in leaflet
+    # Every basemap is proxied.
+    assert "/api/visual/tiles/" in leaflet
+    assert "https://" not in leaflet.split("const BASES", 1)[1].split("};", 1)[0]
+    # The author's choice must not overwrite the reader's global preference.
+    assert "!authored" in leaflet
+    assert "basemap" in read("static/js/visual/visualRenderers.js")
 
 
 def test_catalogue_fixture_covers_ready_and_waiting_recipes():

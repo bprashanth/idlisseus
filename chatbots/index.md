@@ -80,33 +80,47 @@ adjacency — and prefers-reduced-motion settles instantly. Live from
 `/v1/graph*` when Codex ships; the sector-neutral fixtures render as a
 labelled sample until then.
 
-## Maps centre — validated decision maps (TR-VIS-0008, 2026-08-01)
+## Themes centre — recurring questions and published answers (IDL-REQ-0004, 2026-08-01)
 
-The Maps nav opens the producer's catalogue (`GET /v1/decision-maps` via
-`/api/visual/{endpoint_id}/decision-maps`), not the last figure a chat
-mentioned. Cards group by the producer's `theme` and show title, decision,
-readiness and freshness. A **ready** card runs `validated-decision-map` with
-only the arguments the recipe advertises, clamped to its declared bounds; a
-**waiting** card lists the exact missing `required_inputs` and offers no run
-affordance, so the centre can never imply a map exists.
+People arrive with a question, not with a wish to see maps, and the questions
+repeat. The **Themes** nav opens those recurring questions (from the producer's
+catalogue, `GET /v1/decision-maps` via `/api/visual/{endpoint_id}/decision-maps`)
+with what has been published to answer each one. A theme leads with the question
+itself; the other phrasings it absorbs sit under it as evidence that it recurs.
+An **answered** theme opens its published analysis; an **open question** lists
+the exact `required_inputs` still missing and offers no answer affordance, so
+the centre can never imply an answer exists. Every theme can be taken into the
+composer ("Ask this in chat" / "Open in chat") — never auto-sent — so a
+published finding can meet everything else the site holds and provoke the next
+question.
 
-Every decision map arrives with its test. "How this map was tested" renders in
-the reading flow — under the map in a chat card, and in the panel caption
-right after the claim — never behind the audit link or an accordion. It states
-the validation kind, split rule, periods, sample sizes and each declared check
-as value-against-threshold, with pass state as a word *and* a mark (`✓ met` /
-`✗ not met`), plus the producer's bounded claim verbatim. Observations withheld
-for testing share the *observed* evidence class with those used to fit, so they
-carry their own mark — a crossed ring — in both the SVG and Leaflet renderers;
-a location flagged by the declared `selected_field` wears a heavy ink collar
-("chosen within the declared budget"). **A failed test keeps its evidence and
-loses its recommendation**: `selectionAllowed()` gates on
-`answer.validation.status === 'passed'`, so nothing can be styled as chosen
-without a pass, and the panel says plainly that no place is marked for action.
-Layer toggles show and hide drawn marks only — no recomputation, no producer
-values touched, validation never hidden. Fixtures 12–14 plus
-`decision-map-catalog.json` are real producer output with payloads committed,
-so the visual lab renders the whole treatment with no backend running.
+The reading view is an article: the question, the map in the publishing
+author's own presentation, the write-up, the test, the limits, and the way back
+into a conversation. Where the producer publishes nothing the consumer shows
+less rather than inventing — no mined counts, no leaderboard position and no
+byline exist yet (all asked for in IDL-REQ-0004), and the write-up is assembled
+from the pack's own declared sentences and **labelled as such**. An author's
+declared basemap is honoured for that figure only (a known proxied id; an
+unrecognised one degrades to the default, and tiles never leave the same-origin
+proxy) without overwriting the reader's global preference.
+
+Every decision map arrives with its test (TR-VIS-0008). "How this map was
+tested" renders in the reading flow — under the map in a chat card, in the
+panel caption right after the claim, and in the Themes article — never behind
+the audit link or an accordion. It states the validation kind, split rule,
+periods, sample sizes and each declared check as value-against-threshold, with
+pass state as a word *and* a mark (`✓ met` / `✗ not met`), plus the producer's
+bounded claim verbatim. Observations withheld for testing share the *observed*
+evidence class with those used to fit, so they carry their own mark — a crossed
+ring — in both the SVG and Leaflet renderers; a location flagged by the declared
+`selected_field` wears a heavy ink collar ("chosen within the declared budget").
+**A failed test keeps its evidence and loses its recommendation**:
+`selectionAllowed()` gates on `answer.validation.status === 'passed'`, so nothing
+can be styled as chosen without a pass, and the panel says plainly that no place
+is marked for action. Layer toggles show and hide drawn marks only — no
+recomputation, no producer values touched, validation never hidden. Fixtures
+12–14 plus `decision-map-catalog.json` are real producer output with payloads
+committed, so the visual lab renders the whole treatment with no backend running.
 
 ## Citation status
 
@@ -154,20 +168,17 @@ Access: https://chat.idli.cc (Cloudflare Tunnel + Cloudflare Access email gate)
 ### Visual shell — "Field journal" (2026-07-27)
 
 The product is branded **Idli Insights** (display only; `idli-insight-*` routing
-ids are unchanged). The favicon and the nav-rail logo are both the
-**moonsights** sketch — a hand-drawn crescent
-cradling a rising spark (moon + insights; the pun is that a moon and an idli
-are the same soft pale disc). The rail PNG (`static/icons/moonsights.png`)
-carries only the ink as alpha and is painted with the theme's ink via CSS
-mask, so it follows light/dark automatically; the favicon
-(`static/icons/moonsights-favicon.png`) bakes the ink on a rounded paper tile
-so it reads on any tab chrome. Both regenerate from the source drawing with
-`odysseus/assets/make_moonsights.py`. The mark is a button that opens site
-selection. The wordmark "Idli Insights" is set in a vendored Caveat (OFL) so
-it shares the sketch's hand. A first-paint script in `index.html` applies the
-shell classes and holds the boot overlay until the shell boots (20s fallback),
-and the stock icon rail is display:none under the shell — so a (hard) refresh
-never flashes the stock theme or its chrome. The whole product — login, shell, chat, cards, charts, maps,
+ids are unchanged). The mark is a **raven**, deliberately cryptic — it ships as
+ink-as-alpha (`static/icons/raven.png`) and is painted with the theme ink via
+CSS mask, so one asset serves the nav rail, the login page and the landing; the
+favicon bakes the same ink on a rounded tile. `static/icons/raven-cloud.png` is
+the same bird resolved out of ~1,150 scattered points — the form only appears
+once there is enough of it. All three regenerate from the source drawing with
+`odysseus/assets/make_brand.py`. The wordmark is solid display type (the
+hand-lettered Caveat scrawl is retired). A first-paint script in `index.html`
+applies the shell classes and holds the boot overlay until the shell boots (20s
+fallback), and the stock icon rail is display:none under the shell — so a
+(hard) refresh never flashes the stock theme or its chrome. The whole product — login, shell, chat, cards, charts, maps,
 panels — runs on
 one design system (`dss/DESIGN_SYSTEM.md`): warm paper page, white cards, ink
 type, a single pine-green accent, and an amber marker wash behind the key figures
@@ -178,21 +189,23 @@ keep the validated evidence-class palette — the shell sets a light root `--bg`
 so the renderers pick their light steps automatically (aqua is sub-3:1 on this
 surface; the relief rule is satisfied by legends + row tables on every card).
 
-A dark mode (nav Theme toggle, persisted) re-steps the same family for night:
-`#16140f` page, mint-pine `#5db390` accent, `--pine-fill` keeping solid buttons
-readable; charts flip to their validated dark palette automatically. Every
+A dark mode (nav Theme toggle, persisted) re-steps the family for night as a
+neutral charcoal (`#212329` page, `#2a2d34` surfaces — no blue cast), with the
+accent turning to ember `#e2a05f`, the same family as the landing's lights;
+charts flip to their validated dark palette automatically. Every
 loading state — the page-load overlay and the chat thinking indicator — uses
 the braille spinner loop (⠋⠙⠹… at 90 ms).
 
-Shell: the landing is a **solo page** — the hand-lettered "idli insights"
-wordmark (`static/icons/idli-wordmark.png`, ink-as-alpha painted with the
-theme ink, from `assets/idliinsights-src.png`) as the hero, then the sites as
-line entries (names in Caveat, inline stats, hover arrow) and an "Add a site"
-placeholder row (coming soon); no headings, no nav rail, and a clean URL (the
-session layer cannot stamp `#session-id` before the shell has decided the
-view, nor while the landing is open — the URL's own hash is what survives a
-real mid-chat reload). The
-232px nav rail (Chat / Maps / Data / History / Sites / Theme + pine "New
+Shell: the landing is a **field of lights**. Every site pack is a warm glow on
+an always-dark sky, and the reach of the glow is how much that pack holds —
+one comparable measure across packs (the admitted record count from
+site-orientation), because sizing one pack by persondays and another by bird
+detections would be a lie. Position is composition, not geography, and the page
+says so: no endpoint publishes pack coordinates yet (asked for in
+IDL-REQ-0004). No nav rail and a clean URL (the session layer cannot stamp
+`#session-id` before the shell has decided the view, nor while the landing is
+open — the URL's own hash is what survives a real mid-chat reload). The
+232px nav rail (Chat / Themes / Data / History / Sites / Theme + pine "New
 analysis" and a quiet Sign out) exists only inside a chosen site, where the
 empty chat is blank — the composer placeholder carries the invitation, "Ask
 me something about <site>" (per active site, surviving app.js's resize
