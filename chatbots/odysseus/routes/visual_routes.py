@@ -174,6 +174,11 @@ def setup_visual_routes():
             else:
                 raw = (body.get("message") or {}).get("author") or []
             for c in raw:
+                # Registries credit institutions alongside people. This view is
+                # about the people, and an organisation's "surname" is noise
+                # ("Foundation"), so they are left out rather than mangled.
+                if str(c.get("nameType", "")).lower().startswith("organiz"):
+                    continue
                 name = (c.get("name")
                         or " ".join(x for x in (c.get("given"), c.get("family")) if x)).strip()
                 if not name:

@@ -1461,7 +1461,13 @@ body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 16px; height: 16px; }
    purpose — the light is the story; these are who made it. */
 .eco-spot-mote.is-person { cursor: pointer; outline: none; transition: r 0.12s ease, opacity 0.12s ease; }
 .eco-spot-mote.is-person:hover, .eco-spot-mote.is-person:focus-visible {
-  fill: #ffe0b0; opacity: 1; r: 3.4;
+  fill: #ffe6c2; opacity: 1 !important; r: 3.4;
+}
+/* Surnames sit in the dust at the threshold of legibility — enough to see the
+   light is made of people, not so much that it becomes a list. */
+.eco-mote-name {
+  fill: #ffdcae; font: 400 5.4px/1 var(--font-ui);
+  letter-spacing: 0.01em; pointer-events: none; user-select: none;
 }
 .eco-sky-tip {
   position: absolute; z-index: 3; pointer-events: none; opacity: 0;

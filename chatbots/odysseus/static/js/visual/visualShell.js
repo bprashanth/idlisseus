@@ -619,33 +619,73 @@ function renderSky(field, sites) {
       e.sub.textContent = weights[idx] > 0 ? `${fmt(weights[idx])} records` : '';
       const tag = e.label.parentNode.querySelector('.eco-spot-tag');
       if (tag) tag.setAttribute('y', (e.cy - r * 0.66 - 12).toFixed(1));
-      // Each mote is a person credited with the data behind this story, named
-      // on hover. They stay small — the light is the story, the motes are who
-      // made it. Until the names arrive the ring is simply empty.
+      // Each mote is a person credited with the data behind this story. They
+      // are scattered and sized irregularly so they read as part of the same
+      // dust as the sky, not as a chart — and each carries its surname, so the
+      // light is visibly made of people rather than of anonymous points.
       e.motes.replaceChildren();
       siteContributors(e.site).then((people) => {
         e.motes.replaceChildren();
-        people.forEach((person, k) => {
-          // Phyllotaxis: even spacing without a grid, stable across loads.
-          const a = k * 2.399963;
-          const rad = r * 0.60 * Math.sqrt((k + 0.5) / Math.max(people.length, 1));
+        // Stable per site: the same person keeps the same speck on every load.
+        let seed = 9301 + [...e.site.endpointId].reduce((a, c) => a + c.charCodeAt(0), 0);
+        const rand = () => {
+          seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+          return seed / 0x7fffffff;
+        };
+        const placed = [];
+        const specks = people.map((person) => {
+          // Uniform over the disc (sqrt keeps them from crowding the centre),
+          // then jittered — no ring, no spiral, no grid.
+          const a = rand() * Math.PI * 2;
+          const rad = r * 0.62 * Math.sqrt(rand());
+          return {
+            person,
+            x: e.cx + Math.cos(a) * rad,
+            y: e.cy + Math.sin(a) * rad,
+            // The same spread of sizes and brightness as the sky's dust.
+            r: 0.7 + rand() * 1.9,
+            o: 0.42 + rand() * 0.5,
+          };
+        });
+        // Brighter specks get first claim on a label; the rest keep theirs on
+        // hover. Anything that would collide stays unlabelled — a smear of
+        // overlapping names would tell you less than none.
+        for (const sp of [...specks].sort((a, b) => b.r - a.r)) {
+          const full = sp.person.affiliation
+            ? `${sp.person.name} · ${sp.person.affiliation}` : sp.person.name;
           const dot = ns('circle', {
-            cx: (e.cx + Math.cos(a) * rad).toFixed(1),
-            cy: (e.cy + Math.sin(a) * rad).toFixed(1),
-            r: 1.9, class: 'eco-spot-mote is-person', tabindex: '0',
+            cx: sp.x.toFixed(1), cy: sp.y.toFixed(1), r: sp.r.toFixed(2),
+            opacity: sp.o.toFixed(2),
+            class: 'eco-spot-mote is-person', tabindex: '0',
           });
-          const label = person.affiliation
-            ? `${person.name} · ${person.affiliation}` : person.name;
           const t = ns('title');
-          t.textContent = label;
+          t.textContent = full;
           dot.appendChild(t);
-          const show = (ev) => showTip(field, label, ev);
+          const show = (ev) => showTip(field, full, ev);
           dot.addEventListener('mouseenter', show);
           dot.addEventListener('focus', show);
           dot.addEventListener('mouseleave', () => hideTip(field));
           dot.addEventListener('blur', () => hideTip(field));
           e.motes.appendChild(dot);
-        });
+
+          const short = surname(sp.person.name);
+          const tx = sp.x + sp.r + 3.5;
+          const box = { x: tx, y: sp.y - 4, w: short.length * 3.5 + 2, h: 8 };
+          const clash = placed.some((q) => !(box.x > q.x + q.w || box.x + box.w < q.x
+            || box.y > q.y + q.h || box.y + box.h < q.y));
+          // The core outshines anything written across it, and a half-eaten
+          // name is worse than none: keep labels clear of the light itself.
+          const coreR = 6 + 5 * Math.sqrt(w / max);
+          const nearCore = Math.hypot(sp.x - e.cx, sp.y - e.cy) < coreR + 16;
+          if (clash || nearCore || box.x + box.w > e.cx + r * 0.98) continue;
+          placed.push(box);
+          const name = ns('text', {
+            x: tx.toFixed(1), y: (sp.y + 2.2).toFixed(1),
+            class: 'eco-mote-name', opacity: (0.30 + sp.o * 0.35).toFixed(2),
+          });
+          name.textContent = short;
+          e.motes.appendChild(name);
+        }
         if (people.length) e.sub2.textContent = `${people.length} people contributed`;
       });
     });
@@ -662,6 +702,17 @@ function renderSky(field, sites) {
   note.textContent = 'Welcome to Understory: Each light is a story; its reach is '
     + 'how much data sits beneath that story.';
   field.appendChild(note);
+}
+
+// The readable short form of a name: the family name alone. Truncating a full
+// name mid-word ("T. R. Shanka…") reads worse than the surname it ends in, and
+// the whole name is one hover away.
+function surname(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  const last = parts[parts.length - 1] || '';
+  const clean = last.replace(/[^\p{L}\p{M}'-]/gu, '');
+  const word = clean.length > 1 ? clean : parts.slice(-2).join(' ');
+  return word.length > 13 ? `${word.slice(0, 12)}…` : word;
 }
 
 // A hover label for a single contributor dot — crisper than a native tooltip

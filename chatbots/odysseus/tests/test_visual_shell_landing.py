@@ -94,3 +94,21 @@ def test_composer_is_one_line_with_a_prompt_and_attach():
     bar = css.split("the composer, slimmed", 1)[1]
     assert "content: '>'" in bar
     assert "ready when you are" in shell
+
+
+def test_contributor_specks_blend_into_the_sky_and_carry_names():
+    """The motes vary in size and scatter like the sky's own dust; each shows a
+    surname where one fits, with the full name a hover away."""
+    shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
+    css = (ROOT / "static/ecodata.css").read_text(encoding="utf-8")
+    routes = (ROOT / "routes/visual_routes.py").read_text(encoding="utf-8")
+    block = shell.split("siteContributors(e.site).then(", 1)[1].split("if (people.length)", 1)[0]
+    # Irregular: random placement and random radius, not a spiral or a grid.
+    assert "Math.sqrt(rand())" in block and "rand() * 1.9" in block
+    assert "2.399963" not in block, "phyllotaxis is a pattern, not dust"
+    # Names are visible by default, deconflicted, and clear of the core.
+    assert "eco-mote-name" in block and ".eco-mote-name" in css
+    assert "clash" in block and "nearCore" in block
+    assert "function surname(" in shell
+    # Institutions are not people and are left out rather than mangled.
+    assert 'startswith("organiz")' in routes

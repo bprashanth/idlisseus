@@ -208,7 +208,11 @@ site-orientation), because sizing one pack by persondays and another by bird
 detections would be a lie. Position is composition, not geography, and the page
 says so: no endpoint publishes pack coordinates yet (asked for in
 IDL-REQ-0004). Inside each light are small motes, one per **person** credited with the data
-behind that story, named on hover. The producer publishes each source's DOI but
+behind that story. They vary in size and scatter irregularly so they read as
+part of the same dust as the sky, and each carries its surname where one fits
+without colliding or crossing the core — the full name and affiliation are a
+hover away. Institutions credited alongside people are left out rather than
+reduced to a meaningless "surname". The producer publishes each source's DOI but
 not its authors (IDL-REQ-0004 asks for them), so the names are resolved from
 the public registries that minted those DOIs through a cached, allowlisted
 same-origin route (`/api/visual/doi-authors`) — a source that resolves to
