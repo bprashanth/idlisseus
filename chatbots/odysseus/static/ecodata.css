@@ -1422,3 +1422,14 @@ body.eco-themes-open #viz-context-rail { display: none; }
   fill: var(--sky-faint); text-anchor: middle; opacity: 0.72;
   font: 400 11px/1 var(--font-ui);
 }
+
+/* ===== the composer, slimmed ===========================================
+   One affordance: attach. This product never offers a shell, so that toggle
+   is not merely hidden here — there is nothing behind it to reach. Web search
+   belongs to the site pack, not to the composer. The empty-state "+" started
+   a new chat, which the rail's New analysis button already does. */
+body.eco-shell #bash-toggle-btn,
+body.eco-shell #web-toggle-btn,
+body.eco-shell #overflow-menu,
+body.eco-shell .send-btn.newchat-mode { display: none !important; }
+body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 17px; height: 17px; }

@@ -5,6 +5,9 @@ The primary chatbot deployment is Idli Insights (formerly Idlisseus/Odysseus) in
 ## Idli Insights features
 
 **Conversation**
+- The composer carries one affordance: attach. Shell access is never offered
+  (there is nothing behind it to reach), web search belongs to the site pack,
+  and the empty-state "+" duplicated the rail's New analysis button.
 - Multi-user with per-user chat history and settings
 - Session persistence (SQLite, `data/app.db`)
 - A plain visit lands on the **site-selection** page; a refresh mid-conversation

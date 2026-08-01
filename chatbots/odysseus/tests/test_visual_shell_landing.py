@@ -41,8 +41,9 @@ def test_landing_is_a_field_of_lights_sized_by_what_each_pack_holds():
     weight = shell.split("async function siteWeight(", 1)[1].split("\n}", 1)[0]
     assert "'records'" in weight
     assert weight.index("site-orientation") < weight.index("headline-stats")
-    # Position carries no meaning, and the page says so.
-    assert "Positions are composition, not geography" in shell
+    # The lights are stories, and the note says what their reach means.
+    assert "Welcome to Understory" in shell
+    assert "how much data sits beneath that story" in shell
 
 
 def test_wordmark_is_solid_type_not_a_scrawl():
@@ -51,3 +52,17 @@ def test_wordmark_is_solid_type_not_a_scrawl():
     assert not (ROOT / "static/lib/fonts/caveat-var.woff2").exists()
     brand = css.split(".eco-landing-name {", 1)[1].split("}", 1)[0]
     assert "var(--font-display)" in brand
+
+
+def test_composer_offers_only_attach():
+    """No shell, ever; web search belongs to the pack; the empty-state "+"
+    duplicated New analysis. What is left is one attach button."""
+    css = (ROOT / "static/ecodata.css").read_text(encoding="utf-8")
+    shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
+    hidden = css.split("the composer, slimmed", 1)[1]
+    for gone in ("#bash-toggle-btn", "#web-toggle-btn", "#overflow-menu", ".send-btn.newchat-mode"):
+        assert gone in hidden, f"{gone} still offered"
+    # The tools button became the attach button, delegating to the stock picker.
+    assert "function slimComposer" in shell
+    assert "overflow-attach-btn" in shell
+    assert "Attach a file" in shell

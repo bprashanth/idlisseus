@@ -642,8 +642,8 @@ function renderSky(field, sites) {
 
   const note = document.createElement('p');
   note.className = 'eco-sky-note';
-  note.textContent = 'Each light is a site pack; its reach is how much that pack holds. '
-    + 'Positions are composition, not geography.';
+  note.textContent = 'Welcome to Understory: Each light is a story; its reach is '
+    + 'how much data sits beneath that story.';
   field.appendChild(note);
 }
 
@@ -717,6 +717,29 @@ new MutationObserver(() => prettifyMeta()).observe(
   { childList: true, characterData: true, subtree: true },
 );
 
+// The composer carries one affordance: attach something. Shell access and web
+// search are hidden by CSS (this product will not offer a shell at all), and
+// the tools menu collapses into the attach button it mostly held. The stock
+// handlers stay untouched — the attach click is delegated to the menu item
+// that already opens the file picker.
+const CLIP = 'M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66'
+  + 'l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48';
+function slimComposer() {
+  const plus = document.getElementById('overflow-plus-btn');
+  if (!plus || plus.dataset.ecoAttach === '1') return;
+  plus.dataset.ecoAttach = '1';
+  plus.title = 'Attach a file';
+  plus.setAttribute('aria-label', 'Attach a file');
+  plus.replaceChildren(icon([CLIP]));
+  // Capture phase + stopPropagation: the stock listener on this id opens the
+  // tools menu, and there is no menu any more.
+  plus.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    document.getElementById('overflow-attach-btn')?.click();
+  }, true);
+}
+
 // ---- boot ------------------------------------------------------------------
 async function syncActiveSite() {
   const sessions = await getSessions();
@@ -755,6 +778,7 @@ async function boot() {
   // title/count/caret; the stock click handler on this id opens the menu.
   const dl = document.getElementById('export-dl-btn');
   if (dl) { dl.textContent = 'Settings'; dl.title = 'Chat settings'; }
+  slimComposer();
   // The view is decided: from here on the session layer may stamp the URL
   // hash again (outside the landing) — see the guard in sessions.js.
   window._ecoShellBooted = true;
