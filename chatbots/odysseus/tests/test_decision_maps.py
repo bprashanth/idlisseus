@@ -195,10 +195,11 @@ def test_solution_writeup_is_labelled_as_the_packs_own_words():
 
 def test_open_in_chat_fills_the_composer_and_never_sends():
     shell = read("static/js/visual/visualShell.js")
-    hook = shell.split("onOpenInChat:", 1)[1].split("});", 1)[0]
-    assert "input.value = question" in hook
+    hook = shell.split("async function carryThemeIntoChat(", 1)[1].split("\n}\n", 1)[0]
+    assert "input.value = seed" in hook
     assert "input.focus()" in hook
-    assert "send" not in hook.lower(), "a theme must never auto-send a question"
+    # The reader presses send; nothing here does it for them.
+    assert "keyboard" not in hook and ".submit(" not in hook
 
 
 def test_author_declared_basemap_is_honoured_through_the_proxy():
@@ -238,3 +239,29 @@ def test_lab_registers_the_decision_map_fixtures():
     lab = read("static/js/visual/visualLab.js")
     for name in (PASSED, FAILED, HOLDOUT):
         assert name in lab
+
+
+def test_open_in_chat_carries_the_answer_not_just_the_question():
+    """From a reading view the published answer travels into the conversation:
+    the card renders from the marker, the facts behind it go into the
+    transcript, and the composer opens naming the analysis — the assistant
+    resolves a visual by identifier, so an unanchored "this" only earns a
+    "which visual do you mean?"."""
+    themes = read("static/js/visual/visualThemes.js")
+    shell = read("static/js/visual/visualShell.js")
+    # The briefing is producer text: method, test, sources with DOIs, basemap.
+    brief = themes.split("function briefing(", 1)[1].split("\n}", 1)[0]
+    for fact in ("recipe.decision", "product.modelled", "val.method", "source_versions",
+                 "sv.doi", "Basemap", "limitations"):
+        assert fact in brief, f"briefing omits {fact}"
+    assert "not worked out in this conversation" in brief, "provenance must be stated"
+    # It is added to the transcript AND persisted, so the next turn sees it.
+    carry = shell.split("async function carryThemeIntoChat(", 1)[1].split("\n}\n", 1)[0]
+    assert "idli-result:" in carry, "no marker means no card"
+    assert "addMessage('assistant'" in carry
+    assert "/message" in carry and "'POST'" in carry
+    assert "materializePendingSession" in carry, "a pending chat has nowhere to store it"
+    # The reader's question is never sent for them.
+    assert "keyboard" not in carry and "submit" not in carry
+    # From the index, only the question travels (nothing has run yet).
+    assert "onOpenInChat({ question:" in themes

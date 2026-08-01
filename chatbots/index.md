@@ -94,10 +94,18 @@ with what has been published to answer each one. A theme leads with the question
 itself; the other phrasings it absorbs sit under it as evidence that it recurs.
 An **answered** theme opens its published analysis; an **open question** lists
 the exact `required_inputs` still missing and offers no answer affordance, so
-the centre can never imply an answer exists. Every theme can be taken into the
-composer ("Ask this in chat" / "Open in chat") — never auto-sent — so a
-published finding can meet everything else the site holds and provoke the next
-question.
+the centre can never imply an answer exists. A theme can be taken into the reader's own conversation, never auto-sent. From
+the index only the question travels (nothing has been run yet); from a reading
+view **the answer itself does** — the map renders inline from its
+`idli-result` marker, and a briefing of the facts behind it (recipe and
+version, how the estimate is made, the test and its checks, the data sets with
+DOIs, whose basemap, the stated limits) is added to the transcript and
+persisted, so the next turn's model can answer "what model was used?" or
+"where did the data come from?" from the record. The composer opens naming the
+analysis: the assistant resolves a visual by identifier rather than by
+re-reading the transcript, so an unanchored "this" only earns "which visual do
+you mean?" — the anchor is visible, editable and deletable, and the reader
+writes their question after it.
 
 The reading view is an article: the question, the map in the publishing
 author's own presentation, the write-up, the test, the limits, and the way back

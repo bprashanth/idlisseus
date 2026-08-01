@@ -77,9 +77,11 @@ function ensureCentre() {
 
 /**
  * Open the Themes centre for a site.
- *   opts.onOpenInChat(text) — put a theme's question in the composer so the
- *   reader can carry it into their own conversation with everything else the
- *   site knows. Never auto-sent.
+ *   opts.onOpenInChat({question, resultId, text}) — carry a theme into the
+ *   reader's own conversation. From the index only the question travels
+ *   (nothing has been run yet); from a reading view the published answer
+ *   travels with it — the map plus the facts behind it — so the next question
+ *   can be about the work itself. The reader's question is never auto-sent.
  */
 export async function openThemes(endpointId, opts) {
   ensureCentre();
@@ -196,7 +198,8 @@ function themeRow(recipe, inner, catalogue) {
     const ask = el('button', 'eco-theme-ask', 'Ask this in chat');
     ask.addEventListener('click', () => {
       hideThemes();
-      onOpenInChat(questions[0] || recipe.title || '');
+      // Nothing has been run from the index, so only the question travels.
+      onOpenInChat({ question: questions[0] || recipe.title || '' });
     });
     row.appendChild(ask);
   }
@@ -312,14 +315,82 @@ function renderSolution(stage, env, recipe) {
     const ask = el('button', 'eco-theme-open', 'Open in chat');
     ask.addEventListener('click', () => {
       hideThemes();
-      onOpenInChat((recipe.questions || [])[0] || recipe.title || '');
+      // The answer itself travels — the map and the facts behind it — so the
+      // next question can be about the work, not just about the topic.
+      onOpenInChat({
+        question: (recipe.questions || [])[0] || recipe.title || '',
+        resultId: env.result_id,
+        text: briefing(recipe, env),
+        // The assistant answers by running capabilities, not by re-reading the
+        // transcript, so a bare "this" leaves it asking which visual is meant.
+        // The composer opens with the analysis named — visible, editable, and
+        // deletable — and the reader writes their question after it.
+        anchor: `About the ${recipe.recipe_id} analysis above (${env.result_id}): `,
+      });
     });
     foot.appendChild(ask);
     foot.appendChild(el('span', 'eco-solution-foothint',
-      'Puts the question in your composer, so you can cross it with anything '
-      + 'else this site holds.'));
+      'Drops this map and the facts behind it into your chat, so you can ask '
+      + 'how it was made, what it used, or how it meets your own question.'));
   }
   stage.appendChild(foot);
+}
+
+// Everything a reader might reasonably ask of a published analysis, written
+// out so it travels with the map into the conversation: which recipe ran, the
+// method behind the estimate, how it was tested and against what thresholds,
+// which data sets it drew on (with DOIs), whose basemap is under it, and what
+// it does not tell you. Every line is producer text or a producer number —
+// nothing here is the consumer's opinion of the work.
+function briefing(recipe, env) {
+  const q = (recipe.questions || [])[0] || recipe.title || '';
+  const answer = env.answer || {};
+  const val = answer.validation || {};
+  const out = [];
+  out.push(`**Published analysis — ${q}**`);
+  out.push('');
+  out.push('Copied from this site’s Themes. The site pack published it; it was '
+    + 'not worked out in this conversation.');
+  out.push('');
+  if (answer.headline) out.push(answer.headline);
+  if (answer.detail) out.push('', answer.detail);
+  out.push('');
+  const bits = [];
+  bits.push(`- Recipe: \`${recipe.recipe_id}\`${recipe.version ? ` v${recipe.version}` : ''} `
+    + `(capability \`${recipe.capability_id || 'validated-decision-map'}\`), result \`${env.result_id}\``);
+  if (recipe.decision) bits.push(`- Decision it supports: ${recipe.decision}`);
+  const product = recipe.product || {};
+  if (product.modelled) bits.push(`- How the estimate is made: ${product.modelled}`);
+  if (product.observed) bits.push(`- What is measured directly: ${product.observed}`);
+  if (val.method || (recipe.validation || {}).method) {
+    bits.push(`- How it was tested: ${val.method || recipe.validation.method}`);
+  }
+  if (val.kind) {
+    const checks = Object.entries(val.checks || {}).map(([k, c]) =>
+      `${k.replace(/_/g, ' ')} ${c.value} ${c.operator || '>='} ${c.threshold} — ${c.passed ? 'met' : 'NOT met'}`);
+    bits.push(`- Test: ${val.kind}, status ${val.status || 'unknown'}`
+      + (val.split_rule ? ` (${val.split_rule})` : '')
+      + (checks.length ? `; checks: ${checks.join('; ')}` : ''));
+  }
+  const sources = ((env.audit || {}).source_versions || []).map((sv) =>
+    (typeof sv === 'string' ? sv : `${sv.title || sv.source_id}${sv.doi ? ` (doi:${sv.doi})` : ''}`));
+  if (sources.length) bits.push(`- Data sets used: ${sources.join('; ')}`);
+  // The basemap question deserves a straight answer either way.
+  const declared = ((env.visuals || []).find((v) => v.presentation) || {}).presentation;
+  bits.push(declared && declared.basemap
+    ? `- Basemap: \`${declared.basemap}\`, declared by the publisher; tiles are proxied by this app.`
+    : '- Basemap: none declared by the publisher — shown on this app’s default '
+      + 'basemap (Esri imagery or OpenStreetMap, proxied same-origin).');
+  const lims = (env.limitations || []).map((l) => l && l.message).filter(Boolean);
+  if (lims.length) bits.push(`- Limits stated by the publisher: ${lims.join(' ')}`);
+  out.push(bits.join('\n'));
+  out.push('');
+  // Readers say "this"; without something to bind it to, the assistant has to
+  // stop and ask which visual is meant. Naming the referent in the transcript
+  // costs one line and is as visible to the reader as it is to the model.
+  out.push(`Ask about it below — in this conversation, “this analysis”, “this map” `
+    + `and “this” mean the ${recipe.recipe_id} analysis above.`);
+  return out.join('\n');
 }
 
 // The author's declared presentation, honoured where it exists. A basemap the

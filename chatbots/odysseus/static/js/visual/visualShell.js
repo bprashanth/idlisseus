@@ -291,16 +291,61 @@ async function openThemesCentre() {
   const active = await syncActiveSite();
   if (!active) { showLanding(true); return; }
   hideLanding();
-  openThemes(active.endpointId, {
-    onOpenInChat: (question) => {
-      const input = document.getElementById('message');
-      if (!input || !question) return;
-      input.value = question;
+  openThemes(active.endpointId, { onOpenInChat: carryThemeIntoChat });
+}
+
+// Bring a theme into the reader's own conversation. When a published answer
+// came with it, the map and the facts behind it are added to the transcript —
+// and persisted, so the next turn's model sees them too and can answer "what
+// model was used?" or "where did the data come from?" from the record rather
+// than from a guess. The reader's own question is never sent for them.
+async function carryThemeIntoChat(payload) {
+  const { question, resultId, text, anchor } = payload || {};
+  hideLanding();
+  hideAtlas();
+  setActiveNav('chat');
+  const input = document.getElementById('message');
+
+  if (text && resultId) {
+    const sessions = await getSessions();
+    // A site chat stays pending until its first message; give it an identity
+    // before writing to it, or the copy would have nowhere to live.
+    if (sessions.hasPendingChat && sessions.hasPendingChat()) {
+      try { await sessions.materializePendingSession(); } catch { /* fall through */ }
+    }
+    // The marker is what makes the card render; the prose is what the model
+    // reads on the next turn.
+    const content = `${text}\n\n<!-- idli-result:${JSON.stringify({ result_id: resultId })} -->`;
+    try {
+      const renderer = await import('../chatRenderer.js');
+      renderer.addMessage('assistant', content, null, null);
+    } catch { /* the persisted copy still arrives on reload */ }
+    const sid = sessions.getCurrentSessionId && sessions.getCurrentSessionId();
+    if (sid) {
+      try {
+        await fetch(`/api/session/${encodeURIComponent(sid)}/message`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role: 'assistant', content }),
+        });
+      } catch { /* shown locally even if it could not be stored */ }
+    }
+  }
+
+  if (input) {
+    // From the index, the question itself travels. From a reading view, the
+    // composer opens naming the analysis — the assistant resolves a visual by
+    // identifier, not by re-reading the transcript, so an unanchored "this"
+    // only earns a "which visual do you mean?". The reader writes their
+    // question after it, and can delete the line like any other text.
+    const seed = text ? (anchor || '') : (question || '');
+    if (seed) {
+      input.value = seed;
       input.dispatchEvent(new Event('input', { bubbles: true }));
-      setActiveNav('chat');
-      input.focus();
-    },
-  });
+      try { input.setSelectionRange(seed.length, seed.length); } catch { /* not a text input */ }
+    }
+    input.focus();
+  }
 }
 
 async function openDataExplorer() {
