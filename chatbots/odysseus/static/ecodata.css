@@ -1433,3 +1433,46 @@ body.eco-shell #web-toggle-btn,
 body.eco-shell #overflow-menu,
 body.eco-shell .send-btn.newchat-mode { display: none !important; }
 body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 17px; height: 17px; }
+
+/* ===== landing experiments: lit map, and contributors ==================
+   Two ideas held side by side behind the mode toggle, so they can be
+   compared and one discarded. Revert the commit that adds this block and
+   the plain sky remains. */
+#eco-landing .eco-sky-modes {
+  margin-left: auto; display: flex; gap: 2px; padding: 3px;
+  border-radius: 999px; background: rgba(255, 255, 255, 0.06);
+}
+/* #id specificity: the stock sheet's `:root.light button {background:#eaeaea}`
+   would otherwise paint these pills solid on the light theme. */
+#eco-landing .eco-sky-mode {
+  font: 500 11.5px var(--font-ui); padding: 6px 13px; height: auto;
+  border: 0; border-radius: 999px; background: none; cursor: pointer;
+  color: var(--sky-faint);
+}
+#eco-landing .eco-sky-mode:hover { color: var(--sky-ink); background: rgba(255, 255, 255, 0.05); }
+#eco-landing .eco-sky-mode.is-on { background: rgba(255, 255, 255, 0.12); color: var(--sky-ink); }
+
+/* The ground beneath the sky: desaturated and dark, so only the holes read. */
+.eco-sky-map { filter: grayscale(0.9) brightness(0.92) contrast(0.95); }
+.eco-sky-scrim { fill: #12141a; opacity: 0.94; }
+.eco-sky-attrib {
+  position: absolute; right: 8px; top: 8px; z-index: 2;
+  font: 400 10px var(--font-ui); color: rgba(230, 230, 235, 0.45);
+  background: rgba(10, 11, 14, 0.5); padding: 3px 7px; border-radius: 5px;
+}
+
+/* One dot per data set behind a story — all the same size on purpose. */
+.eco-contrib-dot {
+  fill: #ffc074; opacity: 0.8; cursor: pointer; outline: none;
+  transition: r 0.12s ease, opacity 0.12s ease;
+}
+.eco-contrib-dot:hover, .eco-contrib-dot:focus-visible { fill: #ffd79a; opacity: 1; r: 6.4; }
+.eco-sky-tip {
+  position: absolute; z-index: 3; pointer-events: none; opacity: 0;
+  transform: translate(14px, -50%);
+  max-width: 300px; padding: 7px 11px; border-radius: 8px;
+  background: rgba(12, 13, 17, 0.94); border: 1px solid rgba(255, 255, 255, 0.10);
+  font: 400 12.5px/1.45 var(--font-ui); color: var(--sky-ink);
+  transition: opacity 0.12s ease;
+}
+.eco-sky-tip.is-on { opacity: 1; }

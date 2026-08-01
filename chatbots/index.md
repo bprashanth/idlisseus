@@ -205,7 +205,14 @@ one comparable measure across packs (the admitted record count from
 site-orientation), because sizing one pack by persondays and another by bird
 detections would be a lie. Position is composition, not geography, and the page
 says so: no endpoint publishes pack coordinates yet (asked for in
-IDL-REQ-0004). No nav rail and a clean URL (the session layer cannot stamp
+IDL-REQ-0004). **Two experiments sit behind a mode toggle** (Lights / Lit map /
+Contributors, remembered per reader) so one can be chosen and the other
+discarded: *Lit map* puts real proxied tiles under the sky, centred on a pack's
+own declared area, and lets each light cut a hole in a dark scrim so a story
+lights the ground beneath it; *Contributors* draws one dot per data set behind
+a story, all the same size, naming it on hover — they are data sets rather than
+people only because source author names are not published yet (also asked for
+in IDL-REQ-0004). No nav rail and a clean URL (the session layer cannot stamp
 `#session-id` before the shell has decided the view, nor while the landing is
 open — the URL's own hash is what survives a real mid-chat reload). The
 232px nav rail (Chat / Themes / Data / History / Sites / Theme + pine "New

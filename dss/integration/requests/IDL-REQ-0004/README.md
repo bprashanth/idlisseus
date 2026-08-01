@@ -26,6 +26,7 @@ piece of work. And the catalogue has no prose: `decision` and
 | The author's map survives | `presentation`: `basemap` (declared id or proxied template + attribution + max zoom), `theme` dark/light, optional `initial_view` |
 | Reading view | `GET /v1/themes/{theme_id}` |
 | Place a pack on a map | `capabilities.bounds` and/or `centroid` (+ optional `weight`) |
+| Credit the people | author names (+ ORCID/institution where known) on each `source_versions` entry |
 
 ## Boundaries the consumer keeps either way
 
@@ -51,6 +52,9 @@ catalogue, with every gap shown as a visible placeholder rather than a guess:
 - there is no mined count, so nothing is ranked and no leaderboard position is
   displayed;
 - there is no author, so no byline is shown;
-- the consumer's own basemaps are used until `presentation` exists.
+- the consumer's own basemaps are used until `presentation` exists;
+- the landing's contributor view draws one dot per **data set**, not per
+  person, and labels it that way, because source author names are not
+  published.
 
 Where the producer says nothing, the consumer shows less.

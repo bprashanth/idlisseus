@@ -40,7 +40,7 @@ def test_landing_is_a_field_of_lights_sized_by_what_each_pack_holds():
     # counting persondays must not outshine one counting detections.
     weight = shell.split("async function siteWeight(", 1)[1].split("\n}", 1)[0]
     assert "'records'" in weight
-    assert weight.index("site-orientation") < weight.index("headline-stats")
+    assert weight.index("orientation(site)") < weight.index("headline-stats")
     # The lights are stories, and the note says what their reach means.
     assert "Welcome to Understory" in shell
     assert "how much data sits beneath that story" in shell
@@ -66,3 +66,22 @@ def test_composer_offers_only_attach():
     assert "function slimComposer" in shell
     assert "overflow-attach-btn" in shell
     assert "Attach a file" in shell
+
+
+def test_landing_offers_both_experiments_behind_one_toggle():
+    """Two landing ideas are held side by side so one can be chosen and the
+    other discarded; the pick is remembered."""
+    shell = (ROOT / "static/js/visual/visualShell.js").read_text(encoding="utf-8")
+    assert "idli-landing-mode" in shell
+    for mode in ("'lights'", "'map'", "'contributors'"):
+        assert mode in shell
+    # The map underlay is real tiles through the same-origin proxy, clipped,
+    # and it never invents a location.
+    under = shell.split("async function renderMapUnderlay(", 1)[1].split("\n// One site-orientation", 1)[0]
+    assert "/api/visual/tiles/" in under
+    assert "https://" not in under
+    assert "clipPath" in under
+    assert "if (!centre) return;" in under
+    # Contributor dots are data sets until the producer publishes people.
+    assert "data sets behind this story" in shell
+    assert "siteSources" in shell
