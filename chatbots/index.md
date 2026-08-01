@@ -107,9 +107,23 @@ re-reading the transcript, so an unanchored "this" only earns "which visual do
 you mean?" — the anchor is visible, editable and deletable, and the reader
 writes their question after it.
 
-The reading view is an article: the question, the map in the publishing
-author's own presentation, the write-up, the test, the limits, and the way back
-into a conversation. Where the producer publishes nothing the consumer shows
+The reading view is the pack's **published field note** (TR-VIS-0010) where one
+exists: the short answer, the map, a prominent "What to do now" with numbered
+steps, a "Where" checklist whose rows find their feature on the map when
+clicked (no recompute, no value changed), then what was measured, the named
+estimator, the test in plain language, and "Why we are not giving stronger
+advice". Credit and publication date head it; contributors appear only when
+supplied. The technical audit — "How this map was tested" and full provenance —
+stays available after the article, and the note is bound to the arguments it
+was written about, so a rerun never inherits it. Packs without an article keep
+the old assembled write-up.
+
+**Catalogue readiness is not validation** (TR-VIS-0009): `partial` themes run
+too, labelled "Evidence, not yet an answer". Features flagged by
+`validation_priority_field` are drawn as a dashed collar — never the solid one
+a passed selection earns — and named in words both in the tooltip and in a key
+under the map: "check or collect evidence here — not a recommendation". They
+survive a failed or pending test, because they are what would settle it. Where the producer publishes nothing the consumer shows
 less rather than inventing — no mined counts, no leaderboard position and no
 byline exist yet (all asked for in IDL-REQ-0004), and the write-up is assembled
 from the pack's own declared sentences and **labelled as such**. An author's

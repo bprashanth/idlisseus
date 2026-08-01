@@ -258,8 +258,14 @@ export function renderMap(container, visual, layerData, hooks) {
     const validationRole = styleHint.palette_role === 'validation';
     // A selection may only be drawn behind a passed test; the caller decides.
     const selectedField = (hooks && hooks.suppressSelection) ? null : (styleHint.selected_field || null);
+    // TR-VIS-0009: a validation priority is a request for evidence, not a
+    // recommendation — it survives a failed or pending test precisely because
+    // it is what would settle one. Drawn dashed, never with the solid collar a
+    // passed selection earns.
+    const priorityField = styleHint.validation_priority_field || null;
     let selectedCells = 0;
     let selectedMarks = 0;
+    let priorityMarks = 0;
 
     if (layer.geometry_type === 'polygon' && cls === 'reported') {
       // Declared boundary: outlined, never filled solid.
@@ -382,6 +388,12 @@ export function renderMap(container, visual, layerData, hooks) {
             d, fill: 'none', stroke: p.inkPrimary,
             'stroke-width': 2.5, 'stroke-linejoin': 'round', 'pointer-events': 'none',
           }));
+        } else if (priorityField && props[priorityField]) {
+          priorityMarks += 1;
+          g.appendChild(el('path', {
+            d, fill: 'none', stroke: p.inkPrimary, 'stroke-width': 2,
+            'stroke-dasharray': '4 3', 'stroke-linejoin': 'round', 'pointer-events': 'none',
+          }));
         }
       }
       legendEntries.push({
@@ -393,6 +405,12 @@ export function renderMap(container, visual, layerData, hooks) {
         legendEntries.push({
           swatch: 'outline', color: p.inkPrimary,
           label: `chosen within the declared budget (${selectedCells})`,
+        });
+      }
+      if (priorityMarks) {
+        legendEntries.push({
+          swatch: 'dashed', color: p.inkPrimary,
+          label: `check or collect evidence here (${priorityMarks})`,
         });
       }
       if (agreementOverlay) {
@@ -513,6 +531,13 @@ export function renderMap(container, visual, layerData, hooks) {
             cx: x, cy: y, r: r + 4.5, fill: 'none',
             stroke: p.inkPrimary, 'stroke-width': 2.2, 'pointer-events': 'none',
           }));
+        } else if (priorityField && props[priorityField]) {
+          priorityMarks += 1;
+          g.appendChild(el('circle', {
+            cx: x, cy: y, r: r + 4.5, fill: 'none',
+            stroke: p.inkPrimary, 'stroke-width': 1.8, 'stroke-dasharray': '3 3',
+            'pointer-events': 'none',
+          }));
         }
         // Oversized transparent hit target (≥24px) so hover is reliable.
         const hit = el('circle', {
@@ -528,6 +553,12 @@ export function renderMap(container, visual, layerData, hooks) {
         legendEntries.push({
           swatch: 'outline', color: p.inkPrimary,
           label: `chosen within the declared budget (${selectedMarks})`,
+        });
+      }
+      if (priorityMarks) {
+        legendEntries.push({
+          swatch: 'dashed', color: p.inkPrimary,
+          label: `check or collect evidence here (${priorityMarks})`,
         });
       }
       legendEntries.push({

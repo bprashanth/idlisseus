@@ -19,7 +19,7 @@
 
 import { VisualClient } from './visualData.js';
 import {
-  renderValidationPanel, renderLayerToggles, selectionAllowed,
+  renderValidationPanel, renderLayerToggles, selectionAllowed, focusNamedLocation,
 } from './visualDecisionMap.js';
 import { renderVisual } from './visualRenderers.js';
 
@@ -35,9 +35,13 @@ const GROUP_WORDS = {
   anticipate: 'Anticipate', listen: 'Listen', learn: 'Learn',
 };
 
+// Catalogue readiness, not validation: `ready` and `partial` both run.
+// `awaiting-validation-data` and `blocked` are readiness views only.
+const RUNNABLE = new Set(['ready', 'partial']);
+
 const READINESS = {
   ready: 'Answered',
-  partial: 'Partly answered',
+  partial: 'Evidence, not yet an answer',
   'awaiting-validation-data': 'Open question',
   blocked: 'Blocked',
 };
@@ -172,10 +176,19 @@ function themeRow(recipe, inner, catalogue) {
   // No mined count exists yet (IDL-REQ-0004): say nothing rather than guess.
   row.appendChild(meta);
 
-  if (recipe.status === 'ready') {
-    const open = el('button', 'eco-theme-open', 'Open the answer →');
+  // TR-VIS-0009: `partial` runs too. Catalogue readiness is not the same as a
+  // passing test: a partial recipe returns measured evidence and the places
+  // worth checking, and says so — it is not an admitted decision model.
+  if (RUNNABLE.has(recipe.status)) {
+    const open = el('button', 'eco-theme-open',
+      recipe.status === 'ready' ? 'Open the answer →' : 'Open the evidence →');
     open.addEventListener('click', () => openSolution(recipe, inner, catalogue));
     row.appendChild(open);
+    if (recipe.status === 'partial') {
+      row.appendChild(el('p', 'eco-theme-partialnote',
+        'Runs on measured evidence and marks where another observation would '
+        + 'settle the question. It does not recommend action.'));
+    }
   } else {
     const missing = (recipe.required_inputs || []).filter((i) => i && i.status !== 'available');
     const box = el('div', 'eco-theme-missing');
@@ -216,14 +229,19 @@ async function openSolution(recipe, inner, catalogue) {
   inner.appendChild(back);
 
   const questions = recipe.questions || [];
+  const pub = publishedAnswer(recipe);
   const head = el('header', 'eco-solution-head');
-  head.appendChild(el('h1', 'eco-solution-q', questions[0] || recipe.title || ''));
+  head.appendChild(el('h1', 'eco-solution-q',
+    (pub && pub.title) || questions[0] || recipe.title || ''));
   // The producer publishes no author yet (IDL-REQ-0004) — so no byline is
   // shown. What it does publish is the recipe identity and its version.
   const by = el('p', 'eco-solution-by');
-  by.textContent = recipe.version
-    ? `Published in this site pack · recipe ${recipe.recipe_id} v${recipe.version}`
-    : 'Published in this site pack';
+  const pubMeta = (pub && pub.publication) || {};
+  by.textContent = [
+    pubMeta.credit || 'Published in this site pack',
+    pubMeta.published_at ? `published ${pubMeta.published_at}` : '',
+    recipe.version ? `recipe ${recipe.recipe_id} v${recipe.version}` : '',
+  ].filter(Boolean).join(' · ');
   head.appendChild(by);
   inner.appendChild(head);
 
@@ -233,8 +251,12 @@ async function openSolution(recipe, inner, catalogue) {
 
   // Arguments the recipe advertises, at their declared defaults. The reader
   // changes them from the panel's own rerun action, not from here.
-  const args = { recipe_id: recipe.recipe_id };
+  // A published answer declares the arguments it was written about; run those
+  // so the article and the map on screen describe the same thing.
+  const declaredDefaults = ((publishedAnswer(recipe) || {}).default_arguments) || {};
+  const args = { recipe_id: recipe.recipe_id, ...declaredDefaults };
   for (const [name, spec] of Object.entries((recipe.invocation || {}).arguments || {})) {
+    if (args[name] !== undefined) continue;
     if (Array.isArray(spec) && spec.length) args[name] = spec[0];
     else if (spec && typeof spec === 'object' && spec.default !== undefined) args[name] = spec.default;
   }
@@ -252,46 +274,31 @@ async function openSolution(recipe, inner, catalogue) {
 }
 
 function renderSolution(stage, env, recipe) {
+  let frame = null;
   const visuals = env.visuals || [];
   const primary = visuals.find((v) => v.view === 'validated-decision-map')
     || visuals.find((v) => v.priority === 'primary') || visuals[0] || null;
 
-  // The headline the producer wrote for this run.
+  // Lead with the published short answer where there is one; the run's own
+  // headline stands in otherwise. Either way it comes before the map.
+  const pa = publishedAnswer(recipe);
   const answer = env.answer || {};
-  if (answer.headline) stage.appendChild(el('h2', 'eco-solution-headline', answer.headline));
+  if (pa && pa.standfirst) stage.appendChild(el('p', 'eco-note-standfirst', pa.standfirst));
+  else if (answer.headline) stage.appendChild(el('h2', 'eco-solution-headline', answer.headline));
 
   // The map, in the author's own presentation where they declare one.
   if (primary) {
     const figure = el('div', 'eco-solution-figure');
     stage.appendChild(figure);
     const suppressSelection = !selectionAllowed(env);
-    renderMapInto(figure, primary, env, suppressSelection);
+    frame = renderMapInto(figure, primary, env, suppressSelection);
   }
 
-  // The write-up. Until the producer ships an author's prose (IDL-REQ-0004),
-  // this is assembled from the pack's OWN declared sentences and labelled as
-  // such — it is never presented as somebody's analysis when it is not.
-  const writeup = el('section', 'eco-solution-writeup');
-  writeup.appendChild(el('h3', 'eco-solution-h', 'What this does'));
-  if (recipe.decision) writeup.appendChild(el('p', null, recipe.decision));
-  const product = recipe.product || {};
-  const dl = el('dl', 'eco-solution-dl');
-  for (const [k, label] of [['observed', 'What is measured'], ['modelled', 'What is estimated'],
-    ['decision_output', 'What it recommends']]) {
-    if (!product[k]) continue;
-    dl.appendChild(el('dt', null, label));
-    dl.appendChild(el('dd', null, product[k]));
-  }
-  if (dl.childElementCount) writeup.appendChild(dl);
-  const method = (recipe.validation || {}).method;
-  if (method) {
-    writeup.appendChild(el('h3', 'eco-solution-h', 'How it was checked'));
-    writeup.appendChild(el('p', null, method));
-  }
-  writeup.appendChild(el('p', 'eco-solution-src',
-    'These words are the site pack’s own description of the recipe. '
-    + 'Author write-ups are not published by this pack yet.'));
-  stage.appendChild(writeup);
+  // TR-VIS-0010: when the pack publishes a field note, that is the answer.
+  // The consumer renders it; it does not paraphrase it, reorder its claims or
+  // let it outrank validation. Packs without one keep the old assembly.
+  if (pa) renderFieldNote(stage, pa, recipe, env, frame);
+  else renderAssembledWriteup(stage, recipe);
 
   // The test, in full — the same treatment a decision map gets in chat. Its
   // limitations are omitted here because this view gives them their own
@@ -343,6 +350,8 @@ function renderSolution(stage, env, recipe) {
 // it does not tell you. Every line is producer text or a producer number —
 // nothing here is the consumer's opinion of the work.
 function briefing(recipe, env) {
+  const pa = publishedAnswer(recipe);
+  if (pa) return publishedBriefing(pa, recipe, env);
   const q = (recipe.questions || [])[0] || recipe.title || '';
   const answer = env.answer || {};
   const val = answer.validation || {};
@@ -393,10 +402,217 @@ function briefing(recipe, env) {
   return out.join('\n');
 }
 
+// TR-VIS-0010: when a field note exists, that is what travels into the
+// conversation — the short answer, the evidence, the named estimator, the
+// plain-language test, the recommendation, the named places and why stronger
+// advice would be premature. Never the mechanically assembled write-up.
+function publishedBriefing(pa, recipe, env) {
+  const out = [];
+  const pub = pa.publication || {};
+  out.push(`**${pa.title || recipe.recipe_id}**`);
+  out.push('');
+  out.push('Published field note, copied from this site’s Themes. The site pack '
+    + 'published it; it was not worked out in this conversation.');
+  out.push('');
+  if (pa.standfirst) out.push(pa.standfirst);
+  const rec = pa.recommendation || {};
+  if (rec.summary || (rec.steps || []).length) {
+    out.push('', '**What to do now**');
+    if (rec.summary) out.push(rec.summary);
+    (rec.steps || []).forEach((step, i) => out.push(`${i + 1}. ${step}`));
+  }
+  if (pa.what_was_measured) out.push('', `**What was measured** — ${pa.what_was_measured}`);
+  const est = pa.estimate || {};
+  if (est.name || est.plain_language) {
+    out.push('', `**What was estimated** — ${[est.name, est.plain_language].filter(Boolean).join(': ')}`);
+  }
+  const test = pa.test || {};
+  if (test.outcome || test.plain_language) {
+    out.push('', `**How it was tested** — outcome: ${test.outcome || 'unknown'}`
+      + (test.plain_language ? `. ${test.plain_language}` : ''));
+  }
+  if (pa.why_this_advice) out.push('', `**Why not stronger advice** — ${pa.why_this_advice}`);
+  const spots = pa.named_locations || [];
+  if (spots.length) {
+    out.push('', `**Named places** (${spots.length}): `
+      + spots.map((sp) => `${sp.location_id}${sp.role ? ` [${sp.role}]` : ''}`).join(', '));
+  }
+  const val = (env.answer || {}).validation || {};
+  out.push('', `- Recipe \`${recipe.recipe_id}\`${recipe.version ? ` v${recipe.version}` : ''}, `
+    + `result \`${env.result_id}\`, validation ${val.status || 'unknown'}`);
+  out.push(`- Arguments this note describes: ${JSON.stringify(pa.default_arguments || {})}`);
+  if (pub.credit) out.push(`- Credit: ${pub.credit}${pub.published_at ? `, published ${pub.published_at}` : ''}`);
+  const sources = ((env.audit || {}).source_versions || []).map((sv) =>
+    (typeof sv === 'string' ? sv : `${sv.title || sv.source_id}${sv.doi ? ` (doi:${sv.doi})` : ''}`));
+  if (sources.length) out.push(`- Data sets used: ${sources.join('; ')}`);
+  out.push('');
+  out.push(`Ask about it below — in this conversation, “this analysis”, “this map” `
+    + `and “this” mean the ${recipe.recipe_id} analysis above.`);
+  return out.join('\n');
+}
+
+// ---- TR-VIS-0010: the published field note --------------------------------
+
+// A published answer is bound to the arguments it was written about. If a
+// reader reruns with different ones, the article no longer describes what is
+// on screen, so it is withheld rather than re-captioned.
+export function publishedAnswer(recipe, usedArgs) {
+  const pa = recipe && recipe.published_answer;
+  if (!pa || ((pa.publication || {}).status !== 'published')) return null;
+  if (usedArgs) {
+    const declared = pa.default_arguments || {};
+    const same = Object.entries(declared)
+      .every(([k, v]) => String(usedArgs[k] ?? '') === String(v ?? ''));
+    if (!same) return null;
+  }
+  return pa;
+}
+
+// Everything below is producer prose, inserted as TEXT — never as markup and
+// never executed. Order is the producer's: the short answer, then what to do,
+// then the evidence, the estimator, the test, and why stronger advice would be
+// premature.
+function renderFieldNote(stage, pa, recipe, env, frame) {
+  const article = el('article', 'eco-note');
+
+  // What to do now — the reason a reader opened this at all.
+  const rec = pa.recommendation || {};
+  if (rec.summary || (rec.steps || []).length) {
+    const box = el('section', 'eco-note-do');
+    box.appendChild(el('h3', 'eco-note-doh', 'What to do now'));
+    if (rec.summary) box.appendChild(el('p', 'eco-note-dosum', rec.summary));
+    if ((rec.steps || []).length) {
+      const ol = el('ol', 'eco-note-steps');
+      for (const step of rec.steps) ol.appendChild(el('li', null, step));
+      box.appendChild(ol);
+    }
+    article.appendChild(box);
+  }
+
+  // The named places, as a field checklist. Clicking one finds it on the map.
+  const spots = pa.named_locations || [];
+  if (spots.length) {
+    const box = el('section', 'eco-note-spots');
+    box.appendChild(el('h3', 'eco-solution-h', 'Where'));
+    const list = el('ul', 'eco-note-list');
+    for (const spot of spots) {
+      const li = el('li', 'eco-note-spot');
+      li.dataset.role = spot.role || '';
+      const btn = el('button', 'eco-note-spot-btn');
+      btn.appendChild(el('span', 'eco-note-spot-label', spot.label || spot.location_id || ''));
+      // Role is wording and treatment only — never a subject-specific meaning.
+      if (spot.role) btn.appendChild(el('span', `eco-note-role eco-note-role-${spot.role}`,
+        ROLE_WORDS[spot.role] || String(spot.role).replace(/[-_]/g, ' ')));
+      btn.addEventListener('click', () => {
+        // Finds the feature and flashes it. Nothing recomputes, no value moves;
+        // a location the map does not carry simply stays readable text.
+        const found = frame && frame.el && focusNamedLocation(frame.el, spot.location_id);
+        btn.classList.toggle('is-missing', !found);
+      });
+      li.appendChild(btn);
+      if (spot.instruction) li.appendChild(el('p', 'eco-note-spot-do', spot.instruction));
+      list.appendChild(li);
+    }
+    box.appendChild(list);
+    article.appendChild(box);
+  }
+
+  // The evidence, the estimator and the test, in reading order.
+  if (pa.what_was_measured) {
+    article.appendChild(el('h3', 'eco-solution-h', 'What was measured'));
+    article.appendChild(el('p', 'eco-note-p', pa.what_was_measured));
+  }
+  const est = pa.estimate || {};
+  if (est.name || est.plain_language) {
+    article.appendChild(el('h3', 'eco-solution-h', 'What was estimated'));
+    if (est.name) article.appendChild(el('p', 'eco-note-method', est.name));
+    if (est.plain_language) article.appendChild(el('p', 'eco-note-p', est.plain_language));
+  }
+  const test = pa.test || {};
+  if (test.outcome || test.plain_language) {
+    article.appendChild(el('h3', 'eco-solution-h', 'How the estimate was tested'));
+    if (test.outcome) {
+      // The outcome is a word, not a colour.
+      const line = el('p', 'eco-note-outcome');
+      line.appendChild(el('span', `eco-note-outcome-word eco-note-outcome-${test.outcome}`,
+        outcomeWords(test.outcome)));
+      article.appendChild(line);
+    }
+    if (test.plain_language) article.appendChild(el('p', 'eco-note-p', test.plain_language));
+  }
+  if (pa.why_this_advice) {
+    article.appendChild(el('h3', 'eco-solution-h', 'Why we are not giving stronger advice'));
+    article.appendChild(el('p', 'eco-note-p', pa.why_this_advice));
+  }
+
+  // Credit, and only real contributors.
+  const pub = pa.publication || {};
+  const credit = [pub.credit, pub.published_at ? `published ${pub.published_at}` : '']
+    .filter(Boolean).join(' · ');
+  const people = (pub.contributors || []).filter(Boolean);
+  if (credit || people.length) {
+    const foot = el('p', 'eco-note-credit',
+      [credit, people.length ? people.join(', ') : ''].filter(Boolean).join(' — '));
+    article.appendChild(foot);
+  }
+  stage.appendChild(article);
+}
+
+const ROLE_WORDS = {
+  act: 'act here',
+  'check-first': 'check first',
+  'measure-first': 'measure first',
+  'do-not-act': 'do not act here',
+};
+const OUTCOME_WORDS = {
+  passed: 'The test passed',
+  failed: 'The test did not pass',
+  'not-yet-testable': 'Not yet testable',
+  pending: 'Not tested yet',
+  'not-applicable': 'No test applies',
+};
+// An outcome word this consumer has not met still reads as words, not as a
+// machine token: hyphens out, first letter up.
+function outcomeWords(outcome) {
+  const key = String(outcome || '');
+  if (OUTCOME_WORDS[key]) return OUTCOME_WORDS[key];
+  const words = key.replace(/[-_]/g, ' ').trim();
+  return words ? words.charAt(0).toUpperCase() + words.slice(1) : '';
+}
+
+// The pre-TR-VIS-0010 fallback: a pack with no field note still reads, from
+// its own declared sentences, labelled as such.
+function renderAssembledWriteup(stage, recipe) {
+  const writeup = el('section', 'eco-solution-writeup');
+  writeup.appendChild(el('h3', 'eco-solution-h', 'What this does'));
+  if (recipe.decision) writeup.appendChild(el('p', null, recipe.decision));
+  const product = recipe.product || {};
+  const dl = el('dl', 'eco-solution-dl');
+  for (const [k, label] of [['observed', 'What is measured'], ['modelled', 'What is estimated'],
+    ['decision_output', 'What it recommends']]) {
+    if (!product[k]) continue;
+    dl.appendChild(el('dt', null, label));
+    dl.appendChild(el('dd', null, product[k]));
+  }
+  if (dl.childElementCount) writeup.appendChild(dl);
+  const method = (recipe.validation || {}).method;
+  if (method) {
+    writeup.appendChild(el('h3', 'eco-solution-h', 'How it was checked'));
+    writeup.appendChild(el('p', null, method));
+  }
+  writeup.appendChild(el('p', 'eco-solution-src',
+    'These words are the site pack’s own description of the recipe. '
+    + 'Author write-ups are not published by this pack yet.'));
+  stage.appendChild(writeup);
+}
+
 // The author's declared presentation, honoured where it exists. A basemap the
 // consumer does not recognise degrades to the default — it never fails the
 // render, and tiles always go through the same-origin proxy.
 function renderMapInto(host, visual, env, suppressSelection) {
+  // The frame is returned as a live handle: the field-note checklist focuses
+  // features inside it once the layers have landed.
+  const handle = { el: null };
   const layerData = new Map();
   const rawUrl = (ref) => (ref && ref.kind === 'result_data' && ref.handle
     ? `${client.base}/results/${encodeURIComponent(env.result_id)}/data/${encodeURIComponent(ref.handle)}`
@@ -419,5 +635,34 @@ function renderMapInto(host, visual, env, suppressSelection) {
     const toggles = el('div', 'eco-solution-toggles');
     frame.appendChild(toggles);
     renderLayerToggles(toggles, visual, frame, {});
+    // TR-VIS-0009: name the marks under the map. The Leaflet panel has no
+    // printed legend, and a dashed ring that nobody explains is decoration.
+    const marks = [];
+    for (const layer of visual.layers || []) {
+      const hint = layer.style_hint || {};
+      const fc = layerData.get(layer.layer_id);
+      const count = (field) => ((fc && fc.features) || [])
+        .filter((f) => (f.properties || {})[field]).length;
+      if (hint.selected_field && !suppressSelection) {
+        const n = count(hint.selected_field);
+        if (n) marks.push(['solid', `${n} chosen within the declared budget`]);
+      }
+      if (hint.validation_priority_field) {
+        const n = count(hint.validation_priority_field);
+        if (n) marks.push(['dashed', `${n} marked: check or collect evidence here — not a recommendation`]);
+      }
+    }
+    if (marks.length) {
+      const key = el('div', 'eco-solution-key');
+      for (const [kind, text] of marks) {
+        const item = el('span', 'eco-solution-keyitem');
+        item.appendChild(el('span', `eco-solution-keymark is-${kind}`));
+        item.appendChild(el('span', null, text));
+        key.appendChild(item);
+      }
+      frame.appendChild(key);
+    }
+    handle.el = frame;
   });
+  return handle;
 }

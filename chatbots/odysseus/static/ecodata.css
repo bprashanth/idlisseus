@@ -1514,3 +1514,69 @@ body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 17px; height: 17px; }
   transition: opacity 0.12s ease;
 }
 .eco-sky-tip.is-on { opacity: 1; }
+
+/* ===== TR-VIS-0010: the published field note ===========================
+   The producer's article, in its order: short answer, map, what to do, the
+   evidence, the estimator, the test, and why stronger advice is premature. */
+.eco-note-standfirst {
+  margin: 0 0 20px; max-width: 46ch;
+  font: 400 19px/1.55 var(--font-display); color: var(--ink);
+}
+.eco-note { margin: 26px 0 0; max-width: 62ch; }
+.eco-note-do {
+  margin: 0 0 26px; padding: 18px 20px 16px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--surface);
+}
+.eco-note-doh {
+  margin: 0 0 8px;
+  font: 600 15px/1.3 var(--font-display); color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.eco-note-dosum { margin: 0 0 12px; font-size: 14.5px; line-height: 1.65; color: var(--ink); }
+.eco-note-steps { margin: 0; padding-left: 20px; }
+.eco-note-steps li { font-size: 14px; line-height: 1.65; color: var(--ink-soft); margin: 6px 0; }
+.eco-note-p { margin: 0 0 16px; font-size: 15px; line-height: 1.72; color: var(--ink); }
+.eco-note-method {
+  margin: 0 0 6px;
+  font: 600 14.5px/1.5 var(--font-ui); color: var(--ink);
+}
+.eco-note-outcome { margin: 0 0 8px; }
+.eco-note-outcome-word {
+  font: 600 11px/1 var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 5px 9px; border-radius: 999px; border: 1px solid currentColor;
+}
+.eco-note-outcome-passed { color: var(--good, #0b7a5c); }
+.eco-note-outcome-failed { color: var(--critical); }
+.eco-note-outcome-pending, .eco-note-outcome-not-applicable { color: var(--ink-faint); }
+
+/* The field checklist: named places, each one findable on the map. */
+.eco-note-spots { margin: 0 0 24px; }
+.eco-note-list { list-style: none; margin: 0; padding: 0; }
+.eco-note-spot { border-bottom: 1px solid var(--line); padding: 10px 0; }
+.eco-note-spot:first-child { border-top: 1px solid var(--line); }
+#eco-themes .eco-note-spot-btn {
+  display: flex; align-items: baseline; gap: 10px; width: 100%;
+  background: none; border: 0; padding: 0; height: auto; cursor: pointer;
+  text-align: left; color: var(--ink);
+}
+#eco-themes .eco-note-spot-btn:hover .eco-note-spot-label { color: var(--pine); text-decoration: underline; }
+#eco-themes .eco-note-spot-btn.is-missing .eco-note-spot-label { text-decoration: none; cursor: default; }
+.eco-note-spot-label { font: 600 14px/1.4 var(--font-ui); }
+.eco-note-role {
+  flex: none; margin-left: auto;
+  font: 600 9.5px/1 var(--font-ui); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 999px; border: 1px solid currentColor; color: var(--ink-faint);
+}
+.eco-note-role-act { color: var(--pine); }
+.eco-note-role-check-first, .eco-note-role-measure-first { color: var(--warn, #a8760a); }
+.eco-note-spot-do { margin: 5px 0 0; font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+.eco-note-credit { margin: 22px 0 0; font-size: 12.5px; color: var(--ink-faint); }
+.eco-theme-partialnote { margin: 6px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-faint); max-width: 52ch; }
+/* Naming the marks under the map: solid collar = chosen, dashed = go and look. */
+.eco-solution-key { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 0 12px 12px; }
+.eco-solution-keyitem { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-soft); }
+.eco-solution-keymark { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.eco-solution-keymark.is-solid { border: 2.5px solid var(--ink); }
+.eco-solution-keymark.is-dashed { border: 2px dashed var(--ink); }
+.eco-note-outcome-not-yet-testable { color: var(--ink-faint); }

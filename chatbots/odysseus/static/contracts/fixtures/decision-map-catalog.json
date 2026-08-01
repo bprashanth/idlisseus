@@ -3,7 +3,7 @@
  "site": {
   "site_id": "valparai",
   "label": "Valparai",
-  "pack_digest": "sha256:adeedd055fbcc6e407c8b4eb597c138f6b4199cafc78eba89f49ffdcab08fc53"
+  "pack_digest": "sha256:17c64585af7732daeb8ad147eee91b986f0d16f51d1e97336e84b637c88e375d"
  },
  "capability_id": "validated-decision-map",
  "recipes": [
@@ -12,7 +12,7 @@
    "version": "1.0.0",
    "title": "Where to restart road wildlife monitoring",
    "theme": "protect",
-   "decision": "Choose a small set of previously surveyed road sections for renewed monitoring before spending on mitigation or camera deployment.",
+   "decision": "Choose a few short road sections to check again now before spending money on barriers, bridges or longer camera deployment.",
    "status": "ready",
    "capability_id": "validated-decision-map",
    "questions": [
@@ -47,9 +47,9 @@
     }
    ],
    "product": {
-    "observed": "Earlier roadkill points, surveyed road cells and withheld later roadkill points.",
-    "modelled": "An effort-adjusted historical risk ranking learned only from the earlier year.",
-    "decision_output": "A budget-sized set of road cells for renewed monitoring, emitted only when the hindcast passes."
+    "observed": "Mammal roadkill records from 2011 and 2012, together with how often each route was surveyed.",
+    "modelled": "A smoothed roadkill-rate ranking learnt from 2011 only; cells with very little survey effort are pulled towards the overall average.",
+    "decision_output": "Check the six named road cells again now. Do not build mitigation from this historical result alone."
    },
    "validation": {
     "kind": "temporal-hindcast",
@@ -85,14 +85,99 @@
     "A passed 2011 monsoon-to-2012 summer hindcast does not establish current 2026 risk.",
     "Road-cell effort is allocated from each route's sampled habitat points rather than a continuous GPS effort trace.",
     "Recommendations remain on the routes represented by the admitted survey."
-   ]
+   ],
+   "published_answer": {
+    "recipe_id": "roadkill-surveillance",
+    "version": "1.0.0",
+    "title": "Where should we restart mammal roadkill monitoring?",
+    "standfirst": "Begin with six short road sections around Waverly, Balaji Temple and Old Valparai–Sholayar. Treat them as places to check now, not as proof that they remain the most dangerous roads in 2026.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "taxon_group": "mammalia",
+     "budget_cells": 6
+    },
+    "what_was_measured": "Repeated road surveys recorded 98 mammal roadkill individuals in 2011 and 60 in 2012. The survey covered 147 small road cells in the later year and recorded how often each route was visited.",
+    "estimate": {
+     "name": "Smoothed roadkill-rate ranking",
+     "plain_language": "For each road cell, the calculation divided the 2011 roadkill count by estimated survey exposure. It gently pulled very small samples towards the average rate so that one chance record could not dominate the list, then ranked the cells."
+    },
+    "test": {
+     "outcome": "passed",
+     "plain_language": "The ranking used only 2011. It was then checked against the 60 mammal roadkill individuals recorded in 2012, which the calculation had never seen. The highest-ranked fifth of surveyed cells contained 55% of those later deaths. Its overall ability to put a later death above a later non-death cell was 56.6%, just above the declared 55% minimum. The historical test passed, but only narrowly."
+    },
+    "recommendation": {
+     "summary": "With six cameras or observer teams, repeat monitoring in the six mapped cells before paying for barriers, bridges or other mitigation.",
+     "steps": [
+      "Cover the two selected Waverly cells around 10.390–10.395 N first, because they rank first and third.",
+      "Cover the Old Valparai–Sholayar cell at 10.355–10.360 N, 76.925–76.930 E and the Balaji Temple–Waverly cell at 10.365–10.370 N, 76.990–76.995 E.",
+      "Use the remaining two units at the Waverly cell around 10.370–10.375 N and the Balaji Temple cell around 10.355–10.360 N.",
+      "Repeat the original effort consistently and record traffic and successful crossings as well as deaths. Rerun the test before choosing mitigation works."
+     ]
+    },
+    "why_this_advice": "The source is more than a decade old and records dead animals, not every crossing. Building in the wrong place could waste a scarce conservation budget. A short present-day check costs less and tells us whether these historical signals still deserve deeper work.",
+    "named_locations": [
+     {
+      "location_id": "road-2078-15399",
+      "label": "Waverly east cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "road-2071-15385",
+      "label": "Old Valparai–Sholayar cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "road-2078-15398",
+      "label": "Waverly west cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "road-2073-15398",
+      "label": "Balaji Temple–Waverly cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "road-2074-15398",
+      "label": "Waverly southern cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "road-2071-15399",
+      "label": "Balaji Temple cell",
+      "instruction": "Restart comparable mammal road monitoring here.",
+      "role": "check-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "passed",
+     "location_role": "selected_for_budget",
+     "location_ids": [
+      "road-2078-15399",
+      "road-2071-15385",
+      "road-2078-15398",
+      "road-2073-15398",
+      "road-2074-15398",
+      "road-2071-15399"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "forest-recovery-monitoring",
    "version": "1.0.0",
    "title": "Where another forest-recovery visit will add the most knowledge",
    "theme": "restore",
-   "decision": "Prioritise a limited resurvey of existing plots where adult forest structure least reliably predicts regeneration recovery.",
+   "decision": "Choose existing forest plots where one more visit will teach us most about how regeneration differs from apparently similar forest.",
    "status": "ready",
    "capability_id": "validated-decision-map",
    "questions": [
@@ -127,9 +212,9 @@
     }
    ],
    "product": {
-    "observed": "Measured adult and regeneration indicators at fixed plots.",
-    "modelled": "A transparent nearest-neighbour estimate evaluated with whole-landscape holdouts.",
-    "decision_output": "Existing plots with the largest honest held-out errors, spread across landscapes, for targeted remeasurement."
+    "observed": "Adult trees, canopy, distance from protected forest and regenerating tree species measured in 123 fixed plots.",
+    "modelled": "A distance-weighted nearest-neighbour estimate: each unseen plot is compared with plots in other landscapes that have the most similar adult forest.",
+    "decision_output": "Remeasure the eight named plots using the original protocol. Large errors mean the model has something to learn, not that restoration failed."
    },
    "validation": {
     "kind": "spatial-holdout",
@@ -163,15 +248,114 @@
     "This prioritises learning at existing plots; it does not extrapolate recovery across the whole plateau.",
     "The comparison is predictive and descriptive, not a causal estimate of restoration treatment.",
     "Plots in the same named landscape are withheld together, but landscapes may still differ in unmeasured ways."
-   ]
+   ],
+   "published_answer": {
+    "recipe_id": "forest-recovery-monitoring",
+    "version": "1.0.0",
+    "title": "Which forest plots should we revisit to learn most about recovery?",
+    "standfirst": "Revisit eight existing plots, beginning with L09 at Candura and the benchmark plot HP36_P3B at Iyerpadi–Akkamalai. These are places where another measurement will teach us most; they are not a list of failed restoration sites.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "outcome": "regeneration_tree_species_richness",
+     "budget_plots": 8
+    },
+    "what_was_measured": "The source measured adult trees, canopy cover, distance from protected forest and regenerating tree species in 123 fixed plots across 17 named landscapes. Each plot covers 0.04 hectares.",
+    "estimate": {
+     "name": "Distance-weighted nearest-neighbour regression",
+     "plain_language": "For each plot, the algorithm found plots elsewhere with the most similar adult forest structure. The closest matches counted most, and their regeneration measurements were combined to estimate how many regenerating tree species the unseen plot might contain."
+    },
+    "test": {
+     "outcome": "passed",
+     "plain_language": "The algorithm was rerun 17 times. Each time it hid one entire named landscape, learnt only from the other landscapes, and then estimated the plots it had never seen. Its average error was 4.93 species per plot, compared with 6.06 species for simply using the average of the training plots—an 18.6% improvement, above the required 10%."
+    },
+    "recommendation": {
+     "summary": "Survey the eight named plots again with the same plot boundaries and plant-size rules.",
+     "steps": [
+      "Start with L09 at Candura, HP36_P3B at Iyerpadi–Akkamalai and UPMA_P3B at Manamboli.",
+      "Then cover VAR4_10U at Varattuparai 4, OLCA_P2B at Old Kavarkal and INME_03U at Injipara.",
+      "Complete AGO_03U at TATA AG Office and STM1_02U at Stanmore.",
+      "Record the same regeneration and adult-tree fields. Use the new observations to learn why these plots differed from their lookalikes; do not score staff or restoration success from the prediction error alone."
+     ]
+    },
+    "why_this_advice": "The model passed a genuine test across whole landscapes, so the shortlist is useful for learning. But a large error can arise because a plot is unusually successful, unusually poor, or simply different in an unmeasured way. Calling it failure before remeasurement could send money and attention in the wrong direction.",
+    "named_locations": [
+     {
+      "location_id": "L09",
+      "label": "Candura — plot L09",
+      "instruction": "Remeasure adult and regenerating trees using the original plot protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "HP36_P3B",
+      "label": "Iyerpadi–Akkamalai — plot HP36_P3B",
+      "instruction": "Remeasure this benchmark plot using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "UPMA_P3B",
+      "label": "Manamboli — plot UPMA_P3B",
+      "instruction": "Remeasure this benchmark plot using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "VAR4_10U",
+      "label": "Varattuparai 4 — plot VAR4_10U",
+      "instruction": "Remeasure adult and regenerating trees using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "OLCA_P2B",
+      "label": "Old Kavarkal — plot OLCA_P2B",
+      "instruction": "Remeasure this benchmark plot using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "INME_03U",
+      "label": "Injipara — plot INME_03U",
+      "instruction": "Remeasure adult and regenerating trees using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "AGO_03U",
+      "label": "TATA AG Office — plot AGO_03U",
+      "instruction": "Remeasure adult and regenerating trees using the original protocol.",
+      "role": "act"
+     },
+     {
+      "location_id": "STM1_02U",
+      "label": "Stanmore — plot STM1_02U",
+      "instruction": "Remeasure adult and regenerating trees using the original protocol.",
+      "role": "act"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "passed",
+     "location_role": "selected_for_budget",
+     "location_ids": [
+      "L09",
+      "HP36_P3B",
+      "UPMA_P3B",
+      "VAR4_10U",
+      "OLCA_P2B",
+      "INME_03U",
+      "AGO_03U",
+      "STM1_02U"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "mother-tree-protection",
-   "version": "0.1.0",
-   "title": "Large fruiting trees worth checking and protecting",
+   "version": "1.0.0",
+   "title": "Historically important fruiting trees to check first",
    "theme": "protect",
-   "decision": "Locate individually verified mature native trees that support seed collection or animal visitation.",
-   "status": "awaiting-validation-data",
+   "decision": "Choose individually marked fruiting trees to check for survival, fruiting and threats before protection or seed collection.",
+   "status": "ready",
    "capability_id": "validated-decision-map",
    "questions": [
     "Which mother trees should we protect?",
@@ -179,53 +363,182 @@
    ],
    "required_inputs": [
     {
-     "role": "plot tree measurements",
-     "description": "Tree height, girth, species, dispersal traits and visitation evidence.",
+     "role": "individual tree identity and position",
+     "description": "Source-declared tree codes and coordinates for every watched focal tree.",
      "status": "available",
      "source_ids": [
-      "dryad-8kprr4xvb-restoration-opportunities",
       "dryad-5x69p8d0r-frugivory"
      ]
     },
     {
-     "role": "crown-scale ground truth",
-     "description": "Georeferenced stems or crowns accurate enough to match an individual canopy crown.",
-     "status": "missing"
+     "role": "tree dimensions and fruit crop",
+     "description": "Height, girth and fruit-crop observations for each positioned tree.",
+     "status": "available",
+     "source_ids": [
+      "dryad-5x69p8d0r-frugivory"
+     ]
     },
     {
-     "role": "repeat canopy imagery",
-     "description": "Two co-registered, dated high-resolution canopy-height surfaces for hindcasting crown persistence and emergence.",
-     "status": "missing"
+     "role": "direct animal watches",
+     "description": "Timed focal-tree watches with visitor identities and counts.",
+     "status": "available",
+     "source_ids": [
+      "dryad-5x69p8d0r-frugivory"
+     ]
     }
    ],
    "product": {
-    "observed": "Verified trees and visitation records.",
-    "modelled": "Upper-canopy crown candidates matched to verified stems.",
-    "decision_output": "Trees for protection or seed-collection checks, with genetic and phenology caveats."
+    "observed": "Individually coded trees, coordinates, dimensions, fruit crop, observation effort and animal visitors from November 2017 to May 2018.",
+    "modelled": "No predictive model is used. The observed trees are ranked by visitor variety, visits per hour and fruit crop.",
+    "decision_output": "Check the named trees in the field now; confirm survival and fruiting before protection or seed collection."
    },
    "validation": {
-    "kind": "field-ground-truth",
-    "status": "pending",
-    "method": "Withhold positioned field trees and test crown detection, height error and repeated crown identity.",
-    "claim_if_passed": "Highlight candidate upper-canopy trees for field confirmation.",
-    "claim_if_failed": "Remain at plot-level tree evidence and do not name individual crowns."
+    "kind": "observation-only",
+    "status": "runtime",
+    "method": "Require an individual tree code, coordinates, dimensions, timed watches and direct visitor records; apply minimum tree, effort and visit-event checks.",
+    "claim_if_passed": "The highlighted trees are historically field-verified starting points for a present-day check, not claims that they remain alive or fruiting.",
+    "claim_if_failed": "Show the observed focal trees but do not rank them for a revisit.",
+    "thresholds": {
+     "minimum_georeferenced_trees": 100,
+     "minimum_observation_hours": 500,
+     "minimum_visit_events": 500
+    }
    },
    "invocation": {
-    "arguments": {},
-    "agent_rule": "Return the missing crown-registration requirements; use plot-level tree maps in the meantime."
+    "arguments": {
+     "budget_trees": {
+      "minimum": 1,
+      "maximum": 30,
+      "default": 10
+     }
+    },
+    "agent_rule": "Invoke for mother-tree, fruiting-tree, seed-source or historically important tree questions. Say that the map identifies a field revisit, not a current protection order or a remotely detected crown."
    },
    "limitations": [
-    "A plot centroid cannot validate an individual crown.",
-    "A newly visible crown is not automatically a newly recruited tree."
-   ]
+    "The evidence is from November 2017 to May 2018 and must be refreshed before seed collection or protection work.",
+    "High visitation does not by itself establish genetic value or sustainable seed-harvest capacity.",
+    "This map does not segment crowns or infer newly recruited trees from imagery."
+   ],
+   "published_answer": {
+    "recipe_id": "mother-tree-protection",
+    "version": "1.0.0",
+    "title": "Which historically important fruiting trees should we check first?",
+    "standfirst": "Check ten individually marked Persea macrantha trees first. PEMA23, PEMA09 and PEMA14 led the historical list because many kinds of birds and mammals visited them, but nobody should assume they are still alive or fruiting today.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "budget_trees": 10
+    },
+    "what_was_measured": "Between November 2017 and May 2018, field teams watched 131 individually coded fruiting trees from four species for 622.8 hours. They recorded 2,320 animal visits from 25 named visitor groups, along with each tree's position, height, girth and fruit crop.",
+    "estimate": {
+     "name": "No predictive model—an observed-tree ranking",
+     "plain_language": "The list ranks real watched trees by the variety of visitors, visits per hour and recorded fruit crop. It does not use satellite imagery to guess crowns, and it does not estimate genetic quality or current survival."
+    },
+    "test": {
+     "outcome": "passed",
+     "plain_language": "This is a completeness check rather than a forecast. The map required at least 100 positioned trees, 500 hours of direct watching and 500 visit events. It had 131 trees, 622.8 hours and 2,320 events, so it passed. Present-day condition remains untested."
+    },
+    "recommendation": {
+     "summary": "Make a present-day field pass over the ten mapped tree codes before protection or seed collection decisions.",
+     "steps": [
+      "Check PEMA23, PEMA09, PEMA14, PEMA16 and PEMA15 first; confirm the tag, coordinates, survival, crown condition and current fruiting.",
+      "Then check PEMA24, PEMA29, PEMA32, PEMA20 and PEMA18 using the same form.",
+      "If a tree is alive, record threats, recent animal visitors and whether seed collection is safe. If the identity or location cannot be confirmed, mark it unresolved rather than substituting a nearby tree.",
+      "Only after this pass should the team choose trees for protection work or design a genetically diverse seed-collection plan."
+     ]
+    },
+    "why_this_advice": "These trees were important feeding points in 2017–2018, which makes them sensible places to begin. Acting directly on an old list could protect a dead or misidentified tree, or collect seed from too narrow a set. The field check protects both the budget and the biological purpose of the work.",
+    "named_locations": [
+     {
+      "location_id": "PEMA23",
+      "label": "Persea macrantha PEMA23",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA09",
+      "label": "Persea macrantha PEMA09",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA14",
+      "label": "Persea macrantha PEMA14",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA16",
+      "label": "Persea macrantha PEMA16",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA15",
+      "label": "Persea macrantha PEMA15",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA24",
+      "label": "Persea macrantha PEMA24",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA29",
+      "label": "Persea macrantha PEMA29",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA32",
+      "label": "Persea macrantha PEMA32",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA20",
+      "label": "Persea macrantha PEMA20",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     },
+     {
+      "location_id": "PEMA18",
+      "label": "Persea macrantha PEMA18",
+      "instruction": "Confirm survival, identity, fruiting and present threats.",
+      "role": "check-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "passed",
+     "location_role": "selected_for_budget",
+     "location_ids": [
+      "PEMA23",
+      "PEMA09",
+      "PEMA14",
+      "PEMA16",
+      "PEMA15",
+      "PEMA24",
+      "PEMA29",
+      "PEMA32",
+      "PEMA20",
+      "PEMA18"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "forest-rhythm",
-   "version": "0.1.0",
-   "title": "Leaves, flowers and fruit through the year",
+   "version": "1.0.0",
+   "title": "Where repeat tree visits can reveal forest rhythm",
    "theme": "anticipate",
-   "decision": "Choose when and where to revisit trees for fruit, seed, flowering or animal-resource monitoring.",
-   "status": "awaiting-validation-data",
+   "decision": "Choose known trees to visit repeatedly so the team can build a trustworthy flowering and fruiting calendar.",
+   "status": "partial",
    "capability_id": "validated-decision-map",
    "questions": [
     "What is fruiting now?",
@@ -233,8 +546,16 @@
    ],
    "required_inputs": [
     {
-     "role": "dated phenology observations",
-     "description": "Tree-numbered leaf, flower and fruit scores from hand-completed trail forms.",
+     "role": "positioned fruiting-tree snapshots",
+     "description": "Individually coded trees with date, position and fruit-crop observations from focal-tree watches.",
+     "status": "available",
+     "source_ids": [
+      "dryad-5x69p8d0r-frugivory"
+     ]
+    },
+    {
+     "role": "dated phenology forms",
+     "description": "Tree-numbered leaf, flower and fruit scores from hand-completed trail forms; the inspected scans require reviewed transcription.",
      "status": "needs-review"
     },
     {
@@ -252,33 +573,166 @@
     }
    ],
    "product": {
-    "observed": "Dated tree and trail phenophase scores.",
-    "modelled": "A cyclic seasonal curve only after repeated-tree validation.",
-    "decision_output": "Dates and trails for a bounded revisit or seed-collection check."
+    "observed": "One positioned fruit-crop snapshot per tree between November 2017 and May 2018.",
+    "modelled": "No seasonal curve is estimated because the same trees were not repeatedly observed through a year.",
+    "decision_output": "Visit the twelve named trees every month for a full year, recording explicit zeros as well as flowers and fruit."
    },
    "validation": {
     "kind": "temporal-hindcast",
     "status": "pending",
-    "method": "Fit earlier dates and trees, then predict withheld later visits and withheld trees.",
+    "method": "Map positioned snapshots now; after repeated visits are admitted, fit earlier dates and trees and predict withheld later visits and withheld trees.",
     "claim_if_passed": "Show a seasonal timing estimate with uncertainty and observation coverage.",
-    "claim_if_failed": "Show dated snapshots only; do not call satellite greenness flowering or fruiting."
+    "claim_if_failed": "Highlight where repeat observations have high value, but do not claim what is flowering or fruiting now."
    },
    "invocation": {
-    "arguments": {},
-    "agent_rule": "Use only the observed snapshot until repeated forms are admitted and checked."
+    "arguments": {
+     "budget_trees": {
+      "minimum": 1,
+      "maximum": 40,
+      "default": 12
+     }
+    },
+    "agent_rule": "Invoke for forest rhythm, fruiting calendar, seed timing or repeat phenology questions. The highlighted trees are data requests until a later-date hindcast passes."
    },
    "limitations": [
-    "The currently inspected phenology PDF contains two trail visits, not a full annual series.",
+    "The positioned source contains one visit per tree between November 2017 and May 2018, not a full annual series.",
+    "The currently inspected phenology PDF contains two trail visits and still requires reviewed transcription.",
     "Satellite greenness is explanatory context, not proof of flowering or fruiting."
-   ]
+   ],
+   "published_answer": {
+    "recipe_id": "forest-rhythm",
+    "version": "1.0.0",
+    "title": "When is the forest flowering and fruiting?",
+    "standfirst": "The present data cannot answer what is flowering or fruiting now. The useful next move is a one-year repeat survey of twelve already marked trees, not a seasonal prediction.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "budget_trees": 12
+    },
+    "what_was_measured": "The pack contains positioned fruit-crop observations for 131 trees from four species between November 2017 and May 2018. Every tree appears on only one date in this admitted source, so the records are snapshots rather than a calendar.",
+    "estimate": {
+     "name": "No seasonal estimator yet",
+     "plain_language": "A flowering or fruiting curve needs repeated observations of the same tree through the year. The map only chooses a balanced set of known trees—three each of Canarium strictum, Heynea trijuga, Myristica dactyloides and Persea macrantha—where those repeats would be most useful."
+    },
+    "test": {
+     "outcome": "not-yet-testable",
+     "plain_language": "There are zero complete annual repeats and zero independent later visits in the admitted data. A future model should learn from earlier months and some trees, then predict later months and other trees it never saw. Until those observations exist, there is nothing honest to test."
+    },
+    "recommendation": {
+     "summary": "Visit the twelve mapped trees every month for at least one full year; fortnightly visits are better during rapid flowering or fruiting changes.",
+     "steps": [
+      "Track CAST06, CAST23 and CAST25 for Canarium strictum; HETR26, HETR30 and HETR31 for Heynea trijuga.",
+      "Track MYDA08, MYDA32 and MYDA33 for Myristica dactyloides; PEMA01, PEMA15 and PEMA17 for Persea macrantha.",
+      "At every visit, record leaf, flower and fruit scores, including an explicit zero when nothing is present. Keep tree identity and observer effort consistent.",
+      "After twelve months, hide the final months and several whole trees, rerun the seasonal estimate, and publish timing advice only if it predicts those unseen observations well."
+     ]
+    },
+    "why_this_advice": "Telling collectors or wildlife teams that a species is fruiting now from one old visit could waste a journey and distort planning. A repeat series is slower, but it turns a memory of one season into a calendar that can be checked and trusted.",
+    "named_locations": [
+     {
+      "location_id": "CAST06",
+      "label": "Canarium strictum CAST06",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "CAST23",
+      "label": "Canarium strictum CAST23",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "CAST25",
+      "label": "Canarium strictum CAST25",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "HETR26",
+      "label": "Heynea trijuga HETR26",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "HETR30",
+      "label": "Heynea trijuga HETR30",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "HETR31",
+      "label": "Heynea trijuga HETR31",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "MYDA08",
+      "label": "Myristica dactyloides MYDA08",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "MYDA32",
+      "label": "Myristica dactyloides MYDA32",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "MYDA33",
+      "label": "Myristica dactyloides MYDA33",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "PEMA01",
+      "label": "Persea macrantha PEMA01",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "PEMA15",
+      "label": "Persea macrantha PEMA15",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "PEMA17",
+      "label": "Persea macrantha PEMA17",
+      "instruction": "Repeat phenology every month for a full year.",
+      "role": "measure-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "pending",
+     "location_role": "validation_priority",
+     "location_ids": [
+      "CAST06",
+      "CAST23",
+      "CAST25",
+      "HETR26",
+      "HETR30",
+      "HETR31",
+      "MYDA08",
+      "MYDA32",
+      "MYDA33",
+      "PEMA01",
+      "PEMA15",
+      "PEMA17"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "soundscape-deployment",
-   "version": "0.1.0",
+   "version": "1.0.0",
    "title": "Where another recorder will add the most information",
    "theme": "listen",
-   "decision": "Place a limited number of acoustic recorders where they test an explicit uncertainty or under-sampled environmental condition.",
-   "status": "awaiting-validation-data",
+   "decision": "Choose where a limited number of recorders should go next without mistaking an uncertain estimate for a biodiversity hotspot.",
+   "status": "ready",
    "capability_id": "validated-decision-map",
    "questions": [
     "Where should we put five recorders?",
@@ -294,44 +748,146 @@
      ]
     },
     {
-     "role": "time-matched environmental predictors",
-     "description": "Environmental surfaces from the acoustic survey period, not only a later annual composite.",
-     "status": "missing"
+     "role": "time-matched field predictors",
+     "description": "Vegetation structure measured at the same 2020 recorder stations.",
+     "status": "available",
+     "source_ids": [
+      "github-acoustics-restoration-v1"
+     ]
     },
     {
-     "role": "held-out station validation",
-     "description": "Whole-station holdouts testing whether the proposed model predicts acoustic outcomes better than a baseline.",
-     "status": "missing"
+     "role": "independent spatial groups",
+     "description": "Named forests withheld together so stations in the same forest do not leak into the test.",
+     "status": "available",
+     "source_ids": [
+      "github-acoustics-restoration-v1"
+     ]
     }
    ],
    "product": {
-    "observed": "Recorder stations, effort and validated summaries.",
-    "modelled": "Uncertainty or expected information gain across environmentally supported cells.",
-    "decision_output": "Budget-sized recorder locations that test the largest supported uncertainty."
+    "observed": "Bird richness detected at 43 recorder stations, plus vegetation measured at those stations in 13 forests.",
+    "modelled": "A twelve-nearest-neighbour estimate: an unseen station is compared with stations in other forests that have the most similar vegetation.",
+    "decision_output": "The current test fails. Repeat recording at OLCAP3B, OLV208U, PANMP3B, SEL207R, STIN02U and UPMAP1B; do not choose new sites from this model yet."
    },
    "validation": {
     "kind": "spatial-holdout",
-    "status": "pending",
-    "method": "Withhold whole recorder stations and compare prediction and uncertainty calibration against a simple baseline.",
-    "claim_if_passed": "Recommend new recorder cells inside the environmental support of the training stations.",
-    "claim_if_failed": "Map existing station coverage and environmental gaps only."
+    "status": "runtime",
+    "method": "Withhold every station in one named forest, predict acoustically detected bird richness from a fixed 12-neighbour vegetation match, and compare with the training-mean baseline.",
+    "claim_if_passed": "The vegetation model beats the baseline across held-out forests; highlighted surveyed conditions are defensible starting conditions for follow-up design, not automatically new coordinates.",
+    "claim_if_failed": "Do not recommend new recorder locations; highlight existing stations where repeat recordings would most improve the model.",
+    "thresholds": {
+     "minimum_stations": 35,
+     "minimum_landscapes": 10,
+     "minimum_mae_improvement_over_baseline": 0.1
+    }
    },
    "invocation": {
-    "arguments": {},
-    "agent_rule": "Do not recommend new stations from environmental novelty alone; wait for the station-level outcome hindcast."
+    "arguments": {
+     "budget_stations": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 6
+     }
+    },
+    "agent_rule": "Invoke for acoustic-recorder or soundscape deployment questions. If the spatial test fails, describe highlighted stations only as validation revisits, never as predicted biodiversity hotspots."
    },
    "limitations": [
-    "Environmental novelty is not automatically biodiversity value.",
-    "Recorder outages and unequal duration must remain visible."
-   ]
+    "Environmental resemblance is not automatically biodiversity value.",
+    "The first runnable outcome is acoustically detected bird richness, not all soundscape functions.",
+    "The map prioritises existing-station repeats when the model fails; it does not invent unsurveyed deployment coordinates."
+   ],
+   "published_answer": {
+    "recipe_id": "soundscape-deployment",
+    "version": "1.0.0",
+    "title": "Where should we put six sound recorders?",
+    "standfirst": "Do not choose six new sites from this model yet. Put the six recorders back at OLCAP3B, OLV208U, PANMP3B, SEL207R, STIN02U and UPMAP1B for a repeat pass; those are the places where the current model was most wrong.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "budget_stations": 6
+    },
+    "what_was_measured": "The study matched 43 recorder stations in 13 named forests with vegetation measured in 2020: tree basal area, height, stem count, tree richness, canopy cover, leaf litter and vertical structure. The outcome was the number of bird species detected acoustically at each station.",
+    "estimate": {
+     "name": "Twelve-nearest-neighbour regression",
+     "plain_language": "For an unseen station, the algorithm found the twelve stations in other forests with the most similar measured vegetation. Closer matches counted more, and their bird-richness values were combined into an estimate."
+    },
+    "test": {
+     "outcome": "failed",
+     "plain_language": "The algorithm was rerun thirteen times, each time hiding every station from one whole forest. Across 43 unseen stations, it missed by 5.21 bird species on average. Simply using the average of the other forests missed by 5.61. That is only a 7.2% improvement, below the 10% minimum, so the test failed."
+    },
+    "recommendation": {
+     "summary": "Use all six available recorders for repeat measurements at the six named existing stations; do not use this result to invent new coordinates.",
+     "steps": [
+      "Return one recorder each to OLCAP3B at Old Cavarakal, OLV208U at Old Valparai and PANMP3B at Pannimade.",
+      "Return one recorder each to SEL207R at Selaliparai, STIN02U at Stanmore and UPMAP1B at Upper Manamboli.",
+      "Match the original recording season, hours and number of visits as closely as practical, and remeasure the vegetation fields that may have changed.",
+      "Rerun the whole-forest test. Only if the revised model clears the agreed error improvement should it be used with a candidate-site environmental layer to suggest new recorder locations."
+     ]
+    },
+    "why_this_advice": "A weak model can produce a very precise-looking map and still send recorders to uninformative places. That would consume travel, equipment time and staff effort without answering the question. Repeating the six hardest stations is the fastest way to learn why the estimate failed and whether it can become useful.",
+    "named_locations": [
+     {
+      "location_id": "OLCAP3B",
+      "label": "Old Cavarakal — station OLCAP3B",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "OLV208U",
+      "label": "Old Valparai — station OLV208U",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "PANMP3B",
+      "label": "Pannimade — station PANMP3B",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "SEL207R",
+      "label": "Selaliparai — station SEL207R",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "STIN02U",
+      "label": "Stanmore — station STIN02U",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "UPMAP1B",
+      "label": "Upper Manamboli — station UPMAP1B",
+      "instruction": "Repeat the original acoustic sampling and vegetation check.",
+      "role": "measure-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "failed",
+     "location_role": "validation_priority",
+     "location_ids": [
+      "OLCAP3B",
+      "OLV208U",
+      "PANMP3B",
+      "SEL207R",
+      "STIN02U",
+      "UPMAP1B"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "canopy-corridor-validation",
-   "version": "0.1.0",
+   "version": "1.0.0",
    "title": "Connections animals may use—and where to test them",
    "theme": "reconnect",
-   "decision": "Choose candidate crossing or movement locations for cameras, canopy checks or other validation.",
-   "status": "awaiting-validation-data",
+   "decision": "Choose small areas where matched cameras can test whether old lion-tailed macaque crossing clues still describe real movement.",
+   "status": "partial",
    "capability_id": "validated-decision-map",
    "questions": [
     "Where might canopy connections matter for this species?",
@@ -347,8 +903,16 @@
      ]
     },
     {
-     "role": "species-specific movement ground truth",
-     "description": "Crossings, telemetry, camera sequences or another defensible movement response.",
+     "role": "historical movement clues",
+     "description": "Source-annotated road crossings, canopy-bridge use, road encounters and mortality with coordinates.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-7008315"
+     ]
+    },
+    {
+     "role": "independent movement ground truth",
+     "description": "Effort-aware camera sequences, telemetry or repeated crossing surveys suitable for withheld validation.",
      "status": "missing"
     },
     {
@@ -358,33 +922,129 @@
     }
    ],
    "product": {
-    "observed": "Movement or crossing evidence.",
-    "modelled": "Species-specific permeability and several plausible routes.",
-    "decision_output": "Locations where a bounded validation deployment most clearly discriminates among routes."
+    "observed": "Twenty lion-tailed macaque notes about roads, crossings, canopy-bridge use, electrocution or road death.",
+    "modelled": "No corridor is estimated. The map only counts historical clues inside small cells.",
+    "decision_output": "Run the same camera or crossing survey in the six highlighted cells and matched nearby comparison cells before calling anything a corridor."
    },
    "validation": {
     "kind": "field-ground-truth",
     "status": "pending",
-    "method": "Withhold crossings or movement tracks and test whether they occur more often in predicted high-permeability areas than matched alternatives.",
+    "method": "Use annotated historical movement clues to place validation effort; a future corridor model must withhold independent tracks or camera sequences and compare predicted routes with matched alternatives.",
     "claim_if_passed": "Show plausible connections and targeted validation locations.",
-    "claim_if_failed": "Show landscape structure but do not call it a corridor."
+    "claim_if_failed": "Show historical movement clues and where to collect validation data, but do not call the highlighted cells corridors."
    },
    "invocation": {
-    "arguments": {},
-    "agent_rule": "Require a named subject and movement evidence; occurrence proximity alone is not a corridor."
+    "arguments": {
+     "subject": {
+      "type": "string",
+      "default": "lion-tailed macaque"
+     },
+     "budget_locations": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 6
+     }
+    },
+    "agent_rule": "Invoke for corridor, crossing or canopy-connection questions after resolving a recorded common or scientific name. The highlighted cells are camera-check requests, not corridors."
    },
    "limitations": [
     "Resistance weights must be subject-specific.",
-    "Occurrence points are not movement paths."
-   ]
+    "Annotated road encounters are opportunistic and have no surveyed-absence denominator.",
+    "Occurrence points and road crossings are not complete movement paths."
+   ],
+   "published_answer": {
+    "recipe_id": "canopy-corridor-validation",
+    "version": "1.0.0",
+    "title": "Where should we check lion-tailed macaque road crossings?",
+    "standfirst": "No corridor has been proved. Six small cells around old crossing, electrocution and road-death records are the best places for a matched camera survey, including the old-temple/canopy-bridge area and cells around Puthuthottam and Kamaraja Nagar.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "subject": "lion-tailed macaque",
+     "budget_locations": 6
+    },
+    "what_was_measured": "The admitted mammal records contain 20 lion-tailed macaque notes about road presence, crossing, canopy-bridge use, electrocution or road death in ten small map cells. They include observations from 2016–2018, but they do not report equal camera effort or surveyed absences elsewhere.",
+    "estimate": {
+     "name": "No corridor model—historical-clue ranking",
+     "plain_language": "The map counts source-written movement or mortality clues in each 0.005-degree cell and puts the cells with more clues first. It does not calculate a least-cost path, resistance surface or probability of movement."
+    },
+    "test": {
+     "outcome": "not-yet-testable",
+     "plain_language": "There are no independent movement tracks and no matched set of available locations in the admitted pack. A future corridor model must be built without some camera sequences or tracks and then correctly predict those unseen movements. Today, both required test counts are zero."
+    },
+    "recommendation": {
+     "summary": "Run the same camera or crossing protocol in all six mapped cells and at matched nearby comparison cells before calling any route a corridor.",
+     "steps": [
+      "Start in the 10.340–10.345 N, 76.965–76.970 E cell, which has four historical clues including notes about the old temple, a canopy bridge and road crossing.",
+      "Cover 10.370–10.375 N, 76.990–76.995 E, which also has four clues, and 10.330–10.335 N, 76.960–76.965 E, which has three.",
+      "Cover the remaining adjacent cells shown on the map: 10.335–10.340 N, 76.960–76.965 E; 10.340–10.345 N, 76.970–76.975 E; and 10.330–10.335 N, 76.955–76.960 E.",
+      "For every focal cell, monitor a comparable nearby cell without a historical clue. Record hours, animal direction, road versus canopy use, traffic and any power-line contact. Then hold back part of the new data when testing a corridor model."
+     ]
+    },
+    "why_this_advice": "A cluster of old sightings may mark a crossing, a rubbish source, an observer's usual route or a dangerous barrier. Building a canopy bridge or directing patrols on the wrong interpretation could waste money and leave the real hazard untreated. Matched cameras turn the old clues into a testable movement question.",
+    "named_locations": [
+     {
+      "location_id": "road-2068-15393",
+      "label": "Old-temple/canopy-bridge cell",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "road-2074-15398",
+      "label": "10.370–10.375 N, 76.990–76.995 E",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "road-2066-15392",
+      "label": "Kamaraja Nagar vicinity cell",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "road-2067-15392",
+      "label": "Puthuthottam vicinity cell",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "road-2068-15394",
+      "label": "10-acre Padi vicinity cell",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "road-2066-15391",
+      "label": "10.330–10.335 N, 76.955–76.960 E",
+      "instruction": "Run repeated movement cameras plus a matched comparison cell.",
+      "role": "measure-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "pending",
+     "location_role": "validation_priority",
+     "location_ids": [
+      "road-2068-15393",
+      "road-2074-15398",
+      "road-2066-15392",
+      "road-2067-15392",
+      "road-2068-15394",
+      "road-2066-15391"
+     ]
+    }
+   }
   },
   {
    "recipe_id": "invasive-front-surveillance",
-   "version": "0.1.0",
+   "version": "1.0.0",
    "title": "Where an invasive front should be checked next",
    "theme": "anticipate",
-   "decision": "Allocate repeat surveys where an observed invasive extent and a tested spread model disagree or remain uncertain.",
-   "status": "awaiting-validation-data",
+   "decision": "Choose old plots to survey again so the team can tell whether Lantana has changed before sending removal crews.",
+   "status": "partial",
    "capability_id": "validated-decision-map",
    "questions": [
     "Where is this invasive spreading?",
@@ -393,8 +1053,13 @@
    "required_inputs": [
     {
      "role": "dated invasive observations",
-     "description": "Presence or abundance with explicit survey effort and repeat dates.",
-     "status": "missing"
+     "description": "Lantana presence/absence in 2002/2005 habitat plots, counts in 2018 regeneration plots and later trail presences.",
+     "status": "available",
+     "source_ids": [
+      "zenodo-10077040",
+      "dryad-g7j45sn-restoration-effects",
+      "gbif-4e53vk-threatened-trees"
+     ]
     },
     {
      "role": "spread predictors",
@@ -405,30 +1070,145 @@
      ]
     },
     {
-     "role": "later withheld observations",
-     "description": "A later survey wave used only to test the predicted front.",
+     "role": "comparable repeat wave",
+     "description": "The same protocol revisited at the same locations, with explicit effort, for a withheld spread test.",
      "status": "missing"
     }
    ],
    "product": {
-    "observed": "Observed extent and survey coverage.",
-    "modelled": "A temporally hindcast spread surface.",
-    "decision_output": "Survey cells that most reduce uncertainty before treatment."
+    "observed": "Lantana measurements from 2002/2005 habitat plots, 2018 restoration plots and three later trail records, kept separate because their methods differ.",
+    "modelled": "No spreading front is estimated. The map only ranks old plots for a repeat using the same method.",
+    "decision_output": "Repeat the eight named plots, including the previously zero Candura plot, before choosing control locations or claiming spread."
    },
    "validation": {
     "kind": "temporal-hindcast",
     "status": "pending",
-    "method": "Fit records up to one date and predict the next independent survey wave with effort-aware evaluation.",
+    "method": "Keep incompatible survey protocols separate; after a comparable repeat wave is admitted, fit older observations and predict the withheld later wave with effort-aware evaluation.",
     "claim_if_passed": "Show a probable front and survey priorities.",
-    "claim_if_failed": "Show only observed presence and where repeat surveys are absent."
+    "claim_if_failed": "Show observed Lantana evidence and high-value repeat plots, but do not describe a spreading front."
    },
    "invocation": {
-    "arguments": {},
-    "agent_rule": "Do not infer spread from a one-date distribution."
+    "arguments": {
+     "subject": {
+      "type": "string",
+      "default": "Lantana camara",
+      "accepted_names": [
+       "Lantana",
+       "Lantana camara"
+      ]
+     },
+     "budget_locations": {
+      "minimum": 1,
+      "maximum": 20,
+      "default": 8
+     }
+    },
+    "agent_rule": "Invoke for Lantana spread or invasive surveillance questions after confirming that the user means Lantana camara. Explain that highlighted plots are repeat-survey requests until a comparable temporal hindcast passes. Reject another subject rather than silently substituting Lantana."
    },
    "limitations": [
+    "The historical and later sources use different plot designs and cannot be treated as one trend.",
+    "Presence in a trail inventory does not imply comparable absence on trails where Lantana was not recorded.",
     "A spatial pattern from one survey is not a spreading front."
-   ]
+   ],
+   "published_answer": {
+    "recipe_id": "invasive-front-surveillance",
+    "version": "1.0.0",
+    "title": "Where should we check whether Lantana is spreading?",
+    "standfirst": "Repeat eight old plots before describing a spreading front. Start with IPTO_04R at Iyerpadi Top and SEL2_07U at Selaliparai, where the 2018 survey recorded 40 and 21 Lantana stems, and keep CH05_08R at Candura as a previously recorded zero comparison.",
+    "publication": {
+     "status": "published",
+     "published_at": "2026-08-01",
+     "credit": "Valparai evidence pack",
+     "contributors": []
+    },
+    "default_arguments": {
+     "subject": "Lantana camara",
+     "budget_locations": 8
+    },
+    "what_was_measured": "One study made 289 Lantana presence-or-absence measurements in 2002 and 2005 habitat plots. A different 2018 restoration survey mapped 75 plots and recorded Lantana in 19 of them. A later trail inventory added three presences from 2020–2022. The three surveys used different places and methods.",
+    "estimate": {
+     "name": "No spread model—repeat-plot priority ranking",
+     "plain_language": "The map keeps the three survey waves separate. It chooses old 2018 plots with high Lantana counts while spreading the work across different forests, and includes a previously zero plot for comparison. It does not join unlike surveys into a trend."
+    },
+    "test": {
+     "outcome": "not-yet-testable",
+     "plain_language": "There are no two comparable survey waves at the same plots and no later effort-matched observations to hide from a model. Both test counts are therefore zero. Once the eight plots are repeated with the original method, the older observations can be used to predict the unseen repeat wave."
+    },
+    "recommendation": {
+     "summary": "Repeat the original Lantana count at all eight mapped plots before choosing control sites.",
+     "steps": [
+      "Survey IPTO_04R at Iyerpadi Top and SEL2_07U at Selaliparai first; their 2018 counts were 40 and 21.",
+      "Then survey OLV1_10U at Old Valparai, HP40_05U at HP Bend 40, IPCO_07U at Iyerpadi Colony, STIN_02U at Stanmore and INBS_04U at Injiparai.",
+      "Repeat CH05_08R at Candura even though its 2018 count was zero; a known zero is valuable for detecting change and checking false alarms.",
+      "Use the same plot boundary, search effort and stem-count rule. Rerun the temporal test before directing removal crews or claiming a front."
+     ]
+    },
+    "why_this_advice": "The old maps show where Lantana was found, not where it is advancing now. Sending a removal team to an historical point may waste labour, while ignoring a previously clean plot could miss an emerging problem. A comparable repeat converts scattered records into evidence of change.",
+    "named_locations": [
+     {
+      "location_id": "IPTO_04R",
+      "label": "Iyerpadi Top — plot IPTO_04R",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "SEL2_07U",
+      "label": "Selaliparai — plot SEL2_07U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "OLV1_10U",
+      "label": "Old Valparai — plot OLV1_10U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "HP40_05U",
+      "label": "HP Bend 40 — plot HP40_05U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "IPCO_07U",
+      "label": "Iyerpadi Colony — plot IPCO_07U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "STIN_02U",
+      "label": "Stanmore — plot STIN_02U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "INBS_04U",
+      "label": "Injiparai — plot INBS_04U",
+      "instruction": "Repeat the 2018 Lantana plot count with the same method.",
+      "role": "measure-first"
+     },
+     {
+      "location_id": "CH05_08R",
+      "label": "Candura — plot CH05_08R",
+      "instruction": "Repeat this previously zero plot as a comparison.",
+      "role": "measure-first"
+     }
+    ],
+    "result_expectation": {
+     "validation_status": "pending",
+     "location_role": "validation_priority",
+     "location_ids": [
+      "IPTO_04R",
+      "SEL2_07U",
+      "OLV1_10U",
+      "HP40_05U",
+      "IPCO_07U",
+      "STIN_02U",
+      "INBS_04U",
+      "CH05_08R"
+     ]
+    }
+   }
   }
  ]
 }

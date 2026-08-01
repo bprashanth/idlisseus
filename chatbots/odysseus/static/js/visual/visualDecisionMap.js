@@ -331,6 +331,36 @@ export function renderLayerToggles(container, visual, frame, opts) {
   return bar;
 }
 
+// TR-VIS-0010: a published answer names its places by producer id. Focus one
+// on the map without recomputing anything or changing a single value: find the
+// drawn feature carrying that id in any of its properties (the id's property
+// name is the pack's business, not ours), pan to it and flash it.
+export function focusNamedLocation(frame, locationId) {
+  const id = String(locationId || '').trim();
+  if (!frame || !id) return false;
+  const root = frame.querySelector('.viz-leaflet-root') || frame;
+  const features = root._vizFeatures;
+  const map = root._vizLeafletMap;
+  if (!Array.isArray(features) || !map) return false;
+  const hit = features.find((f) => Object.values(f.props || {})
+    .some((v) => typeof v === 'string' && v.trim() === id));
+  if (!hit) return false;
+  if (hit.latlng) map.panTo(hit.latlng, { animate: true });
+  const el = hit.marker && hit.marker.getElement && hit.marker.getElement();
+  if (el) {
+    el.classList.remove('viz-located');
+    // Reflow so the animation restarts when the same row is clicked twice.
+    void el.getBoundingClientRect();
+    el.classList.add('viz-located');
+  } else if (hit.marker && hit.marker.setStyle) {
+    const before = { weight: hit.marker.options.weight, color: hit.marker.options.color };
+    hit.marker.setStyle({ weight: 5 });
+    setTimeout(() => hit.marker.setStyle(before), 1400);
+  }
+  if (hit.marker && hit.marker.openTooltip) hit.marker.openTooltip();
+  return true;
+}
+
 function cssSafe(id) {
   return String(id).replace(/[^A-Za-z0-9_-]/g, '-');
 }

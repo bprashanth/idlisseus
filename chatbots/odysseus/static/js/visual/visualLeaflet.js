@@ -34,9 +34,12 @@ function tooltipNode(rows) {
   return box;
 }
 
-function featureRows(layer, props) {
+function featureRows(layer, props, note) {
   const { key, value } = magnitudeOf(props || {});
   const rows = [];
+  // TR-VIS-0009: the treatment is verbal as well as visual — a dashed ring
+  // means nothing to a screen reader, and little in a hurry.
+  if (note) rows.push({ label: note, value: '' });
   if (key !== null) rows.push({ label: key.replace(/_/g, ' '), value: formatNumber(value) });
   for (const k of ['label', 'event_date', 'source_id', 'source_row', 'unit']) {
     if (props && props[k] !== undefined && props[k] !== null && k !== key) {
@@ -89,6 +92,8 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
   const overlays = {};
   // producer layer_id -> leaflet object (TR-VIS-0008 toggle bar)
   const layerObjects = {};
+  // every drawn feature, for focusing one by a producer-declared id
+  const featureIndex = [];
 
   // A feature is "context" when the producer says so (donor/comparison/context
   // roles). Those inform, but they must not dictate the viewport.
@@ -141,6 +146,9 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
     const styleHint = layer.style_hint || {};
     const validationRole = styleHint.palette_role === 'validation';
     const selectedField = hooks.suppressSelection ? null : (styleHint.selected_field || null);
+    // TR-VIS-0009: evidence requests, not recommendations — dashed, and never
+    // suppressed by a failed test, because they are what would settle it.
+    const priorityField = styleHint.validation_priority_field || null;
 
     if (layer.geometry_type === 'raster_image' && Array.isArray(layer.bounds)) {
       const url = hooks.rawUrl && hooks.rawUrl(layer.data_ref);
@@ -183,6 +191,13 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
               fillOpacity: cls === 'modelled' ? 0.62 : 0.72,
             };
           }
+          if (priorityField && (f.properties || {})[priorityField]) {
+            return {
+              color: p.inkPrimary, weight: 2.4, opacity: 1, dashArray: '5 4',
+              fillColor: q.colorFor(v) || p.inkMuted,
+              fillOpacity: cls === 'modelled' ? 0.5 : 0.62,
+            };
+          }
           return {
             color: '#ffffff', weight: 1.2,
             fillColor: q.colorFor(v) || p.inkMuted,
@@ -190,12 +205,20 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
           };
         },
         onEachFeature: (f, lyr) => {
-          lyr.bindTooltip(tooltipNode(featureRows(layer, f.properties)), { sticky: true, opacity: 0.96 });
+          const note = (selectedField && (f.properties || {})[selectedField])
+            ? 'chosen within the declared budget'
+            : ((priorityField && (f.properties || {})[priorityField])
+              ? 'check or collect evidence here' : '');
+          lyr.bindTooltip(tooltipNode(featureRows(layer, f.properties, note)),
+            { sticky: true, opacity: 0.96 });
           lyr.on('click', () => {
             if (!hooks.onDrill) return;
             const c = lyr.getBounds ? lyr.getBounds().getCenter() : null;
             hooks.onDrill(f, layer, c ? { lat: c.lat, lon: c.lng } : null);
           });
+          const c = lyr.getBounds ? lyr.getBounds().getCenter() : null;
+          featureIndex.push({ props: f.properties || {}, marker: lyr,
+            latlng: c ? [c.lat, c.lng] : null });
         },
       }).addTo(map);
       overlays[label] = gj;
@@ -231,6 +254,13 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
                 + '</svg>',
             }),
           });
+        } else if (priorityField && (f.properties || {})[priorityField]
+                   && !(selectedField && (f.properties || {})[selectedField])) {
+          // Dashed ring: come and look here, we do not yet know.
+          marker = L.circleMarker([lat, lon], {
+            radius: r + 1.5, color: p.inkPrimary, weight: 2, dashArray: '3 3',
+            fillColor: color, fillOpacity: 0.75,
+          });
         } else if (selectedField && (f.properties || {})[selectedField]) {
           // Chosen inside the declared budget: a heavy ink collar around the
           // mark — shape weight, not a different hue.
@@ -244,9 +274,21 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
             fillColor: color, fillOpacity: cls === 'modelled' ? 0.55 : 0.9,
           });
         }
-        marker.bindTooltip(tooltipNode(featureRows(layer, f.properties)), { sticky: true, opacity: 0.96 });
+        const priority = !!(priorityField && (f.properties || {})[priorityField]);
+        const selected = !!(selectedField && (f.properties || {})[selectedField]);
+        const note = selected ? 'chosen within the declared budget'
+          : (priority ? 'check or collect evidence here' : '');
+        marker.bindTooltip(tooltipNode(featureRows(layer, f.properties, note)),
+          { sticky: true, opacity: 0.96 });
+        if (note) {
+          const elm = marker.getElement && marker.getElement();
+          if (elm) elm.setAttribute('aria-label', note);
+        }
         marker.on('click', () => hooks.onDrill && hooks.onDrill(f, layer, { lat, lon }));
         group.addLayer(marker);
+        // TR-VIS-0010: a published answer names places by producer id; keep an
+        // index so the article can focus one without recomputing anything.
+        featureIndex.push({ props: f.properties || {}, marker, latlng: [lat, lon] });
       }
       group.addTo(map);
       overlays[label] = group;
@@ -278,6 +320,7 @@ export function renderLeafletMap(container, visual, layerData, hooks) {
   // adds or removes drawn marks only — no producer value is touched.
   root._vizLeafletLayers = layerObjects;
   root._vizLeafletMap = map;
+  root._vizFeatures = featureIndex;
 
   // ---- ground truth: peek at the bare imagery.
   // Hold the button (or toggle it) to fade every data layer away, so the field

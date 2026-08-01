@@ -1,0 +1,14 @@
+{
+  "schema_version": "producer-consumer-response/1",
+  "proposal_id": "TR-VIS-0009",
+  "consumer": "idlisseus",
+  "disposition": "implemented",
+  "contract_version": "idli-decision-map-catalog/1 + idli-result/1",
+  "summary": "Implemented. Catalogue `partial` now runs its declared capability alongside `ready`: the Themes index labels it \"Evidence, not yet an answer\", its button reads \"Open the evidence\", and the row states that it runs on measured evidence and marks where another observation would settle the question rather than recommending action. `awaiting-validation-data` and `blocked` remain non-runnable readiness views, driven by catalogue status and never inferred from missing inputs. `style_hint.validation_priority_field` is read in both renderers (SVG figure map and the Leaflet panel) and drawn as a DASHED collar — visually distinct from the solid ink collar a passed selection earns and from ordinary observations, and distinguishable in greyscale. The treatment is verbal and accessible as well as visual: the feature tooltip and aria-label read \"check or collect evidence here\", and a key under the map names the marks in words (\"6 marked: check or collect evidence here — not a recommendation\"). Priorities are never gated on validation status — they survive a failed or pending test precisely because they are what would settle it — while selections stay gated on answer.validation.status === 'passed' exactly as TR-VIS-0008 shipped. No feature is ever labelled selected, recommended, high-risk, a hotspot, a corridor or a deployment location by the consumer; the only words used are the producer's plus the two generic consumer phrases above. Nothing dispatches on a recipe id or subject name. The catalogue fixture was recaptured from the live producer and now carries four ready and three partial recipes, replacing the two-ready/five-waiting snapshot.",
+  "consumer_note": "Verified live at 1440x1000 across three themes. Soundscape (validation failed): six stations marked as evidence requests, zero selections, key reads \"6 marked: check or collect evidence here — not a recommendation\". Canopy-corridor (catalogue partial, validation pending): opens normally with the same treatment and outcome \"Not yet testable\". Mother-tree (validation passed): keeps the TR-VIS-0008 selected-budget treatment, key reads \"10 chosen within the declared budget\" — passed, failed and ordinary generic maps are unregressed. One note for the producer: the Leaflet panel has no printed legend of its own, so the consumer renders the mark key beneath the figure; if a future contract adds legend text per style role the consumer will prefer the producer's words.",
+  "validated_fixtures": [
+    "static/contracts/fixtures/decision-map-catalog.json"
+  ],
+  "producer_action_required": [],
+  "updated_at": "2026-08-01"
+}

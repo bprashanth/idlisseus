@@ -1184,3 +1184,16 @@ a.viz-rail-stream-name:hover { color: var(--pine, currentColor); text-decoration
    the map (the canvas is a row; a sibling there would squeeze the map). */
 .viz-stage-toggles { flex: none; }
 .viz-inline-toggles { margin: 2px 0 0; }
+/* TR-VIS-0009: a validation priority asks for evidence; a passed selection
+   recommends action. Dashed versus solid keeps them apart in greyscale. */
+.viz-legend-dashed {
+  border-radius: 3px; background: transparent;
+  border: 1.5px dashed var(--sw);
+}
+/* A named location, found on the map: a brief flare, nothing recomputed. */
+@keyframes vizLocate {
+  0% { filter: drop-shadow(0 0 0 rgba(255, 214, 150, 0)); transform: scale(1); }
+  35% { filter: drop-shadow(0 0 9px rgba(255, 200, 120, 0.95)); transform: scale(1.5); }
+  100% { filter: drop-shadow(0 0 0 rgba(255, 214, 150, 0)); transform: scale(1); }
+}
+.viz-located { animation: vizLocate 1.3s ease-out 2; transform-origin: center; transform-box: fill-box; }

@@ -155,21 +155,42 @@ def test_failed_state_says_plainly_that_nothing_is_recommended():
     assert "viz-validation-failnote" in mod
 
 
-def test_themes_centre_is_catalogue_driven_and_unready_themes_cannot_run():
-    """IDL-REQ-0004: Themes replaced Maps. A theme is a question; only a ready
-    one offers a published answer, and an open one names what is missing."""
+def test_themes_centre_runs_ready_and_partial_but_not_unready():
+    """TR-VIS-0009: catalogue readiness is not validation. `ready` and `partial`
+    both run — a partial returns measured evidence and the places worth
+    checking. `awaiting-validation-data` and `blocked` stay readiness views."""
     src = read("static/js/visual/visualThemes.js")
     assert "decisionMaps()" in src, "the centre must read the producer catalogue"
+    assert "RUNNABLE = new Set(['ready', 'partial'])" in src
     row = src.split("function themeRow(", 1)[1].split("\nfunction ", 1)[0]
-    ready_branch, open_branch = row.split("if (recipe.status === 'ready')", 1)[1].split("} else {", 1)
+    ready_branch, open_branch = row.split("if (RUNNABLE.has(recipe.status))", 1)[1].split("} else {", 1)
     assert "eco-theme-open" in ready_branch
     assert "eco-theme-open" not in open_branch
-    assert "eco-theme-missing" in open_branch, "an open question must say what is missing"
+    assert "eco-theme-missing" in open_branch, "an unrunnable theme must say what is missing"
+    # A partial is described as evidence, never as an admitted decision model.
+    assert "It does not recommend action." in ready_branch
+    assert "Evidence, not yet an answer" in src
     # Grouping comes from the producer's generic theme field, never a recipe id.
     assert "r.theme" in src or "recipe.theme" in src
     assert "recipe_id ===" not in src, "the centre must not dispatch on a recipe id"
-    # The consumer neither mines nor ranks: no sort by any invented score.
-    assert "sort((a, b) => b." not in src
+
+
+def test_validation_priorities_are_requests_for_evidence_not_recommendations():
+    """TR-VIS-0009: a validation priority survives a failed test (it is what
+    would settle it) and never wears the selected-budget collar."""
+    themes = read("static/js/visual/visualThemes.js")
+    for renderer in ("static/js/visual/visualMap.js", "static/js/visual/visualLeaflet.js"):
+        src = read(renderer)
+        assert "validation_priority_field" in src, f"{renderer} ignores validation priorities"
+        # Dashed, not the solid collar: distinguishable without colour.
+        assert "dashArray" in src or "stroke-dasharray" in src
+        # Never gated on suppressSelection — a failed test still asks for evidence.
+        prio = src.split("validation_priority_field", 1)[1][:200]
+        assert "suppressSelection" not in prio
+    # Verbal as well as visual, in both renderers and under the map.
+    assert "check or collect evidence here" in read("static/js/visual/visualMap.js")
+    assert "check or collect evidence here" in read("static/js/visual/visualLeaflet.js")
+    assert "not a recommendation" in themes
 
 
 def test_themes_show_the_recurring_question_not_a_map_name():
@@ -218,15 +239,19 @@ def test_author_declared_basemap_is_honoured_through_the_proxy():
     assert "basemap" in read("static/js/visual/visualRenderers.js")
 
 
-def test_catalogue_fixture_covers_ready_and_waiting_recipes():
+def test_catalogue_fixture_matches_the_live_producer_shape():
+    """TR-VIS-0009 asked for the superseded two-ready/five-waiting snapshot to
+    be replaced by the current four-ready/three-partial catalogue."""
     cat = json.loads((FIXTURES / "decision-map-catalog.json").read_text(encoding="utf-8"))
-    statuses = {r["status"] for r in cat["recipes"]}
-    assert "ready" in statuses
-    assert "awaiting-validation-data" in statuses
-    waiting = [r for r in cat["recipes"] if r["status"] != "ready"]
-    for r in waiting:
-        missing = [i for i in r["required_inputs"] if i["status"] != "available"]
-        assert missing, f"{r['recipe_id']} is not ready but names nothing missing"
+    statuses = [r["status"] for r in cat["recipes"]]
+    assert statuses.count("ready") == 4
+    assert statuses.count("partial") == 3
+    # Every recipe now carries a published field note.
+    for r in cat["recipes"]:
+        pa = r.get("published_answer")
+        assert pa, f"{r['recipe_id']} has no published_answer"
+        assert pa["publication"]["status"] == "published"
+        assert pa.get("standfirst") and pa.get("recommendation")
 
 
 def test_proxy_exposes_the_catalogue_route():
@@ -265,3 +290,57 @@ def test_open_in_chat_carries_the_answer_not_just_the_question():
     assert "keyboard" not in carry and "submit" not in carry
     # From the index, only the question travels (nothing has run yet).
     assert "onOpenInChat({ question:" in themes
+
+
+def test_published_field_note_replaces_the_assembled_writeup():
+    """TR-VIS-0010: when the pack publishes an article, it is the answer — and
+    it is bound to the arguments it was written about."""
+    src = read("static/js/visual/visualThemes.js")
+    assert "published_answer" in src
+    # Only a published article is used, and only for its own arguments.
+    pub = src.split("export function publishedAnswer(", 1)[1].split("\n}", 1)[0]
+    assert "publication || {}).status !== 'published'" in pub
+    assert "default_arguments" in pub, "a rerun must not reuse the default article"
+    # The old assembly survives as the fallback for packs without one.
+    assert "function renderAssembledWriteup(" in src
+    assert "if (pa) renderFieldNote(" in src and "else renderAssembledWriteup(" in src
+    note = src.split("function renderFieldNote(", 1)[1].split("\nconst ROLE_WORDS", 1)[0]
+    # Producer order: what to do, where, measured, estimated, tested, why.
+    for section in ("What to do now", "What was measured", "What was estimated",
+                    "How the estimate was tested", "Why we are not giving stronger advice"):
+        assert section in note, f"missing section: {section}"
+    assert "est.name" in note and "est.plain_language" in note
+    # Outcome is a word, and roles are generic wording only.
+    assert "outcomeWords(test.outcome)" in note
+    assert "ROLE_WORDS[spot.role]" in note
+    # Prose is inserted as text; nothing is parsed as markup.
+    assert "innerHTML" not in note
+    # Contributors are shown only when supplied.
+    assert "(pub.contributors || []).filter(Boolean)" in note
+
+
+def test_named_locations_focus_the_map_without_recomputing():
+    themes = read("static/js/visual/visualThemes.js")
+    dm = read("static/js/visual/visualDecisionMap.js")
+    assert "focusNamedLocation" in themes and "export function focusNamedLocation" in dm
+    fn = dm.split("export function focusNamedLocation(", 1)[1].split("\n}", 1)[0]
+    # Matches a producer id in any property: the key name is the pack's business.
+    assert "Object.values" in fn
+    # It pans and flashes; it never queries, recomputes or writes a value.
+    assert "panTo" in fn
+    for forbidden in ("query(", "fetch(", "setStyle({ fill"):
+        assert forbidden not in fn, f"focus must not {forbidden}"
+    # A missing id stays readable text rather than throwing.
+    assert "if (!hit) return false" in fn
+    assert "is-missing" in themes
+
+
+def test_open_in_chat_carries_the_published_note_when_there_is_one():
+    src = read("static/js/visual/visualThemes.js")
+    assert "function publishedBriefing(" in src
+    brief = src.split("function publishedBriefing(", 1)[1].split("\n}", 1)[0]
+    for part in ("standfirst", "what_was_measured", "est.name", "test.plain_language",
+                 "recommendation", "why_this_advice", "location_id", "result_id"):
+        assert part in brief, f"briefing omits {part}"
+    # The mechanical assembly is not used when an article exists.
+    assert "if (pa) return publishedBriefing(pa, recipe, env);" in src
