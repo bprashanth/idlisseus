@@ -312,7 +312,10 @@ def test_published_field_note_replaces_the_assembled_writeup():
     assert "est.name" in note and "est.plain_language" in note
     # Outcome is a word, and roles are generic wording only.
     assert "outcomeWords(test.outcome)" in note
-    assert "ROLE_WORDS[spot.role]" in note
+    assert "ROLE_WORDS[" in note, "roles must map to generic wording"
+    # The place list is an index, not a second telling: one line per distinct
+    # instruction rather than the same sentence under every id.
+    assert "groups.set(key" in note and "eco-note-chip" in note
     # Prose is inserted as text; nothing is parsed as markup.
     assert "innerHTML" not in note
     # Contributors are shown only when supplied.

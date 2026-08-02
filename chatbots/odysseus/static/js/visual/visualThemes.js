@@ -489,31 +489,51 @@ function renderFieldNote(stage, pa, recipe, env, frame) {
     article.appendChild(box);
   }
 
-  // The named places, as a field checklist. Clicking one finds it on the map.
+  // The named places. The standfirst and the steps already say what to do
+  // and usually name the places in prose, so this is a compact index, not a
+  // second telling: one line per distinct instruction, then the ids as chips
+  // that find their feature on the map. Five of the seven live themes repeat a
+  // single instruction across every location — printed per row that was half a
+  // page of the same sentence.
   const spots = pa.named_locations || [];
   if (spots.length) {
     const box = el('section', 'eco-note-spots');
-    box.appendChild(el('h3', 'eco-solution-h', 'Where'));
-    const list = el('ul', 'eco-note-list');
-    for (const spot of spots) {
-      const li = el('li', 'eco-note-spot');
-      li.dataset.role = spot.role || '';
-      const btn = el('button', 'eco-note-spot-btn');
-      btn.appendChild(el('span', 'eco-note-spot-label', spot.label || spot.location_id || ''));
-      // Role is wording and treatment only — never a subject-specific meaning.
-      if (spot.role) btn.appendChild(el('span', `eco-note-role eco-note-role-${spot.role}`,
-        ROLE_WORDS[spot.role] || String(spot.role).replace(/[-_]/g, ' ')));
-      btn.addEventListener('click', () => {
-        // Finds the feature and flashes it. Nothing recomputes, no value moves;
-        // a location the map does not carry simply stays readable text.
-        const found = frame && frame.el && focusNamedLocation(frame.el, spot.location_id);
-        btn.classList.toggle('is-missing', !found);
-      });
-      li.appendChild(btn);
-      if (spot.instruction) li.appendChild(el('p', 'eco-note-spot-do', spot.instruction));
-      list.appendChild(li);
+    const head = el('div', 'eco-note-spots-head');
+    head.appendChild(el('h3', 'eco-solution-h', 'Where'));
+    const roles = [...new Set(spots.map((sp) => sp.role).filter(Boolean))];
+    if (roles.length === 1) {
+      head.appendChild(el('span', `eco-note-role eco-note-role-${roles[0]}`,
+        ROLE_WORDS[roles[0]] || String(roles[0]).replace(/[-_]/g, ' ')));
     }
-    box.appendChild(list);
+    box.appendChild(head);
+
+    // Group by the instruction so it is said once, in the producer's words.
+    const groups = new Map();
+    for (const sp of spots) {
+      const key = sp.instruction || '';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(sp);
+    }
+    for (const [instruction, members] of groups) {
+      const group = el('div', 'eco-note-group');
+      if (instruction) group.appendChild(el('p', 'eco-note-spot-do', instruction));
+      const chips = el('div', 'eco-note-chips');
+      for (const sp of members) {
+        const chip = el('button', 'eco-note-chip', sp.location_id || sp.label || '');
+        // The full name and the role stay one hover (or one screen reader)
+        // away; the chip carries the id the prose above uses.
+        const detail = [sp.label, roles.length > 1 && sp.role
+          ? (ROLE_WORDS[sp.role] || sp.role) : ''].filter(Boolean).join(' — ');
+        if (detail) { chip.title = detail; chip.setAttribute('aria-label', detail); }
+        chip.addEventListener('click', () => {
+          const found = frame && frame.el && focusNamedLocation(frame.el, sp.location_id);
+          chip.classList.toggle('is-missing', !found);
+        });
+        chips.appendChild(chip);
+      }
+      group.appendChild(chips);
+      box.appendChild(group);
+    }
     article.appendChild(box);
   }
 

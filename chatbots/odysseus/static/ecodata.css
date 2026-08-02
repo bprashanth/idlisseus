@@ -1550,27 +1550,30 @@ body.eco-shell #overflow-plus-btn .eco-nav-icon { width: 17px; height: 17px; }
 .eco-note-outcome-failed { color: var(--critical); }
 .eco-note-outcome-pending, .eco-note-outcome-not-applicable { color: var(--ink-faint); }
 
-/* The field checklist: named places, each one findable on the map. */
+/* The named places: one line per distinct instruction, then the ids as chips
+   that find their feature on the map. The prose above already names them. */
 .eco-note-spots { margin: 0 0 24px; }
-.eco-note-list { list-style: none; margin: 0; padding: 0; }
-.eco-note-spot { border-bottom: 1px solid var(--line); padding: 10px 0; }
-.eco-note-spot:first-child { border-top: 1px solid var(--line); }
-#eco-themes .eco-note-spot-btn {
-  display: flex; align-items: baseline; gap: 10px; width: 100%;
-  background: none; border: 0; padding: 0; height: auto; cursor: pointer;
-  text-align: left; color: var(--ink);
+.eco-note-spots-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.eco-note-spots-head .eco-solution-h { margin: 0; }
+.eco-note-group + .eco-note-group { margin-top: 14px; }
+.eco-note-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+#eco-themes .eco-note-chip {
+  font: 500 12px/1 var(--font-mono);
+  padding: 6px 10px; height: auto;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--surface); color: var(--ink); cursor: pointer;
+  transition: border-color 0.12s ease, color 0.12s ease;
 }
-#eco-themes .eco-note-spot-btn:hover .eco-note-spot-label { color: var(--pine); text-decoration: underline; }
-#eco-themes .eco-note-spot-btn.is-missing .eco-note-spot-label { text-decoration: none; cursor: default; }
-.eco-note-spot-label { font: 600 14px/1.4 var(--font-ui); }
+#eco-themes .eco-note-chip:hover { border-color: var(--pine); color: var(--pine); }
+#eco-themes .eco-note-chip.is-missing { opacity: 0.55; cursor: default; border-style: dashed; }
 .eco-note-role {
-  flex: none; margin-left: auto;
+  flex: none;
   font: 600 9.5px/1 var(--font-ui); letter-spacing: 0.08em; text-transform: uppercase;
   padding: 4px 8px; border-radius: 999px; border: 1px solid currentColor; color: var(--ink-faint);
 }
 .eco-note-role-act { color: var(--pine); }
 .eco-note-role-check-first, .eco-note-role-measure-first { color: var(--warn, #a8760a); }
-.eco-note-spot-do { margin: 5px 0 0; font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+.eco-note-spot-do { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
 .eco-note-credit { margin: 22px 0 0; font-size: 12.5px; color: var(--ink-faint); }
 .eco-theme-partialnote { margin: 6px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-faint); max-width: 52ch; }
 /* Naming the marks under the map: solid collar = chosen, dashed = go and look. */

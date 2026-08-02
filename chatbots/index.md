@@ -109,8 +109,9 @@ writes their question after it.
 
 The reading view is the pack's **published field note** (TR-VIS-0010) where one
 exists: the short answer, the map, a prominent "What to do now" with numbered
-steps, a "Where" checklist whose rows find their feature on the map when
-clicked (no recompute, no value changed), then what was measured, the named
+steps, a "Where" index — the instruction said once, then the location ids as chips
+that find their feature on the map when clicked (no recompute, no value
+changed), then what was measured, the named
 estimator, the test in plain language, and "Why we are not giving stronger
 advice". Credit and publication date head it; contributors appear only when
 supplied. The technical audit — "How this map was tested" and full provenance —
