@@ -11,6 +11,36 @@ import {
   isDecisionMapVisual, renderValidationPanel, renderLayerToggles, selectionAllowed,
 } from './visualDecisionMap.js';
 
+// A mark's identifier, named for what it actually is. `2541` on its own reads
+// as a position or a measurement; it is a row in a source table, and a question
+// that says so gets an answer about that row. Used wherever a mark is described
+// to a person — never for resolving the mark itself, which keeps the raw id.
+export function markLabel(props, markId) {
+  const p = props || {};
+  if (p.event_id) return `event ${p.event_id}`;
+  if (p.cell_id) return `cell ${p.cell_id}`;
+  if (p.location_id) return `location ${p.location_id}`;
+  if (p.source_row !== undefined && p.source_row !== null) {
+    const row = Number(p.source_row);
+    return `source row ${Number.isFinite(row) ? row.toLocaleString('en-IN') : p.source_row}`;
+  }
+  const id = String(markId || '');
+  if (id.startsWith('at:')) {
+    const [, lat, lon] = id.split(':');
+    return `the mark at ${lat}, ${lon}`;
+  }
+  return id ? `mark ${id}` : 'this mark';
+}
+
+// The mark's magnitude, or nothing. A null count means the record carries no
+// count — not a count of zero — so it must not become "the value of null" in a
+// question, which invites an invented number in the answer.
+export function markValue(props) {
+  return ['records', 'count', 'value', 'estimate', 'effort']
+    .map((k) => props && props[k])
+    .find((v) => typeof v === 'number' && Number.isFinite(v));
+}
+
 export class VisualStage {
   // host: element the stage mounts into. opts.fetchData(ref) -> Promise<parsed payload>
   // opts.onAction(action, envelope) — action chip clicked.
@@ -356,9 +386,13 @@ class Chapter {
     askBtn.textContent = 'Explain in chat';
     askBtn.addEventListener('click', () => {
       const what = layer.legend?.label || layer.layer_id;
-      const where = markId || props.label || props.event_date || 'the largest mark in the layer';
-      const q = `Explain how the ${what} value at mark ${where} (layer ${layer.layer_id}) in result `
-        + `${this.resultId} was computed — which source rows and what aggregation.`;
+      const where = markLabel(props, markId);
+      const val = markValue(props);
+      const q = val !== undefined
+        ? `Explain how the ${what} value of ${val} at ${where} (layer ${layer.layer_id}) in result `
+          + `${this.resultId} was computed — which source rows and what aggregation.`
+        : `Explain what the ${what} mark at ${where} (layer ${layer.layer_id}) in result `
+          + `${this.resultId} records — which source rows it came from, and why it carries no value.`;
       if (this.stage.opts.onAction) {
         this.stage.opts.onAction({ action_id: 'explain', kind: 'follow_up', label: q }, this.envelope);
       }
@@ -486,7 +520,7 @@ class Chapter {
     go.addEventListener('click', () => {
       const target = what.value.trim();
       if (!target) { what.focus(); return; }
-      const where = markId || 'this location';
+      const where = markLabel(props, markId);
       const purpose = why.value.trim();
       const q = `Estimate ${target} for the cell at ${where} in result ${this.resultId}.`
         + (purpose ? ` Purpose: ${purpose}.` : '')

@@ -347,3 +347,24 @@ def test_open_in_chat_carries_the_published_note_when_there_is_one():
         assert part in brief, f"briefing omits {part}"
     # The mechanical assembly is not used when an article exists.
     assert "if (pa) return publishedBriefing(pa, recipe, env);" in src
+
+
+def test_mark_questions_never_invent_a_value_or_mistake_a_row_for_a_place():
+    """A null count means the record carries no count, not a count of zero, and
+    a source row is not a location. The composed question said "the value of
+    null at 2541" and earned the answer "a count of the 0 records"."""
+    stage = read("static/js/visual/visualStage.js")
+    chat = read("static/js/visual/visualChat.js")
+    # Only a finite number counts as a value.
+    val = stage.split("export function markValue(", 1)[1].split("\n}", 1)[0]
+    assert "typeof v === 'number' && Number.isFinite(v)" in val
+    assert "!== undefined" not in val, "null would slip through an undefined-only check"
+    # An identifier is named for what it is.
+    label = stage.split("export function markLabel(", 1)[1].split("\n}", 1)[0]
+    for kind in ("event ", "cell ", "location ", "source row "):
+        assert kind in label, f"markLabel does not name {kind.strip()}"
+    # Every question composer uses them.
+    assert "markValue(props)" in chat and "markLabel(props, markId)" in chat
+    assert stage.count("markLabel(props, markId)") >= 2
+    # The no-value branch tells the assistant not to read a gap as a zero.
+    assert "do not " in chat and "as zero" in chat

@@ -6,7 +6,7 @@
 // estimate, actions) in a side panel when the card is clicked.
 // The old full-screen takeover is retired; the classic chat layout is the UI.
 
-import { VisualStage } from './visualStage.js';
+import { VisualStage, markLabel, markValue } from './visualStage.js';
 import { VisualClient } from './visualData.js';
 import { renderVisual, renderTable, renderSubjectDisclosure, subjectActionLabel } from './visualRenderers.js';
 import { cleanText } from './visualTheme.js';
@@ -112,12 +112,18 @@ function ensurePanel() {
       const input = document.getElementById('message');
       if (!input) return;
       const what = (layer.legend && layer.legend.label) || layer.layer_id;
-      const val = ['records', 'count', 'value', 'estimate', 'effort']
-        .map((k) => props && props[k]).find((v) => v !== undefined);
-      const where = markId || 'this location';
-      input.value = `In result ${envelope.result_id}: what is behind the ${what}`
-        + (val !== undefined ? ` value of ${val}` : '') + ` at ${where}?`
-        + ' Which source rows produced it?';
+      // A mark without a number is not a mark whose value is null: asking
+      // "the value of null" invited the assistant to answer "a count of the 0
+      // records", which is an invented figure. And a bare id read as a place
+      // ("at 2541") when it is a row in a source table.
+      const val = markValue(props);
+      const where = markLabel(props, markId);
+      input.value = val !== undefined
+        ? `In result ${envelope.result_id}: what is behind the ${what} value of ${val} `
+          + `at ${where}? Which source rows produced it?`
+        : `In result ${envelope.result_id}: what does the ${what} mark at ${where} record? `
+          + 'It carries no count — say what the source rows actually contain, and do not '
+          + 'treat a missing count as zero.';
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.focus();
     },
